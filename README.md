@@ -62,12 +62,28 @@
 ---
 
 ## 🎓 สมุดงานสำหรับจัดอบรม (Workshop Notebook)
-ผู้เข้าอบรมสามารถเปิดไฟล์สมุดงาน [Smart_Agri_AI_LowCode_Workshop.ipynb](file:///Users/chewathassana/Desktop/6_My_Business/6.2_Products_Services/smart-soil-ai/Smart_Agri_AI_LowCode_Workshop.ipynb) บน Google Colab ได้โดยตรง:
+ผู้เข้าอบรมสามารถเปิดไฟล์สมุดงาน [Smart_Agri_AI_LowCode_Workshop.ipynb](Smart_Agri_AI_LowCode_Workshop.ipynb) บน Google Colab ได้โดยตรง:
 
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Tsanaphy2023/smart-agri-xai-workshop/blob/main/Smart_Agri_AI_LowCode_Workshop.ipynb)
-- **โหมด Interactive Form:** ซ่อนโค้ด 100% มีเฉพาะฟอร์มภาษาไทยให้เลือก
-- **เร่งความเร็วด้วย Free GPU (T4):** เทรนโมเดล MobileNetV3 เสร็จใน 1-2 นาที
-- **ดาวน์โหลดไฟล์อัตโนมัติ:** เมื่อเทรนเสร็จ ระบบจะส่งออกไฟล์ `.onnx` ลงเครื่องทันที
+
+### 📖 แผนภาพคู่มือการใช้งาน Colab สำหรับผู้เข้าอบรม (4-Step Visual Guide)
+![คู่มือการใช้งาน Colab สำหรับผู้เข้าอบรม](docs/colab_user_guide_infographic.svg)
+
+### 📌 4 ขั้นตอนการใช้งานที่ง่ายที่สุด (Zero-Code Friendly)
+1. **⚡ ขั้นที่ 1: ตรวจสอบและเปิดใช้งาน Free GPU (T4)**
+   - ไปที่เมนูบนสุดของ Colab: **Runtime (รันไทม์) > Change runtime type (เปลี่ยนประเภทรันไทม์)**
+   - เลือกฮาร์ดแวร์เร่งความเร็วเป็น **T4 GPU** แล้วกดบันทึก
+   - กดปุ่มรันเซลล์ที่ 1 เพื่อโหลด Library และยืนยันความพร้อมของ GPU
+2. **📂 ขั้นที่ 2: เลือกชุดข้อมูลผ่านฟอร์ม Interactive**
+   - **กรณีใช้ชุดข้อมูลมาตรฐาน:** เลือกจากเมนูดรอปดาวน์ภาษาไทย (Soil Analysis, โรคพืช, แมลงศัตรูพืช, ขาดธาตุอาหาร N-P-K)
+   - **กรณีใช้ชุดข้อมูลของตัวเอง:** ติ๊กเลือก `use_custom_zip_upload` แล้วคลิกอัปโหลดไฟล์ `.zip` (ระบบจะแตกไฟล์และแบ่ง Train 80% / Val 20% อัตโนมัติ)
+3. **🚀 ขั้นที่ 3: ฝึกสอนโมเดลและดูรายงานผลลัพธ์ (Live & Post-Training Diagnostics)**
+   - ปรับรอบ Epochs (เช่น 5-10 รอบ) แล้วกดรันเพื่อเริ่มเทรน
+   - ระบบจะแสดงตารางความคืบหน้าแบบ Real-time พร้อมแถบสีเขียว
+   - เมื่อเทรนเสร็จ จะแสดง **Confusion Matrix**, **Precision / Recall / F1-Score** และ **Model Specs Card**
+4. **📥 ขั้นที่ 4: ส่งออกและดาวน์โหลดโมเดล `.onnx` อัตโนมัติ**
+   - ระบบแปลงโมเดลเป็นฟอร์แมตมาตรฐาน ONNX สำหรับอุปกรณ์ Edge
+   - เบราว์เซอร์จะดาวน์โหลดไฟล์ `smart_agri_model.onnx` ลงเครื่องผู้เรียนทันที นำไปทดสอบใน Streamlit Web App หรือแอปพลิเคชันได้เลย
 
 ---
 

@@ -1,0 +1,256 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0a101d"/>
+      <stop offset="50%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#064e3b"/>
+    </linearGradient>
+    <linearGradient id="cardGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1e293b" stop-opacity="0.95"/>
+      <stop offset="100%" stop-color="#0f172a" stop-opacity="0.98"/>
+    </linearGradient>
+    <linearGradient id="orangeColab" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#f59e0b"/>
+      <stop offset="100%" stop-color="#d97706"/>
+    </linearGradient>
+    <linearGradient id="greenBtn" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#10b981"/>
+      <stop offset="100%" stop-color="#059669"/>
+    </linearGradient>
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="8" stdDeviation="6" flood-color="#000" flood-opacity="0.45"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="900" fill="url(#bgGrad)"/>
+
+  <!-- Blueprint Matrix Grid -->
+  <g stroke="#334155" stroke-width="0.5" opacity="0.25">
+    <path d="M 0,150 L 1200,150 M 0,300 L 1200,300 M 0,450 L 1200,450 M 0,600 L 1200,600 M 0,750 L 1200,750"/>
+    <path d="M 150,0 L 150,900 M 300,0 L 300,900 M 450,0 L 450,900 M 600,0 L 600,900 M 750,0 L 750,900 M 900,0 L 900,900 M 1050,0 L 1050,900"/>
+  </g>
+
+  <!-- Header Banner -->
+  <g id="header" transform="translate(50, 25)">
+    <rect width="1100" height="95" rx="16" fill="url(#cardGrad)" stroke="#334155" stroke-width="1.5" filter="url(#shadow)"/>
+    
+    <!-- Colab Icon & Logo -->
+    <rect x="25" y="20" width="55" height="55" rx="14" fill="#f59e0b" fill-opacity="0.15" stroke="#f59e0b" stroke-width="1.5"/>
+    <text x="52" y="55" font-family="sans-serif" font-size="28" fill="#fbbf24" text-anchor="middle" font-weight="bold">∞</text>
+    
+    <text x="95" y="48" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="22" font-weight="bold" fill="#f8fafc">
+      คู่มือการใช้งาน Google Colab ฝึกสอน AI สำหรับผู้เริ่มต้น (Zero-Code User Guide)
+    </text>
+    <text x="95" y="74" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" fill="#94a3b8">
+      พัฒนาโดย ผศ.ดร.ชีวะ ทัศนา | ซ่อนโค้ด 100% ใช้งานง่ายผ่าน Interactive Form และเร่งความเร็วด้วย Free GPU (T4)
+    </text>
+
+    <!-- 1-Click Badge Button -->
+    <g transform="translate(900, 28)">
+      <rect width="175" height="38" rx="8" fill="#10b981" fill-opacity="0.2" stroke="#10b981" stroke-width="1.5"/>
+      <circle cx="22" cy="19" r="6" fill="#10b981"/>
+      <text x="35" y="24" font-family="sans-serif" font-size="12" font-weight="bold" fill="#34d399">4-STEP WORKFLOW</text>
+    </g>
+  </g>
+
+  <!-- 4 Step Cards Layout (2x2 Grid) -->
+  
+  <!-- ==================== STEP 1 ==================== -->
+  <g id="step1Card" transform="translate(50, 145)">
+    <rect width="535" height="320" rx="14" fill="url(#cardGrad)" stroke="#3b82f6" stroke-width="1.5" filter="url(#shadow)"/>
+    
+    <!-- Card Header -->
+    <rect width="535" height="46" rx="14" fill="#1e293b"/>
+    <rect y="32" width="535" height="14" fill="#1e293b"/>
+    <circle cx="28" cy="23" r="12" fill="#3b82f6"/>
+    <text x="28" y="28" font-family="sans-serif" font-size="13" fill="#fff" text-anchor="middle" font-weight="bold">1</text>
+    <text x="50" y="29" font-family="sans-serif" font-size="15" font-weight="bold" fill="#93c5fd">
+      เปิดสมุดงานและตรวจฮาร์ดแวร์ GPU (Hardware Check)
+    </text>
+    <rect x="420" y="12" width="95" height="22" rx="6" fill="#3b82f6" fill-opacity="0.2"/>
+    <text x="467" y="27" font-family="sans-serif" font-size="10" font-weight="bold" fill="#60a5fa" text-anchor="middle">ปุ่มคลิกเดียว</text>
+
+    <!-- Card Body -->
+    <g transform="translate(20, 62)">
+      <!-- Action 1: Badge Click -->
+      <text x="0" y="16" font-family="sans-serif" font-size="12" font-weight="bold" fill="#f8fafc">1. คลิกเปิดสมุดงานจาก GitHub หรือ Web Portal:</text>
+      
+      <!-- Open in Colab Badge Simulation -->
+      <g transform="translate(0, 28)">
+        <rect width="180" height="34" rx="6" fill="#000" stroke="#f59e0b" stroke-width="1.5"/>
+        <text x="15" y="22" font-family="sans-serif" font-size="16" fill="#f59e0b" font-weight="bold">CO</text>
+        <line x1="48" y1="8" x2="48" y2="26" stroke="#475569" stroke-width="1"/>
+        <text x="58" y="22" font-family="sans-serif" font-size="11" font-weight="bold" fill="#f8fafc">Open In Colab</text>
+      </g>
+      <text x="195" y="48" font-family="sans-serif" font-size="11" fill="#94a3b8">➔ ลิงก์ตรงสู่ระบบคลาวด์ของ Google ฟรี</text>
+
+      <!-- Action 2: Change Runtime -->
+      <text x="0" y="92" font-family="sans-serif" font-size="12" font-weight="bold" fill="#f8fafc">2. (แนะนำ) เปิดใช้งานตัวเร่งความเร็ว Free GPU:</text>
+      <rect y="104" width="495" height="52" rx="6" fill="#0f172a" stroke="#334155"/>
+      <text x="14" y="126" font-family="sans-serif" font-size="11" fill="#cbd5e1">ไปที่เมนูด้านบน: <strong>Runtime</strong> ➔ <strong>Change runtime type</strong> ➔ เลือก <strong>T4 GPU</strong> ➔ กด <strong>Save</strong></text>
+      <text x="14" y="145" font-family="sans-serif" font-size="10" fill="#38bdf8">⚡ ทำให้การฝึกสอนโมเดล AI เร็วขึ้นกว่าเดิม 15-20 เท่า (เสร็จใน 30 วินาที!)</text>
+
+      <!-- Action 3: Click Play -->
+      <text x="0" y="184" font-family="sans-serif" font-size="12" font-weight="bold" fill="#f8fafc">3. คลิกปุ่ม Play [ ▶ ] ขั้นตอนที่ 1 ใน Colab:</text>
+      <rect y="196" width="495" height="42" rx="6" fill="#052e16" stroke="#10b981"/>
+      <text x="14" y="222" font-family="sans-serif" font-size="11" font-weight="bold" fill="#34d399">✅ แสดงผล: "ตรวจพบฮาร์ดแวร์เร่งความเร็ว GPU: Tesla T4 พร้อมใช้งาน!"</text>
+    </g>
+  </g>
+
+  <!-- ==================== STEP 2 ==================== -->
+  <g id="step2Card" transform="translate(615, 145)">
+    <rect width="535" height="320" rx="14" fill="url(#cardGrad)" stroke="#10b981" stroke-width="1.5" filter="url(#shadow)"/>
+    
+    <!-- Card Header -->
+    <rect width="535" height="46" rx="14" fill="#1e293b"/>
+    <rect y="32" width="535" height="14" fill="#1e293b"/>
+    <circle cx="28" cy="23" r="12" fill="#10b981"/>
+    <text x="28" y="28" font-family="sans-serif" font-size="13" fill="#fff" text-anchor="middle" font-weight="bold">2</text>
+    <text x="50" y="29" font-family="sans-serif" font-size="15" font-weight="bold" fill="#6ee7b7">
+      เลือกชุดข้อมูล หรืออัปโหลดภาพของตนเอง (Data Ingestion)
+    </text>
+    <rect x="420" y="12" width="95" height="22" rx="6" fill="#10b981" fill-opacity="0.2"/>
+    <text x="467" y="27" font-family="sans-serif" font-size="10" font-weight="bold" fill="#34d399" text-anchor="middle">ไม่ต้องเขียนโค้ด</text>
+
+    <!-- Card Body -->
+    <g transform="translate(20, 62)">
+      <text x="0" y="16" font-family="sans-serif" font-size="12" font-weight="bold" fill="#f8fafc">เลือกชุดข้อมูลที่ต้องการฝึกอบรมผ่าน Dropdown Menu:</text>
+      
+      <!-- Dropdown Mockup Box -->
+      <rect y="28" width="495" height="40" rx="6" fill="#0f172a" stroke="#10b981" stroke-width="1.5"/>
+      <text x="14" y="52" font-family="sans-serif" font-size="12" fill="#34d399" font-weight="bold">▼ เลือกชุดข้อมูล: [ของฉันเอง] อัปโหลดภาพของฉันเอง (1-Click Upload .ZIP)</text>
+
+      <!-- 2 Options Breakdown -->
+      <g transform="translate(0, 80)">
+        <!-- Choice A: Use Teacher's Data -->
+        <rect width="240" height="110" rx="6" fill="#0f172a" stroke="#334155"/>
+        <text x="12" y="22" font-family="sans-serif" font-size="11" font-weight="bold" fill="#38bdf8">ทางเลือก A: ใช้ชุดข้อมูลวิจัยของอาจารย์</text>
+        <text x="12" y="42" font-family="sans-serif" font-size="10" fill="#cbd5e1">• ดิน 5 ชนิด (ดินดำ, ลูกรัง, เหนียว ฯลฯ)</text>
+        <text x="12" y="58" font-family="sans-serif" font-size="10" fill="#cbd5e1">• โรคใบไหม้ทุเรียนจันทบุรี</text>
+        <text x="12" y="74" font-family="sans-serif" font-size="10" fill="#cbd5e1">• แมลงศัตรูพืช (เพลี้ยไก่แจ้, หนอนเจาะ)</text>
+        <text x="12" y="92" font-family="sans-serif" font-size="10" fill="#10b981">✓ โคลนจาก GitHub ใน 3 วินาที</text>
+
+        <!-- Choice B: Upload Own Data -->
+        <g transform="translate(255, 0)">
+          <rect width="240" height="110" rx="6" fill="#0f172a" stroke="#f59e0b"/>
+          <text x="12" y="22" font-family="sans-serif" font-size="11" font-weight="bold" fill="#fbbf24">ทางเลือก B: อัปโหลดภาพของตนเอง</text>
+          <text x="12" y="42" font-family="sans-serif" font-size="10" fill="#cbd5e1">• บีบอัดโฟลเดอร์ภาพเป็นไฟล์ .zip</text>
+          <text x="12" y="58" font-family="sans-serif" font-size="10" fill="#cbd5e1">• คลิกปุ่ม "Choose Files" ใน Colab</text>
+          <text x="12" y="74" font-family="sans-serif" font-size="10" fill="#cbd5e1">• ระบบ Unzip &amp; แบ่ง Train/Val ให้อัตโนมัติ</text>
+          <text x="12" y="92" font-family="sans-serif" font-size="10" fill="#fbbf24">✓ Zero-Code ง่ายสุดๆ</text>
+        </g>
+      </g>
+
+      <text x="0" y="220" font-family="sans-serif" font-size="11" fill="#94a3b8">
+        ➔ เมื่อเลือกแล้ว คลิกปุ่ม Play [ ▶ ] ขั้นตอนที่ 2 ระบบจะจัดสรรข้อมูลพร้อมเทรนทันที!
+      </text>
+    </g>
+  </g>
+
+  <!-- ==================== STEP 3 ==================== -->
+  <g id="step3Card" transform="translate(50, 485)">
+    <rect width="535" height="375" rx="14" fill="url(#cardGrad)" stroke="#f59e0b" stroke-width="1.5" filter="url(#shadow)"/>
+    
+    <!-- Card Header -->
+    <rect width="535" height="46" rx="14" fill="#1e293b"/>
+    <rect y="32" width="535" height="14" fill="#1e293b"/>
+    <circle cx="28" cy="23" r="12" fill="#f59e0b"/>
+    <text x="28" y="28" font-family="sans-serif" font-size="13" fill="#fff" text-anchor="middle" font-weight="bold">3</text>
+    <text x="50" y="29" font-family="sans-serif" font-size="15" font-weight="bold" fill="#fcd34d">
+      ตั้งค่าพารามิเตอร์และเริ่มเทรน AI (Train &amp; Evaluate)
+    </text>
+    <rect x="420" y="12" width="95" height="22" rx="6" fill="#f59e0b" fill-opacity="0.2"/>
+    <text x="467" y="27" font-family="sans-serif" font-size="10" font-weight="bold" fill="#fbbf24" text-anchor="middle">ดูผลสดๆ</text>
+
+    <!-- Card Body -->
+    <g transform="translate(20, 62)">
+      <text x="0" y="16" font-family="sans-serif" font-size="12" font-weight="bold" fill="#f8fafc">1. ปรับสไลเดอร์ตามต้องการ (มีค่ามาตรฐานที่เหมาะสมไว้แล้ว):</text>
+      
+      <!-- Sliders Mockup -->
+      <g transform="translate(0, 26)">
+        <rect width="495" height="65" rx="6" fill="#0f172a" stroke="#334155"/>
+        <text x="14" y="22" font-family="sans-serif" font-size="11" fill="#cbd5e1">• สถาปัตยกรรม: <strong>MobileNetV3 Small</strong> (เหมาะกับมือถือและเว็บ &lt; 10MB)</text>
+        <text x="14" y="40" font-family="sans-serif" font-size="11" fill="#cbd5e1">• จำนวนรอบ (Epochs): <strong>8 รอบ</strong> | Batch Size: <strong>16</strong></text>
+        <text x="14" y="58" font-family="sans-serif" font-size="10" fill="#34d399">✓ ติ๊กถูกเปิดใช้งาน Data Augmentation เพื่อเพิ่มความแม่นยำ</text>
+      </g>
+
+      <text x="0" y="112" font-family="sans-serif" font-size="12" font-weight="bold" fill="#f8fafc">2. คลิกปุ่ม Play [ ▶ ] ขั้นตอนที่ 3 เพื่อเริ่มเทรน:</text>
+      
+      <!-- Training Status Box -->
+      <g transform="translate(0, 122)">
+        <rect width="495" height="155" rx="6" fill="#0f172a" stroke="#f59e0b"/>
+        <text x="14" y="24" font-family="sans-serif" font-size="11" font-weight="bold" fill="#fbbf24">📊 สิ่งที่ระบบแสดงผลสดบนหน้าจอ:</text>
+        <text x="14" y="46" font-family="monospace" font-size="11" fill="#cbd5e1">✓ Live Progress: Train Loss, Val Loss, Val Accuracy ทุกรอบ</text>
+        <text x="14" y="66" font-family="monospace" font-size="11" fill="#34d399">✓ Auto-Save: บันทึก ⭐ BEST SAVED โมเดลรอบที่ฉลาดที่สุด</text>
+        <text x="14" y="88" font-family="sans-serif" font-size="11" font-weight="bold" fill="#38bdf8">📈 เมื่อเทรนเสร็จ แสดงรายงานลึกซึ้ง 3 หน้าต่างทันที:</text>
+        <text x="14" y="108" font-family="sans-serif" font-size="10" fill="#cbd5e1">1. ตาราง Cross-Tabulation (Confusion Matrix Heatmap)</text>
+        <text x="14" y="124" font-family="sans-serif" font-size="10" fill="#cbd5e1">2. ตารางวัดประสิทธิภาพ Precision, Recall และ F1-Score</text>
+        <text x="14" y="140" font-family="sans-serif" font-size="10" fill="#cbd5e1">3. กราฟเปรียบเทียบการเรียนรู้ (Loss &amp; Accuracy Curves)</text>
+      </g>
+    </g>
+  </g>
+
+  <!-- ==================== STEP 4 ==================== -->
+  <g id="step4Card" transform="translate(615, 485)">
+    <rect width="535" height="375" rx="14" fill="url(#cardGrad)" stroke="#a855f7" stroke-width="1.5" filter="url(#shadow)"/>
+    
+    <!-- Card Header -->
+    <rect width="535" height="46" rx="14" fill="#1e293b"/>
+    <rect y="32" width="535" height="14" fill="#1e293b"/>
+    <circle cx="28" cy="23" r="12" fill="#a855f7"/>
+    <text x="28" y="28" font-family="sans-serif" font-size="13" fill="#fff" text-anchor="middle" font-weight="bold">4</text>
+    <text x="50" y="29" font-family="sans-serif" font-size="15" font-weight="bold" fill="#d8b4fe">
+      ส่งออกและดาวน์โหลดโมเดล (.ONNX Export)
+    </text>
+    <rect x="420" y="12" width="95" height="22" rx="6" fill="#a855f7" fill-opacity="0.2"/>
+    <text x="467" y="27" font-family="sans-serif" font-size="10" font-weight="bold" fill="#c084fc" text-anchor="middle">นำไปใช้จริง</text>
+
+    <!-- Card Body -->
+    <g transform="translate(20, 62)">
+      <text x="0" y="16" font-family="sans-serif" font-size="12" font-weight="bold" fill="#f8fafc">คลิกปุ่ม Play [ ▶ ] ขั้นตอนที่ 4 เพื่อดาวน์โหลดโมเดล:</text>
+      
+      <!-- Export Action Box -->
+      <g transform="translate(0, 26)">
+        <rect width="495" height="85" rx="6" fill="#0f172a" stroke="#a855f7"/>
+        <text x="14" y="24" font-family="sans-serif" font-size="11" font-weight="bold" fill="#d8b4fe">💾 ระบบจะแปลงโมเดลเป็นมาตรฐานเปิดสากล (.ONNX):</text>
+        <text x="14" y="44" font-family="sans-serif" font-size="11" fill="#cbd5e1">• ชื่อไฟล์: <strong>smart_agri_model.onnx</strong></text>
+        <text x="14" y="62" font-family="sans-serif" font-size="11" fill="#cbd5e1">• บราวเซอร์จะดาวน์โหลดไฟล์ลงเครื่องคอมพิวเตอร์ของคุณอัตโนมัติ 100%</text>
+      </g>
+
+      <text x="0" y="132" font-family="sans-serif" font-size="12" font-weight="bold" fill="#f8fafc">นำโมเดลไปใช้งานต่อใน 3 ช่องทาง:</text>
+      
+      <!-- Deployment Targets -->
+      <g transform="translate(0, 142)">
+        <rect width="495" height="135" rx="6" fill="#0f172a" stroke="#334155"/>
+        
+        <g transform="translate(14, 20)">
+          <!-- Target 1 -->
+          <rect width="145" height="95" rx="6" fill="#1e293b" stroke="#38bdf8"/>
+          <text x="72" y="22" font-family="sans-serif" font-size="11" font-weight="bold" fill="#38bdf8" text-anchor="middle">💻 เว็บ Streamlit</text>
+          <text x="72" y="42" font-family="sans-serif" font-size="9" fill="#94a3b8" text-anchor="middle">ทดสอบใน Tab 1</text>
+          <text x="72" y="58" font-family="sans-serif" font-size="9" fill="#cbd5e1" text-anchor="middle">วิเคราะห์ภาพสด</text>
+          <text x="72" y="80" font-family="sans-serif" font-size="9" fill="#34d399" text-anchor="middle">✓ ไร้รอยต่อ</text>
+
+          <!-- Target 2 -->
+          <g transform="translate(160, 0)">
+            <rect width="145" height="95" rx="6" fill="#1e293b" stroke="#10b981"/>
+            <text x="72" y="22" font-family="sans-serif" font-size="11" font-weight="bold" fill="#34d399" text-anchor="middle">📱 แอปมือถือ Flutter</text>
+            <text x="72" y="42" font-family="sans-serif" font-size="9" fill="#94a3b8" text-anchor="middle">On-Device Edge AI</text>
+            <text x="72" y="58" font-family="sans-serif" font-size="9" fill="#cbd5e1" text-anchor="middle">ใช้งานในสวนออฟไลน์</text>
+            <text x="72" y="80" font-family="sans-serif" font-size="9" fill="#34d399" text-anchor="middle">✓ เร็ว &lt; 10 ms</text>
+          </g>
+
+          <!-- Target 3 -->
+          <g transform="translate(320, 0)">
+            <rect width="145" height="95" rx="6" fill="#1e293b" stroke="#f59e0b"/>
+            <text x="72" y="22" font-family="sans-serif" font-size="11" font-weight="bold" fill="#fbbf24" text-anchor="middle">📟 กล่องสมาร์ทฟาร์ม</text>
+            <text x="72" y="42" font-family="sans-serif" font-size="9" fill="#94a3b8" text-anchor="middle">Raspberry Pi AIoT</text>
+            <text x="72" y="58" font-family="sans-serif" font-size="9" fill="#cbd5e1" text-anchor="middle">กล้องตรวจจับศัตรูพืช</text>
+            <text x="72" y="80" font-family="sans-serif" font-size="9" fill="#34d399" text-anchor="middle">✓ ส่งแจ้งเตือน Line</text>
+          </g>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

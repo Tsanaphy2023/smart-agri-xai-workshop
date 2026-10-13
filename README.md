@@ -1,6 +1,10 @@
 # 🌱 Digital Agri xAI: Intelligent Soil & Crop Health Analyzer
 **พัฒนาโดย:** ผศ.ดร.ชีวะ ทัศนา | มหาวิทยาลัยราชภัฏรำไพพรรณี
 
+> 📖 **คู่มือวิชาการ 52 หน้า (XeLaTeX 6×9 นิ้ว):** [`docs/Digital_Agri_xAI_Handbook_6x9.pdf`](docs/Digital_Agri_xAI_Handbook_6x9.pdf)  
+> 🖼️ **คลังภาพทุกขั้นตอน (Step-by-Step Gallery):** [`docs/STEP_BY_STEP_GALLERY.md`](docs/STEP_BY_STEP_GALLERY.md)  
+> 📱 **แอปพลิเคชันมือถือ Flutter:** [`digital_agri_xai_mobile/`](digital_agri_xai_mobile/)
+
 ระบบวิเคราะห์คุณภาพดิน สภาพแวดล้อม และสุขภาวะพืชด้วยปัญญาประดิษฐ์อธิบายได้เพื่อการเกษตรดิจิทัล (Digital Agri xAI Diagnostic Platform) รองรับทั้งการประมวลผลผ่าน Cloud AI, Local On-Device (Ollama) และโมเดลวิจัยเฉพาะทางแบบ In-Process Edge AI พร้อมระบบแนะนำพืชและวิเคราะห์ธาตุอาหารจากเซนเซอร์เคมีดิน
 
 ---

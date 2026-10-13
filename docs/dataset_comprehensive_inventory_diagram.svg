@@ -1,0 +1,223 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1250 880" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#080e1a"/>
+      <stop offset="50%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#042f2e"/>
+    </linearGradient>
+    <linearGradient id="cardGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1e293b" stop-opacity="0.95"/>
+      <stop offset="100%" stop-color="#0f172a" stop-opacity="0.98"/>
+    </linearGradient>
+    <linearGradient id="soilPillar" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#d97706"/>
+      <stop offset="100%" stop-color="#b45309"/>
+    </linearGradient>
+    <linearGradient id="plantPillar" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#10b981"/>
+      <stop offset="100%" stop-color="#059669"/>
+    </linearGradient>
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="6" stdDeviation="5" flood-color="#000" flood-opacity="0.5"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1250" height="880" fill="url(#bg)"/>
+
+  <!-- Subtle Blueprint Grid -->
+  <g stroke="#334155" stroke-width="0.5" opacity="0.25">
+    <path d="M 0,110 L 1250,110 M 0,220 L 1250,220 M 0,330 L 1250,330 M 0,440 L 1250,440 M 0,550 L 1250,550 M 0,660 L 1250,660 M 0,770 L 1250,770"/>
+    <path d="M 125,0 L 125,880 M 250,0 L 250,880 M 375,0 L 375,880 M 500,0 L 500,880 M 625,0 L 625,880 M 750,0 L 750,880 M 875,0 L 875,880 M 1000,0 L 1000,880 M 1125,0 L 1125,880"/>
+  </g>
+
+  <!-- Header -->
+  <g id="header" transform="translate(40, 25)">
+    <rect width="1170" height="85" rx="14" fill="url(#cardGrad)" stroke="#334155" stroke-width="1.5" filter="url(#shadow)"/>
+    <rect x="20" y="18" width="50" height="50" rx="10" fill="#10b981" fill-opacity="0.2"/>
+    <text x="45" y="50" font-family="sans-serif" font-size="24" fill="#34d399" text-anchor="middle">📋</text>
+    <text x="85" y="44" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="22" font-weight="bold" fill="#f8fafc">
+      บัญชีรายการชุดข้อมูลอัจฉริยะ (Comprehensive Smart Agri Dataset Inventory)
+    </text>
+    <text x="85" y="68" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" fill="#94a3b8">
+      ศูนย์รวมคลังข้อมูลดิน โรคพืช และศัตรูพืช มหาวิทยาลัยราชภัฏรำไพพรรณี (ผศ.ดร.ชีวะ ทัศนา) | รวม 2,583+ ไฟล์ บน GitHub &amp; Colab
+    </text>
+    <rect x="990" y="26" width="160" height="34" rx="8" fill="#10b981" fill-opacity="0.15" stroke="#10b981" stroke-width="1.5"/>
+    <text x="1070" y="48" font-family="sans-serif" font-size="12" font-weight="bold" fill="#34d399" text-anchor="middle">
+      2 MAIN PILLARS
+    </text>
+  </g>
+
+  <!-- Pillar 1: SOIL INTELLIGENCE (Amber / Brown Theme) -->
+  <g id="pillarSoil" transform="translate(40, 125)">
+    <rect width="570" height="720" rx="14" fill="url(#cardGrad)" stroke="#f59e0b" stroke-width="1.5" filter="url(#shadow)"/>
+    
+    <!-- Pillar 1 Header -->
+    <rect width="570" height="46" rx="14" fill="url(#soilPillar)"/>
+    <rect y="32" width="570" height="14" fill="url(#soilPillar)"/>
+    <text x="20" y="29" font-family="sans-serif" font-size="15" font-weight="bold" fill="#ffffff">
+      🌱 เสาหลักที่ 1: ระบบอัจฉริยะด้านดิน (Soil Intelligence Pillar)
+    </text>
+    <text x="550" y="29" font-family="sans-serif" font-size="12" fill="#fef3c7" text-anchor="end" font-weight="bold">166 Files</text>
+
+    <!-- Sub 1.1: SoilType Vision -->
+    <g transform="translate(18, 60)">
+      <rect width="534" height="145" rx="10" fill="#0f172a" stroke="#334155"/>
+      <rect x="12" y="12" width="95" height="24" rx="6" fill="#f59e0b" fill-opacity="0.2"/>
+      <text x="59" y="28" font-family="sans-serif" font-size="11" font-weight="bold" fill="#fbbf24" text-anchor="middle">Computer Vision</text>
+      <text x="118" y="29" font-family="sans-serif" font-size="13" font-weight="bold" fill="#f8fafc">1.1 SoilType / 01_Real_Data (156 ภาพ)</text>
+      <text x="520" y="29" font-family="sans-serif" font-size="11" fill="#34d399" text-anchor="end" font-weight="bold">Train: 125 | Val: 31</text>
+      
+      <!-- 5 Classes breakdown -->
+      <g transform="translate(12, 45)">
+        <rect width="98" height="42" rx="6" fill="#1e293b"/>
+        <text x="49" y="20" font-family="sans-serif" font-size="11" font-weight="bold" fill="#cbd5e1" text-anchor="middle">ดินดำ (Black)</text>
+        <text x="49" y="35" font-family="sans-serif" font-size="10" fill="#94a3b8" text-anchor="middle">37 ภาพ (Train 30)</text>
+
+        <rect x="104" y="0" width="98" height="42" rx="6" fill="#1e293b"/>
+        <text x="153" y="20" font-family="sans-serif" font-size="11" font-weight="bold" fill="#cbd5e1" text-anchor="middle">ดินลูกรัง (Laterite)</text>
+        <text x="153" y="35" font-family="sans-serif" font-size="10" fill="#94a3b8" text-anchor="middle">30 ภาพ (Train 24)</text>
+
+        <rect x="208" y="0" width="98" height="42" rx="6" fill="#1e293b"/>
+        <text x="257" y="20" font-family="sans-serif" font-size="11" font-weight="bold" fill="#cbd5e1" text-anchor="middle">ดินเหนียว (Cinder)</text>
+        <text x="257" y="35" font-family="sans-serif" font-size="10" fill="#94a3b8" text-anchor="middle">30 ภาพ (Train 24)</text>
+
+        <rect x="312" y="0" width="98" height="42" rx="6" fill="#1e293b"/>
+        <text x="361" y="20" font-family="sans-serif" font-size="11" font-weight="bold" fill="#cbd5e1" text-anchor="middle">ดินพรุ (Peat)</text>
+        <text x="361" y="35" font-family="sans-serif" font-size="10" fill="#94a3b8" text-anchor="middle">30 ภาพ (Train 24)</text>
+
+        <rect x="416" y="0" width="98" height="42" rx="6" fill="#1e293b"/>
+        <text x="465" y="20" font-family="sans-serif" font-size="11" font-weight="bold" fill="#cbd5e1" text-anchor="middle">ดินเหลือง (Yellow)</text>
+        <text x="465" y="35" font-family="sans-serif" font-size="10" fill="#94a3b8" text-anchor="middle">29 ภาพ (Train 24)</text>
+      </g>
+      <text x="12" y="112" font-family="sans-serif" font-size="11" fill="#94a3b8">
+        🎯 ใช้งาน: จำแนกเนื้อดินจากภาพถ่ายกล้องมือถือ/สมาร์ทฟาร์มด้วย MobileNetV3 / ResNet
+      </text>
+      <text x="12" y="130" font-family="sans-serif" font-size="10" fill="#38bdf8">
+        ⚡ รองรับใน Google Colab: ตัวเลือกที่ 1 (Soil_Types)
+      </text>
+    </g>
+
+    <!-- Sub 1.2: SoilNutrient Tabular / CSV -->
+    <g transform="translate(18, 218)">
+      <rect width="534" height="235" rx="10" fill="#0f172a" stroke="#334155"/>
+      <rect x="12" y="12" width="75" height="24" rx="6" fill="#3b82f6" fill-opacity="0.2"/>
+      <text x="49" y="28" font-family="sans-serif" font-size="11" font-weight="bold" fill="#60a5fa" text-anchor="middle">Tabular / ML</text>
+      <text x="98" y="29" font-family="sans-serif" font-size="13" font-weight="bold" fill="#f8fafc">1.2 SoilNutrient / Crop Recommendation</text>
+      
+      <!-- Box 1: thai_soil_crop_recommendation.csv -->
+      <g transform="translate(12, 45)">
+        <rect width="510" height="75" rx="6" fill="#1e293b" stroke="#3b82f6"/>
+        <text x="12" y="22" font-family="sans-serif" font-size="12" font-weight="bold" fill="#93c5fd">
+          📄 thai_soil_crop_recommendation.csv (ฐานข้อมูลดินและปุ๋ยเฉพาะประเทศไทย)
+        </text>
+        <text x="12" y="42" font-family="sans-serif" font-size="11" fill="#cbd5e1">
+          • ข้อมูล N, P, K, pH, Moisture, Soil Type, พืชเศรษฐกิจไทย (ข้าวหอมมะลิ, ทุเรียน, ยางพารา, ผักสลัด)
+        </text>
+        <text x="12" y="60" font-family="sans-serif" font-size="11" fill="#34d399">
+          • คำแนะนำการปรับปรุงดิน: การหว่านปูนโดโลไมต์, มูลค้างคาว, ปุ๋ยอินทรีย์เคมี 6-3-3
+        </text>
+      </g>
+
+      <!-- Box 2: Crop_recommendation.csv -->
+      <g transform="translate(12, 130)">
+        <rect width="510" height="70" rx="6" fill="#1e293b"/>
+        <text x="12" y="22" font-family="sans-serif" font-size="12" font-weight="bold" fill="#f8fafc">
+          📊 Crop_recommendation.csv (ฐานข้อมูลสากล 2,200 แถว / 22 ชนิดพืช)
+        </text>
+        <text x="12" y="42" font-family="sans-serif" font-size="11" fill="#94a3b8">
+          • คุณสมบัติ: N, P, K, อุณหภูมิ, ความชื้นสัมพัทธ์, pH, ปริมาณน้ำฝนสะสม
+        </text>
+        <text x="12" y="58" font-family="sans-serif" font-size="11" fill="#94a3b8">
+          • ใช้งานในเว็บ: Tab 2 (วิเคราะห์เซนเซอร์ดินและทำนายพืชเหมาะสมด้วย Nearest Centroid)
+        </text>
+      </g>
+    </g>
+
+    <!-- Sub 1.3: Soil Spectroscopy OSSL -->
+    <g transform="translate(18, 465)">
+      <rect width="534" height="235" rx="10" fill="#0f172a" stroke="#334155"/>
+      <rect x="12" y="12" width="100" height="24" rx="6" fill="#a855f7" fill-opacity="0.2"/>
+      <text x="62" y="28" font-family="sans-serif" font-size="11" font-weight="bold" fill="#c084fc" text-anchor="middle">Deep Research</text>
+      <text x="122" y="29" font-family="sans-serif" font-size="13" font-weight="bold" fill="#f8fafc">1.3 OSSL Soil Spectroscopy (สเปกโตรสโกปีดินระดับสากล)</text>
+      
+      <g transform="translate(12, 45)">
+        <rect width="510" height="170" rx="6" fill="#1e293b"/>
+        <text x="12" y="22" font-family="sans-serif" font-size="11" font-weight="bold" fill="#e2e8f0">• sample_visnir_data.csv (783 KB): สเปกตรัมแสงย่านตามองเห็นและอินฟราเรดย่านใกล้</text>
+        <text x="12" y="44" font-family="sans-serif" font-size="11" font-weight="bold" fill="#e2e8f0">• sample_mir_data.csv (397 KB): สเปกตรัมย่านอินฟราเรดคลื่นกลาง (Mid-IR)</text>
+        <text x="12" y="66" font-family="sans-serif" font-size="11" font-weight="bold" fill="#e2e8f0">• sample_neospectra_data.csv (38 KB): ชุดข้อมูลจากหัวเซนเซอร์พกพา NeoSpectra</text>
+        <text x="12" y="88" font-family="sans-serif" font-size="11" font-weight="bold" fill="#e2e8f0">• ossl_models_soil_properties.csv: ค่า SOC, pH, Clay, Sand, CEC, Total Nitrogen</text>
+        <text x="12" y="110" font-family="sans-serif" font-size="11" fill="#94a3b8">• ไฟล์ดิบ ASD สเปกโตรมิเตอร์: 101453MD01.asd, 235157MD01.asd, 235157XS01.0</text>
+        <text x="12" y="132" font-family="sans-serif" font-size="11" fill="#38bdf8">🎯 ประโยชน์: รองรับงานวิจัยขั้นสูงด้าน Sensor Fusion &amp; Machine Learning คาดการณ์สารอาหารดิน</text>
+      </g>
+    </g>
+  </g>
+
+  <!-- Pillar 2: PLANT INTELLIGENCE (Emerald Theme) -->
+  <g id="pillarPlant" transform="translate(640, 125)">
+    <rect width="570" height="720" rx="14" fill="url(#cardGrad)" stroke="#10b981" stroke-width="1.5" filter="url(#shadow)"/>
+    
+    <!-- Pillar 2 Header -->
+    <rect width="570" height="46" rx="14" fill="url(#plantPillar)"/>
+    <rect y="32" width="570" height="14" fill="url(#plantPillar)"/>
+    <text x="20" y="29" font-family="sans-serif" font-size="15" font-weight="bold" fill="#ffffff">
+      🍃 เสาหลักที่ 2: ระบบอัจฉริยะด้านพืช (Plant Intelligence Pillar)
+    </text>
+    <text x="550" y="29" font-family="sans-serif" font-size="12" fill="#d1fae5" text-anchor="end" font-weight="bold">2,413 Files</text>
+
+    <!-- Sub 2.1: PlantDiseases -->
+    <g transform="translate(18, 60)">
+      <rect width="534" height="215" rx="10" fill="#0f172a" stroke="#334155"/>
+      <rect x="12" y="12" width="90" height="24" rx="6" fill="#ef4444" fill-opacity="0.2"/>
+      <text x="57" y="28" font-family="sans-serif" font-size="11" font-weight="bold" fill="#f87171" text-anchor="middle">Plant Diseases</text>
+      <text x="112" y="29" font-family="sans-serif" font-size="13" font-weight="bold" fill="#f8fafc">2.1 PlantDiseases/ (โรคพืชสำคัญ 1,347 ภาพ)</text>
+      <text x="520" y="29" font-family="sans-serif" font-size="11" fill="#34d399" text-anchor="end" font-weight="bold">5 พืชเศรษฐกิจ</text>
+      
+      <g transform="translate(12, 45)">
+        <rect width="510" height="155" rx="6" fill="#1e293b"/>
+        <text x="12" y="22" font-family="sans-serif" font-size="11" font-weight="bold" fill="#fca5a5">• ทุเรียนจันทบุรี (Durian - 380 ภาพ): แอนแทรคโนส, รากเน่าโคนเน่า, ใบจุดสนิมสาหร่าย, ใบปกติ</text>
+        <text x="12" y="44" font-family="sans-serif" font-size="11" fill="#cbd5e1">• ข้าวโพด (Maize - 360 ภาพ): ราสนิมข้าวโพด, ใบจุดสีเทา (Gray Leaf Spot), ใบไหม้, ใบปกติ</text>
+        <text x="12" y="66" font-family="sans-serif" font-size="11" fill="#cbd5e1">• มะเขือเทศ (Tomato - 360 ภาพ): ใบจุดวงแหวน (Early Blight), ใบไหม้ (Late Blight), รากำมะหยี่</text>
+        <text x="12" y="88" font-family="sans-serif" font-size="11" fill="#cbd5e1">• ข้าว (Rice - 186 ภาพ): ขอบใบแห้ง (BLB), ใบจุดสีน้ำตาล (Brown Spot), โรคไหม้ (Blast), ปกติ</text>
+        <text x="12" y="110" font-family="sans-serif" font-size="11" fill="#cbd5e1">• มันสำปะหลัง (Cassava - 61 ภาพ): โรคใบด่างมันสำปะหลัง (CMD), ใบไหม้, ขีดสีน้ำตาล</text>
+        <text x="12" y="132" font-family="sans-serif" font-size="11" fill="#34d399">⚡ รองรับใน Google Colab: ตัวเลือกที่ 2 (Durian_Diseases)</text>
+      </g>
+    </g>
+
+    <!-- Sub 2.2: PlantInsect -->
+    <g transform="translate(18, 290)">
+      <rect width="534" height="205" rx="10" fill="#0f172a" stroke="#334155"/>
+      <rect x="12" y="12" width="85" height="24" rx="6" fill="#f59e0b" fill-opacity="0.2"/>
+      <text x="54" y="28" font-family="sans-serif" font-size="11" font-weight="bold" fill="#fbbf24" text-anchor="middle">Insect Pests</text>
+      <text x="108" y="29" font-family="sans-serif" font-size="13" font-weight="bold" fill="#f8fafc">2.2 PlantInsect/ (แมลงศัตรูพืช 761 ภาพ)</text>
+      <text x="520" y="29" font-family="sans-serif" font-size="11" fill="#34d399" text-anchor="end" font-weight="bold">3 กลุ่มเป้าหมาย</text>
+      
+      <g transform="translate(12, 45)">
+        <rect width="510" height="145" rx="6" fill="#1e293b"/>
+        <text x="12" y="22" font-family="sans-serif" font-size="11" font-weight="bold" fill="#fcd34d">• ทุเรียน (Durian - 220 ภาพ): เพลี้ยไก่แจ้ (Allocaridara), หนอนเจาะต้น, ไรแดง, ใบปกติ</text>
+        <text x="12" y="44" font-family="sans-serif" font-size="11" fill="#cbd5e1">• พืชทั่วไป (General Crops - 300 ภาพ): หนอนกระทู้ (Armyworm), เพลี้ยอ่อน, หนอนใยผัก, แมลงหวี่ขาว</text>
+        <text x="12" y="66" font-family="sans-serif" font-size="11" fill="#cbd5e1">• ข้าว (Rice - 241 ภาพ): เพลี้ยกระโดดสีน้ำตาล (BPH), หนอนกอข้าว, หนอนห่อใบข้าว, ปกติ</text>
+        <text x="12" y="92" font-family="sans-serif" font-size="11" fill="#94a3b8">🎯 การจัดเก็บ: แยกภาพจริงจากฟิลด์ภาคสนาม (01_Real_Data) และชุดสังเคราะห์ (02_Synthetic)</text>
+        <text x="12" y="115" font-family="sans-serif" font-size="11" fill="#34d399">⚡ รองรับใน Google Colab: ตัวเลือกที่ 3 (Durian_Insects) &amp; 5 (General_Crop_Insects)</text>
+      </g>
+    </g>
+
+    <!-- Sub 2.3: PlantNutrient -->
+    <g transform="translate(18, 510)">
+      <rect width="534" height="190" rx="10" fill="#0f172a" stroke="#334155"/>
+      <rect x="12" y="12" width="105" height="24" rx="6" fill="#10b981" fill-opacity="0.2"/>
+      <text x="64" y="28" font-family="sans-serif" font-size="11" font-weight="bold" fill="#34d399" text-anchor="middle">Nutrient Deficiency</text>
+      <text x="128" y="29" font-family="sans-serif" font-size="13" font-weight="bold" fill="#f8fafc">2.3 PlantNutrient/ (อาการขาด N-P-K 305 ภาพ)</text>
+      <text x="520" y="29" font-family="sans-serif" font-size="11" fill="#34d399" text-anchor="end" font-weight="bold">4 ชนิดพืช</text>
+      
+      <g transform="translate(12, 45)">
+        <rect width="510" height="130" rx="6" fill="#1e293b"/>
+        <text x="12" y="22" font-family="sans-serif" font-size="11" font-weight="bold" fill="#6ee7b7">• พืชทั่วไป (General Crops - 124 ภาพ): ขาดไนโตรเจน (N), ฟอสฟอรัส (P), โพแทสเซียม (K)</text>
+        <text x="12" y="44" font-family="sans-serif" font-size="11" fill="#cbd5e1">• ข้าวโพด (Maize - 60 ภาพ): ใบเหลืองรูปตัว V (ขาด N), ขอบใบไหม้ม่วงแดง (ขาด P), ขอบใบไหม้แห้ง (ขาด K)</text>
+        <text x="12" y="66" font-family="sans-serif" font-size="11" fill="#cbd5e1">• ทุเรียน (Durian - 60 ภาพ): ขาดไนโตรเจน (N), โพแทสเซียม (K), แมกนีเซียม (Mg - ใบเหลืองระหว่างเส้นใบ)</text>
+        <text x="12" y="88" font-family="sans-serif" font-size="11" fill="#cbd5e1">• ข้าว (Rice - 61 ภาพ): ขาด N-P-K แยกตามอาการใบเหลืองและต้นแคระแกร็น</text>
+        <text x="12" y="112" font-family="sans-serif" font-size="11" fill="#34d399">⚡ รองรับใน Google Colab: ตัวเลือกที่ 4 (Plant_Nutrient)</text>
+      </g>
+    </g>
+  </g>
+</svg>

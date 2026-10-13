@@ -1,0 +1,281 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 840" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#080e1a"/>
+      <stop offset="50%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#052e16"/>
+    </linearGradient>
+    <linearGradient id="cardGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1e293b" stop-opacity="0.95"/>
+      <stop offset="100%" stop-color="#0f172a" stop-opacity="0.98"/>
+    </linearGradient>
+    <linearGradient id="greenG" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#10b981"/>
+      <stop offset="100%" stop-color="#059669"/>
+    </linearGradient>
+    <linearGradient id="amberG" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#f59e0b"/>
+      <stop offset="100%" stop-color="#d97706"/>
+    </linearGradient>
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="6" stdDeviation="5" flood-color="#000" flood-opacity="0.5"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="840" fill="url(#bgGrad)"/>
+
+  <!-- Blueprint Grid lines -->
+  <g stroke="#334155" stroke-width="0.5" opacity="0.2">
+    <path d="M 0,120 L 1200,120 M 0,240 L 1200,240 M 0,360 L 1200,360 M 0,480 L 1200,480 M 0,600 L 1200,600 M 0,720 L 1200,720"/>
+    <path d="M 150,0 L 150,840 M 300,0 L 300,840 M 450,0 L 450,840 M 600,0 L 600,840 M 750,0 L 750,840 M 900,0 L 900,840 M 1050,0 L 1050,840"/>
+  </g>
+
+  <!-- Header Banner -->
+  <g id="header" transform="translate(50, 25)">
+    <rect width="1100" height="85" rx="14" fill="url(#cardGrad)" stroke="#334155" stroke-width="1.5" filter="url(#shadow)"/>
+    <rect x="22" y="18" width="48" height="48" rx="10" fill="#10b981" fill-opacity="0.2"/>
+    <text x="46" y="50" font-family="sans-serif" font-size="24" fill="#34d399" text-anchor="middle">📊</text>
+    <text x="85" y="44" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="22" font-weight="bold" fill="#f8fafc">
+      ระบบรายงานและประเมินผลโมเดล AI ใน Google Colab (Live &amp; Post-Training Diagnostics)
+    </text>
+    <text x="85" y="68" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" fill="#94a3b8">
+      แสดงสเปกโมเดล, กราฟการเรียนรู้แบบสด, ตาราง Cross-Tabulation (Confusion Matrix), และรายงาน Precision / Recall / F1-Score
+    </text>
+    <rect x="940" y="26" width="135" height="34" rx="8" fill="#10b981" fill-opacity="0.15" stroke="#10b981" stroke-width="1.5"/>
+    <text x="1007" y="48" font-family="sans-serif" font-size="12" font-weight="bold" fill="#34d399" text-anchor="middle">
+      COLAB READY
+    </text>
+  </g>
+
+  <!-- Section 1: During Training (Real-time Progress Tracker) -->
+  <g id="duringTraining" transform="translate(50, 130)">
+    <rect width="1100" height="155" rx="14" fill="url(#cardGrad)" stroke="#f59e0b" stroke-width="1.5" filter="url(#shadow)"/>
+    
+    <!-- Title Bar -->
+    <rect width="1100" height="40" rx="14" fill="#1e293b"/>
+    <rect y="26" width="1100" height="14" fill="#1e293b"/>
+    <text x="25" y="26" font-family="sans-serif" font-size="14" font-weight="bold" fill="#fbbf24">
+      ⏱️ [ระหว่างเทรนโมเดล] Real-Time Progress Bar &amp; Epoch Metrics Tracker
+    </text>
+    <text x="1075" y="26" font-family="sans-serif" font-size="11" fill="#f59e0b" text-anchor="end" font-weight="bold">GPU ACCELERATED</text>
+
+    <!-- Table Preview Mockup -->
+    <g transform="translate(20, 52)">
+      <rect width="1060" height="88" rx="8" fill="#0f172a" stroke="#334155"/>
+      
+      <!-- Table Header -->
+      <rect width="1060" height="26" rx="8" fill="#1e293b"/>
+      <rect y="16" width="1060" height="10" fill="#1e293b"/>
+      <text x="25" y="18" font-family="monospace" font-size="11" font-weight="bold" fill="#94a3b8">Epoch</text>
+      <text x="140" y="18" font-family="monospace" font-size="11" font-weight="bold" fill="#94a3b8">Train Loss</text>
+      <text x="280" y="18" font-family="monospace" font-size="11" font-weight="bold" fill="#94a3b8">Train Acc (%)</text>
+      <text x="440" y="18" font-family="monospace" font-size="11" font-weight="bold" fill="#94a3b8">Val Loss</text>
+      <text x="580" y="18" font-family="monospace" font-size="11" font-weight="bold" fill="#94a3b8">Val Acc (%)</text>
+      <text x="750" y="18" font-family="monospace" font-size="11" font-weight="bold" fill="#94a3b8">Learning Rate</text>
+      <text x="920" y="18" font-family="monospace" font-size="11" font-weight="bold" fill="#94a3b8">Model Checkpoint</text>
+
+      <!-- Row 1 -->
+      <text x="25" y="44" font-family="monospace" font-size="11" fill="#cbd5e1">01 / 08</text>
+      <text x="140" y="44" font-family="monospace" font-size="11" fill="#f59e0b">0.8245</text>
+      <text x="280" y="44" font-family="monospace" font-size="11" fill="#3b82f6">68.5%</text>
+      <text x="440" y="44" font-family="monospace" font-size="11" fill="#f59e0b">0.6512</text>
+      <text x="580" y="44" font-family="monospace" font-size="11" fill="#10b981">78.2%</text>
+      <text x="750" y="44" font-family="monospace" font-size="11" fill="#cbd5e1">0.0010</text>
+      <rect x="915" y="32" width="115" height="18" rx="4" fill="#10b981" fill-opacity="0.2"/>
+      <text x="972" y="45" font-family="sans-serif" font-size="10" font-weight="bold" fill="#34d399" text-anchor="middle">⭐ BEST SAVED</text>
+
+      <!-- Row 2 -->
+      <text x="25" y="68" font-family="monospace" font-size="11" fill="#cbd5e1">08 / 08</text>
+      <text x="140" y="68" font-family="monospace" font-size="11" fill="#f59e0b">0.1420</text>
+      <text x="280" y="68" font-family="monospace" font-size="11" fill="#3b82f6">97.8%</text>
+      <text x="440" y="68" font-family="monospace" font-size="11" fill="#f59e0b">0.1850</text>
+      <text x="580" y="68" font-family="monospace" font-size="11" fill="#10b981" font-weight="bold">96.8%</text>
+      <text x="750" y="68" font-family="monospace" font-size="11" fill="#cbd5e1">0.0010</text>
+      <rect x="915" y="56" width="115" height="18" rx="4" fill="#10b981" fill-opacity="0.2"/>
+      <text x="972" y="69" font-family="sans-serif" font-size="10" font-weight="bold" fill="#34d399" text-anchor="middle">⭐ FINAL BEST</text>
+    </g>
+  </g>
+
+  <!-- Section 2: Post-Training Diagnostics (3 Columns) -->
+  
+  <!-- Col 2.1: Confusion Matrix / Cross Tabulation -->
+  <g id="colConfusion" transform="translate(50, 305)">
+    <rect width="380" height="505" rx="14" fill="url(#cardGrad)" stroke="#10b981" stroke-width="1.5" filter="url(#shadow)"/>
+    <rect width="380" height="42" rx="14" fill="#1e293b"/>
+    <rect y="28" width="380" height="14" fill="#1e293b"/>
+    <text x="20" y="27" font-family="sans-serif" font-size="13" font-weight="bold" fill="#34d399">
+      1️⃣ ตาราง Cross-Tabulation (Confusion Matrix)
+    </text>
+
+    <!-- Content -->
+    <g transform="translate(15, 55)">
+      <text x="0" y="16" font-family="sans-serif" font-size="11" fill="#94a3b8">
+        ตรวจสอบการทายถูก/ผิดรายคลาส (Predicted vs Actual)
+      </text>
+
+      <!-- Heatmap Mockup Matrix -->
+      <g transform="translate(0, 32)">
+        <rect width="350" height="230" rx="8" fill="#0f172a" stroke="#334155"/>
+        
+        <!-- Y-Axis label -->
+        <text x="-115" y="18" font-family="sans-serif" font-size="10" fill="#94a3b8" transform="rotate(-90)" font-weight="bold">True Class (ความจริง)</text>
+        <!-- X-Axis label -->
+        <text x="175" y="220" font-family="sans-serif" font-size="10" fill="#94a3b8" text-anchor="middle" font-weight="bold">Predicted Class (โมเดลทำนาย)</text>
+
+        <!-- Matrix Cells (3x3 Demo) -->
+        <g transform="translate(45, 25)">
+          <!-- Row 1 -->
+          <rect x="0" y="0" width="85" height="50" fill="#10b981" fill-opacity="0.9" rx="4"/>
+          <text x="42" y="30" font-family="monospace" font-size="14" font-weight="bold" fill="#fff" text-anchor="middle">24 (96%)</text>
+          
+          <rect x="90" y="0" width="85" height="50" fill="#1e293b" rx="4"/>
+          <text x="132" y="30" font-family="monospace" font-size="13" fill="#64748b" text-anchor="middle">1</text>
+          
+          <rect x="180" y="0" width="85" height="50" fill="#1e293b" rx="4"/>
+          <text x="222" y="30" font-family="monospace" font-size="13" fill="#64748b" text-anchor="middle">0</text>
+
+          <!-- Row 2 -->
+          <rect x="0" y="55" width="85" height="50" fill="#1e293b" rx="4"/>
+          <text x="42" y="85" font-family="monospace" font-size="13" fill="#64748b" text-anchor="middle">0</text>
+          
+          <rect x="90" y="55" width="85" height="50" fill="#10b981" fill-opacity="0.85" rx="4"/>
+          <text x="132" y="85" font-family="monospace" font-size="14" font-weight="bold" fill="#fff" text-anchor="middle">23 (92%)</text>
+          
+          <rect x="180" y="55" width="85" height="50" fill="#1e293b" rx="4"/>
+          <text x="222" y="85" font-family="monospace" font-size="13" fill="#64748b" text-anchor="middle">2</text>
+
+          <!-- Row 3 -->
+          <rect x="0" y="110" width="85" height="50" fill="#1e293b" rx="4"/>
+          <text x="42" y="140" font-family="monospace" font-size="13" fill="#64748b" text-anchor="middle">1</text>
+          
+          <rect x="90" y="110" width="85" height="50" fill="#1e293b" rx="4"/>
+          <text x="132" y="140" font-family="monospace" font-size="13" fill="#64748b" text-anchor="middle">0</text>
+          
+          <rect x="180" y="110" width="85" height="50" fill="#10b981" fill-opacity="0.95" rx="4"/>
+          <text x="222" y="140" font-family="monospace" font-size="14" font-weight="bold" fill="#fff" text-anchor="middle">25 (100%)</text>
+        </g>
+      </g>
+
+      <!-- Interpretation Info Box -->
+      <g transform="translate(0, 275)">
+        <rect width="350" height="155" rx="8" fill="#1e293b" stroke="#334155"/>
+        <text x="12" y="24" font-family="sans-serif" font-size="12" font-weight="bold" fill="#f8fafc">💡 ประโยชน์ของตาราง Cross-Table:</text>
+        <text x="12" y="46" font-family="sans-serif" font-size="11" fill="#cbd5e1">• ตัวเลขในแนวทแยง (สีเขียวเข้ม) คือจำนวนที่ทายถูกต้อง</text>
+        <text x="12" y="66" font-family="sans-serif" font-size="11" fill="#cbd5e1">• ตัวเลขรอบข้างคือความสับสน (Confusion) ระหว่างคลาส</text>
+        <text x="12" y="86" font-family="sans-serif" font-size="11" fill="#cbd5e1">• ช่วยให้ผู้เรียนทราบทันทีว่า AI มักสับสนคู่ใดเป็นพิเศษ</text>
+        <text x="12" y="110" font-family="sans-serif" font-size="11" font-weight="bold" fill="#38bdf8">✓ เรนเดอร์เป็นภาพ Heatmap ชัดเจนใน Colab</text>
+      </g>
+    </g>
+  </g>
+
+  <!-- Col 2.2: Classification Report -->
+  <g id="colReport" transform="translate(450, 305)">
+    <rect width="350" height="505" rx="14" fill="url(#cardGrad)" stroke="#3b82f6" stroke-width="1.5" filter="url(#shadow)"/>
+    <rect width="350" height="42" rx="14" fill="#1e293b"/>
+    <rect y="28" width="350" height="14" fill="#1e293b"/>
+    <text x="20" y="27" font-family="sans-serif" font-size="13" font-weight="bold" fill="#60a5fa">
+      2️⃣ รายงาน Precision, Recall &amp; F1-Score
+    </text>
+
+    <!-- Content -->
+    <g transform="translate(15, 55)">
+      <text x="0" y="16" font-family="sans-serif" font-size="11" fill="#94a3b8">
+        รายงานสถิติแยกตามคลาส (Pandas DataFrame)
+      </text>
+
+      <!-- Table Box -->
+      <g transform="translate(0, 32)">
+        <rect width="320" height="230" rx="8" fill="#0f172a" stroke="#334155"/>
+        <rect width="320" height="26" rx="8" fill="#1e293b"/>
+        <text x="15" y="18" font-family="sans-serif" font-size="10" font-weight="bold" fill="#94a3b8">คลาสปัญหา</text>
+        <text x="120" y="18" font-family="sans-serif" font-size="10" font-weight="bold" fill="#94a3b8">Precision</text>
+        <text x="195" y="18" font-family="sans-serif" font-size="10" font-weight="bold" fill="#94a3b8">Recall</text>
+        <text x="260" y="18" font-family="sans-serif" font-size="10" font-weight="bold" fill="#94a3b8">F1-Score</text>
+
+        <!-- Rows -->
+        <g transform="translate(15, 45)">
+          <text x="0" y="0" font-family="sans-serif" font-size="11" fill="#f8fafc">ดินดำ / สมบูรณ์</text>
+          <text x="105" y="0" font-family="monospace" font-size="11" fill="#34d399">96.0%</text>
+          <text x="180" y="0" font-family="monospace" font-size="11" fill="#34d399">96.0%</text>
+          <text x="245" y="0" font-family="monospace" font-size="11" font-weight="bold" fill="#38bdf8">96.0%</text>
+
+          <text x="0" y="30" font-family="sans-serif" font-size="11" fill="#f8fafc">ดินลูกรัง / กรด</text>
+          <text x="105" y="30" font-family="monospace" font-size="11" fill="#34d399">95.8%</text>
+          <text x="180" y="30" font-family="monospace" font-size="11" fill="#34d399">92.0%</text>
+          <text x="245" y="30" font-family="monospace" font-size="11" font-weight="bold" fill="#38bdf8">93.9%</text>
+
+          <text x="0" y="60" font-family="sans-serif" font-size="11" fill="#f8fafc">ดินเหนียว / ขี้เถ้า</text>
+          <text x="105" y="60" font-family="monospace" font-size="11" fill="#34d399">92.6%</text>
+          <text x="180" y="60" font-family="monospace" font-size="11" fill="#34d399">100.0%</text>
+          <text x="245" y="60" font-family="monospace" font-size="11" font-weight="bold" fill="#38bdf8">96.2%</text>
+
+          <line x1="-5" y1="80" x2="295" y2="80" stroke="#334155"/>
+          
+          <text x="0" y="100" font-family="sans-serif" font-size="11" font-weight="bold" fill="#fbbf24">เฉลี่ย (Macro Avg)</text>
+          <text x="105" y="100" font-family="monospace" font-size="11" font-weight="bold" fill="#fbbf24">94.8%</text>
+          <text x="180" y="100" font-family="monospace" font-size="11" font-weight="bold" fill="#fbbf24">96.0%</text>
+          <text x="245" y="100" font-family="monospace" font-size="11" font-weight="bold" fill="#fbbf24">95.4%</text>
+        </g>
+      </g>
+
+      <!-- Explanation Box -->
+      <g transform="translate(0, 275)">
+        <rect width="320" height="155" rx="8" fill="#1e293b" stroke="#334155"/>
+        <text x="12" y="24" font-family="sans-serif" font-size="12" font-weight="bold" fill="#f8fafc">📖 ความหมายตัวชี้วัด:</text>
+        <text x="12" y="46" font-family="sans-serif" font-size="11" fill="#cbd5e1">• <strong>Precision:</strong> ทายว่าเป็นโรคนั้น แล้วถูกจริงกี่ %</text>
+        <text x="12" y="66" font-family="sans-serif" font-size="11" fill="#cbd5e1">• <strong>Recall:</strong> ตรวจจับคนที่เป็นโรคได้ครบถ้วนกี่ %</text>
+        <text x="12" y="86" font-family="sans-serif" font-size="11" fill="#cbd5e1">• <strong>F1-Score:</strong> ดัชนีวัดความสมดุลสูงสุด</text>
+        <text x="12" y="110" font-family="sans-serif" font-size="11" font-weight="bold" fill="#34d399">✓ นำไปใช้อ้างอิงในงานวิจัยได้ทันที</text>
+      </g>
+    </g>
+  </g>
+
+  <!-- Col 2.3: Model Specs & Performance Curves -->
+  <g id="colSpecs" transform="translate(820, 305)">
+    <rect width="330" height="505" rx="14" fill="url(#cardGrad)" stroke="#a855f7" stroke-width="1.5" filter="url(#shadow)"/>
+    <rect width="330" height="42" rx="14" fill="#1e293b"/>
+    <rect y="28" width="330" height="14" fill="#1e293b"/>
+    <text x="20" y="27" font-family="sans-serif" font-size="13" font-weight="bold" fill="#d8b4fe">
+      3️⃣ รายละเอียดสเปกโมเดล AI (Specs Card)
+    </text>
+
+    <!-- Content -->
+    <g transform="translate(15, 55)">
+      <text x="0" y="16" font-family="sans-serif" font-size="11" fill="#94a3b8">
+        ข้อมูลสถาปัตยกรรมและฮาร์ดแวร์วัดจริง
+      </text>
+
+      <!-- Hardware Specs Box -->
+      <g transform="translate(0, 32)">
+        <rect width="300" height="230" rx="8" fill="#0f172a" stroke="#334155"/>
+        <g transform="translate(15, 25)">
+          <text x="0" y="12" font-family="sans-serif" font-size="11" fill="#94a3b8">สถาปัตยกรรมโมเดล:</text>
+          <text x="0" y="28" font-family="sans-serif" font-size="12" font-weight="bold" fill="#f8fafc">MobileNetV3 Small (Transfer)</text>
+
+          <text x="0" y="55" font-family="sans-serif" font-size="11" fill="#94a3b8">จำนวนพารามิเตอร์ (Params):</text>
+          <text x="0" y="71" font-family="monospace" font-size="12" font-weight="bold" fill="#38bdf8">1,523,490 Parameters</text>
+
+          <text x="0" y="98" font-family="sans-serif" font-size="11" fill="#94a3b8">ความเร็วพยากรณ์ผล (Latency):</text>
+          <text x="0" y="114" font-family="monospace" font-size="12" font-weight="bold" fill="#34d399">7.84 ms / ภาพ (บน GPU T4)</text>
+
+          <text x="0" y="141" font-family="sans-serif" font-size="11" fill="#94a3b8">ขนาดไฟล์โมเดล (File Size):</text>
+          <text x="0" y="157" font-family="monospace" font-size="12" font-weight="bold" fill="#fbbf24">~9.32 MB (เปิดในเว็บได้ทันที)</text>
+
+          <text x="0" y="184" font-family="sans-serif" font-size="11" fill="#94a3b8">มิติข้อมูลนำเข้า (Input Shape):</text>
+          <text x="0" y="200" font-family="monospace" font-size="12" fill="#cbd5e1">(1, 3, 224, 224) RGB</text>
+        </g>
+      </g>
+
+      <!-- Graph Curves Box -->
+      <g transform="translate(0, 275)">
+        <rect width="300" height="155" rx="8" fill="#1e293b" stroke="#334155"/>
+        <text x="12" y="24" font-family="sans-serif" font-size="12" font-weight="bold" fill="#f8fafc">📈 กราฟการเรียนรู้ (Dual Curves):</text>
+        <text x="12" y="46" font-family="sans-serif" font-size="11" fill="#cbd5e1">• <strong>Loss Curve:</strong> แสดง Train vs Val Loss</text>
+        <text x="12" y="66" font-family="sans-serif" font-size="11" fill="#cbd5e1">   ตรวจจับ Overfitting แบบเรียลไทม์</text>
+        <text x="12" y="88" font-family="sans-serif" font-size="11" fill="#cbd5e1">• <strong>Accuracy Curve:</strong> ความแม่นยำทุก Epoch</text>
+        <text x="12" y="110" font-family="sans-serif" font-size="11" font-weight="bold" fill="#a78bfa">✓ ผู้เรียนเซฟภาพไปใส่สไลด์ได้ทันที</text>
+      </g>
+    </g>
+  </g>
+</svg>

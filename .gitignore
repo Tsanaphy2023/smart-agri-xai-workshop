@@ -1,0 +1,35 @@
+# Python Virtual Environments
+.venv/
+venv/
+ENV/
+env/
+
+# Byte-compiled / optimized files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Environment Variables & Secrets (CRITICAL: Do NOT commit API keys)
+.env
+.env.local
+
+# macOS System Files
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# IDE Configurations
+.vscode/
+.idea/
+.agents/
+.claude/
+
+# Temporary and Large Download Files
+datasets/downloads/
+*.tar.gz
+*.zip
+
+# PyTorch large checkpoints (>100MB)
+*.pth
+*.pt
+!models/*.onnx

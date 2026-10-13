@@ -39,4 +39,6 @@ datasets/downloads/
 *.log
 *.out
 *.toc
+*.lof
+*.lot
 *.synctex.gz

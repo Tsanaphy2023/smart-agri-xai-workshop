@@ -86,6 +86,25 @@ def build_agri_classifier(num_classes=5):
     นำโมเดลเข้าสู่กระบวนการบีบอัดและควอนไทเซชัน (Weight Quantization) เพื่อแปลงเป็น TensorFlow Lite (\texttt{smart\_agri\_model.tflite}) ช่วยลดขนาดไฟล์จากเดิมกว่า 20 MB เหลือเพียง 4--6 MB จากนั้นนำไปบรรจุลงในโฟลเดอร์ \texttt{assets/models/} ของแอปพลิเคชัน Flutter เพื่อให้ชิปเร่งความเร็ว NPU/CPU ภายในสมาร์ทโฟนประมวลผลการวินิจฉัยโรคพืชและวิเคราะห์ภาพดินได้แบบออฟไลน์ 100\% ไร้สัญญาณอินเทอร์เน็ต
 \end{enumerate}
 
+\academicsection{การประยุกต์ใช้งานบนสมาร์ทโฟน iPhone (iOS) และ Android}
+\label{sec:iphone_android_deploy}
+
+แอปพลิเคชันสมาร์ทโฟนของระบบได้รับการพัฒนาขึ้นด้วย \textbf{Flutter Framework (Google)} ซึ่งมีสถาปัตยกรรม Cross-Platform รองรับทั้งระบบปฏิบัติการ iOS (iPhone และ iPad) และ Android จากฐานรหัสต้นฉบับเดียวกัน 100\% โดยสามารถเลือกแนวทางการส่งมอบได้ 2 รูปแบบหลัก:
+
+\begin{enumerate}
+    \item \textbf{การใช้งานแบบ Progressive Web App (PWA) บน Safari (iPhone):}
+    ผู้ใช้งานสามารถเปิดเบราว์เซอร์ Safari บน iPhone ไปยัง URL ของ Web Dashboard จากนั้นแตะปุ่มแชร์และเลือก \textit{"เพิ่มไปยังหน้าจอโฮม" (Add to Home Screen)} ระบบจะติดตั้งไอคอนแอปบนหน้าจอโฮมและเปิดทำงานแบบ Standalone ไร้แถบที่อยู่เว็บ สามารถเรียกใช้งานกล้อง iPhone ผ่าน HTML5 Media Capture ได้ทันทีโดยไม่ต้องผ่านกระบวนการลงทะเบียนนักพัฒนา
+    
+    \item \textbf{การติดตั้งเป็น Native App ด้วยชิป Apple Neural Engine (ANE):}
+    บนสมาร์ทโฟน iPhone ที่ใช้ชิปประมวลผล Apple Silicon (ตั้งแต่ A12 Bionic จนถึง A18 Pro) ระบบ \texttt{tflite\_flutter} สามารถเรียกใช้ Metal Performance Shaders (MPS) และ Neural Engine เพื่อประมวลผลโมเดล Quantized TFLite ได้ด้วยความหน่วงต่ำเพียง 10--18 มิลลิวินาที โดยแอปพลิเคชันได้รับการกำหนดสิทธิ์การเข้าถึงฮาร์ดแวร์ในไฟล์ \texttt{Info.plist} ไว้อย่างสมบูรณ์:
+    \begin{itemize}
+        \item \texttt{NSCameraUsageDescription:} สำหรับเปิดกล้องส่องวิเคราะห์โรคพืชและหน้าดิน
+        \item \texttt{NSBluetoothAlwaysUsageDescription:} สำหรับการเชื่อมต่อโพรบวัดดิน RS485 ผ่านสัญญาณ Bluetooth Low Energy (CoreBluetooth)
+        \item \texttt{NSPhotoLibraryUsageDescription:} สำหรับการเลือกภาพจากคลังภาพ
+    \end{itemize}
+    สำหรับการแจกจ่ายให้ผู้เข้าอบรม 50 คนในห้องเรียน สามารถส่งผ่านระบบ \textbf{Apple TestFlight} ด้วย Public Link เพื่อให้ผู้เรียนทุกคนกดติดตั้งแอปพลิเคชันลงบนเครื่อง iPhone ส่วนตัวได้ทันที
+\end{enumerate}
+
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=0.62\textwidth]{figures/colab_to_app_infographic.jpg}

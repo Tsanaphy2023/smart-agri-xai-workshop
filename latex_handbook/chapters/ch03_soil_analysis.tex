@@ -21,6 +21,43 @@
 
 ภาพถ่ายดินเหล่านี้ถูกปรับขนาดมาตรฐานเป็น $224 \times 224$ พิกเซล และผ่านกระบวนการปรับปรุงข้อมูลภาพ (Data Augmentation) เพื่อจำลองสภาพแสงในแปลงเพาะปลูกจริง
 
+\academicsection{สถาปัตยกรรม Two-Stage Computer Vision และการเตรียมข้อมูลภาพถ่าย}
+\label{sec:two_stage_cv_preprocessing}
+
+ในการประยุกต์ใช้คอมพิวเตอร์วิทัศน์กับงานเกษตรกรรมภาคสนาม ปัญหาใหญ่ที่สุดประการหนึ่งของการป้อนภาพถ่ายทั้งภาพ (Whole-frame Analysis) คือปรากฏการณ์ \textbf{Clever Hans Effect} ซึ่งโมเดลไม่ได้เรียนรู้ลักษณะจำเพาะของเนื้อดินจริง แต่กลับไปจดจำองค์ประกอบของฉากหลังที่ไม่เกี่ยวข้อง เช่น พื้นหญ้ารก แสงแดดสะท้อน เงาของกิ่งไม้ หรือแม้กระทั่งรองเท้าแตะและมือของเกษตรกร นอกจากนี้ การย่อภาพถ่ายมือถือที่มีความละเอียดสูงลงเหลือ $224 \times 224$ พิกเซลโดยตรง จะทำให้พื้นที่เป้าหมาย (ดินหรือรอยโรค) ถูกบีบอัดจนสูญเสียรายละเอียดเชิงพื้นผิว (Texture \& Granular pores) ไปอย่างมีนัยสำคัญ
+
+เพื่อแก้ปัญหาดังกล่าว ระบบจึงใช้สถาปัตยกรรม \textbf{Two-Stage Precision Agri Vision Pipeline} ดังแสดงในภาพที่ \ref{fig:two_stage_vision_pipeline} โดยมีขั้นตอนการประมวลผลตามลำดับดังนี้:
+
+\begin{enumerate}
+    \item \textbf{Stage 1: Intelligent ROI Localization (การตรวจจับและตัดกรอบเป้าหมาย):}
+    ประยุกต์ใช้อัลกอริทึมการตรวจจับวัตถุ (Object Detection เช่น YOLO-Nano หรือ Color Saliency ผสาน Sobel Gradient Energy และ Adaptive Otsu Thresholding) เพื่อตีกรอบ Bounding Box ล้อมรอบเฉพาะเนื้อดินเป้าหมาย จากนั้นทำการครอบตัด (Crop) พื้นที่เป้าหมายออกมา ส่งผลให้โมเดลได้รับข้อมูลที่มีความหนาแน่นเชิงสารสนเทศ 100\% และตัดสัญญาณรบกวนของฉากหลังออกอย่างเด็ดขาด
+    
+    \item \textbf{Data Quality Gate (การคัดกรองคุณภาพภาพถ่ายอัตโนมัติ):}
+    ก่อนส่งภาพเข้าสู่โครงข่ายประสาทเทียม ภาพ Crop จะต้องผ่านการประเมินคุณภาพ 3 ด่านสำคัญ:
+    \begin{itemize}
+        \item \textit{การตรวจวัดความคมชัด (Blur Detection):} คำนวณค่าความแปรปรวนของตัวดำเนินการลาปลาเซียน (Laplacian Variance, $\sigma^2_\text{Lap}$) หากต่ำกว่า 80.0 จะปฏิเสธภาพเนื่องจากเกิดการสั่นไหวของกล้อง
+        \item \textit{การกรองแสงสะท้อนจ้า (Specular Glare Rejection):} ตรวจนับพิกเซลที่ขาวโพลน ($RGB \ge 248$) หากเกิน 4\% จะแจ้งเตือนให้เกษตรกรปรับมุมกล้องเฉียง 30 องศาเพื่อหลบแสงแดดตรง
+        \item \textit{การตรวจสอบเงามืด (Underexposure Check):} ตรวจสอบพื้นที่ที่มีความสว่างต่ำ ($L^* \le 28$) ป้องกันการอ่านค่าผิดพลาด
+    \end{itemize}
+
+    \item \textbf{Illumination \& Color Normalization (การปรับสมดุลแสงและสีเชิงฟิสิกส์):}
+    แสงแดดกลางแจ้งมีอุณหภูมิสี ($Kelvin$) แปรปรวนอย่างมากตลอดทั้งวัน ระบบจึงชดเชยด้วย:
+    \begin{itemize}
+        \item \textit{Gray-World White Balance:} ปรับสมดุลค่าเฉลี่ยสีให้อยู่ในแกนสีเทากลาง
+        \item \textit{CIE $L^*a^*b^*$ CLAHE:} แปลงปริภูมิสีสู่ CIE $L^*a^*b^*$ ซึ่งแยกช่องความสว่าง ($L^*$: Luminance) ออกจากช่องเนื้อสีแท้ ($a^*, b^*$: Chrominance) จากนั้นใช้เทคนิค CLAHE (Contrast Limited Adaptive Histogram Equalization, \texttt{clipLimit=2.5}) เกลี่ยแสงเงาเฉพาะช่อง $L^*$ ส่งผลให้เงาแดดที่ตกกระทบดินจางหายไป ในขณะที่เม็ดสีดั้งเดิมของดินยังคงสภาพเดิม 100\%
+    \end{itemize}
+
+    \item \textbf{Physicochemical Color Indices Extraction (การสกัดดัชนีสีฟิสิกส์เกษตร):}
+    คำนวณดัชนีความชื้นคาดคะเน (Moisture Proxy Index: $\text{MI} = \frac{R-B}{R+B}$), ดัชนีสีแดง (Redness Index: $\text{RI} = \frac{R^2}{B \cdot G^3}$), และสัดส่วนอินทรียวัตถุคาดคะเนจากค่าการดูดกลืนแสงบนช่อง $L^*$
+\end{enumerate}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.98\textwidth]{figures/two_stage_vision_pipeline.png}
+\caption{สถาปัตยกรรม Two-Stage Precision Agri Vision Pipeline และการส่งมอบโมเดลสู่หลากหลายแพลตฟอร์ม (iPhone, Android และ Web Dashboard)}
+\label{fig:two_stage_vision_pipeline}
+\end{figure}
+
 \academicsection{การวิเคราะห์ธาตุอาหารด้วยสเปกโทรสโกปีคลื่นแสงสะท้อน (OSSL)}
 \label{sec:soil_spectroscopy}
 

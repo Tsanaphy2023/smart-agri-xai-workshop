@@ -2,8 +2,8 @@
 <html lang="th">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>แผนผังสถาปัตยกรรม Smart Soil & Plant AI System — ผศ.ดร.ชีวะ ทัศนา</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Smart Soil & Plant AI System — ผศ.ดร.ชีวะ ทัศนา</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&family=Sarabun:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
@@ -12,42 +12,421 @@
             --bg: #090d16;
             --surface: #111827;
             --surface-hover: #1f2937;
-            --border: rgba(255, 255, 255, 0.1);
+            --surface-card: #141e33;
+            --border: rgba(255, 255, 255, 0.08);
+            --border-hover: rgba(16, 185, 129, 0.4);
             --primary: #10b981;
-            --primary-glow: rgba(16, 185, 129, 0.25);
+            --primary-glow: rgba(16, 185, 129, 0.28);
             --secondary: #06b6d4;
             --accent: #f59e0b;
             --purple: #8b5cf6;
-            --text-main: #f9fafb;
-            --text-muted: #9ca3af;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --nav-height: 68px;
+            --bottom-nav-height: 64px;
         }
 
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        html {
+            scroll-behavior: smooth;
         }
 
         body {
-            font-family: 'Prompt', 'Sarabun', sans-serif;
+            font-family: 'Prompt', 'Sarabun', -apple-system, BlinkMacSystemFont, sans-serif;
             background-color: var(--bg);
             color: var(--text-main);
             line-height: 1.6;
-            padding: 30px 20px;
+            padding-top: var(--nav-height);
+            padding-bottom: 40px;
+            overflow-x: hidden;
         }
 
+        /* -------------------------------------------------------------
+           Sticky Responsive Navbar
+        ------------------------------------------------------------- */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: var(--nav-height);
+            background: rgba(9, 13, 22, 0.88);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .navbar.scrolled {
+            background: rgba(9, 13, 22, 0.96);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.45);
+            border-bottom-color: rgba(16, 185, 129, 0.25);
+        }
+
+        .nav-container {
+            max-width: 1320px;
+            height: 100%;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            color: var(--text-main);
+        }
+
+        .brand-logo-badge {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.2), rgba(6, 182, 212, 0.2));
+            border: 1px solid var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            box-shadow: 0 0 12px var(--primary-glow);
+        }
+
+        .brand-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .brand-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #ffffff, #a7f3d0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1.2;
+        }
+
+        .brand-sub {
+            font-size: 0.72rem;
+            color: var(--primary);
+            font-weight: 500;
+            letter-spacing: 0.2px;
+        }
+
+        /* Desktop Nav Links */
+        .nav-links {
+            display: flex;
+            align-items: center;
+            list-style: none;
+            gap: 6px;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: var(--text-muted);
+            font-size: 0.88rem;
+            font-weight: 500;
+            padding: 7px 12px;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            color: #ffffff;
+            background: rgba(255, 255, 255, 0.06);
+        }
+
+        .nav-link.active {
+            color: var(--primary);
+            background: rgba(16, 185, 129, 0.12);
+            font-weight: 600;
+        }
+
+        /* Nav Actions (CTA Buttons) */
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-colab {
+            text-decoration: none;
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: #ffffff;
+            font-size: 0.82rem;
+            font-weight: 600;
+            padding: 7px 14px;
+            border-radius: 8px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            box-shadow: 0 2px 8px rgba(16, 185, 129, 0.35);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .btn-colab:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 14px rgba(16, 185, 129, 0.5);
+        }
+
+        .btn-github {
+            text-decoration: none;
+            background: #1e293b;
+            color: #f8fafc;
+            font-size: 0.82rem;
+            font-weight: 600;
+            padding: 7px 12px;
+            border-radius: 8px;
+            border: 1px solid #334155;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.2s;
+        }
+
+        .btn-github:hover {
+            background: #334155;
+            color: #ffffff;
+        }
+
+        /* Hamburger Button (Mobile) */
+        .hamburger {
+            display: none;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            width: 42px;
+            height: 42px;
+            border-radius: 8px;
+            padding: 8px;
+            position: relative;
+            flex-direction: column;
+            justify-content: space-around;
+            align-items: center;
+            transition: background 0.2s;
+        }
+
+        .hamburger:hover, .hamburger:focus {
+            background: rgba(255, 255, 255, 0.08);
+            outline: none;
+        }
+
+        .hamburger span {
+            display: block;
+            width: 24px;
+            height: 2.5px;
+            background: #f8fafc;
+            border-radius: 2px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* Hamburger Active (X Animation) */
+        .hamburger.active span:nth-child(1) {
+            transform: translateY(7px) rotate(45deg);
+            background: var(--primary);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+            transform: scale(0.2);
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: translateY(-7px) rotate(-45deg);
+            background: var(--primary);
+        }
+
+        /* -------------------------------------------------------------
+           Mobile Dropdown / Drawer Menu
+        ------------------------------------------------------------- */
+        .mobile-menu {
+            position: fixed;
+            top: var(--nav-height);
+            left: 0;
+            right: 0;
+            background: rgba(15, 23, 42, 0.98);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border-bottom: 1px solid rgba(16, 185, 129, 0.3);
+            max-height: 0;
+            overflow: hidden;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 999;
+            box-shadow: 0 16px 30px rgba(0, 0, 0, 0.6);
+        }
+
+        .mobile-menu.active {
+            max-height: 520px;
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .mobile-menu-inner {
+            padding: 16px 20px 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .mobile-link {
+            text-decoration: none;
+            color: #cbd5e1;
+            font-size: 0.96rem;
+            font-weight: 500;
+            padding: 11px 16px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            min-height: 44px;
+            transition: all 0.2s;
+        }
+
+        .mobile-link span {
+            font-size: 1.15rem;
+        }
+
+        .mobile-link:hover, .mobile-link:active {
+            background: rgba(16, 185, 129, 0.14);
+            color: #ffffff;
+            transform: translateX(4px);
+        }
+
+        .mobile-actions {
+            margin-top: 12px;
+            padding-top: 14px;
+            border-top: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .btn-colab-mobile {
+            text-decoration: none;
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: #ffffff;
+            font-weight: 600;
+            padding: 12px;
+            border-radius: 10px;
+            text-align: center;
+            min-height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+        }
+
+        .btn-github-mobile {
+            text-decoration: none;
+            background: #1e293b;
+            color: #ffffff;
+            font-weight: 600;
+            padding: 12px;
+            border-radius: 10px;
+            text-align: center;
+            min-height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            border: 1px solid #334155;
+        }
+
+        /* -------------------------------------------------------------
+           Mobile Bottom App Navigation Bar (สมาร์ทโฟนเข้าถึงง่ายด้วยนิ้วโป้ง)
+        ------------------------------------------------------------- */
+        .mobile-bottom-bar {
+            display: none;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: var(--bottom-nav-height);
+            background: rgba(15, 23, 42, 0.94);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            z-index: 998;
+            padding-bottom: max(6px, env(safe-area-inset-bottom));
+            justify-content: space-around;
+            align-items: center;
+            box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.4);
+        }
+
+        .bottom-item {
+            text-decoration: none;
+            color: var(--text-muted);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            flex: 1;
+            height: 100%;
+            padding: 4px 0;
+            transition: all 0.2s;
+            position: relative;
+        }
+
+        .bottom-item .bottom-icon {
+            font-size: 1.25rem;
+            margin-bottom: 2px;
+            transition: transform 0.2s;
+        }
+
+        .bottom-item .bottom-label {
+            font-size: 0.68rem;
+            font-weight: 500;
+            letter-spacing: 0.1px;
+        }
+
+        .bottom-item:active .bottom-icon, .bottom-item.active .bottom-icon {
+            transform: scale(1.15);
+        }
+
+        .bottom-item.active {
+            color: var(--primary);
+        }
+
+        .bottom-item.active::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            width: 32px;
+            height: 2.5px;
+            background: var(--primary);
+            border-radius: 0 0 4px 4px;
+            box-shadow: 0 2px 6px var(--primary);
+        }
+
+        /* -------------------------------------------------------------
+           Main Content & Container
+        ------------------------------------------------------------- */
         .container {
             max-width: 1300px;
             margin: 0 auto;
+            padding: 24px 20px;
         }
 
-        /* Header */
+        /* Hero Header */
         .hero {
             text-align: center;
-            padding: 30px 20px;
-            background: radial-gradient(circle at top, rgba(16, 185, 129, 0.15) 0%, transparent 70%);
+            padding: 40px 20px 30px;
+            background: radial-gradient(circle at top, rgba(16, 185, 129, 0.18) 0%, transparent 70%);
             border-bottom: 1px solid var(--border);
             margin-bottom: 40px;
+            scroll-margin-top: calc(var(--nav-height) + 20px);
         }
 
         .badge-rbru {
@@ -55,27 +434,30 @@
             background: rgba(16, 185, 129, 0.12);
             color: var(--primary);
             border: 1px solid var(--primary);
-            padding: 6px 16px;
+            padding: 6px 18px;
             border-radius: 30px;
-            font-size: 0.9rem;
+            font-size: 0.88rem;
             font-weight: 600;
-            margin-bottom: 15px;
+            margin-bottom: 16px;
+            box-shadow: 0 0 16px rgba(16, 185, 129, 0.15);
         }
 
         h1 {
-            font-size: 2.6rem;
+            font-size: clamp(1.6rem, 4.2vw, 2.7rem);
             font-weight: 700;
             background: linear-gradient(135deg, #ffffff 0%, #a7f3d0 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
+            line-height: 1.25;
         }
 
         .subtitle {
-            font-size: 1.15rem;
+            font-size: clamp(0.92rem, 2vw, 1.15rem);
             color: var(--text-muted);
-            max-width: 800px;
+            max-width: 840px;
             margin: 0 auto;
+            line-height: 1.65;
         }
 
         /* 3D Poster Section */
@@ -92,30 +474,35 @@
         .poster-card img {
             width: 100%;
             height: auto;
-            border-radius: 12px;
+            border-radius: 14px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+            display: block;
         }
 
         .poster-caption {
             margin-top: 15px;
             font-size: 0.95rem;
             color: var(--text-muted);
+            line-height: 1.5;
         }
 
-        /* Architecture Flow */
+        /* Section Title */
         .section-title {
-            font-size: 1.8rem;
+            font-size: clamp(1.18rem, 3vw, 1.8rem);
             font-weight: 600;
             color: var(--primary);
-            margin-bottom: 25px;
+            margin-bottom: 24px;
             display: flex;
             align-items: center;
             gap: 12px;
+            scroll-margin-top: calc(var(--nav-height) + 20px);
+            line-height: 1.35;
         }
 
+        /* 4-Layers Grid */
         .grid-4 {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
             gap: 20px;
             margin-bottom: 50px;
         }
@@ -196,14 +583,25 @@
         .tag-amber { background: rgba(245, 158, 11, 0.15); color: #fbbf24; }
         .tag-purple { background: rgba(139, 92, 246, 0.15); color: #a78bfa; }
 
-        /* SVG Architecture Flowchart */
+        /* Flowchart Container */
         .flowchart-container {
             background: var(--surface);
             border: 1px solid var(--border);
             border-radius: 20px;
-            padding: 30px;
+            padding: 24px;
             margin-bottom: 50px;
             overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            text-align: center;
+        }
+
+        .flowchart-container img {
+            width: 100%;
+            max-width: 1150px;
+            height: auto;
+            border-radius: 12px;
+            display: inline-block;
         }
 
         svg {
@@ -213,21 +611,216 @@
             height: auto;
         }
 
+        /* Back to top floating button */
+        .back-to-top {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            width: 46px;
+            height: 46px;
+            border-radius: 50%;
+            background: rgba(16, 185, 129, 0.9);
+            color: #ffffff;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            cursor: pointer;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px);
+            transition: all 0.3s;
+            z-index: 990;
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .back-to-top:hover {
+            background: #059669;
+            transform: translateY(-2px);
+        }
+
         /* Footer */
         footer {
             text-align: center;
-            padding: 30px;
+            padding: 30px 20px;
             border-top: 1px solid var(--border);
             color: var(--text-muted);
             font-size: 0.9rem;
+            margin-top: 30px;
+        }
+
+        /* -------------------------------------------------------------
+           Responsive Media Queries (Mobile & Tablet)
+        ------------------------------------------------------------- */
+        @media (max-width: 1024px) {
+            .nav-links {
+                gap: 2px;
+            }
+            .nav-link {
+                padding: 6px 9px;
+                font-size: 0.82rem;
+            }
+        }
+
+        @media (max-width: 900px) {
+            .nav-links, .nav-actions {
+                display: none;
+            }
+            .hamburger {
+                display: flex;
+            }
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding-bottom: calc(var(--bottom-nav-height) + 20px);
+            }
+            .mobile-bottom-bar {
+                display: flex;
+            }
+            .back-to-top {
+                bottom: calc(var(--bottom-nav-height) + 16px);
+                right: 16px;
+                width: 42px;
+                height: 42px;
+                font-size: 1.1rem;
+            }
+            .container {
+                padding: 16px 12px;
+            }
+            .flowchart-container {
+                padding: 14px;
+                border-radius: 14px;
+            }
+            .poster-card {
+                padding: 14px;
+                border-radius: 14px;
+            }
+            .card {
+                padding: 18px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .brand-sub {
+                display: none;
+            }
+            .brand-title {
+                font-size: 1.0rem;
+            }
+            .badge-rbru {
+                font-size: 0.78rem;
+                padding: 5px 12px;
+            }
         }
     </style>
 </head>
 <body>
 
+<!-- -------------------------------------------------------------
+     Sticky Responsive Glassmorphism Navigation Bar
+-------------------------------------------------------------- -->
+<nav class="navbar" id="navbar">
+    <div class="nav-container">
+        <a href="#hero" class="nav-brand">
+            <div class="brand-logo-badge">🌱</div>
+            <div class="brand-text">
+                <span class="brand-title">Smart Agri AI</span>
+                <span class="brand-sub">ผศ.ดร.ชีวะ ทัศนา | มรภ.รำไพพรรณี</span>
+            </div>
+        </a>
+
+        <!-- Desktop Navigation Links -->
+        <ul class="nav-links">
+            <li><a href="#architecture" class="nav-link">สถาปัตยกรรม</a></li>
+            <li><a href="#cloud50" class="nav-link">ห้องอบรม 50 คน</a></li>
+            <li><a href="#datasets" class="nav-link">ชุดข้อมูล</a></li>
+            <li><a href="#custom-data" class="nav-link">ข้อมูลตนเอง</a></li>
+            <li><a href="#eval-metrics" class="nav-link">ผลประเมิน</a></li>
+            <li><a href="#colab-guide" class="nav-link">คู่มือ Colab</a></li>
+            <li><a href="#deployment" class="nav-link">ติดตั้งคลาวด์</a></li>
+        </ul>
+
+        <!-- Desktop Action Buttons -->
+        <div class="nav-actions">
+            <a href="https://colab.research.google.com/github/Tsanaphy2023/smart-agri-xai-workshop/blob/main/Smart_Agri_AI_LowCode_Workshop.ipynb" target="_blank" class="btn-colab">
+                ⚡ รัน Colab
+            </a>
+            <a href="https://github.com/Tsanaphy2023/smart-agri-xai-workshop" target="_blank" class="btn-github">
+                🐙 GitHub
+            </a>
+        </div>
+
+        <!-- Mobile Hamburger Toggle Button -->
+        <button class="hamburger" id="hamburgerBtn" aria-label="เปิดเมนูนำทาง" aria-expanded="false">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </div>
+
+    <!-- Mobile Navigation Drawer / Dropdown Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="mobile-menu-inner">
+            <a href="#hero" class="mobile-link"><span>🏠</span> หน้าแรกภาพรวมระบบ</a>
+            <a href="#architecture" class="mobile-link"><span>🏗️</span> สถาปัตยกรรม 4 ลำดับชั้น</a>
+            <a href="#cloud50" class="mobile-link"><span>👥</span> ห้องอบรม 50+ คน (Cloud VM)</a>
+            <a href="#datasets" class="mobile-link"><span>📋</span> บัญชีรายการชุดข้อมูลอัจฉริยะ</a>
+            <a href="#custom-data" class="mobile-link"><span>🎯</span> ผู้เรียนที่มีชุดข้อมูลตนเอง (ZIP)</a>
+            <a href="#eval-metrics" class="mobile-link"><span>📊</span> ระบบรายงานผล & Confusion Matrix</a>
+            <a href="#colab-guide" class="mobile-link"><span>📖</span> คู่มือภาพ Colab 4 ขั้นตอน</a>
+            <a href="#deployment" class="mobile-link"><span>☁️</span> ติดตั้งบน Streamlit Cloud</a>
+            <div class="mobile-actions">
+                <a href="https://colab.research.google.com/github/Tsanaphy2023/smart-agri-xai-workshop/blob/main/Smart_Agri_AI_LowCode_Workshop.ipynb" target="_blank" class="btn-colab-mobile">
+                    ⚡ เปิด Google Colab (Free T4 GPU)
+                </a>
+                <a href="https://github.com/Tsanaphy2023/smart-agri-xai-workshop" target="_blank" class="btn-github-mobile">
+                    🐙 ดูซอร์สโค้ดบน GitHub
+                </a>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<!-- -------------------------------------------------------------
+     Mobile Bottom App Navigation Bar (สำหรับสมาร์ทโฟน)
+-------------------------------------------------------------- -->
+<nav class="mobile-bottom-bar" id="bottomBar">
+    <a href="#hero" class="bottom-item active">
+        <span class="bottom-icon">🏠</span>
+        <span class="bottom-label">หน้าแรก</span>
+    </a>
+    <a href="#cloud50" class="bottom-item">
+        <span class="bottom-icon">👥</span>
+        <span class="bottom-label">50 คน</span>
+    </a>
+    <a href="#datasets" class="bottom-item">
+        <span class="bottom-icon">📋</span>
+        <span class="bottom-label">ข้อมูล</span>
+    </a>
+    <a href="#colab-guide" class="bottom-item">
+        <span class="bottom-icon">📖</span>
+        <span class="bottom-label">Colab</span>
+    </a>
+    <a href="#deployment" class="bottom-item">
+        <span class="bottom-icon">☁️</span>
+        <span class="bottom-label">คลาวด์</span>
+    </a>
+</nav>
+
+<!-- -------------------------------------------------------------
+     Main Container & Showcase Sections
+-------------------------------------------------------------- -->
 <div class="container">
     <!-- Hero Header -->
-    <header class="hero">
+    <header class="hero" id="hero">
         <div class="badge-rbru">🌱 สาขาวิชาปัญญาประดิษฐ์เพื่อเกษตรดิจิทัลและสิ่งแวดล้อม คณะวิทยาศาสตร์และเทคโนโลยี มรภ.รำไพพรรณี</div>
         <h1>สถาปัตยกรรมระบบ Smart Soil & Plant AI</h1>
         <p class="subtitle">ระบบวิเคราะห์สุขภาพดินและโรคพืชอัจฉริยะแบบครบวงจร: จากการเก็บข้อมูลภาคสนาม สู่วงจรการฝึกสอนโมเดล การส่งออกสู่มาตรฐานเปิด (ONNX) และการประยุกต์ใช้งาน 4 ช่องทาง</p>
@@ -242,7 +835,7 @@
     </section>
 
     <!-- 4 Layers Grid -->
-    <h2 class="section-title">📊 4 ลำดับชั้นกระบวนการทำงานเชิงระบบ (System Pipeline)</h2>
+    <h2 class="section-title" id="architecture">📊 4 ลำดับชั้นกระบวนการทำงานเชิงระบบ (System Pipeline)</h2>
     <div class="grid-4">
         <!-- 1. Data Ingestion -->
         <div class="card">
@@ -411,7 +1004,7 @@
     </div>
 
     <!-- 50-Participant Cloud Architecture Section -->
-    <h2 class="section-title">👥 สถาปัตยกรรมฝึกสอน AI พร้อมกัน 50+ คน (Isolated Cloud Architecture)</h2>
+    <h2 class="section-title" id="cloud50">👥 สถาปัตยกรรมฝึกสอน AI พร้อมกัน 50+ คน (Isolated Cloud Architecture)</h2>
     <section class="poster-card" style="margin-bottom: 25px;">
         <img src="workshop_50p_cloud_diagram.jpg" alt="50-Participant Workshop Cloud Architecture">
         <div class="poster-caption">
@@ -424,7 +1017,7 @@
     </div>
 
     <!-- Datasets & Code Pipeline Verification Section -->
-    <h2 class="section-title">✅ ตรวจสอบความพร้อม Datasets, GitHub และ Colab Code (100% Verification Matrix)</h2>
+    <h2 class="section-title" id="verification">✅ ตรวจสอบความพร้อม Datasets, GitHub และ Colab Code (100% Verification Matrix)</h2>
     <div class="flowchart-container" style="margin-bottom: 25px; text-align:center;">
         <img src="dataset_verification_matrix.svg" alt="Datasets Verification Matrix" style="width:100%; max-width:1150px; border-radius:12px;">
     </div>
@@ -436,37 +1029,141 @@
     </div>
 
     <!-- Comprehensive Dataset Inventory Section -->
-    <h2 class="section-title">📋 บัญชีรายการชุดข้อมูลอัจฉริยะ (Comprehensive Smart Agri Dataset Inventory)</h2>
+    <h2 class="section-title" id="datasets">📋 บัญชีรายการชุดข้อมูลอัจฉริยะ (Comprehensive Smart Agri Dataset Inventory)</h2>
     <div class="flowchart-container" style="margin-bottom: 25px; text-align:center;">
         <img src="dataset_comprehensive_inventory_diagram.svg" alt="Comprehensive Dataset Inventory" style="width:100%; max-width:1150px; border-radius:12px;">
     </div>
 
     <!-- Zero-Code Custom Dataset Workflow for Workshop Participants -->
-    <h2 class="section-title">🎯 แนวทางปฏิบัติสำหรับผู้เข้าอบรมที่มี Datasets ของตนเอง (Zero-Code Custom Dataset Workflow)</h2>
+    <h2 class="section-title" id="custom-data">🎯 แนวทางปฏิบัติสำหรับผู้เข้าอบรมที่มี Datasets ของตนเอง (Zero-Code Custom Dataset Workflow)</h2>
     <div class="flowchart-container" style="margin-bottom: 25px; text-align:center;">
         <img src="custom_dataset_zero_code_workflow.svg" alt="Zero-Code Custom Dataset Workflow" style="width:100%; max-width:1150px; border-radius:12px;">
     </div>
 
     <!-- Colab Live & Post-Training Evaluation Suite Section -->
-    <h2 class="section-title">📊 ระบบรายงานและประเมินผลโมเดล AI ใน Google Colab (Live &amp; Post-Training Diagnostics)</h2>
+    <h2 class="section-title" id="eval-metrics">📊 ระบบรายงานและประเมินผลโมเดล AI ใน Google Colab (Live &amp; Post-Training Diagnostics)</h2>
     <div class="flowchart-container" style="margin-bottom: 40px; text-align:center;">
         <img src="model_evaluation_metrics_diagram.svg" alt="Model Evaluation Metrics and Confusion Matrix" style="width:100%; max-width:1150px; border-radius:12px;">
+    </div>
+
     <!-- Colab User Guide Infographic Section -->
-    <h2 class="section-title">📖 คู่มือภาพการใช้งาน Colab Code สำหรับผู้เข้าอบรม (4-Step Visual Colab Guide)</h2>
+    <h2 class="section-title" id="colab-guide">📖 คู่มือภาพการใช้งาน Colab Code สำหรับผู้เข้าอบรม (4-Step Visual Colab Guide)</h2>
     <div class="flowchart-container" style="margin-bottom: 40px; text-align:center;">
         <img src="colab_user_guide_infographic.svg" alt="Colab User Guide Infographic" style="width:100%; max-width:1150px; border-radius:12px;">
     </div>
 
     <!-- Streamlit Community Cloud Deployment Section -->
-    <h2 class="section-title">☁️ สถาปัตยกรรมการติดตั้งเว็บหลักบน Cloud Server ฟรี (Streamlit Community Cloud)</h2>
+    <h2 class="section-title" id="deployment">☁️ สถาปัตยกรรมการติดตั้งเว็บหลักบน Cloud Server ฟรี (Streamlit Community Cloud)</h2>
     <div class="flowchart-container" style="margin-bottom: 40px; text-align:center;">
         <img src="streamlit_cloud_deployment_diagram.svg" alt="Streamlit Cloud Deployment Architecture" style="width:100%; max-width:1150px; border-radius:12px;">
     </div>
 </div>
 
+<!-- Floating Back to Top Button -->
+<button class="back-to-top" id="backToTopBtn" aria-label="กลับสู่ด้านบน">
+    ↑
+</button>
+
+<!-- Footer -->
 <footer>
     <p>พัฒนาเพื่อการศึกษาและวิจัย โดย <strong>ผศ.ดร.ชีวะ ทัศนา</strong> | สาขาวิชาปัญญาประดิษฐ์เพื่อเกษตรดิจิทัลและสิ่งแวดล้อม คณะวิทยาศาสตร์และเทคโนโลยี มหาวิทยาลัยราชภัฏรำไพพรรณี</p>
 </footer>
+
+<!-- -------------------------------------------------------------
+     Mobile Interactive Script
+-------------------------------------------------------------- -->
+<script>
+    // 1. Hamburger Menu Toggle
+    const hamburgerBtn = document.getElementById('hamburgerBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const mobileLinks = document.querySelectorAll('.mobile-link');
+
+    function toggleMenu() {
+        const isOpen = hamburgerBtn.classList.toggle('active');
+        mobileMenu.classList.toggle('active');
+        hamburgerBtn.setAttribute('aria-expanded', isOpen);
+    }
+
+    hamburgerBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        toggleMenu();
+    });
+
+    // Close menu when clicking any mobile link
+    mobileLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            if (mobileMenu.classList.contains('active')) {
+                toggleMenu();
+            }
+        });
+    });
+
+    // Close menu when clicking outside
+    document.addEventListener('click', (e) => {
+        if (mobileMenu.classList.contains('active') && !navbar.contains(e.target)) {
+            toggleMenu();
+        }
+    });
+
+    // 2. Navbar shadow on scroll
+    const navbar = document.getElementById('navbar');
+    const backToTopBtn = document.getElementById('backToTopBtn');
+
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 30) {
+            navbar.classList.add('scrolled');
+        } else {
+            navbar.classList.remove('scrolled');
+        }
+
+        // Back to top button visibility
+        if (window.scrollY > 400) {
+            backToTopBtn.classList.add('visible');
+        } else {
+            backToTopBtn.classList.remove('visible');
+        }
+    }, { passive: true });
+
+    // Smooth scroll back to top
+    backToTopBtn.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    // 3. Active link indicator sync with scroll position
+    const sections = document.querySelectorAll('header[id], h2[id]');
+    const navLinks = document.querySelectorAll('.nav-link');
+    const bottomItems = document.querySelectorAll('.bottom-item');
+
+    window.addEventListener('scroll', () => {
+        let currentSectionId = '';
+        const scrollPosition = window.scrollY + 120;
+
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop;
+            const sectionHeight = section.offsetHeight;
+            if (scrollPosition >= sectionTop) {
+                currentSectionId = section.getAttribute('id');
+            }
+        });
+
+        // Update Desktop Navbar Active State
+        navLinks.forEach(link => {
+            link.classList.remove('active');
+            if (link.getAttribute('href') === `#${currentSectionId}`) {
+                link.classList.add('active');
+            }
+        });
+
+        // Update Mobile Bottom Bar Active State
+        bottomItems.forEach(item => {
+            item.classList.remove('active');
+            const href = item.getAttribute('href');
+            if (href === `#${currentSectionId}`) {
+                item.classList.add('active');
+            }
+        });
+    }, { passive: true });
+</script>
 
 </body>
 </html>

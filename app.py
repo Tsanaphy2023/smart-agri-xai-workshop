@@ -19,19 +19,29 @@ st.set_page_config(
     layout="wide"
 )
 
-# Custom Styling
+# Custom Responsive Styling
 st.markdown("""
 <style>
+    @import url('https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&family=Sarabun:wght@400;500;600&display=swap');
+    
+    html, body, [class*="css"] {
+        font-family: 'Prompt', 'Sarabun', sans-serif;
+    }
+    
     .main-header {
-        font-size: 2.1rem;
+        font-size: clamp(1.4rem, 3.5vw, 2.2rem);
         font-weight: 700;
-        color: #10b981;
+        background: linear-gradient(135deg, #10b981 0%, #06b6d4 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
         margin-bottom: 0.2rem;
+        line-height: 1.25;
     }
     .sub-header {
-        font-size: 1.0rem;
+        font-size: clamp(0.85rem, 1.8vw, 1.0rem);
         color: #64748b;
         margin-bottom: 1.2rem;
+        line-height: 1.5;
     }
     .badge-cloud {
         background-color: #e0f2fe;
@@ -59,14 +69,73 @@ st.markdown("""
     }
     .crop-card {
         background: #f8fafc;
-        border-radius: 10px;
+        border-radius: 12px;
         padding: 16px;
         border-left: 5px solid #10b981;
         margin-bottom: 12px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.04);
     }
     .preset-btn {
         margin-right: 5px;
         margin-bottom: 5px;
+    }
+    
+    /* -------------------------------------------------------------
+       Streamlit Responsive Touch Tabs Styling
+    ------------------------------------------------------------- */
+    .stTabs [data-baseweb="tab-list"] {
+        gap: 8px;
+        overflow-x: auto;
+        flex-wrap: nowrap;
+        -webkit-overflow-scrolling: touch;
+        padding-bottom: 8px;
+        border-bottom: 2px solid #e2e8f0;
+    }
+    .stTabs [data-baseweb="tab"] {
+        height: 46px;
+        white-space: nowrap;
+        border-radius: 10px;
+        padding: 8px 18px;
+        font-size: 0.95rem;
+        font-weight: 600;
+        background: #f8fafc;
+        color: #475569;
+        border: 1px solid #e2e8f0;
+        transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .stTabs [data-baseweb="tab"]:hover {
+        background: #e2e8f0;
+        color: #0f172a;
+    }
+    .stTabs [aria-selected="true"] {
+        background: linear-gradient(135deg, #10b981 0%, #059669 100%) !important;
+        color: #ffffff !important;
+        border-color: #10b981 !important;
+        box-shadow: 0 4px 12px rgba(16, 185, 129, 0.35) !important;
+    }
+    
+    /* -------------------------------------------------------------
+       Mobile Responsive Adaptations (< 768px)
+    ------------------------------------------------------------- */
+    @media (max-width: 768px) {
+        .stTabs [data-baseweb="tab"] {
+            font-size: 0.85rem !important;
+            padding: 6px 12px !important;
+            height: 42px !important;
+        }
+        .stButton > button {
+            min-height: 46px !important;
+            font-size: 0.95rem !important;
+            width: 100% !important;
+        }
+        .crop-card {
+            padding: 12px !important;
+        }
+        div[data-testid="column"] {
+            width: 100% !important;
+            flex: 1 1 100% !important;
+            min-width: 100% !important;
+        }
     }
 </style>
 """, unsafe_allow_html=True)

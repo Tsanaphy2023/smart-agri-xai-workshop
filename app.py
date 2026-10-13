@@ -1690,10 +1690,16 @@ with tab5:
 
     st.markdown("---")
 
-    # Section 1: End-to-End Architecture SVG
-    st.markdown("### 1. 🌐 แผนผังสถาปัตยกรรมระบบ Web Dashboard & Smartphone App")
-    deployment_arch_svg = os.path.join(os.path.dirname(__file__), "docs", "web_mobile_deployment_architecture.svg")
-    render_svg_card(deployment_arch_svg)
+    # Section 1: End-to-End Architecture SVG & Deployment Infographic
+    st.markdown("### 1. 🌐 แผนผังสถาปัตยกรรมระบบและขั้นตอนการส่งมอบโมเดลจาก Colab (Deployment Pipeline)")
+    info_col1, info_col2 = st.columns([1.1, 1], gap="medium")
+    with info_col1:
+        deployment_arch_svg = os.path.join(os.path.dirname(__file__), "docs", "web_mobile_deployment_architecture.svg")
+        render_svg_card(deployment_arch_svg)
+    with info_col2:
+        infographic_path = os.path.join(os.path.dirname(__file__), "docs", "colab_to_app_infographic.jpg")
+        if os.path.exists(infographic_path):
+            st.image(infographic_path, caption="📊 ผัง 4 ขั้นตอน: Colab Cloud Training ➔ Model Export (ONNX/TFLite) ➔ Web & Mobile Edge AI", use_container_width=True)
 
     st.markdown("---")
 

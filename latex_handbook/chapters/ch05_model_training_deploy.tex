@@ -73,15 +73,34 @@ def build_agri_classifier(num_classes=5):
 \end{verbatim}
 \end{tcolorbox}
 
-\academicsection{การส่งออกโมเดลเป็นมาตรฐาน ONNX และการประยุกต์ใช้งาน}
-\label{sec:onnx_export}
+\academicsection{การส่งออกโมเดลและการประยุกต์ใช้งานบนเว็บและสมาร์ทโฟน}
+\label{sec:model_export_deployment}
 
-เมื่อโมเดลได้รับการฝึกสอนจนลู่เข้าสู่จุดเหมาะสม (Convergence) แล้ว จะทำการส่งออกกราฟการคำนวณเข้าสู่มาตรฐาน Open Neural Network Exchange (ONNX) เพื่อให้สามารถทำงานข้ามแพลตฟอร์มได้อย่างไร้รอยต่อ:
+เมื่อแบบจำลองได้รับการฝึกสอนในสภาพแวดล้อม Google Colab จนลู่เข้าสู่จุดเหมาะสม (Convergence) และมีค่าความแม่นยำสูงกว่า 92\% แล้ว ขั้นตอนสำคัญลำดับถัดไปคือการแปลงโมเดลให้อยู่ในฟอร์แมตที่เหมาะสมต่อการใช้งานจริงในแปลงเกษตร ดังแสดงในภาพที่ \ref{fig:colab_to_app_pipeline} ซึ่งจำแนกออกเป็น 2 เส้นทางหลัก:
 
 \begin{enumerate}
-    \item \textbf{การแปลงกราฟ (Graph Tracing):} ส่งตัวแปร Dummy Tensor ขนาด $(1, 3, 224, 224)$ ผ่านโมเดลเพื่อบันทึกโครงสร้างทางคณิตศาสตร์
-    \item \textbf{การกำหนด Dynamic Axes:} กำหนดให้แกนขนาดแบทช์ (Batch Size) เป็นไดนามิก เพื่อรองรับการพยากรณ์ภาพเดี่ยวหรือเป็นกลุ่ม
-    \item \textbf{การตรวจสอบความถูกต้อง (ONNX Runtime Verification):} ตรวจสอบค่าพยากรณ์ระหว่าง PyTorch ดั้งเดิมกับ ONNX Runtime เพื่อให้แน่ใจว่าความคลาดเคลื่อนทางตัวเลขมีค่าน้อยกว่า $10^{-5}$
+    \item \textbf{เส้นทาง Web Application Dashboard (ONNX Format):}
+    แปลงโมเดล PyTorch เข้าสู่มาตรฐาน Open Neural Network Exchange (\texttt{smart\_agri\_model.onnx}) ผ่านคำสั่ง \texttt{torch.onnx.export} โดยกำหนดให้แกนขนาดแบทช์ (Batch Size) เป็นไดนามิก เพื่อให้เซิร์ฟเวอร์ Streamlit และ FastAPI สามารถโหลดโมเดลผ่าน In-Process ONNX Runtime ได้โดยตรงโดยไม่ต้องติดตั้ง PyTorch หรือไดรเวอร์ GPU ขนาดใหญ่ มีความหน่วงในการประมวลผลต่ำกว่า 15 มิลลิวินาที
+    
+    \item \textbf{เส้นทาง Smartphone Mobile App (Quantized TFLite):}
+    นำโมเดลเข้าสู่กระบวนการบีบอัดและควอนไทเซชัน (Weight Quantization) เพื่อแปลงเป็น TensorFlow Lite (\texttt{smart\_agri\_model.tflite}) ช่วยลดขนาดไฟล์จากเดิมกว่า 20 MB เหลือเพียง 4--6 MB จากนั้นนำไปบรรจุลงในโฟลเดอร์ \texttt{assets/models/} ของแอปพลิเคชัน Flutter เพื่อให้ชิปเร่งความเร็ว NPU/CPU ภายในสมาร์ทโฟนประมวลผลการวินิจฉัยโรคพืชและวิเคราะห์ภาพดินได้แบบออฟไลน์ 100\% ไร้สัญญาณอินเทอร์เน็ต
 \end{enumerate}
 
-โมเดล ONNX ที่ผ่านการส่งออกสามารถนำไปผนวกรวมเข้ากับแดชบอร์ด Streamlit หรือแอปพลิเคชันพกพาได้อย่างสะดวก ทำให้เกษตรกรและนักวิจัยภาคสนามสามารถใช้งานระบบได้อย่างสะดวกรวดเร็ว
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.62\textwidth]{figures/colab_to_app_infographic.jpg}
+\caption{ผังขั้นตอนการส่งมอบโมเดลจาก Google Colab สู่ Web Dashboard และ Smartphone Mobile Edge AI}
+\label{fig:colab_to_app_pipeline}
+\end{figure}
+
+\section*{คำถามทบทวนท้ายบทที่ 5}
+\addcontentsline{toc}{section}{คำถามทบทวนท้ายบทที่ 5}
+
+\begin{enumerate}
+    \item จงอธิบายเหตุผลที่ต้องส่งออกโมเดล PyTorch เป็นฟอร์แมต ONNX แทนที่จะโหลดไฟล์น้ำหนัก \texttt{.pth} โดยตรงบนเว็บเซิร์ฟเวอร์
+    \item การทำ Model Quantization สำหรับสมาร์ทโฟนมีข้อดีอย่างไร และส่งผลกระทบต่อความเร็วและความแม่นยำของโมเดลหรือไม่
+    \item จงเปรียบเทียบสถาปัตยกรรม MobileNetV3 กับ ResNet-50 ในแง่ของจำนวนพารามิเตอร์และประสิทธิภาพบนอุปกรณ์ขอบ (Edge Devices)
+    \item จงอธิบายขั้นตอนการนำไฟล์ \texttt{.tflite} ไปใช้งานในแอปพลิเคชัน Flutter ร่วมกับแพ็กเกจ \texttt{tflite\_flutter} แบบออฟไลน์
+\end{enumerate}
+
+\clearpage

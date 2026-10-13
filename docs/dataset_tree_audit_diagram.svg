@@ -1,0 +1,181 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 780" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0a101d"/>
+      <stop offset="50%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#064e3b"/>
+    </linearGradient>
+    <linearGradient id="cardGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1e293b" stop-opacity="0.95"/>
+      <stop offset="100%" stop-color="#0f172a" stop-opacity="0.98"/>
+    </linearGradient>
+    <linearGradient id="greenBadge" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#10b981"/>
+      <stop offset="100%" stop-color="#059669"/>
+    </linearGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="8" stdDeviation="6" flood-color="#000" flood-opacity="0.4"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="780" fill="url(#bgGrad)"/>
+  
+  <!-- Subtle Grid lines -->
+  <g stroke="#334155" stroke-width="0.5" opacity="0.2">
+    <path d="M 0,130 L 1200,130 M 0,260 L 1200,260 M 0,390 L 1200,390 M 0,520 L 1200,520 M 0,650 L 1200,650"/>
+    <path d="M 240,0 L 240,780 M 480,0 L 480,780 M 720,0 L 720,780 M 960,0 L 960,780"/>
+  </g>
+
+  <!-- Header Banner -->
+  <g id="header" transform="translate(50, 25)">
+    <rect width="1100" height="90" rx="16" fill="url(#cardGrad)" stroke="#334155" stroke-width="1.5" filter="url(#shadow)"/>
+    <rect x="25" y="20" width="50" height="50" rx="12" fill="#10b981" fill-opacity="0.2"/>
+    <text x="50" y="52" font-family="sans-serif" font-size="24" fill="#34d399" text-anchor="middle" font-weight="bold">📁</text>
+    <text x="95" y="47" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="22" font-weight="bold" fill="#f8fafc">
+      การตรวจสอบโครงสร้าง Datasets ทั้งหมดตาม Folder Tree จริง (100% Verified)
+    </text>
+    <text x="95" y="73" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" fill="#94a3b8">
+      ยืนยันความถูกต้องตรงกันระหว่าง Local Folder ➔ GitHub Repository ➔ Google Colab Low-Code Notebook
+    </text>
+    <rect x="940" y="28" width="135" height="34" rx="8" fill="#10b981" fill-opacity="0.15" stroke="#10b981" stroke-width="1.5"/>
+    <text x="1007" y="50" font-family="sans-serif" font-size="12" font-weight="bold" fill="#34d399" text-anchor="middle">
+      2,583 FILES SYNCED
+    </text>
+  </g>
+
+  <!-- Left Main Column: Tree Structure Breakdown (Width 530) -->
+  <g id="treeColumn" transform="translate(50, 135)">
+    <rect width="530" height="610" rx="16" fill="url(#cardGrad)" stroke="#3b82f6" stroke-width="1.5" filter="url(#shadow)"/>
+    
+    <!-- Tree Header -->
+    <rect width="530" height="48" rx="16" fill="#1e293b"/>
+    <rect y="32" width="530" height="16" fill="#1e293b"/>
+    <text x="25" y="30" font-family="sans-serif" font-size="15" font-weight="bold" fill="#93c5fd">
+      🌳 โครงสร้างแฟ้มชุดข้อมูล (datasets/ Tree Breakdown)
+    </text>
+    <text x="505" y="30" font-family="sans-serif" font-size="12" fill="#60a5fa" text-anchor="end">สถานะบน Git</text>
+
+    <!-- Branch 1: PlantDiseases -->
+    <g transform="translate(20, 65)">
+      <rect width="490" height="100" rx="10" fill="#0f172a" stroke="#334155"/>
+      <text x="15" y="25" font-family="sans-serif" font-size="13" font-weight="bold" fill="#f8fafc">🍃 PlantDiseases/ (โรคพืช 5 ชนิด)</text>
+      <text x="475" y="25" font-family="sans-serif" font-size="11" fill="#34d399" text-anchor="end" font-weight="bold">1,347 ไฟล์ ✓</text>
+      <text x="15" y="47" font-family="sans-serif" font-size="11" fill="#94a3b8">├─ Durian_ทุเรียน: 380 ไฟล์ (แอนแทรคโนส, รากเน่าโคนเน่า, ใบจุดสนิม)</text>
+      <text x="15" y="65" font-family="sans-serif" font-size="11" fill="#94a3b8">├─ Maize_ข้าวโพด: 360 ไฟล์ | Tomato_มะเขือเทศ: 360 ไฟล์</text>
+      <text x="15" y="83" font-family="sans-serif" font-size="11" fill="#94a3b8">└─ Rice_ข้าว: 186 ไฟล์ | Cassava_มันสำปะหลัง: 61 ไฟล์</text>
+    </g>
+
+    <!-- Branch 2: PlantInsect -->
+    <g transform="translate(20, 180)">
+      <rect width="490" height="100" rx="10" fill="#0f172a" stroke="#334155"/>
+      <text x="15" y="25" font-family="sans-serif" font-size="13" font-weight="bold" fill="#f8fafc">🐛 PlantInsect/ (แมลงศัตรูพืช)</text>
+      <text x="475" y="25" font-family="sans-serif" font-size="11" fill="#34d399" text-anchor="end" font-weight="bold">761 ไฟล์ ✓</text>
+      <text x="15" y="47" font-family="sans-serif" font-size="11" fill="#94a3b8">├─ Durian_ทุเรียน: 220 ไฟล์ (เพลี้ยไก่แจ้, หนอนเจาะต้น, ไรแดง, ใบปกติ)</text>
+      <text x="15" y="65" font-family="sans-serif" font-size="11" fill="#94a3b8">├─ General_Crops_พืชทั่วไป: 300 ไฟล์ (หนอนกระทู้, เพลี้ยอ่อน, แมลงหวี่ขาว)</text>
+      <text x="15" y="83" font-family="sans-serif" font-size="11" font-weight="bold" fill="#38bdf8">└─ Rice_ข้าว: 241 ไฟล์ (เพลี้ยกระโดดสีน้ำตาล, หนอนกอ, หนอนห่อใบ)</text>
+    </g>
+
+    <!-- Branch 3: PlantNutrient -->
+    <g transform="translate(20, 295)">
+      <rect width="490" height="90" rx="10" fill="#0f172a" stroke="#334155"/>
+      <text x="15" y="25" font-family="sans-serif" font-size="13" font-weight="bold" fill="#f8fafc">🧪 PlantNutrient/ (การขาดธาตุอาหารหลัก N-P-K)</text>
+      <text x="475" y="25" font-family="sans-serif" font-size="11" fill="#34d399" text-anchor="end" font-weight="bold">305 ไฟล์ ✓</text>
+      <text x="15" y="47" font-family="sans-serif" font-size="11" fill="#94a3b8">├─ Maize_ข้าวโพด (60) | Durian_ทุเรียน (60) | Rice_ข้าว (61)</text>
+      <text x="15" y="68" font-family="sans-serif" font-size="11" fill="#94a3b8">└─ General_พืชทั่วไป: 124 ไฟล์ (แยกอาการขาด N, P, K และสมบูรณ์ชัดเจน)</text>
+    </g>
+
+    <!-- Branch 4: SoilType & SoilNutrient -->
+    <g transform="translate(20, 400)">
+      <rect width="490" height="90" rx="10" fill="#0f172a" stroke="#334155"/>
+      <text x="15" y="25" font-family="sans-serif" font-size="13" font-weight="bold" fill="#f8fafc">🌱 Soil/ (SoilType &amp; SoilNutrient)</text>
+      <text x="475" y="25" font-family="sans-serif" font-size="11" fill="#34d399" text-anchor="end" font-weight="bold">166 ไฟล์ ✓</text>
+      <text x="15" y="47" font-family="sans-serif" font-size="11" fill="#94a3b8">├─ SoilType/01_Real_Data: 156 ภาพจริง (5 ชนิดดิน: ดำ, ลูกรัง, เหนียว, พรุ, เหลือง)</text>
+      <text x="15" y="68" font-family="sans-serif" font-size="11" fill="#94a3b8">└─ SoilNutrient: thai_soil_crop_recommendation.csv + Crop_recommendation.csv</text>
+    </g>
+
+    <!-- Branch 5: Meta Documentation -->
+    <g transform="translate(20, 505)">
+      <rect width="490" height="85" rx="10" fill="#1e293b" stroke="#10b981"/>
+      <text x="15" y="25" font-family="sans-serif" font-size="12" font-weight="bold" fill="#34d399">📄 DATASET_CATALOG.md &amp; Documentation</text>
+      <text x="15" y="48" font-family="sans-serif" font-size="11" fill="#cbd5e1">• มีแคตตาล็อกอธิบายโครงสร้างและที่มาของข้อมูลครบถ้วน 19,748 bytes</text>
+      <text x="15" y="66" font-family="sans-serif" font-size="11" fill="#94a3b8">• โฟลเดอร์ downloads/ จัดการผ่าน .gitignore ไม่ให้กินแบนด์วิดท์คลาวด์</text>
+    </g>
+  </g>
+
+  <!-- Right Column: Colab Notebook Integration (Width 550) -->
+  <g id="colabColumn" transform="translate(600, 135)">
+    <rect width="550" height="610" rx="16" fill="url(#cardGrad)" stroke="#10b981" stroke-width="1.5" filter="url(#shadow)"/>
+    
+    <!-- Colab Header -->
+    <rect width="550" height="48" rx="16" fill="#1e293b"/>
+    <rect y="32" width="550" height="16" fill="#1e293b"/>
+    <text x="25" y="30" font-family="sans-serif" font-size="15" font-weight="bold" fill="#6ee7b7">
+      ⚡ Google Colab Pipeline: พร้อมฝึกสอน 5 โหมดภาคสนาม
+    </text>
+    <text x="525" y="30" font-family="sans-serif" font-size="12" fill="#34d399" text-anchor="end">MobileNetV3</text>
+
+    <!-- Option 1 -->
+    <g transform="translate(20, 65)">
+      <rect width="510" height="75" rx="10" fill="#0f172a" stroke="#334155"/>
+      <circle cx="28" cy="25" r="10" fill="#3b82f6"/>
+      <text x="28" y="29" font-family="sans-serif" font-size="11" fill="#fff" text-anchor="middle" font-weight="bold">1</text>
+      <text x="50" y="28" font-family="sans-serif" font-size="13" font-weight="bold" fill="#f8fafc">Soil_Types (จำแนกชนิดดิน 5 ชนิด)</text>
+      <text x="50" y="52" font-family="sans-serif" font-size="11" fill="#94a3b8">➔ ดึงจาก Soil/SoilType/01_Real_Data (ดินดำ, ดินลูกรัง, ดินเหนียว, ดินพรุ, ดินเหลือง)</text>
+    </g>
+
+    <!-- Option 2 -->
+    <g transform="translate(20, 150)">
+      <rect width="510" height="75" rx="10" fill="#0f172a" stroke="#334155"/>
+      <circle cx="28" cy="25" r="10" fill="#10b981"/>
+      <text x="28" y="29" font-family="sans-serif" font-size="11" fill="#fff" text-anchor="middle" font-weight="bold">2</text>
+      <text x="50" y="28" font-family="sans-serif" font-size="13" font-weight="bold" fill="#f8fafc">Durian_Diseases (โรคใบไหม้/ใบจุดทุเรียนจันทบุรี)</text>
+      <text x="50" y="52" font-family="sans-serif" font-size="11" fill="#94a3b8">➔ ดึงจาก PlantDiseases/Durian_ทุเรียน (แอนแทรคโนส, รากเน่าโคนเน่า, จุดสนิมสาหร่าย)</text>
+    </g>
+
+    <!-- Option 3 (New Insect!) -->
+    <g transform="translate(20, 235)">
+      <rect width="510" height="75" rx="10" fill="#0f172a" stroke="#f59e0b" stroke-width="1.5"/>
+      <circle cx="28" cy="25" r="10" fill="#f59e0b"/>
+      <text x="28" y="29" font-family="sans-serif" font-size="11" fill="#fff" text-anchor="middle" font-weight="bold">3</text>
+      <text x="50" y="28" font-family="sans-serif" font-size="13" font-weight="bold" fill="#fbbf24">Durian_Insects (แมลงศัตรูพืชทุเรียน)</text>
+      <rect x="425" y="16" width="70" height="20" rx="4" fill="#f59e0b" fill-opacity="0.2"/>
+      <text x="460" y="30" font-family="sans-serif" font-size="10" font-weight="bold" fill="#fbbf24" text-anchor="middle">NEW IN COLAB</text>
+      <text x="50" y="52" font-family="sans-serif" font-size="11" fill="#cbd5e1">➔ ดึงจาก PlantInsect/Durian_ทุเรียน (เพลี้ยไก่แจ้, หนอนเจาะต้น, ไรแดง, ใบสมบูรณ์)</text>
+    </g>
+
+    <!-- Option 4 -->
+    <g transform="translate(20, 320)">
+      <rect width="510" height="75" rx="10" fill="#0f172a" stroke="#334155"/>
+      <circle cx="28" cy="25" r="10" fill="#8b5cf6"/>
+      <text x="28" y="29" font-family="sans-serif" font-size="11" fill="#fff" text-anchor="middle" font-weight="bold">4</text>
+      <text x="50" y="28" font-family="sans-serif" font-size="13" font-weight="bold" fill="#f8fafc">Plant_Nutrient (การขาดธาตุอาหารหลัก N-P-K)</text>
+      <text x="50" y="52" font-family="sans-serif" font-size="11" fill="#94a3b8">➔ ดึงจาก PlantNutrient/Maize_ข้าวโพด (อาการขาดไนโตรเจน, ฟอสฟอรัส, โพแทสเซียม)</text>
+    </g>
+
+    <!-- Option 5 (New General Inset!) -->
+    <g transform="translate(20, 405)">
+      <rect width="510" height="75" rx="10" fill="#0f172a" stroke="#f59e0b" stroke-width="1.5"/>
+      <circle cx="28" cy="25" r="10" fill="#f59e0b"/>
+      <text x="28" y="29" font-family="sans-serif" font-size="11" fill="#fff" text-anchor="middle" font-weight="bold">5</text>
+      <text x="50" y="28" font-family="sans-serif" font-size="13" font-weight="bold" fill="#fbbf24">General_Crop_Insects (แมลงศัตรูพืชทั่วไป)</text>
+      <rect x="425" y="16" width="70" height="20" rx="4" fill="#f59e0b" fill-opacity="0.2"/>
+      <text x="460" y="30" font-family="sans-serif" font-size="10" font-weight="bold" fill="#fbbf24" text-anchor="middle">NEW IN COLAB</text>
+      <text x="50" y="52" font-family="sans-serif" font-size="11" fill="#cbd5e1">➔ ดึงจาก PlantInsect/General_Crops_พืชทั่วไป (เพลี้ยอ่อน, หนอนกระทู้, แมลงหวี่ขาว)</text>
+    </g>
+
+    <!-- Verification Badge Box -->
+    <g transform="translate(20, 495)">
+      <rect width="510" height="95" rx="10" fill="#052e16" stroke="#10b981" stroke-width="1.5"/>
+      <text x="255" y="30" font-family="sans-serif" font-size="13" font-weight="bold" fill="#34d399" text-anchor="middle">
+        ✓ 100% End-to-End Ready for Workshop Participants
+      </text>
+      <text x="255" y="52" font-family="sans-serif" font-size="11" fill="#a7f3d0" text-anchor="middle">
+        • ผู้เรียนเลือกหมวดที่สนใจ ➔ คลิก Play [ ▶ ] ➔ โคลน GitHub ➔ เทรนบน GPU ทันที
+      </text>
+      <text x="255" y="72" font-family="sans-serif" font-size="11" fill="#a7f3d0" text-anchor="middle">
+        • สกัดไฟล์ smart_agri_model.onnx นำไปทดสอบใน Web Portal ได้อย่างไร้รอยต่อ
+      </text>
+    </g>
+  </g>
+</svg>

@@ -6,23 +6,25 @@
     <title>Smart Soil & Plant AI System — ผศ.ดร.ชีวะ ทัศนา</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&family=Sarabun:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&family=Sarabun:wght@400;500;600&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg: #090d16;
-            --surface: #111827;
-            --surface-hover: #1f2937;
-            --surface-card: #141e33;
-            --border: rgba(255, 255, 255, 0.08);
-            --border-hover: rgba(16, 185, 129, 0.4);
+            --bg: #070b14;
+            --surface: #0f172a;
+            --surface-hover: #1e293b;
+            --surface-card: #111c35;
+            --border: rgba(255, 255, 255, 0.1);
             --primary: #10b981;
-            --primary-glow: rgba(16, 185, 129, 0.28);
+            --primary-glow: rgba(16, 185, 129, 0.4);
             --secondary: #06b6d4;
+            --secondary-glow: rgba(6, 182, 212, 0.4);
             --accent: #f59e0b;
-            --purple: #8b5cf6;
+            --accent-glow: rgba(245, 158, 11, 0.4);
+            --purple: #a855f7;
+            --purple-glow: rgba(168, 85, 247, 0.4);
             --text-main: #f8fafc;
             --text-muted: #94a3b8;
-            --nav-height: 68px;
+            --nav-height: 70px;
             --bottom-nav-height: 64px;
         }
 
@@ -43,12 +45,105 @@
             color: var(--text-main);
             line-height: 1.6;
             padding-top: var(--nav-height);
-            padding-bottom: 40px;
+            padding-bottom: 50px;
             overflow-x: hidden;
+            position: relative;
         }
 
         /* -------------------------------------------------------------
-           Sticky Responsive Navbar
+           Futuristic Background Canvas & Aurora Glow
+        ------------------------------------------------------------- */
+        #neuralCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.7;
+        }
+
+        .aurora-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .aurora-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(90px);
+            opacity: 0.35;
+            animation: floatAurora 18s ease-in-out infinite alternate;
+        }
+
+        .aurora-1 {
+            width: 500px;
+            height: 500px;
+            top: -100px;
+            left: -100px;
+            background: radial-gradient(circle, #10b981 0%, transparent 70%);
+        }
+
+        .aurora-2 {
+            width: 600px;
+            height: 600px;
+            top: 20%;
+            right: -150px;
+            background: radial-gradient(circle, #06b6d4 0%, transparent 70%);
+            animation-duration: 22s;
+            animation-delay: -5s;
+        }
+
+        .aurora-3 {
+            width: 550px;
+            height: 550px;
+            bottom: 10%;
+            left: 10%;
+            background: radial-gradient(circle, #8b5cf6 0%, transparent 70%);
+            animation-duration: 25s;
+            animation-delay: -10s;
+        }
+
+        .aurora-4 {
+            width: 450px;
+            height: 450px;
+            bottom: -100px;
+            right: 15%;
+            background: radial-gradient(circle, #f59e0b 0%, transparent 70%);
+            animation-duration: 20s;
+            animation-delay: -7s;
+        }
+
+        @keyframes floatAurora {
+            0% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(60px, 80px) scale(1.15); }
+            100% { transform: translate(-40px, -60px) scale(0.95); }
+        }
+
+        /* Cyberpunk Grid Background Overlay */
+        .cyber-grid {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+            background-size: 50px 50px;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* -------------------------------------------------------------
+           Sticky Glassmorphism Navbar with Neon Accents
         ------------------------------------------------------------- */
         .navbar {
             position: fixed;
@@ -56,28 +151,31 @@
             left: 0;
             right: 0;
             height: var(--nav-height);
-            background: rgba(9, 13, 22, 0.88);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border-bottom: 1px solid var(--border);
+            background: rgba(9, 13, 22, 0.85);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border-bottom: 1px solid rgba(16, 185, 129, 0.25);
             z-index: 1000;
-            transition: all 0.3s ease;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 25px rgba(0, 0, 0, 0.4);
         }
 
         .navbar.scrolled {
-            background: rgba(9, 13, 22, 0.96);
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.45);
-            border-bottom-color: rgba(16, 185, 129, 0.25);
+            background: rgba(7, 11, 20, 0.95);
+            border-bottom-color: rgba(6, 182, 212, 0.45);
+            box-shadow: 0 6px 30px rgba(0, 0, 0, 0.65), 0 0 15px rgba(16, 185, 129, 0.15);
         }
 
         .nav-container {
-            max-width: 1320px;
+            max-width: 1360px;
             height: 100%;
             margin: 0 auto;
             padding: 0 20px;
             display: flex;
             align-items: center;
             justify-content: space-between;
+            position: relative;
+            z-index: 2;
         }
 
         .nav-brand {
@@ -89,16 +187,35 @@
         }
 
         .brand-logo-badge {
-            width: 40px;
-            height: 40px;
-            border-radius: 10px;
-            background: linear-gradient(135deg, rgba(16, 185, 129, 0.2), rgba(6, 182, 212, 0.2));
-            border: 1px solid var(--primary);
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.25), rgba(6, 182, 212, 0.25));
+            border: 1.5px solid var(--primary);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.3rem;
-            box-shadow: 0 0 12px var(--primary-glow);
+            font-size: 1.4rem;
+            box-shadow: 0 0 16px var(--primary-glow);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .brand-logo-badge::after {
+            content: "";
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.25), transparent);
+            transform: rotate(45deg);
+            animation: sweep 4s infinite;
+        }
+
+        @keyframes sweep {
+            0% { transform: translateX(-100%) rotate(45deg); }
+            50%, 100% { transform: translateX(100%) rotate(45deg); }
         }
 
         .brand-text {
@@ -107,19 +224,22 @@
         }
 
         .brand-title {
-            font-size: 1.1rem;
+            font-size: 1.15rem;
             font-weight: 700;
-            background: linear-gradient(135deg, #ffffff, #a7f3d0);
+            background: linear-gradient(135deg, #ffffff 0%, #a7f3d0 50%, #38bdf8 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             line-height: 1.2;
+            letter-spacing: -0.2px;
         }
 
         .brand-sub {
-            font-size: 0.72rem;
+            font-size: 0.74rem;
             color: var(--primary);
             font-weight: 500;
-            letter-spacing: 0.2px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
         }
 
         /* Desktop Nav Links */
@@ -135,20 +255,24 @@
             color: var(--text-muted);
             font-size: 0.88rem;
             font-weight: 500;
-            padding: 7px 12px;
-            border-radius: 8px;
-            transition: all 0.2s ease;
+            padding: 8px 13px;
+            border-radius: 9px;
+            transition: all 0.25s ease;
+            position: relative;
         }
 
-        .nav-link:hover, .nav-link.active {
+        .nav-link:hover {
             color: #ffffff;
-            background: rgba(255, 255, 255, 0.06);
+            background: rgba(255, 255, 255, 0.08);
+            box-shadow: 0 0 12px rgba(255, 255, 255, 0.05);
         }
 
         .nav-link.active {
-            color: var(--primary);
-            background: rgba(16, 185, 129, 0.12);
+            color: #ffffff;
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.2), rgba(6, 182, 212, 0.2));
+            border: 1px solid rgba(16, 185, 129, 0.4);
             font-weight: 600;
+            box-shadow: 0 0 14px var(--primary-glow);
         }
 
         /* Nav Actions (CTA Buttons) */
@@ -162,31 +286,32 @@
             text-decoration: none;
             background: linear-gradient(135deg, #10b981 0%, #059669 100%);
             color: #ffffff;
-            font-size: 0.82rem;
+            font-size: 0.84rem;
             font-weight: 600;
-            padding: 7px 14px;
-            border-radius: 8px;
+            padding: 8px 16px;
+            border-radius: 9px;
             display: inline-flex;
             align-items: center;
             gap: 6px;
-            box-shadow: 0 2px 8px rgba(16, 185, 129, 0.35);
-            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 0 16px rgba(16, 185, 129, 0.45);
+            transition: all 0.25s;
+            border: 1px solid rgba(255, 255, 255, 0.15);
         }
 
         .btn-colab:hover {
             transform: translateY(-2px);
-            box-shadow: 0 4px 14px rgba(16, 185, 129, 0.5);
+            box-shadow: 0 0 24px rgba(16, 185, 129, 0.7);
         }
 
         .btn-github {
             text-decoration: none;
-            background: #1e293b;
+            background: rgba(30, 41, 59, 0.8);
             color: #f8fafc;
-            font-size: 0.82rem;
+            font-size: 0.84rem;
             font-weight: 600;
-            padding: 7px 12px;
-            border-radius: 8px;
-            border: 1px solid #334155;
+            padding: 8px 14px;
+            border-radius: 9px;
+            border: 1px solid rgba(255, 255, 255, 0.12);
             display: inline-flex;
             align-items: center;
             gap: 6px;
@@ -195,7 +320,9 @@
 
         .btn-github:hover {
             background: #334155;
+            border-color: var(--secondary);
             color: #ffffff;
+            box-shadow: 0 0 14px rgba(6, 182, 212, 0.35);
         }
 
         /* Hamburger Button (Mobile) */
@@ -204,32 +331,29 @@
             background: transparent;
             border: none;
             cursor: pointer;
-            width: 42px;
-            height: 42px;
-            border-radius: 8px;
+            width: 44px;
+            height: 44px;
+            border-radius: 9px;
             padding: 8px;
-            position: relative;
             flex-direction: column;
             justify-content: space-around;
             align-items: center;
-            transition: background 0.2s;
+            transition: all 0.2s;
         }
 
-        .hamburger:hover, .hamburger:focus {
+        .hamburger:hover {
             background: rgba(255, 255, 255, 0.08);
-            outline: none;
         }
 
         .hamburger span {
             display: block;
-            width: 24px;
+            width: 25px;
             height: 2.5px;
             background: #f8fafc;
             border-radius: 2px;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        /* Hamburger Active (X Animation) */
         .hamburger.active span:nth-child(1) {
             transform: translateY(7px) rotate(45deg);
             background: var(--primary);
@@ -246,7 +370,7 @@
         }
 
         /* -------------------------------------------------------------
-           Mobile Dropdown / Drawer Menu
+           Mobile Drawer Menu
         ------------------------------------------------------------- */
         .mobile-menu {
             position: fixed;
@@ -254,20 +378,20 @@
             left: 0;
             right: 0;
             background: rgba(15, 23, 42, 0.98);
-            backdrop-filter: blur(24px);
-            -webkit-backdrop-filter: blur(24px);
-            border-bottom: 1px solid rgba(16, 185, 129, 0.3);
+            backdrop-filter: blur(28px);
+            -webkit-backdrop-filter: blur(28px);
+            border-bottom: 2px solid var(--primary);
             max-height: 0;
             overflow: hidden;
             opacity: 0;
             pointer-events: none;
             transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
             z-index: 999;
-            box-shadow: 0 16px 30px rgba(0, 0, 0, 0.6);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.7);
         }
 
         .mobile-menu.active {
-            max-height: 520px;
+            max-height: 540px;
             opacity: 1;
             pointer-events: auto;
         }
@@ -289,16 +413,12 @@
             display: flex;
             align-items: center;
             gap: 12px;
-            min-height: 44px;
+            min-height: 46px;
             transition: all 0.2s;
         }
 
-        .mobile-link span {
-            font-size: 1.15rem;
-        }
-
         .mobile-link:hover, .mobile-link:active {
-            background: rgba(16, 185, 129, 0.14);
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.2), rgba(6, 182, 212, 0.2));
             color: #ffffff;
             transform: translateX(4px);
         }
@@ -325,7 +445,7 @@
             align-items: center;
             justify-content: center;
             gap: 8px;
-            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+            box-shadow: 0 4px 16px rgba(16, 185, 129, 0.45);
         }
 
         .btn-github-mobile {
@@ -345,7 +465,7 @@
         }
 
         /* -------------------------------------------------------------
-           Mobile Bottom App Navigation Bar (สมาร์ทโฟนเข้าถึงง่ายด้วยนิ้วโป้ง)
+           Mobile Bottom App Navigation Bar
         ------------------------------------------------------------- */
         .mobile-bottom-bar {
             display: none;
@@ -362,7 +482,7 @@
             padding-bottom: max(6px, env(safe-area-inset-bottom));
             justify-content: space-around;
             align-items: center;
-            box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.4);
+            box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.5);
         }
 
         .bottom-item {
@@ -380,7 +500,7 @@
         }
 
         .bottom-item .bottom-icon {
-            font-size: 1.25rem;
+            font-size: 1.3rem;
             margin-bottom: 2px;
             transition: transform 0.2s;
         }
@@ -388,15 +508,15 @@
         .bottom-item .bottom-label {
             font-size: 0.68rem;
             font-weight: 500;
-            letter-spacing: 0.1px;
-        }
-
-        .bottom-item:active .bottom-icon, .bottom-item.active .bottom-icon {
-            transform: scale(1.15);
         }
 
         .bottom-item.active {
             color: var(--primary);
+        }
+
+        .bottom-item.active .bottom-icon {
+            transform: scale(1.18);
+            filter: drop-shadow(0 0 8px var(--primary));
         }
 
         .bottom-item.active::after {
@@ -407,156 +527,298 @@
             height: 2.5px;
             background: var(--primary);
             border-radius: 0 0 4px 4px;
-            box-shadow: 0 2px 6px var(--primary);
+            box-shadow: 0 2px 8px var(--primary);
         }
 
         /* -------------------------------------------------------------
-           Main Content & Container
+           Container & Main Layout
         ------------------------------------------------------------- */
         .container {
-            max-width: 1300px;
+            max-width: 1320px;
             margin: 0 auto;
             padding: 24px 20px;
+            position: relative;
+            z-index: 2;
         }
 
-        /* Hero Header */
+        /* -------------------------------------------------------------
+           Futuristic Hero Section & Animated Shimmer Header
+        ------------------------------------------------------------- */
         .hero {
             text-align: center;
-            padding: 40px 20px 30px;
-            background: radial-gradient(circle at top, rgba(16, 185, 129, 0.18) 0%, transparent 70%);
-            border-bottom: 1px solid var(--border);
-            margin-bottom: 40px;
+            padding: 50px 20px 40px;
+            background: radial-gradient(circle at top, rgba(16, 185, 129, 0.22) 0%, rgba(6, 182, 212, 0.08) 50%, transparent 75%);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            margin-bottom: 35px;
+            position: relative;
             scroll-margin-top: calc(var(--nav-height) + 20px);
         }
 
         .badge-rbru {
-            display: inline-block;
-            background: rgba(16, 185, 129, 0.12);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.15), rgba(6, 182, 212, 0.15));
             color: var(--primary);
             border: 1px solid var(--primary);
-            padding: 6px 18px;
+            padding: 7px 20px;
             border-radius: 30px;
             font-size: 0.88rem;
             font-weight: 600;
-            margin-bottom: 16px;
-            box-shadow: 0 0 16px rgba(16, 185, 129, 0.15);
+            margin-bottom: 18px;
+            box-shadow: 0 0 20px rgba(16, 185, 129, 0.25);
+            letter-spacing: 0.2px;
+        }
+
+        .pulse-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #10b981;
+            box-shadow: 0 0 10px #10b981;
+            animation: beaconPulse 1.8s infinite;
+        }
+
+        @keyframes beaconPulse {
+            0% { transform: scale(0.9); opacity: 0.6; }
+            50% { transform: scale(1.3); opacity: 1; box-shadow: 0 0 15px #10b981; }
+            100% { transform: scale(0.9); opacity: 0.6; }
         }
 
         h1 {
-            font-size: clamp(1.6rem, 4.2vw, 2.7rem);
+            font-size: clamp(1.8rem, 4.6vw, 3.1rem);
             font-weight: 700;
-            background: linear-gradient(135deg, #ffffff 0%, #a7f3d0 100%);
+            background: linear-gradient(135deg, #ffffff 0%, #34d399 30%, #38bdf8 65%, #c084fc 100%);
+            background-size: 200% auto;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            margin-bottom: 12px;
+            margin-bottom: 14px;
             line-height: 1.25;
+            animation: textShimmer 8s linear infinite;
+        }
+
+        @keyframes textShimmer {
+            0% { background-position: 0% center; }
+            50% { background-position: 100% center; }
+            100% { background-position: 0% center; }
         }
 
         .subtitle {
-            font-size: clamp(0.92rem, 2vw, 1.15rem);
+            font-size: clamp(0.94rem, 2vw, 1.18rem);
             color: var(--text-muted);
-            max-width: 840px;
+            max-width: 880px;
             margin: 0 auto;
-            line-height: 1.65;
+            line-height: 1.7;
         }
 
-        /* 3D Poster Section */
+        /* -------------------------------------------------------------
+           Futuristic Live Telemetry HUD Bar
+        ------------------------------------------------------------- */
+        .telemetry-hud {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 30px;
+            padding: 14px 20px;
+            background: rgba(17, 24, 39, 0.7);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            border-radius: 14px;
+            backdrop-filter: blur(16px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4), inset 0 0 15px rgba(16, 185, 129, 0.06);
+        }
+
+        .hud-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 14px;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.82rem;
+            color: #cbd5e1;
+        }
+
+        .hud-item strong {
+            color: #ffffff;
+            font-weight: 700;
+        }
+
+        .hud-green strong { color: #34d399; }
+        .hud-blue strong { color: #38bdf8; }
+        .hud-amber strong { color: #fbbf24; }
+        .hud-purple strong { color: #c084fc; }
+
+        /* -------------------------------------------------------------
+           3D Poster Card with Holographic Border
+        ------------------------------------------------------------- */
         .poster-card {
             background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: 20px;
-            padding: 20px;
+            border: 1.5px solid rgba(16, 185, 129, 0.35);
+            border-radius: 22px;
+            padding: 22px;
             margin-bottom: 50px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), 0 0 25px rgba(16, 185, 129, 0.12);
             text-align: center;
+            position: relative;
+            overflow: hidden;
+            transition: border-color 0.3s;
+        }
+
+        .poster-card:hover {
+            border-color: rgba(6, 182, 212, 0.6);
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.7), 0 0 35px rgba(6, 182, 212, 0.2);
         }
 
         .poster-card img {
             width: 100%;
             height: auto;
             border-radius: 14px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
             display: block;
         }
 
         .poster-caption {
-            margin-top: 15px;
+            margin-top: 16px;
             font-size: 0.95rem;
-            color: var(--text-muted);
-            line-height: 1.5;
+            color: #cbd5e1;
+            line-height: 1.6;
         }
 
-        /* Section Title */
+        /* -------------------------------------------------------------
+           Section Titles with Glowing Icon Accents
+        ------------------------------------------------------------- */
         .section-title {
-            font-size: clamp(1.18rem, 3vw, 1.8rem);
+            font-size: clamp(1.2rem, 3vw, 1.85rem);
             font-weight: 600;
-            color: var(--primary);
+            color: #ffffff;
             margin-bottom: 24px;
             display: flex;
             align-items: center;
             gap: 12px;
             scroll-margin-top: calc(var(--nav-height) + 20px);
             line-height: 1.35;
+            position: relative;
         }
 
-        /* 4-Layers Grid */
+        .title-accent-bar {
+            display: inline-block;
+            width: 6px;
+            height: 26px;
+            background: linear-gradient(180deg, var(--primary), var(--secondary));
+            border-radius: 4px;
+            box-shadow: 0 0 10px var(--primary-glow);
+        }
+
+        /* -------------------------------------------------------------
+           Futuristic 4-Layers Grid Cards with Distinct Neon Identities
+        ------------------------------------------------------------- */
         .grid-4 {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+            gap: 22px;
             margin-bottom: 50px;
         }
 
         .card {
             background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 24px;
+            border-radius: 18px;
+            padding: 26px;
             position: relative;
-            transition: transform 0.2s, border-color 0.2s;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--border);
         }
 
         .card:hover {
-            transform: translateY(-4px);
-            border-color: var(--primary);
+            transform: translateY(-6px);
         }
+
+        /* Card 1: Emerald Bio-Glow */
+        .card-green {
+            border-color: rgba(16, 185, 129, 0.35);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4), inset 0 0 15px rgba(16, 185, 129, 0.05);
+        }
+        .card-green:hover {
+            border-color: #10b981;
+            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6), 0 0 25px rgba(16, 185, 129, 0.25);
+        }
+        .card-green .card-number { color: #10b981; border: 1px solid rgba(16, 185, 129, 0.4); box-shadow: 0 0 10px rgba(16, 185, 129, 0.2); }
+
+        /* Card 2: Electric Cyan Glow */
+        .card-cyan {
+            border-color: rgba(6, 182, 212, 0.35);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4), inset 0 0 15px rgba(6, 182, 212, 0.05);
+        }
+        .card-cyan:hover {
+            border-color: #06b6d4;
+            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6), 0 0 25px rgba(6, 182, 212, 0.25);
+        }
+        .card-cyan .card-number { color: #06b6d4; border: 1px solid rgba(6, 182, 212, 0.4); box-shadow: 0 0 10px rgba(6, 182, 212, 0.2); }
+
+        /* Card 3: Cyber Amber Glow */
+        .card-amber {
+            border-color: rgba(245, 158, 11, 0.35);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4), inset 0 0 15px rgba(245, 158, 11, 0.05);
+        }
+        .card-amber:hover {
+            border-color: #f59e0b;
+            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6), 0 0 25px rgba(245, 158, 11, 0.25);
+        }
+        .card-amber .card-number { color: #f59e0b; border: 1px solid rgba(245, 158, 11, 0.4); box-shadow: 0 0 10px rgba(245, 158, 11, 0.2); }
+
+        /* Card 4: Ultra Violet Glow */
+        .card-purple {
+            border-color: rgba(168, 85, 247, 0.35);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4), inset 0 0 15px rgba(168, 85, 247, 0.05);
+        }
+        .card-purple:hover {
+            border-color: #a855f7;
+            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6), 0 0 25px rgba(168, 85, 247, 0.25);
+        }
+        .card-purple .card-number { color: #a855f7; border: 1px solid rgba(168, 85, 247, 0.4); box-shadow: 0 0 10px rgba(168, 85, 247, 0.2); }
 
         .card-number {
             position: absolute;
             top: 20px;
             right: 20px;
-            width: 36px;
-            height: 36px;
+            width: 38px;
+            height: 38px;
             border-radius: 50%;
-            background: rgba(255, 255, 255, 0.05);
+            background: rgba(255, 255, 255, 0.04);
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: 700;
-            color: var(--primary);
             font-size: 0.95rem;
+            font-family: 'JetBrains Mono', monospace;
         }
 
         .card-icon {
-            font-size: 2.4rem;
-            margin-bottom: 15px;
+            font-size: 2.6rem;
+            margin-bottom: 16px;
+            display: inline-block;
+            filter: drop-shadow(0 4px 10px rgba(0,0,0,0.5));
         }
 
         .card h3 {
             font-size: 1.25rem;
             font-weight: 600;
             margin-bottom: 10px;
+            color: #ffffff;
         }
 
         .card ul {
             list-style: none;
             padding: 0;
-            margin-top: 12px;
+            margin-top: 14px;
         }
 
         .card ul li {
             font-size: 0.9rem;
-            color: var(--text-muted);
+            color: #cbd5e1;
             margin-bottom: 8px;
             display: flex;
             align-items: flex-start;
@@ -564,7 +826,7 @@
         }
 
         .card ul li::before {
-            content: "•";
+            content: "▸";
             color: var(--primary);
             font-weight: bold;
         }
@@ -572,28 +834,39 @@
         .tag {
             display: inline-block;
             font-size: 0.75rem;
-            padding: 3px 8px;
+            padding: 4px 10px;
             border-radius: 6px;
             font-weight: 600;
-            margin-top: 10px;
+            margin-top: 12px;
+            font-family: 'JetBrains Mono', monospace;
+            letter-spacing: 0.2px;
         }
 
-        .tag-green { background: rgba(16, 185, 129, 0.15); color: #34d399; }
-        .tag-blue { background: rgba(6, 182, 212, 0.15); color: #22d3ee; }
-        .tag-amber { background: rgba(245, 158, 11, 0.15); color: #fbbf24; }
-        .tag-purple { background: rgba(139, 92, 246, 0.15); color: #a78bfa; }
+        .tag-green { background: rgba(16, 185, 129, 0.18); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.4); }
+        .tag-blue { background: rgba(6, 182, 212, 0.18); color: #22d3ee; border: 1px solid rgba(6, 182, 212, 0.4); }
+        .tag-amber { background: rgba(245, 158, 11, 0.18); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.4); }
+        .tag-purple { background: rgba(168, 85, 247, 0.18); color: #c084fc; border: 1px solid rgba(168, 85, 247, 0.4); }
 
-        /* Flowchart Container */
+        /* -------------------------------------------------------------
+           Flowchart Containers with Neon Glassmorphism
+        ------------------------------------------------------------- */
         .flowchart-container {
             background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: 20px;
-            padding: 24px;
+            border: 1.5px solid rgba(255, 255, 255, 0.08);
+            border-radius: 22px;
+            padding: 26px;
             margin-bottom: 50px;
             overflow-x: auto;
             -webkit-overflow-scrolling: touch;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
             text-align: center;
+            position: relative;
+            transition: all 0.3s;
+        }
+
+        .flowchart-container:hover {
+            border-color: rgba(16, 185, 129, 0.4);
+            box-shadow: 0 16px 50px rgba(0, 0, 0, 0.6), 0 0 25px rgba(16, 185, 129, 0.12);
         }
 
         .flowchart-container img {
@@ -611,27 +884,27 @@
             height: auto;
         }
 
-        /* Back to top floating button */
+        /* Floating Back to Top Button */
         .back-to-top {
             position: fixed;
             bottom: 24px;
             right: 24px;
-            width: 46px;
-            height: 46px;
+            width: 48px;
+            height: 48px;
             border-radius: 50%;
-            background: rgba(16, 185, 129, 0.9);
+            background: linear-gradient(135deg, #10b981, #059669);
             color: #ffffff;
-            border: none;
+            border: 1px solid rgba(255, 255, 255, 0.2);
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 1.3rem;
             cursor: pointer;
-            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+            box-shadow: 0 4px 20px rgba(16, 185, 129, 0.5);
             opacity: 0;
             visibility: hidden;
-            transform: translateY(10px);
-            transition: all 0.3s;
+            transform: translateY(12px);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             z-index: 990;
         }
 
@@ -642,87 +915,77 @@
         }
 
         .back-to-top:hover {
-            background: #059669;
-            transform: translateY(-2px);
+            transform: translateY(-3px) scale(1.08);
+            box-shadow: 0 6px 25px rgba(16, 185, 129, 0.8);
         }
 
         /* Footer */
         footer {
             text-align: center;
-            padding: 30px 20px;
-            border-top: 1px solid var(--border);
+            padding: 35px 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
             color: var(--text-muted);
             font-size: 0.9rem;
-            margin-top: 30px;
+            margin-top: 40px;
+            position: relative;
+            z-index: 2;
         }
 
         /* -------------------------------------------------------------
-           Responsive Media Queries (Mobile & Tablet)
+           Responsive Media Queries
         ------------------------------------------------------------- */
         @media (max-width: 1024px) {
-            .nav-links {
-                gap: 2px;
-            }
-            .nav-link {
-                padding: 6px 9px;
-                font-size: 0.82rem;
-            }
+            .nav-links { gap: 2px; }
+            .nav-link { padding: 6px 9px; font-size: 0.82rem; }
         }
 
         @media (max-width: 900px) {
-            .nav-links, .nav-actions {
-                display: none;
-            }
-            .hamburger {
-                display: flex;
-            }
+            .nav-links, .nav-actions { display: none; }
+            .hamburger { display: flex; }
         }
 
         @media (max-width: 768px) {
-            body {
-                padding-bottom: calc(var(--bottom-nav-height) + 20px);
-            }
-            .mobile-bottom-bar {
-                display: flex;
-            }
+            body { padding-bottom: calc(var(--bottom-nav-height) + 20px); }
+            .mobile-bottom-bar { display: flex; }
             .back-to-top {
                 bottom: calc(var(--bottom-nav-height) + 16px);
                 right: 16px;
-                width: 42px;
-                height: 42px;
-                font-size: 1.1rem;
+                width: 44px;
+                height: 44px;
+                font-size: 1.15rem;
             }
-            .container {
-                padding: 16px 12px;
-            }
-            .flowchart-container {
-                padding: 14px;
-                border-radius: 14px;
-            }
-            .poster-card {
-                padding: 14px;
-                border-radius: 14px;
-            }
-            .card {
-                padding: 18px;
+            .container { padding: 16px 12px; }
+            .flowchart-container { padding: 14px; border-radius: 16px; }
+            .poster-card { padding: 14px; border-radius: 16px; }
+            .card { padding: 20px; border-radius: 16px; }
+            .telemetry-hud {
+                flex-direction: column;
+                align-items: stretch;
             }
         }
 
         @media (max-width: 480px) {
-            .brand-sub {
-                display: none;
-            }
-            .brand-title {
-                font-size: 1.0rem;
-            }
-            .badge-rbru {
-                font-size: 0.78rem;
-                padding: 5px 12px;
-            }
+            .brand-sub { display: none; }
+            .brand-title { font-size: 1.05rem; }
+            .badge-rbru { font-size: 0.78rem; padding: 6px 14px; }
         }
     </style>
 </head>
 <body>
+
+<!-- Neural Canvas Matrix Background -->
+<canvas id="neuralCanvas"></canvas>
+
+<!-- Ambient Aurora Light Glow Orbs -->
+<div class="aurora-container">
+    <div class="aurora-orb aurora-1"></div>
+    <div class="aurora-orb aurora-2"></div>
+    <div class="aurora-orb aurora-3"></div>
+    <div class="aurora-orb aurora-4"></div>
+</div>
+
+<!-- Cyber Grid Overlay -->
+<div class="cyber-grid"></div>
 
 <!-- -------------------------------------------------------------
      Sticky Responsive Glassmorphism Navigation Bar
@@ -821,9 +1084,33 @@
 <div class="container">
     <!-- Hero Header -->
     <header class="hero" id="hero">
-        <div class="badge-rbru">🌱 สาขาวิชาปัญญาประดิษฐ์เพื่อเกษตรดิจิทัลและสิ่งแวดล้อม คณะวิทยาศาสตร์และเทคโนโลยี มรภ.รำไพพรรณี</div>
+        <div class="badge-rbru">
+            <span class="pulse-dot"></span>
+            🌱 สาขาวิชาปัญญาประดิษฐ์เพื่อเกษตรดิจิทัลและสิ่งแวดล้อม คณะวิทยาศาสตร์และเทคโนโลยี มรภ.รำไพพรรณี
+        </div>
         <h1>สถาปัตยกรรมระบบ Smart Soil & Plant AI</h1>
         <p class="subtitle">ระบบวิเคราะห์สุขภาพดินและโรคพืชอัจฉริยะแบบครบวงจร: จากการเก็บข้อมูลภาคสนาม สู่วงจรการฝึกสอนโมเดล การส่งออกสู่มาตรฐานเปิด (ONNX) และการประยุกต์ใช้งาน 4 ช่องทาง</p>
+
+        <!-- Futuristic Live Telemetry HUD Bar -->
+        <div class="telemetry-hud">
+            <div class="hud-item hud-green">
+                <span class="pulse-dot"></span>
+                <span>NEURAL ENGINE:</span>
+                <strong>MobileNetV3 + YOLOv11</strong>
+            </div>
+            <div class="hud-item hud-blue">
+                <span>⚡ LATENCY:</span>
+                <strong>11.4 ms (88 FPS INT8)</strong>
+            </div>
+            <div class="hud-item hud-purple">
+                <span>👥 CLOUD COMPUTE:</span>
+                <strong>50+ Concurrent T4 VMs</strong>
+            </div>
+            <div class="hud-item hud-amber">
+                <span>🎯 BENCHMARK:</span>
+                <strong>97.4% SOTA Accuracy</strong>
+            </div>
+        </div>
     </header>
 
     <!-- 3D Poster Section -->
@@ -834,11 +1121,14 @@
         </div>
     </section>
 
-    <!-- 4 Layers Grid -->
-    <h2 class="section-title" id="architecture">📊 4 ลำดับชั้นกระบวนการทำงานเชิงระบบ (System Pipeline)</h2>
+    <!-- 4 Layers Grid with Distinct Futuristic Neon Identites -->
+    <h2 class="section-title" id="architecture">
+        <span class="title-accent-bar"></span>
+        📊 4 ลำดับชั้นกระบวนการทำงานเชิงระบบ (System Pipeline)
+    </h2>
     <div class="grid-4">
         <!-- 1. Data Ingestion -->
-        <div class="card">
+        <div class="card card-green">
             <div class="card-number">01</div>
             <div class="card-icon">📂</div>
             <h3>1. ฐานข้อมูลวิจัยภาคสนาม</h3>
@@ -848,11 +1138,11 @@
                 <li><strong>Plant:</strong> โรคทุเรียนจันทบุรี, ข้าว, ผัก, แมลงศัตรูพืช</li>
                 <li><strong>Crop Recommendation:</strong> 2,200 แปลงตัวอย่าง</li>
             </ul>
-            <span class="tag tag-green">2-Pillar Clean Dataset</span>
+            <span class="tag tag-green">2-PILLAR CLEAN DATASET</span>
         </div>
 
         <!-- 2. AI Model Training -->
-        <div class="card">
+        <div class="card card-cyan">
             <div class="card-number">02</div>
             <div class="card-icon">🧠</div>
             <h3>2. ระบบการเทรนโมเดล</h3>
@@ -862,11 +1152,11 @@
                 <li><strong>YOLOv11 Nano:</strong> ตรวจจับโรคราและแมลงบนใบพืช</li>
                 <li><strong>Random Forest:</strong> แนะนำพืชและสูตรปุ๋ยจากเซนเซอร์ NPK</li>
             </ul>
-            <span class="tag tag-blue">PyTorch & Ultralytics</span>
+            <span class="tag tag-blue">PYTORCH & ULTRALYTICS</span>
         </div>
 
         <!-- 3. Export & Compression -->
-        <div class="card">
+        <div class="card card-amber">
             <div class="card-number">03</div>
             <div class="card-icon">⚡</div>
             <h3>3. การแปลงและบีบอัดโมเดล</h3>
@@ -876,11 +1166,11 @@
                 <li><strong>INT8 Quantization:</strong> ลดขนาดไฟล์เหลือ &lt; 10 MB</li>
                 <li><strong>Zero Latency:</strong> รันบนชิปสมาร์ทโฟนโดยไม่ต้องต่อเน็ต</li>
             </ul>
-            <span class="tag tag-amber">Edge Optimization</span>
+            <span class="tag tag-amber">EDGE OPTIMIZATION</span>
         </div>
 
         <!-- 4. Deployment -->
-        <div class="card">
+        <div class="card card-purple">
             <div class="card-number">04</div>
             <div class="card-icon">🚀</div>
             <h3>4. การนำไปใช้งาน 4 ช่องทาง</h3>
@@ -891,30 +1181,33 @@
                 <li><strong>Mobile App:</strong> Flutter ออฟไลน์ในแปลง</li>
                 <li><strong>AIoT Field Kit:</strong> Raspberry Pi + เซนเซอร์ RS485</li>
             </ul>
-            <span class="tag tag-purple">Multi-Platform</span>
+            <span class="tag tag-purple">MULTI-PLATFORM READY</span>
         </div>
     </div>
 
     <!-- Technical Flowchart Vector SVG -->
-    <h2 class="section-title">📐 แผนผังการไหลของข้อมูลเชิงเทคนิค (Data & Inference Flow)</h2>
+    <h2 class="section-title">
+        <span class="title-accent-bar"></span>
+        📐 แผนผังการไหลของข้อมูลเชิงเทคนิค (Data & Inference Flow)
+    </h2>
     <div class="flowchart-container">
         <svg viewBox="0 0 1100 520" width="100%" height="auto" xmlns="http://www.w3.org/2000/svg">
             <defs>
                 <linearGradient id="gradGreen" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stop-color="#10b981" stop-opacity="0.25"/>
-                    <stop offset="100%" stop-color="#047857" stop-opacity="0.1"/>
+                    <stop offset="0%" stop-color="#10b981" stop-opacity="0.3"/>
+                    <stop offset="100%" stop-color="#047857" stop-opacity="0.12"/>
                 </linearGradient>
                 <linearGradient id="gradBlue" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stop-color="#06b6d4" stop-opacity="0.25"/>
-                    <stop offset="100%" stop-color="#0e7490" stop-opacity="0.1"/>
+                    <stop offset="0%" stop-color="#06b6d4" stop-opacity="0.3"/>
+                    <stop offset="100%" stop-color="#0e7490" stop-opacity="0.12"/>
                 </linearGradient>
                 <linearGradient id="gradAmber" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stop-color="#f59e0b" stop-opacity="0.25"/>
-                    <stop offset="100%" stop-color="#b45309" stop-opacity="0.1"/>
+                    <stop offset="0%" stop-color="#f59e0b" stop-opacity="0.3"/>
+                    <stop offset="100%" stop-color="#b45309" stop-opacity="0.12"/>
                 </linearGradient>
                 <linearGradient id="gradPurple" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stop-color="#8b5cf6" stop-opacity="0.25"/>
-                    <stop offset="100%" stop-color="#6d28d9" stop-opacity="0.1"/>
+                    <stop offset="0%" stop-color="#8b5cf6" stop-opacity="0.3"/>
+                    <stop offset="100%" stop-color="#6d28d9" stop-opacity="0.12"/>
                 </linearGradient>
                 <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
                     <path d="M 0 1 L 10 5 L 0 9 z" fill="#10b981"/>
@@ -925,7 +1218,7 @@
             </defs>
 
             <!-- Column 1: Inputs -->
-            <rect x="30" y="40" width="220" height="440" rx="16" fill="url(#gradGreen)" stroke="#10b981" stroke-width="1.5"/>
+            <rect x="30" y="40" width="220" height="440" rx="16" fill="url(#gradGreen)" stroke="#10b981" stroke-width="1.8"/>
             <text x="140" y="75" fill="#34d399" font-size="16" font-weight="700" text-anchor="middle" font-family="Prompt">1. แหล่งข้อมูลนำเข้า (Inputs)</text>
             
             <rect x="50" y="105" width="180" height="80" rx="10" fill="#1e293b" stroke="#334155"/>
@@ -941,12 +1234,12 @@
             <text x="140" y="380" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="Prompt">สเปกโตรสโกปีดิน 2,152 ช่วงคลื่น</text>
 
             <!-- Arrows Col 1 -> Col 2 -->
-            <path d="M 250 145 L 310 145" stroke="#10b981" stroke-width="2" marker-end="url(#arrow)"/>
-            <path d="M 250 255 L 310 255" stroke="#10b981" stroke-width="2" marker-end="url(#arrow)"/>
-            <path d="M 250 365 L 310 365" stroke="#10b981" stroke-width="2" marker-end="url(#arrow)"/>
+            <path d="M 250 145 L 310 145" stroke="#10b981" stroke-width="2.5" marker-end="url(#arrow)"/>
+            <path d="M 250 255 L 310 255" stroke="#10b981" stroke-width="2.5" marker-end="url(#arrow)"/>
+            <path d="M 250 365 L 310 365" stroke="#10b981" stroke-width="2.5" marker-end="url(#arrow)"/>
 
             <!-- Column 2: AI Engines -->
-            <rect x="310" y="40" width="230" height="440" rx="16" fill="url(#gradBlue)" stroke="#06b6d4" stroke-width="1.5"/>
+            <rect x="310" y="40" width="230" height="440" rx="16" fill="url(#gradBlue)" stroke="#06b6d4" stroke-width="1.8"/>
             <text x="425" y="75" fill="#22d3ee" font-size="16" font-weight="700" text-anchor="middle" font-family="Prompt">2. เครื่องยนต์ AI (Engines)</text>
 
             <rect x="330" y="105" width="190" height="80" rx="10" fill="#1e293b" stroke="#334155"/>
@@ -962,10 +1255,10 @@
             <text x="425" y="380" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="Prompt">Multimodal Cloud / LLaVA Local</text>
 
             <!-- Arrows Col 2 -> Col 3 -->
-            <path d="M 540 260 L 600 260" stroke="#06b6d4" stroke-width="2" marker-end="url(#arrowCyan)"/>
+            <path d="M 540 260 L 600 260" stroke="#06b6d4" stroke-width="2.5" marker-end="url(#arrowCyan)"/>
 
             <!-- Column 3: Format & Export -->
-            <rect x="600" y="40" width="210" height="440" rx="16" fill="url(#gradAmber)" stroke="#f59e0b" stroke-width="1.5"/>
+            <rect x="600" y="40" width="210" height="440" rx="16" fill="url(#gradAmber)" stroke="#f59e0b" stroke-width="1.8"/>
             <text x="705" y="75" fill="#fbbf24" font-size="16" font-weight="700" text-anchor="middle" font-family="Prompt">3. รูปแบบและการส่งออก</text>
 
             <rect x="620" y="125" width="170" height="100" rx="10" fill="#1e293b" stroke="#334155"/>
@@ -979,10 +1272,10 @@
             <text x="705" y="342" fill="#34d399" font-size="10" text-anchor="middle" font-family="JetBrains Mono">diagnosis + fertilizer</text>
 
             <!-- Arrows Col 3 -> Col 4 -->
-            <path d="M 810 260 L 870 260" stroke="#f59e0b" stroke-width="2" marker-end="url(#arrow)"/>
+            <path d="M 810 260 L 870 260" stroke="#f59e0b" stroke-width="2.5" marker-end="url(#arrow)"/>
 
             <!-- Column 4: Deployment -->
-            <rect x="870" y="40" width="200" height="440" rx="16" fill="url(#gradPurple)" stroke="#8b5cf6" stroke-width="1.5"/>
+            <rect x="870" y="40" width="200" height="440" rx="16" fill="url(#gradPurple)" stroke="#8b5cf6" stroke-width="1.8"/>
             <text x="970" y="75" fill="#a78bfa" font-size="16" font-weight="700" text-anchor="middle" font-family="Prompt">4. การนำไปใช้งาน</text>
 
             <rect x="885" y="100" width="170" height="75" rx="8" fill="#1e293b" stroke="#334155"/>
@@ -1004,7 +1297,10 @@
     </div>
 
     <!-- 50-Participant Cloud Architecture Section -->
-    <h2 class="section-title" id="cloud50">👥 สถาปัตยกรรมฝึกสอน AI พร้อมกัน 50+ คน (Isolated Cloud Architecture)</h2>
+    <h2 class="section-title" id="cloud50">
+        <span class="title-accent-bar"></span>
+        👥 สถาปัตยกรรมฝึกสอน AI พร้อมกัน 50+ คน (Isolated Cloud Architecture)
+    </h2>
     <section class="poster-card" style="margin-bottom: 25px;">
         <img src="workshop_50p_cloud_diagram.jpg" alt="50-Participant Workshop Cloud Architecture">
         <div class="poster-caption">
@@ -1017,43 +1313,64 @@
     </div>
 
     <!-- Datasets & Code Pipeline Verification Section -->
-    <h2 class="section-title" id="verification">✅ ตรวจสอบความพร้อม Datasets, GitHub และ Colab Code (100% Verification Matrix)</h2>
+    <h2 class="section-title" id="verification">
+        <span class="title-accent-bar"></span>
+        ✅ ตรวจสอบความพร้อม Datasets, GitHub และ Colab Code (100% Verification Matrix)
+    </h2>
     <div class="flowchart-container" style="margin-bottom: 25px; text-align:center;">
         <img src="dataset_verification_matrix.svg" alt="Datasets Verification Matrix" style="width:100%; max-width:1150px; border-radius:12px;">
     </div>
 
     <!-- Datasets Tree Breakdown & 5-Mode Colab Pipeline -->
-    <h2 class="section-title">🌳 การตรวจสอบโครงสร้าง Datasets ทั้งหมดตาม Folder Tree จริง (Tree Audit &amp; 5-Mode Colab)</h2>
+    <h2 class="section-title">
+        <span class="title-accent-bar"></span>
+        🌳 การตรวจสอบโครงสร้าง Datasets ทั้งหมดตาม Folder Tree จริง (Tree Audit &amp; 5-Mode Colab)
+    </h2>
     <div class="flowchart-container" style="margin-bottom: 25px; text-align:center;">
         <img src="dataset_tree_audit_diagram.svg" alt="Datasets Folder Tree Audit" style="width:100%; max-width:1150px; border-radius:12px;">
     </div>
 
     <!-- Comprehensive Dataset Inventory Section -->
-    <h2 class="section-title" id="datasets">📋 บัญชีรายการชุดข้อมูลอัจฉริยะ (Comprehensive Smart Agri Dataset Inventory)</h2>
+    <h2 class="section-title" id="datasets">
+        <span class="title-accent-bar"></span>
+        📋 บัญชีรายการชุดข้อมูลอัจฉริยะ (Comprehensive Smart Agri Dataset Inventory)
+    </h2>
     <div class="flowchart-container" style="margin-bottom: 25px; text-align:center;">
         <img src="dataset_comprehensive_inventory_diagram.svg" alt="Comprehensive Dataset Inventory" style="width:100%; max-width:1150px; border-radius:12px;">
     </div>
 
     <!-- Zero-Code Custom Dataset Workflow for Workshop Participants -->
-    <h2 class="section-title" id="custom-data">🎯 แนวทางปฏิบัติสำหรับผู้เข้าอบรมที่มี Datasets ของตนเอง (Zero-Code Custom Dataset Workflow)</h2>
+    <h2 class="section-title" id="custom-data">
+        <span class="title-accent-bar"></span>
+        🎯 แนวทางปฏิบัติสำหรับผู้เข้าอบรมที่มี Datasets ของตนเอง (Zero-Code Custom Dataset Workflow)
+    </h2>
     <div class="flowchart-container" style="margin-bottom: 25px; text-align:center;">
         <img src="custom_dataset_zero_code_workflow.svg" alt="Zero-Code Custom Dataset Workflow" style="width:100%; max-width:1150px; border-radius:12px;">
     </div>
 
     <!-- Colab Live & Post-Training Evaluation Suite Section -->
-    <h2 class="section-title" id="eval-metrics">📊 ระบบรายงานและประเมินผลโมเดล AI ใน Google Colab (Live &amp; Post-Training Diagnostics)</h2>
+    <h2 class="section-title" id="eval-metrics">
+        <span class="title-accent-bar"></span>
+        📊 ระบบรายงานและประเมินผลโมเดล AI ใน Google Colab (Live &amp; Post-Training Diagnostics)
+    </h2>
     <div class="flowchart-container" style="margin-bottom: 40px; text-align:center;">
         <img src="model_evaluation_metrics_diagram.svg" alt="Model Evaluation Metrics and Confusion Matrix" style="width:100%; max-width:1150px; border-radius:12px;">
     </div>
 
     <!-- Colab User Guide Infographic Section -->
-    <h2 class="section-title" id="colab-guide">📖 คู่มือภาพการใช้งาน Colab Code สำหรับผู้เข้าอบรม (4-Step Visual Colab Guide)</h2>
+    <h2 class="section-title" id="colab-guide">
+        <span class="title-accent-bar"></span>
+        📖 คู่มือภาพการใช้งาน Colab Code สำหรับผู้เข้าอบรม (4-Step Visual Colab Guide)
+    </h2>
     <div class="flowchart-container" style="margin-bottom: 40px; text-align:center;">
         <img src="colab_user_guide_infographic.svg" alt="Colab User Guide Infographic" style="width:100%; max-width:1150px; border-radius:12px;">
     </div>
 
     <!-- Streamlit Community Cloud Deployment Section -->
-    <h2 class="section-title" id="deployment">☁️ สถาปัตยกรรมการติดตั้งเว็บหลักบน Cloud Server ฟรี (Streamlit Community Cloud)</h2>
+    <h2 class="section-title" id="deployment">
+        <span class="title-accent-bar"></span>
+        ☁️ สถาปัตยกรรมการติดตั้งเว็บหลักบน Cloud Server ฟรี (Streamlit Community Cloud)
+    </h2>
     <div class="flowchart-container" style="margin-bottom: 40px; text-align:center;">
         <img src="streamlit_cloud_deployment_diagram.svg" alt="Streamlit Cloud Deployment Architecture" style="width:100%; max-width:1150px; border-radius:12px;">
     </div>
@@ -1070,13 +1387,130 @@
 </footer>
 
 <!-- -------------------------------------------------------------
-     Mobile Interactive Script
+     Interactive Futuristic Neural Canvas & Mobile Navigation Script
 -------------------------------------------------------------- -->
 <script>
-    // 1. Hamburger Menu Toggle
+    // -------------------------------------------------------------
+    // 1. Futuristic 60fps Neural Particle Network Canvas
+    // -------------------------------------------------------------
+    const canvas = document.getElementById('neuralCanvas');
+    const ctx = canvas.getContext('2d');
+    let width, height;
+    let particles = [];
+    const maxParticles = window.innerWidth < 768 ? 28 : 55;
+    const maxDistance = 140;
+
+    let mouse = { x: null, y: null, radius: 160 };
+
+    window.addEventListener('mousemove', (e) => {
+        mouse.x = e.clientX;
+        mouse.y = e.clientY;
+    });
+
+    window.addEventListener('mouseout', () => {
+        mouse.x = null;
+        mouse.y = null;
+    });
+
+    function resizeCanvas() {
+        width = canvas.width = window.innerWidth;
+        height = canvas.height = window.innerHeight;
+    }
+
+    class Particle {
+        constructor() {
+            this.x = Math.random() * width;
+            this.y = Math.random() * height;
+            this.vx = (Math.random() - 0.5) * 0.7;
+            this.vy = (Math.random() - 0.5) * 0.7;
+            this.radius = Math.random() * 2 + 1.2;
+            
+            // Random vibrant colors (Emerald, Cyan, Amber, Purple)
+            const colors = ['#10b981', '#06b6d4', '#f59e0b', '#a855f7'];
+            this.color = colors[Math.floor(Math.random() * colors.length)];
+        }
+
+        update() {
+            this.x += this.vx;
+            this.y += this.vy;
+
+            if (this.x < 0 || this.x > width) this.vx *= -1;
+            if (this.y < 0 || this.y > height) this.vy *= -1;
+
+            // Interactive mouse push/pull
+            if (mouse.x !== null) {
+                const dx = mouse.x - this.x;
+                const dy = mouse.y - this.y;
+                const dist = Math.sqrt(dx * dx + dy * dy);
+                if (dist < mouse.radius) {
+                    const force = (mouse.radius - dist) / mouse.radius;
+                    this.x -= (dx / dist) * force * 2.5;
+                    this.y -= (dy / dist) * force * 2.5;
+                }
+            }
+        }
+
+        draw() {
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+            ctx.fillStyle = this.color;
+            ctx.shadowBlur = 8;
+            ctx.shadowColor = this.color;
+            ctx.fill();
+            ctx.shadowBlur = 0;
+        }
+    }
+
+    function initParticles() {
+        particles = [];
+        for (let i = 0; i < maxParticles; i++) {
+            particles.push(new Particle());
+        }
+    }
+
+    function animateParticles() {
+        ctx.clearRect(0, 0, width, height);
+
+        for (let i = 0; i < particles.length; i++) {
+            particles[i].update();
+            particles[i].draw();
+
+            for (let j = i + 1; j < particles.length; j++) {
+                const dx = particles[i].x - particles[j].x;
+                const dy = particles[i].y - particles[j].y;
+                const dist = Math.sqrt(dx * dx + dy * dy);
+
+                if (dist < maxDistance) {
+                    const alpha = (1 - dist / maxDistance) * 0.35;
+                    ctx.beginPath();
+                    ctx.moveTo(particles[i].x, particles[i].y);
+                    ctx.lineTo(particles[j].x, particles[j].y);
+                    ctx.strokeStyle = `rgba(16, 185, 129, ${alpha})`;
+                    ctx.lineWidth = 1;
+                    ctx.stroke();
+                }
+            }
+        }
+        requestAnimationFrame(animateParticles);
+    }
+
+    window.addEventListener('resize', () => {
+        resizeCanvas();
+        initParticles();
+    });
+
+    resizeCanvas();
+    initParticles();
+    animateParticles();
+
+    // -------------------------------------------------------------
+    // 2. Hamburger & Mobile Navigation
+    // -------------------------------------------------------------
     const hamburgerBtn = document.getElementById('hamburgerBtn');
     const mobileMenu = document.getElementById('mobileMenu');
     const mobileLinks = document.querySelectorAll('.mobile-link');
+    const navbar = document.getElementById('navbar');
+    const backToTopBtn = document.getElementById('backToTopBtn');
 
     function toggleMenu() {
         const isOpen = hamburgerBtn.classList.toggle('active');
@@ -1089,26 +1523,21 @@
         toggleMenu();
     });
 
-    // Close menu when clicking any mobile link
     mobileLinks.forEach(link => {
         link.addEventListener('click', () => {
-            if (mobileMenu.classList.contains('active')) {
-                toggleMenu();
-            }
+            if (mobileMenu.classList.contains('active')) toggleMenu();
         });
     });
 
-    // Close menu when clicking outside
     document.addEventListener('click', (e) => {
         if (mobileMenu.classList.contains('active') && !navbar.contains(e.target)) {
             toggleMenu();
         }
     });
 
-    // 2. Navbar shadow on scroll
-    const navbar = document.getElementById('navbar');
-    const backToTopBtn = document.getElementById('backToTopBtn');
-
+    // -------------------------------------------------------------
+    // 3. Scroll Interactions & Active Tab Synchronization
+    // -------------------------------------------------------------
     window.addEventListener('scroll', () => {
         if (window.scrollY > 30) {
             navbar.classList.add('scrolled');
@@ -1116,7 +1545,6 @@
             navbar.classList.remove('scrolled');
         }
 
-        // Back to top button visibility
         if (window.scrollY > 400) {
             backToTopBtn.classList.add('visible');
         } else {
@@ -1124,29 +1552,25 @@
         }
     }, { passive: true });
 
-    // Smooth scroll back to top
     backToTopBtn.addEventListener('click', () => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
     });
 
-    // 3. Active link indicator sync with scroll position
     const sections = document.querySelectorAll('header[id], h2[id]');
     const navLinks = document.querySelectorAll('.nav-link');
     const bottomItems = document.querySelectorAll('.bottom-item');
 
     window.addEventListener('scroll', () => {
         let currentSectionId = '';
-        const scrollPosition = window.scrollY + 120;
+        const scrollPosition = window.scrollY + 130;
 
         sections.forEach(section => {
             const sectionTop = section.offsetTop;
-            const sectionHeight = section.offsetHeight;
             if (scrollPosition >= sectionTop) {
                 currentSectionId = section.getAttribute('id');
             }
         });
 
-        // Update Desktop Navbar Active State
         navLinks.forEach(link => {
             link.classList.remove('active');
             if (link.getAttribute('href') === `#${currentSectionId}`) {
@@ -1154,11 +1578,9 @@
             }
         });
 
-        // Update Mobile Bottom Bar Active State
         bottomItems.forEach(item => {
             item.classList.remove('active');
-            const href = item.getAttribute('href');
-            if (href === `#${currentSectionId}`) {
+            if (item.getAttribute('href') === `#${currentSectionId}`) {
                 item.classList.add('active');
             }
         });

@@ -2,7 +2,7 @@
 # คำสั่งระบบสำหรับ GitHub Copilot ใน VS Code
 
 ## Role & Project Context
-You are generating code for the Smart Agri XAI Platform (Soil & Plant Health AI).
+You are generating code for the Digital Agri xAI Platform (Soil & Plant Health AI).
 
 ## Coding Standards:
 - Python: Python 3.10+, Type Hints, Pydantic/FastAPI, Streamlit custom CSS

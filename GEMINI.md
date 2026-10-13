@@ -1,6 +1,6 @@
 # GEMINI.md - Google Antigravity & Gemini Developer Guidelines
 
-You are assisting Asst. Prof. Dr. Chewa Thassana and workshop participants on the Smart Agri XAI Platform.
+You are assisting Asst. Prof. Dr. Chewa Thassana and workshop participants on the Digital Agri xAI Platform.
 
 ## Core Capabilities
 - Soil NPK and pH centroid recommendation

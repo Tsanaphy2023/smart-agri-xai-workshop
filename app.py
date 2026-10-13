@@ -14,7 +14,7 @@ from crop_recommender import CropRecommenderEngine
 # 1. Configuration & Page Setup
 load_dotenv()
 st.set_page_config(
-    page_title="Smart Soil & Plant AI Analyzer",
+    page_title="Digital Agri xAI: Soil & Plant Analyzer",
     page_icon="🌱",
     layout="wide"
 )
@@ -382,8 +382,8 @@ ANALYSIS_PROMPT = """
 # Header with Direct Links to Colab and GitHub & Live Cyber-Agri Telemetry HUD
 col_head1, col_head2 = st.columns([7, 3])
 with col_head1:
-    st.markdown('<div class="main-header">🌱 Smart Soil & Environmental AI Analyzer</div>', unsafe_allow_html=True)
-    st.markdown('<div class="sub-header">ระบบวิเคราะห์คุณภาพดินและสุขภาพพืชอัจฉริยะ • Hybrid Cloud & On-Device Edge Computing • ผศ.ดร.ชีวะ ทัศนา</div>', unsafe_allow_html=True)
+    st.markdown('<div class="main-header">🌱 Digital Agri xAI: Intelligent Soil & Crop Health Analyzer</div>', unsafe_allow_html=True)
+    st.markdown('<div class="sub-header">แพลตฟอร์มปัญญาประดิษฐ์อธิบายได้เพื่อการเกษตรดิจิทัล (Digital Agri xAI) • Hybrid Cloud & On-Device Edge Computing • ผศ.ดร.ชีวะ ทัศนา</div>', unsafe_allow_html=True)
 with col_head2:
     st.markdown("""
     <div style="text-align: right; padding-top: 10px;">
@@ -448,8 +448,8 @@ def create_flutter_starter_zip():
     import zipfile
     buf = io.BytesIO()
     with zipfile.ZipFile(buf, "w", zipfile.ZIP_DEFLATED) as zf:
-        readme = """# Smart Agri AI - Flutter Smartphone Application Starter
-โปรเจกต์แม่แบบแอปพลิเคชันมือถือสำหรับต่อยอดโมเดล AI ในงานการเกษตรอัจฉริยะ (Edge AI & IoT)
+        readme = """# Digital Agri xAI - Flutter Smartphone Application Starter
+โปรเจกต์แม่แบบแอปพลิเคชันมือถือสำหรับต่อยอดโมเดล AI ในงานการเกษตรดิจิทัล (Digital Agri xAI)
 พัฒนาโดย: ผศ.ดร.ชีวะ ทัศนา (RBRU Digital Agri-Physics)
 
 ## คุณสมบัติเด่น:
@@ -464,7 +464,7 @@ def create_flutter_starter_zip():
 3. วางไฟล์โมเดล `smart_agri_model.tflite` ที่ได้จากเวิร์กช็อปลงในโฟลเดอร์ `assets/models/`
 4. รัน `flutter run` บนสมาร์ทโฟนของท่านได้ทันที!
 """
-        pubspec = """name: smart_agri_ai_mobile
+        pubspec = """name: digital_agri_xai_mobile
 description: Precision Agriculture Edge AI Mobile Application
 publish_to: 'none'
 version: 1.0.0+1
@@ -494,16 +494,16 @@ flutter:
         main_dart = """import 'package:flutter/material.dart';
 
 void main() {
-  runApp(const SmartAgriApp());
+  runApp(const DigitalAgriApp());
 }
 
-class SmartAgriApp extends StatelessWidget {
-  const SmartAgriApp({super.key});
+class DigitalAgriApp extends StatelessWidget {
+  const DigitalAgriApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Smart Agri AI Mobile',
+      title: 'Digital Agri xAI Mobile',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         brightness: Brightness.dark,
@@ -532,7 +532,7 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('🌱 Smart Agri Edge AI'),
+        title: const Text('🌱 Digital Agri xAI'),
         backgroundColor: const Color(0xFF0F172A),
         elevation: 0,
         actions: [
@@ -604,8 +604,8 @@ def create_web_dashboard_starter_zip():
     import zipfile
     buf = io.BytesIO()
     with zipfile.ZipFile(buf, "w", zipfile.ZIP_DEFLATED) as zf:
-        readme = """# Smart Agri AI - Web Dashboard Starter (FastAPI + HTML5)
-โปรเจกต์แม่แบบศูนย์สั่งการและแดชบอร์ดเกษตรแม่นยำ (Web Portal & Central Dashboard)
+        readme = """# Digital Agri xAI - Web Dashboard Starter (FastAPI + HTML5)
+โปรเจกต์แม่แบบศูนย์สั่งการและแดชบอร์ดเกษตรแม่นยำ (Digital Agri xAI Web Portal)
 พัฒนาโดย: ผศ.ดร.ชีวะ ทัศนา (RBRU Digital Agri-Physics)
 
 ## คุณสมบัติเด่น:
@@ -635,7 +635,7 @@ from fastapi.responses import HTMLResponse, FileResponse
 from PIL import Image
 import numpy as np
 
-app = FastAPI(title="Smart Agri AI Web Dashboard API")
+app = FastAPI(title="Digital Agri xAI Web Dashboard API")
 
 @app.get("/")
 def read_root():
@@ -665,7 +665,7 @@ app.mount("/static", StaticFiles(directory="static"), name="static")
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Smart Agri AI - Web Dashboard</title>
+    <title>Digital Agri xAI - Web Dashboard</title>
     <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
         body { font-family: 'Prompt', sans-serif; background: #090d16; color: #f8fafc; margin: 0; padding: 24px; }
@@ -678,7 +678,7 @@ app.mount("/static", StaticFiles(directory="static"), name="static")
 </head>
 <body>
     <div class="header">
-        <h2>🌱 Smart Agri AI - Central Field Dashboard</h2>
+        <h2>🌱 Digital Agri xAI - Central Field Dashboard</h2>
         <span style="background: rgba(16,185,129,0.2); color: #10b981; padding: 6px 12px; border-radius: 20px; font-weight: 600;">● System Online</span>
     </div>
     <div class="grid">
@@ -1138,7 +1138,7 @@ with tab1:
             )
             
             # 2. Download Markdown / Text Card
-            md_card = f"""# รายงานผลการตรวจวิเคราะห์ดินและพืช — Smart Agri AI
+            md_card = f"""# รายงานผลการตรวจวิเคราะห์ดินและพืช — Digital Agri xAI
 **สถานที่/พืช:** {st.session_state.get('location_input', 'ไม่ระบุ')}
 **โมเดลประมวลผล:** {selected_model}
 **ผลการจำแนก:** {target_type} (ความมั่นใจ {confidence})
@@ -1519,7 +1519,7 @@ with tab3:
                 "epochs": epochs_input,
                 "dataset": train_dataset_choice,
                 "classes": class_names,
-                "author": "Smart Agri AI Workshop Participant",
+                "author": "Digital Agri xAI Workshop Participant",
                 "format": "ONNX Runtime 1.17"
             }, ensure_ascii=False, indent=2)
 
@@ -1732,7 +1732,7 @@ import numpy as np
 from PIL import Image
 import io
 
-app = FastAPI(title="Smart Agri AI Server")
+app = FastAPI(title="Digital Agri xAI Server")
 session = ort.InferenceSession("smart_agri_model.onnx")
 
 @app.post("/predict")
@@ -1823,7 +1823,7 @@ class AgriClassifierService {
         st.download_button(
             label="📦 ดาวน์โหลดชุดคำสั่ง AI Prompts Kit (.zip)",
             data=prompts_zip_data,
-            file_name="smart_agri_ai_prompts_kit.zip",
+            file_name="digital_agri_xai_prompts_kit.zip",
             mime="application/zip",
             use_container_width=True,
             help="ดาวน์โหลดไฟล์ .cursorrules, AGENTS.md, และพรอมพ์แม่แบบทั้งหมด"
@@ -1845,7 +1845,7 @@ class AgriClassifierService {
 
     if "1. คอนเทกต์ระบบแบบประหยัดโทเค็น" in selected_prompt_category:
         st.markdown("##### ⚡ คอนเทกต์ระบบแบบประหยัดโทเค็น (คัดลอกไปวางบนสุดของแชต AI):")
-        st.code("""PROJECT: Smart Agri XAI Platform
+        st.code("""PROJECT: Digital Agri xAI Platform
 AUTHOR: Asst. Prof. Dr. Chewa Thassana (RBRU Digital Agri-Physics)
 DOMAINS:
   1_Soil: [Clay, Loam, Sand, Sandy Loam]
@@ -1866,7 +1866,7 @@ CODING_RULES:
 
     elif "2. พรอมพ์สั่งสร้าง Web App Dashboard" in selected_prompt_category:
         st.markdown("##### 🖥️ พรอมพ์สั่งสร้าง Web App Dashboard ด้วย Streamlit:")
-        st.code("""ช่วยออกแบบและเขียนโค้ดเว็บแอปพลิเคชัน Dashboard สำหรับเกษตรแม่นยำ (Smart Agriculture) ด้วย Streamlit โดยมีข้อกำหนดดังนี้:
+        st.code("""ช่วยออกแบบและเขียนโค้ดเว็บแอปพลิเคชัน Dashboard สำหรับเกษตรดิจิทัลอธิบายได้ (Digital Agri xAI) ด้วย Streamlit โดยมีข้อกำหนดดังนี้:
 
 1. ธีมและการออกแบบ (UI/UX):
    - ธีม Glassmorphism ทันสมัย โทนสีมรกต (#10B981) และฟ้าไฮเทค (#06B6D4)
@@ -1918,7 +1918,7 @@ CODING_RULES:
     else:
         st.markdown("##### ⚙️ ไฟล์คอนฟิกมาตรฐาน `.cursorrules` (สำหรับวางที่ Root โฟลเดอร์ใน Cursor):")
         st.code("""# .cursorrules - Precision Agriculture AI Assistant
-You are an expert full-stack engineer and agricultural AI specialist working on the Smart Agri XAI platform for Asst. Prof. Dr. Chewa Thassana.
+You are an expert full-stack engineer and agricultural AI specialist working on the Digital Agri xAI platform for Asst. Prof. Dr. Chewa Thassana.
 
 ## Core Architectural Rules:
 1. Domain Taxonomy:

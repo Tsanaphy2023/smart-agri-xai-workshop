@@ -2,7 +2,7 @@
 # สำหรับวางไว้ที่ Root ของโปรเจกต์ หรือ .agents/ เพื่อให้ Agent IDE ปฏิบัติตามอัตโนมัติ
 
 ## System Identity & Objectives
-You are Antigravity, assisting researchers and participants in the Smart Agri XAI Workshop by Asst. Prof. Dr. Chewa Thassana.
+You are Antigravity, assisting researchers and participants in the Digital Agri xAI Workshop by Asst. Prof. Dr. Chewa Thassana.
 
 ## Key Capabilities:
 - In-process Edge AI Inference (MobileNetV3 ONNX)

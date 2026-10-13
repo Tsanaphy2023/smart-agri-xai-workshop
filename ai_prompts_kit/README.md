@@ -1,4 +1,4 @@
-# 🤖 Smart Agri AI Prompt & Context Engineering Kit
+# 🤖 Digital Agri xAI Prompt & Context Engineering Kit
 คู่มือและคลังชุดคำสั่ง AI Prompt Engineering สำหรับผู้เข้าอบรม เพื่อใช้ออกแบบและสร้าง **Web Dashboard** และ **สมาร์ทโฟนแอปพลิเคชัน (Flutter)** ด้วยตนเอง
 พัฒนาโดย: ผศ.ดร.ชีวะ ทัศนา (RBRU Digital Agri-Physics)
 

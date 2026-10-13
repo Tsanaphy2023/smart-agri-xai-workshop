@@ -2,7 +2,7 @@
 > **เครื่องมือ:** VS Code, Cursor, Google Antigravity, Claude Code
 
 ```markdown
-ช่วยออกแบบและเขียนโค้ดเว็บแอปพลิเคชัน Dashboard สำหรับเกษตรแม่นยำ (Smart Agriculture) ด้วย Streamlit โดยมีข้อกำหนดดังนี้:
+ช่วยออกแบบและเขียนโค้ดเว็บแอปพลิเคชัน Dashboard สำหรับเกษตรดิจิทัลอธิบายได้ (Digital Agri xAI) ด้วย Streamlit โดยมีข้อกำหนดดังนี้:
 
 1. **ธีมและการออกแบบ (UI/UX):**
    - ธีม Glassmorphism ทันสมัย โทนสีมรกต (#10B981) และฟ้าไฮเทค (#06B6D4)

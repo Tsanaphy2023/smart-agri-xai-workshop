@@ -2,7 +2,7 @@
 > **วิธีใช้:** คัดลอกข้อความด้านล่างนี้ไปวางที่ช่อง Custom Instructions, System Prompt หรือแนบไว้บนสุดของแชต AI เพื่อให้ AI เข้าใจบริบททั้งระบบโดยไม่เปลืองโทเค็น
 
 ```yaml
-PROJECT: Smart Agri XAI Platform
+PROJECT: Digital Agri xAI Platform
 AUTHOR: Asst. Prof. Dr. Chewa Thassana (RBRU Digital Agri-Physics)
 DOMAINS:
   1_Soil: [Clay, Loam, Sand, Sandy Loam]

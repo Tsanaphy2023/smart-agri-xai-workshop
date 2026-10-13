@@ -1,7 +1,7 @@
-# 🌱 Smart Soil & Plant AI Analyzer (Fullstack Edition)
+# 🌱 Digital Agri xAI: Intelligent Soil & Crop Health Analyzer
 **พัฒนาโดย:** ผศ.ดร.ชีวะ ทัศนา | มหาวิทยาลัยราชภัฏรำไพพรรณี
 
-ระบบวิเคราะห์คุณภาพดิน สภาพแวดล้อม และสุขภาวะพืชอัจฉริยะ (Smart Agriculture Diagnostic Platform) รองรับทั้งการประมวลผลผ่าน Cloud AI, Local On-Device (Ollama) และโมเดลวิจัยเฉพาะทางแบบ In-Process Edge AI พร้อมระบบแนะนำพืชและวิเคราะห์ธาตุอาหารจากเซนเซอร์เคมีดิน
+ระบบวิเคราะห์คุณภาพดิน สภาพแวดล้อม และสุขภาวะพืชด้วยปัญญาประดิษฐ์อธิบายได้เพื่อการเกษตรดิจิทัล (Digital Agri xAI Diagnostic Platform) รองรับทั้งการประมวลผลผ่าน Cloud AI, Local On-Device (Ollama) และโมเดลวิจัยเฉพาะทางแบบ In-Process Edge AI พร้อมระบบแนะนำพืชและวิเคราะห์ธาตุอาหารจากเซนเซอร์เคมีดิน
 
 ---
 

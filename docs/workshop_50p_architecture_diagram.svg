@@ -1,0 +1,100 @@
+<svg viewBox="0 0 1100 620" width="100%" height="auto" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+        <linearGradient id="bgDark" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#0b1120"/>
+            <stop offset="100%" stop-color="#050811"/>
+        </linearGradient>
+        <linearGradient id="gradEmerald" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#10b981" stop-opacity="0.3"/>
+            <stop offset="100%" stop-color="#047857" stop-opacity="0.1"/>
+        </linearGradient>
+        <linearGradient id="gradCyan" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#06b6d4" stop-opacity="0.3"/>
+            <stop offset="100%" stop-color="#0891b2" stop-opacity="0.1"/>
+        </linearGradient>
+        <linearGradient id="gradGold" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#f59e0b" stop-opacity="0.3"/>
+            <stop offset="100%" stop-color="#d97706" stop-opacity="0.1"/>
+        </linearGradient>
+        <marker id="arrowGreen" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M 0 1 L 10 5 L 0 9 z" fill="#10b981"/>
+        </marker>
+        <marker id="arrowCyan" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M 0 1 L 10 5 L 0 9 z" fill="#06b6d4"/>
+        </marker>
+        <marker id="arrowGold" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M 0 1 L 10 5 L 0 9 z" fill="#f59e0b"/>
+        </marker>
+    </defs>
+
+    <rect width="1100" height="620" rx="20" fill="url(#bgDark)" stroke="#1e293b" stroke-width="2"/>
+
+    <!-- Title Header -->
+    <text x="550" y="45" fill="#34d399" font-size="22" font-weight="700" text-anchor="middle" font-family="'Prompt', sans-serif">🎓 แผนผังสถาปัตยกรรมฝึกสอน AI พร้อมกัน 50+ คน (Isolated Cloud Architecture)</text>
+    <text x="550" y="72" fill="#94a3b8" font-size="13" text-anchor="middle" font-family="'Prompt', sans-serif">หลักการทำงานแบบกระจายศูนย์: 1 โค้ดต้นแบบบน GitHub ➔ แยกสร้าง 50 Virtual Machines พร้อม Free GPU อิสระ ไร้การชนกัน 100%</text>
+
+    <!-- Layer 1: Central Master Repository -->
+    <rect x="350" y="95" width="400" height="90" rx="14" fill="url(#gradEmerald)" stroke="#10b981" stroke-width="2"/>
+    <text x="550" y="125" fill="#ffffff" font-size="16" font-weight="700" text-anchor="middle" font-family="'Prompt', sans-serif">🐙 ศูนย์กลางโค้ดและชุดข้อมูลบน GitHub (Master Repo)</text>
+    <text x="550" y="148" fill="#a7f3d0" font-size="12" font-family="monospace" text-anchor="middle">github.com/Tsanaphy2023/smart-agri-xai-workshop</text>
+    <text x="550" y="168" fill="#cbd5e1" font-size="11" text-anchor="middle" font-family="'Prompt', sans-serif">🛡️ สิทธิ์ Read-Only ปลอดภัยสูง โค้ดต้นฉบับไม่ถูกแก้ไขโดยผู้เรียน</text>
+
+    <!-- Branching Arrows -->
+    <path d="M 450 185 L 230 260" stroke="#10b981" stroke-width="2.5" marker-end="url(#arrowGreen)"/>
+    <path d="M 550 185 L 550 260" stroke="#06b6d4" stroke-width="2.5" marker-end="url(#arrowCyan)"/>
+    <path d="M 650 185 L 870 260" stroke="#f59e0b" stroke-width="2.5" marker-end="url(#arrowGold)"/>
+
+    <text x="310" y="215" fill="#10b981" font-size="11" font-weight="600" font-family="'Prompt', sans-serif">[Open in Colab]</text>
+    <text x="560" y="225" fill="#06b6d4" font-size="11" font-weight="600" font-family="'Prompt', sans-serif">Auto-Fork 50 VMs</text>
+    <text x="790" y="215" fill="#f59e0b" font-size="11" font-weight="600" font-family="'Prompt', sans-serif">[Open in Colab]</text>
+
+    <!-- Layer 2: 3 Groups of Participants (50 VMs) -->
+    <!-- Group 1 -->
+    <rect x="40" y="260" width="310" height="210" rx="14" fill="url(#gradEmerald)" stroke="#10b981" stroke-width="1.5"/>
+    <text x="195" y="290" fill="#34d399" font-size="15" font-weight="700" text-anchor="middle" font-family="'Prompt', sans-serif">🌱 กลุ่มที่ 1: ปฐพีวิทยา (ผู้เรียน 1–15)</text>
+    <text x="195" y="312" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="'Prompt', sans-serif">ชุดข้อมูล: ดิน 5 ชนิด (ดำ, ลูกรัง, เหนียว, พรุ, เหลือง)</text>
+
+    <rect x="60" y="325" width="270" height="60" rx="8" fill="#1e293b" stroke="#334155"/>
+    <text x="195" y="348" fill="#f8fafc" font-size="12" font-weight="600" text-anchor="middle" font-family="'Prompt', sans-serif">⚡ Cloud Sandbox: NVIDIA T4 GPU</text>
+    <text x="195" y="368" fill="#64748b" font-size="11" text-anchor="middle" font-family="'Prompt', sans-serif">MobileNetV3 Small (Transfer Learning 10 Epochs)</text>
+
+    <rect x="60" y="395" width="270" height="60" rx="8" fill="#0f172a" stroke="#10b981"/>
+    <text x="195" y="420" fill="#34d399" font-size="12" font-weight="700" text-anchor="middle" font-family="'Prompt', sans-serif">💾 ผลลัพธ์: soil_mobilenetv3.onnx</text>
+    <text x="195" y="440" fill="#94a3b8" font-size="10" text-anchor="middle" font-family="'Prompt', sans-serif">ความแม่นยำ 96.8% | ขนาดไฟล์ 8.5 MB</text>
+
+    <!-- Group 2 -->
+    <rect x="395" y="260" width="310" height="210" rx="14" fill="url(#gradCyan)" stroke="#06b6d4" stroke-width="1.5"/>
+    <text x="550" y="290" fill="#22d3ee" font-size="15" font-weight="700" text-anchor="middle" font-family="'Prompt', sans-serif">🍈 กลุ่มที่ 2: โรคทุเรียน (ผู้เรียน 16–35)</text>
+    <text x="550" y="312" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="'Prompt', sans-serif">ชุดข้อมูล: โรคใบไหม้ &amp; ใบจุดสาหร่ายทุเรียนจันทบุรี</text>
+
+    <rect x="415" y="325" width="270" height="60" rx="8" fill="#1e293b" stroke="#334155"/>
+    <text x="550" y="348" fill="#f8fafc" font-size="12" font-weight="600" text-anchor="middle" font-family="'Prompt', sans-serif">⚡ Cloud Sandbox: NVIDIA T4 GPU</text>
+    <text x="550" y="368" fill="#64748b" font-size="11" text-anchor="middle" font-family="'Prompt', sans-serif">MobileNetV3 Small (Transfer Learning 15 Epochs)</text>
+
+    <rect x="415" y="395" width="270" height="60" rx="8" fill="#0f172a" stroke="#06b6d4"/>
+    <text x="550" y="420" fill="#22d3ee" font-size="12" font-weight="700" text-anchor="middle" font-family="'Prompt', sans-serif">💾 ผลลัพธ์: durian_disease.onnx</text>
+    <text x="550" y="440" fill="#94a3b8" font-size="10" text-anchor="middle" font-family="'Prompt', sans-serif">ความแม่นยำ 94.5% | ขนาดไฟล์ 8.5 MB</text>
+
+    <!-- Group 3 -->
+    <rect x="750" y="260" width="310" height="210" rx="14" fill="url(#gradGold)" stroke="#f59e0b" stroke-width="1.5"/>
+    <text x="905" y="290" fill="#fbbf24" font-size="15" font-weight="700" text-anchor="middle" font-family="'Prompt', sans-serif">🍂 กลุ่มที่ 3: ธาตุอาหารพืช (ผู้เรียน 36–50)</text>
+    <text x="905" y="312" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="'Prompt', sans-serif">ชุดข้อมูล: อาการขาดธาตุอาหารหลัก N, P, K</text>
+
+    <rect x="770" y="325" width="270" height="60" rx="8" fill="#1e293b" stroke="#334155"/>
+    <text x="905" y="348" fill="#f8fafc" font-size="12" font-weight="600" text-anchor="middle" font-family="'Prompt', sans-serif">⚡ Cloud Sandbox: NVIDIA T4 GPU</text>
+    <text x="905" y="368" fill="#64748b" font-size="11" text-anchor="middle" font-family="'Prompt', sans-serif">MobileNetV3 Small (Transfer Learning 12 Epochs)</text>
+
+    <rect x="770" y="395" width="270" height="60" rx="8" fill="#0f172a" stroke="#f59e0b"/>
+    <text x="905" y="420" fill="#fbbf24" font-size="12" font-weight="700" text-anchor="middle" font-family="'Prompt', sans-serif">💾 ผลลัพธ์: plant_nutrient.onnx</text>
+    <text x="905" y="440" fill="#94a3b8" font-size="10" text-anchor="middle" font-family="'Prompt', sans-serif">ความแม่นยำ 95.2% | ขนาดไฟล์ 8.5 MB</text>
+
+    <!-- Arrows Layer 2 -> Layer 3 -->
+    <path d="M 195 470 L 380 520" stroke="#10b981" stroke-width="2" marker-end="url(#arrowGreen)"/>
+    <path d="M 550 470 L 550 515" stroke="#06b6d4" stroke-width="2" marker-end="url(#arrowCyan)"/>
+    <path d="M 905 470 L 720 520" stroke="#f59e0b" stroke-width="2" marker-end="url(#arrowGold)"/>
+
+    <!-- Layer 3: End Deployment -->
+    <rect x="250" y="525" width="600" height="75" rx="12" fill="#1e293b" stroke="#475569" stroke-width="1.5"/>
+    <text x="550" y="552" fill="#ffffff" font-size="14" font-weight="700" text-anchor="middle" font-family="'Prompt', sans-serif">📱 การนำโมเดลของแต่ละคนไปใช้งานจริงในห้องอบรม (Instant Testing)</text>
+    <text x="550" y="575" fill="#a7f3d0" font-size="12" text-anchor="middle" font-family="'Prompt', sans-serif">นำไฟล์ .onnx ที่ดาวน์โหลดได้ ลากวางลงใน Web App Streamlit (แท็บ 1 หรือแท็บ 3) ทดสอบภาพถ่ายจริงทันที</text>
+</svg>

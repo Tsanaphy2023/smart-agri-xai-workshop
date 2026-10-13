@@ -1,0 +1,95 @@
+<svg viewBox="0 0 1100 540" width="100%" height="auto" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+        <linearGradient id="bgDeploy" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#0f172a"/>
+            <stop offset="100%" stop-color="#020617"/>
+        </linearGradient>
+        <linearGradient id="gradRed" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#ff4b4b" stop-opacity="0.25"/>
+            <stop offset="100%" stop-color="#b91c1c" stop-opacity="0.1"/>
+        </linearGradient>
+        <linearGradient id="gradTeal" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#10b981" stop-opacity="0.25"/>
+            <stop offset="100%" stop-color="#047857" stop-opacity="0.1"/>
+        </linearGradient>
+        <linearGradient id="gradBlue" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#38bdf8" stop-opacity="0.25"/>
+            <stop offset="100%" stop-color="#0284c7" stop-opacity="0.1"/>
+        </linearGradient>
+        <marker id="arrowRed" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M 0 1 L 10 5 L 0 9 z" fill="#ff4b4b"/>
+        </marker>
+        <marker id="arrowGreen" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M 0 1 L 10 5 L 0 9 z" fill="#10b981"/>
+        </marker>
+    </defs>
+
+    <rect width="1100" height="540" rx="18" fill="url(#bgDeploy)" stroke="#334155" stroke-width="1.5"/>
+
+    <!-- Header -->
+    <text x="550" y="45" fill="#f8fafc" font-size="22" font-weight="700" text-anchor="middle" font-family="'Prompt', sans-serif">☁️ แผนผังการนำระบบขึ้น Free Server (Streamlit Community Cloud)</text>
+    <text x="550" y="72" fill="#94a3b8" font-size="13" text-anchor="middle" font-family="'Prompt', sans-serif">ฟรี 100% ตลอดชีพ • ไม่ต้องใช้บัตรเครดิต • ได้ Public URL ทันที • ซิงค์อัตโนมัติเมื่อแก้โค้ดบน GitHub</text>
+
+    <!-- Step 1: GitHub -->
+    <rect x="40" y="110" width="280" height="360" rx="14" fill="url(#gradTeal)" stroke="#10b981" stroke-width="1.5"/>
+    <text x="180" y="145" fill="#34d399" font-size="16" font-weight="700" text-anchor="middle" font-family="'Prompt', sans-serif">1. โค้ดบน GitHub (พร้อมแล้ว)</text>
+    
+    <rect x="60" y="170" width="240" height="85" rx="10" fill="#1e293b" stroke="#334155"/>
+    <text x="180" y="200" fill="#f8fafc" font-size="13" font-weight="600" text-anchor="middle" font-family="'Prompt', sans-serif">🐙 Repository</text>
+    <text x="180" y="222" fill="#38bdf8" font-size="11" font-family="monospace" text-anchor="middle">smart-agri-xai-workshop</text>
+    <text x="180" y="240" fill="#94a3b8" font-size="10" text-anchor="middle" font-family="'Prompt', sans-serif">Branch: main | File: app.py</text>
+
+    <rect x="60" y="275" width="240" height="85" rx="10" fill="#1e293b" stroke="#334155"/>
+    <text x="180" y="305" fill="#f8fafc" font-size="13" font-weight="600" text-anchor="middle" font-family="'Prompt', sans-serif">📦 Dependencies</text>
+    <text x="180" y="327" fill="#34d399" font-size="11" font-family="monospace" text-anchor="middle">requirements.txt</text>
+    <text x="180" y="345" fill="#94a3b8" font-size="10" text-anchor="middle" font-family="'Prompt', sans-serif">ระบบคลาวด์จะติดตั้งให้อัตโนมัติ</text>
+
+    <rect x="60" y="380" width="240" height="65" rx="8" fill="#0f172a" stroke="#10b981"/>
+    <text x="180" y="405" fill="#34d399" font-size="11" font-weight="700" text-anchor="middle" font-family="'Prompt', sans-serif">✅ สถานะ: Push ขึ้นเรียบร้อย 100%</text>
+    <text x="180" y="425" fill="#94a3b8" font-size="10" text-anchor="middle" font-family="'Prompt', sans-serif">พร้อมกด Deploy ทันที</text>
+
+    <!-- Arrow 1 -> 2 -->
+    <path d="M 320 290 L 390 290" stroke="#ff4b4b" stroke-width="3" marker-end="url(#arrowRed)"/>
+
+    <!-- Step 2: Streamlit Cloud -->
+    <rect x="390" y="110" width="320" height="360" rx="14" fill="url(#gradRed)" stroke="#ff4b4b" stroke-width="1.5"/>
+    <text x="550" y="145" fill="#ff6b6b" font-size="16" font-weight="700" text-anchor="middle" font-family="'Prompt', sans-serif">2. Streamlit Community Cloud</text>
+
+    <rect x="410" y="170" width="280" height="90" rx="10" fill="#1e293b" stroke="#334155"/>
+    <text x="550" y="200" fill="#f8fafc" font-size="13" font-weight="600" text-anchor="middle" font-family="'Prompt', sans-serif">🌐 เข้าสู่ระบบ share.streamlit.io</text>
+    <text x="550" y="225" fill="#ff6b6b" font-size="12" font-family="'Prompt', sans-serif">ล็อกอินด้วยบัญชี GitHub: <b>Tsanaphy2023</b></text>
+    <text x="550" y="245" fill="#94a3b8" font-size="10" text-anchor="middle" font-family="'Prompt', sans-serif">คลิกปุ่ม [ Create app ]</text>
+
+    <rect x="410" y="280" width="280" height="85" rx="10" fill="#1e293b" stroke="#334155"/>
+    <text x="550" y="308" fill="#f8fafc" font-size="13" font-weight="600" text-anchor="middle" font-family="'Prompt', sans-serif">⚙️ ตั้งค่า Deployment</text>
+    <text x="550" y="330" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="'Prompt', sans-serif">Repo: Tsanaphy2023/smart-agri-xai-workshop</text>
+    <text x="550" y="348" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="'Prompt', sans-serif">Main file path: <b>app.py</b></text>
+
+    <rect x="410" y="380" width="280" height="65" rx="8" fill="#0f172a" stroke="#ff4b4b"/>
+    <text x="550" y="405" fill="#fbbf24" font-size="11" font-weight="700" text-anchor="middle" font-family="'Prompt', sans-serif">🔑 ใส่ Secrets (ปลอดภัย 100%)</text>
+    <text x="550" y="425" fill="#94a3b8" font-size="10" text-anchor="middle" font-family="monospace">GEMINI_API_KEY = "AIzaSy..."</text>
+
+    <!-- Arrow 2 -> 3 -->
+    <path d="M 710 290 L 780 290" stroke="#10b981" stroke-width="3" marker-end="url(#arrowGreen)"/>
+
+    <!-- Step 3: Global Users -->
+    <rect x="780" y="110" width="280" height="360" rx="14" fill="url(#gradBlue)" stroke="#38bdf8" stroke-width="1.5"/>
+    <text x="920" y="145" fill="#38bdf8" font-size="16" font-weight="700" text-anchor="middle" font-family="'Prompt', sans-serif">3. ใช้งานได้ทั่วโลก (Live App)</text>
+
+    <rect x="800" y="170" width="240" height="85" rx="10" fill="#1e293b" stroke="#334155"/>
+    <text x="920" y="198" fill="#f8fafc" font-size="13" font-weight="600" text-anchor="middle" font-family="'Prompt', sans-serif">🔗 Public Web URL ฟรี</text>
+    <text x="920" y="222" fill="#34d399" font-size="10" font-family="monospace" text-anchor="middle">smart-agri-xai.streamlit.app</text>
+    <text x="920" y="242" fill="#94a3b8" font-size="10" text-anchor="middle" font-family="'Prompt', sans-serif">เปิดได้บนมือถือ แท็บเล็ต โน้ตบุ๊ก</text>
+
+    <rect x="800" y="275" width="240" height="85" rx="10" fill="#1e293b" stroke="#334155"/>
+    <text x="920" y="302" fill="#f8fafc" font-size="13" font-weight="600" text-anchor="middle" font-family="'Prompt', sans-serif">👥 รองรับผู้เรียน 50+ คน</text>
+    <text x="920" y="325" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="'Prompt', sans-serif">ถ่ายภาพดินจริงในสวนทุเรียน</text>
+    <text x="920" y="345" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="'Prompt', sans-serif">วิเคราะห์และดูคำแนะนำได้ทันที</text>
+
+    <rect x="800" y="380" width="240" height="65" rx="8" fill="#0f172a" stroke="#38bdf8"/>
+    <text x="920" y="405" fill="#38bdf8" font-size="11" font-weight="700" text-anchor="middle" font-family="'Prompt', sans-serif">🔄 ระบบ Auto-Update (CI/CD)</text>
+    <text x="920" y="425" fill="#94a3b8" font-size="10" text-anchor="middle" font-family="'Prompt', sans-serif">แก้โค้ดแล้ว push เว็บอัปเดตเอง</text>
+
+    <!-- Footer Note -->
+    <text x="550" y="505" fill="#64748b" font-size="12" text-anchor="middle" font-family="'Prompt', sans-serif">💡 แนะนำ: ใช้ Streamlit Community Cloud เป็นหลัก เพราะทำงานร่วมกับ GitHub ได้สมบูรณ์ที่สุด และไม่มีค่าใช้จ่ายใดๆ</text>
+</svg>

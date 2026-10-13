@@ -1771,6 +1771,18 @@ async def predict_soil(file: UploadFile = File(...)):
         </div>
         """, unsafe_allow_html=True)
 
+        # Screenshots of Mobile App
+        st.markdown("##### 📸 ตัวอย่างหน้าจอจริงของสมาร์ทโฟนแอปพลิเคชัน (Flutter Screen Captures):")
+        m_col1, m_col2 = st.columns(2)
+        with m_col1:
+            cam_screen_path = os.path.join(os.path.dirname(__file__), "docs", "mobile_screen_camera_scanner.jpg")
+            if os.path.exists(cam_screen_path):
+                st.image(cam_screen_path, caption="📸 ส่องกล้อง Edge AI วินิจฉัยพืชออฟไลน์", use_container_width=True)
+        with m_col2:
+            ble_screen_path = os.path.join(os.path.dirname(__file__), "docs", "mobile_screen_ble_sensor.jpg")
+            if os.path.exists(ble_screen_path):
+                st.image(ble_screen_path, caption="🧪 เซนเซอร์ดิน NPK & BLE Telemetry", use_container_width=True)
+
         with st.expander("📱 ดูตัวอย่างโค้ด Dart โหลด TFLite โมเดลบนมือถือ", expanded=False):
             st.code("""// lib/services/ai_service.dart - On-Device Edge Inference
 import 'package:tflite_flutter/tflite_flutter.dart';

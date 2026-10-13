@@ -1,0 +1,35 @@
+name: digital_agri_xai_mobile
+description: "Digital Agri xAI: Intelligent Soil & Crop Health Diagnostics Mobile App (Offline Edge AI & BLE Sensors)"
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.0.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  provider: ^6.1.1
+  camera: ^0.10.5+9
+  tflite_flutter: ^0.10.4
+  flutter_blue_plus: ^1.31.14
+  image_picker: ^1.0.7
+  fl_chart: ^0.66.0
+  google_fonts: ^6.1.0
+  intl: ^0.19.0
+  sqflite: ^2.3.2
+  path: ^1.9.0
+  flutter_animate: ^4.5.0
+  cupertino_icons: ^1.0.6
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^3.0.1
+  flutter_launcher_icons: ^0.13.1
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/models/
+    - assets/icons/

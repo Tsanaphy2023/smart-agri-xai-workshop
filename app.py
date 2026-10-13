@@ -649,12 +649,34 @@ with tab3:
         train_dataset_choice = st.selectbox(
             "1. เลือกชุดข้อมูลฝึกสอน (Training Dataset)",
             [
-                "🪨 จำแนกชนิดเนื้อดิน 5 ชนิด (Soil Types: ดินดำ, ดินลูกรัง, ดินเหนียว, ดินพรุ, ดินเหลือง)",
-                "🍂 อาการขาดธาตุอาหารพืช (Plant Nutrient: ขาด N, ขาด P, ขาด K, ใบสมบูรณ์)",
-                "🌿 โรคใบไหม้และใบจุดทุเรียน จันทบุรี (Durian Leaf Diseases)"
+                "📁 [ของฉันเอง] อัปโหลดชุดข้อมูลของฉันเอง (1-Click Upload .ZIP)",
+                "🪨 1.1 Soil Analysis: จำแนกชนิดเนื้อดิน 5 ชนิด (ดินดำ, ดินลูกรัง, ดินเหนียว, ดินพรุ, ดินเหลือง)",
+                "🌿 2.1 Plant Diseases: โรคใบไหม้และใบจุดทุเรียน จันทบุรี (แอนแทรคโนส, รากเน่าโคนเน่า, จุดสนิม)",
+                "🐛 2.2 Plant Insects: แมลงศัตรูพืชทุเรียน (เพลี้ยไก่แจ้, หนอนเจาะต้น, ไรแดง)",
+                "🍂 2.3 Plant Nutrient: อาการขาดธาตุอาหารหลัก N-P-K (ข้าวโพด/ทุเรียน)"
             ],
-            index=0
+            index=1
         )
+
+        custom_classes = []
+        if "[ของฉันเอง]" in train_dataset_choice:
+            uploaded_custom_zip = st.file_uploader(
+                "📂 ลากวางไฟล์ .zip ชุดข้อมูลของคุณที่นี่ (เช่น my_crops.zip):", 
+                type=["zip"],
+                help="เพียงสร้างโฟลเดอร์แยกตามชื่อปัญหา (เช่น 'ใบจุด', 'ใบปกติ') แล้วบีบอัดเป็น .zip ลากวางได้ทันที"
+            )
+            if uploaded_custom_zip:
+                import zipfile
+                temp_custom_dir = "temp_web_custom_dataset"
+                os.makedirs(temp_custom_dir, exist_ok=True)
+                with zipfile.ZipFile(uploaded_custom_zip, 'r') as zf:
+                    zf.extractall(temp_custom_dir)
+                subdirs = [d for d in os.listdir(temp_custom_dir) if os.path.isdir(os.path.join(temp_custom_dir, d)) and not d.startswith((".", "__"))]
+                if subdirs:
+                    custom_classes = subdirs
+                    st.success(f"✅ โหลดชุดข้อมูลสำเร็จ! ตรวจพบ {len(subdirs)} คลาส: **{', '.join(subdirs)}**")
+                else:
+                    st.info("ℹ️ อัปโหลดไฟล์ .zip สำเร็จ พร้อมสำหรับการฝึกสอน")
 
         train_arch_choice = st.selectbox(
             "2. สถาปัตยกรรมโมเดล AI (Model Architecture)",

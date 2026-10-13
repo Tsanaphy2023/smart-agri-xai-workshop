@@ -1,0 +1,244 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 820" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#080e1a"/>
+      <stop offset="50%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#052e16"/>
+    </linearGradient>
+    <linearGradient id="cardGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1e293b" stop-opacity="0.95"/>
+      <stop offset="100%" stop-color="#0f172a" stop-opacity="0.98"/>
+    </linearGradient>
+    <linearGradient id="btnGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#10b981"/>
+      <stop offset="100%" stop-color="#059669"/>
+    </linearGradient>
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="6" stdDeviation="5" flood-color="#000" flood-opacity="0.4"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="820" fill="url(#bgGrad)"/>
+
+  <!-- Subtle Blueprint Grid -->
+  <g stroke="#334155" stroke-width="0.5" opacity="0.2">
+    <path d="M 0,110 L 1200,110 M 0,220 L 1200,220 M 0,330 L 1200,330 M 0,440 L 1200,440 M 0,550 L 1200,550 M 0,660 L 1200,660 M 0,770 L 1200,770"/>
+    <path d="M 120,0 L 120,820 M 240,0 L 240,820 M 360,0 L 360,820 M 480,0 L 480,820 M 600,0 L 600,820 M 720,0 L 720,820 M 840,0 L 840,820 M 960,0 L 960,820 M 1080,0 L 1080,820"/>
+  </g>
+
+  <!-- Header Banner -->
+  <g id="header" transform="translate(50, 25)">
+    <rect width="1100" height="90" rx="16" fill="url(#cardGrad)" stroke="#334155" stroke-width="1.5" filter="url(#shadow)"/>
+    <rect x="25" y="20" width="50" height="50" rx="12" fill="#10b981" fill-opacity="0.2"/>
+    <text x="50" y="52" font-family="sans-serif" font-size="24" fill="#34d399" text-anchor="middle">🎯</text>
+    <text x="95" y="47" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="22" font-weight="bold" fill="#f8fafc">
+      แนวทางการนำชุดข้อมูลของผู้เรียนเองมาฝึกสอน AI (Zero-Code Custom Dataset Workflow)
+    </text>
+    <text x="95" y="73" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" fill="#94a3b8">
+      ออกแบบสำหรับผู้เข้าอบรมที่ไม่มีพื้นฐานการเขียนโปรแกรม — เตรียมภาพ ➔ Zip ➔ ลากวาง ➔ กดเทรนได้ผลทันที!
+    </text>
+    <rect x="940" y="28" width="135" height="34" rx="8" fill="#10b981" fill-opacity="0.15" stroke="#10b981" stroke-width="1.5"/>
+    <text x="1007" y="50" font-family="sans-serif" font-size="12" font-weight="bold" fill="#34d399" text-anchor="middle">
+      ZERO PROGRAMMING
+    </text>
+  </g>
+
+  <!-- 4 Process Cards (Horizontal Workflow) -->
+  
+  <!-- Step 1: Prepare Photos -->
+  <g id="step1" transform="translate(50, 135)">
+    <rect width="260" height="420" rx="14" fill="url(#cardGrad)" stroke="#3b82f6" stroke-width="1.5" filter="url(#shadow)"/>
+    <!-- Card Header -->
+    <rect width="260" height="46" rx="14" fill="#1e293b"/>
+    <rect y="32" width="260" height="14" fill="#1e293b"/>
+    <circle cx="28" cy="23" r="11" fill="#3b82f6"/>
+    <text x="28" y="27" font-family="sans-serif" font-size="12" fill="#fff" text-anchor="middle" font-weight="bold">1</text>
+    <text x="48" y="28" font-family="sans-serif" font-size="14" font-weight="bold" fill="#93c5fd">จัดภาพใส่โฟลเดอร์</text>
+
+    <!-- Content -->
+    <g transform="translate(15, 60)">
+      <text x="0" y="16" font-family="sans-serif" font-size="12" font-weight="bold" fill="#f8fafc">📸 ถ่ายภาพปัญหาจากแปลงจริง</text>
+      <text x="0" y="34" font-family="sans-serif" font-size="11" fill="#94a3b8">• ใช้กล้องมือถือถ่ายภาพ 15-30 ภาพ</text>
+      <text x="0" y="50" font-family="sans-serif" font-size="11" fill="#94a3b8">• ถ่ายให้ชัดเจน หลายมุมมอง/แสง</text>
+
+      <!-- Folder Structure Demo Box -->
+      <rect y="70" width="230" height="150" rx="8" fill="#0f172a" stroke="#334155"/>
+      <text x="12" y="92" font-family="sans-serif" font-size="11" font-weight="bold" fill="#fbbf24">📁 สร้างโฟลเดอร์ตามชื่อปัญหา:</text>
+      <text x="24" y="114" font-family="sans-serif" font-size="11" fill="#cbd5e1">├── 📁 โฟลเดอร์_ใบจุด/ (20 รูป)</text>
+      <text x="24" y="132" font-family="sans-serif" font-size="11" fill="#cbd5e1">├── 📁 โฟลเดอร์_ใบไหม้/ (20 รูป)</text>
+      <text x="24" y="150" font-family="sans-serif" font-size="11" fill="#cbd5e1">└── 📁 โฟลเดอร์_ใบปกติ/ (20 รูป)</text>
+      <text x="12" y="178" font-family="sans-serif" font-size="10" fill="#38bdf8">💡 ไม่จำเป็นต้องสร้าง train/val เอง</text>
+      <text x="12" y="196" font-family="sans-serif" font-size="10" fill="#38bdf8">    ระบบจะแบ่งสัดส่วนให้อัตโนมัติ!</text>
+
+      <!-- Action -->
+      <rect y="235" width="230" height="50" rx="8" fill="#1e293b" stroke="#3b82f6"/>
+      <text x="115" y="256" font-family="sans-serif" font-size="11" font-weight="bold" fill="#60a5fa" text-anchor="middle">🗜️ คลิกขวาบีบอัดเป็น .ZIP</text>
+      <text x="115" y="272" font-family="sans-serif" font-size="10" fill="#94a3b8" text-anchor="middle">ได้ไฟล์ เช่น my_plants.zip</text>
+    </g>
+  </g>
+
+  <!-- Flow Arrow 1 -> 2 -->
+  <g transform="translate(315, 345)">
+    <line x1="0" y1="0" x2="18" y2="0" stroke="#3b82f6" stroke-width="2.5" stroke-dasharray="3"/>
+    <polygon points="18, -4 24, 0 18, 4" fill="#3b82f6"/>
+  </g>
+
+  <!-- Step 2: Choose Upload Channel -->
+  <g id="step2" transform="translate(345, 135)">
+    <rect width="260" height="420" rx="14" fill="url(#cardGrad)" stroke="#10b981" stroke-width="1.5" filter="url(#shadow)"/>
+    <!-- Card Header -->
+    <rect width="260" height="46" rx="14" fill="#1e293b"/>
+    <rect y="32" width="260" height="14" fill="#1e293b"/>
+    <circle cx="28" cy="23" r="11" fill="#10b981"/>
+    <text x="28" y="27" font-family="sans-serif" font-size="12" fill="#fff" text-anchor="middle" font-weight="bold">2</text>
+    <text x="48" y="28" font-family="sans-serif" font-size="14" font-weight="bold" fill="#6ee7b7">เลือกช่องทางอัปโหลด</text>
+
+    <!-- Content -->
+    <g transform="translate(15, 60)">
+      <text x="0" y="16" font-family="sans-serif" font-size="12" font-weight="bold" fill="#f8fafc">🌐 ผู้เรียนเลือกได้ 2 ทางสะดวก:</text>
+
+      <!-- Channel A: Streamlit Web -->
+      <rect y="30" width="230" height="110" rx="8" fill="#0f172a" stroke="#10b981"/>
+      <text x="12" y="52" font-family="sans-serif" font-size="12" font-weight="bold" fill="#34d399">💻 ทางเลือก A: หน้าเว็บหลัก (Tab 3)</text>
+      <text x="12" y="70" font-family="sans-serif" font-size="11" fill="#cbd5e1">• ลากไฟล์ .zip มาวางในกล่องเบราว์เซอร์</text>
+      <text x="12" y="86" font-family="sans-serif" font-size="11" fill="#cbd5e1">• ไม่ต้องเปิดโค้ดแม้แต่หน้าเดียว</text>
+      <text x="12" y="102" font-family="sans-serif" font-size="11" fill="#cbd5e1">• เหมาะที่สุดสำหรับมือใหม่ 100%</text>
+      <text x="12" y="122" font-family="sans-serif" font-size="10" fill="#38bdf8">✓ แสดงผลคลาสที่ตรวจพบสดๆ</text>
+
+      <!-- Channel B: Colab Cloud GPU -->
+      <rect y="155" width="230" height="130" rx="8" fill="#0f172a" stroke="#f59e0b"/>
+      <text x="12" y="177" font-family="sans-serif" font-size="12" font-weight="bold" fill="#fbbf24">⚡ ทางเลือก B: Google Colab (GPU ฟรี)</text>
+      <text x="12" y="195" font-family="sans-serif" font-size="11" fill="#cbd5e1">• เลือกข้อ "[ของฉันเอง] อัปโหลด .ZIP"</text>
+      <text x="12" y="211" font-family="sans-serif" font-size="11" fill="#cbd5e1">• คลิกปุ่ม "Choose Files" เลือกไฟล์</text>
+      <text x="12" y="227" font-family="sans-serif" font-size="11" fill="#cbd5e1">• เทรนเร็วสุดยอดด้วย Cloud GPU T4</text>
+      <text x="12" y="247" font-family="sans-serif" font-size="10" fill="#34d399">✓ ดาวน์โหลด .onnx อัตโนมัติ</text>
+    </g>
+  </g>
+
+  <!-- Flow Arrow 2 -> 3 -->
+  <g transform="translate(610, 345)">
+    <line x1="0" y1="0" x2="18" y2="0" stroke="#10b981" stroke-width="2.5" stroke-dasharray="3"/>
+    <polygon points="18, -4 24, 0 18, 4" fill="#10b981"/>
+  </g>
+
+  <!-- Step 3: Automated Pipeline -->
+  <g id="step3" transform="translate(635, 135)">
+    <rect width="250" height="420" rx="14" fill="url(#cardGrad)" stroke="#a855f7" stroke-width="1.5" filter="url(#shadow)"/>
+    <!-- Card Header -->
+    <rect width="250" height="46" rx="14" fill="#1e293b"/>
+    <rect y="32" width="250" height="14" fill="#1e293b"/>
+    <circle cx="28" cy="23" r="11" fill="#a855f7"/>
+    <text x="28" y="27" font-family="sans-serif" font-size="12" fill="#fff" text-anchor="middle" font-weight="bold">3</text>
+    <text x="48" y="28" font-family="sans-serif" font-size="14" font-weight="bold" fill="#d8b4fe">ระบบเตรียมข้อมูลอัตโนมัติ</text>
+
+    <!-- Content -->
+    <g transform="translate(15, 60)">
+      <text x="0" y="16" font-family="sans-serif" font-size="12" font-weight="bold" fill="#f8fafc">🤖 AI Automation เบื้องหลัง:</text>
+      
+      <!-- Auto Actions list -->
+      <rect y="30" width="220" height="255" rx="8" fill="#0f172a" stroke="#334155"/>
+      <g transform="translate(12, 20)">
+        <text x="0" y="10" font-family="sans-serif" font-size="11" font-weight="bold" fill="#34d399">1. Unzip อัตโนมัติ</text>
+        <text x="0" y="26" font-family="sans-serif" font-size="10" fill="#94a3b8">แตกไฟล์ลงโฟลเดอร์ชั่วคราว</text>
+
+        <text x="0" y="52" font-family="sans-serif" font-size="11" font-weight="bold" fill="#34d399">2. ตรวจสอบชนิดไฟล์</text>
+        <text x="0" y="68" font-family="sans-serif" font-size="10" fill="#94a3b8">กรองเฉพาะภาพ .jpg, .png, .webp</text>
+
+        <text x="0" y="94" font-family="sans-serif" font-size="11" font-weight="bold" fill="#34d399">3. Auto Train/Val Split (80/20)</text>
+        <text x="0" y="110" font-family="sans-serif" font-size="10" fill="#94a3b8">สุ่มแยก 80% สำหรับสอน และ 20%</text>
+        <text x="0" y="124" font-family="sans-serif" font-size="10" fill="#94a3b8">สำหรับวัดผลความแม่นยำ</text>
+
+        <text x="0" y="150" font-family="sans-serif" font-size="11" font-weight="bold" fill="#34d399">4. ปรับโครงสร้างโมเดล AI</text>
+        <text x="0" y="166" font-family="sans-serif" font-size="10" fill="#94a3b8">ปรับ Output Layer ของ MobileNetV3</text>
+        <text x="0" y="180" font-family="sans-serif" font-size="10" fill="#94a3b8">ให้ตรงกับจำนวนคลาสจริง</text>
+
+        <text x="0" y="206" font-family="sans-serif" font-size="11" font-weight="bold" fill="#38bdf8">✓ ผู้เรียนไม่ต้องแก้โค้ดแม้แต่บรรทัดเดียว</text>
+      </g>
+    </g>
+  </g>
+
+  <!-- Flow Arrow 3 -> 4 -->
+  <g transform="translate(890, 345)">
+    <line x1="0" y1="0" x2="18" y2="0" stroke="#a855f7" stroke-width="2.5" stroke-dasharray="3"/>
+    <polygon points="18, -4 24, 0 18, 4" fill="#a855f7"/>
+  </g>
+
+  <!-- Step 4: 1-Click Train & Deploy -->
+  <g id="step4" transform="translate(915, 135)">
+    <rect width="235" height="420" rx="14" fill="url(#cardGrad)" stroke="#f59e0b" stroke-width="1.5" filter="url(#shadow)"/>
+    <!-- Card Header -->
+    <rect width="235" height="46" rx="14" fill="#1e293b"/>
+    <rect y="32" width="235" height="14" fill="#1e293b"/>
+    <circle cx="26" cy="23" r="11" fill="#f59e0b"/>
+    <text x="26" y="27" font-family="sans-serif" font-size="12" fill="#fff" text-anchor="middle" font-weight="bold">4</text>
+    <text x="45" y="28" font-family="sans-serif" font-size="14" font-weight="bold" fill="#fcd34d">คลิกเทรนและใช้งาน</text>
+
+    <!-- Content -->
+    <g transform="translate(15, 60)">
+      <text x="0" y="16" font-family="sans-serif" font-size="12" font-weight="bold" fill="#f8fafc">🚀 1-Click Play &amp; Export</text>
+
+      <!-- Action Card -->
+      <rect y="30" width="205" height="110" rx="8" fill="#0f172a" stroke="#10b981"/>
+      <g transform="translate(10, 20)">
+        <rect width="185" height="35" rx="6" fill="url(#btnGrad)"/>
+        <text x="92" y="22" font-family="sans-serif" font-size="12" font-weight="bold" fill="#fff" text-anchor="middle">▶ กดปุ่ม Play / เริ่มเทรน</text>
+        <text x="0" y="55" font-family="sans-serif" font-size="10" fill="#94a3b8">• ดูกราฟความแม่นยำวิ่งสดๆ</text>
+        <text x="0" y="70" font-family="sans-serif" font-size="10" fill="#34d399">• ใช้เวลาเพียง 30-60 วินาที</text>
+      </g>
+
+      <!-- Result Card -->
+      <rect y="150" width="205" height="135" rx="8" fill="#0f172a" stroke="#334155"/>
+      <g transform="translate(10, 20)">
+        <text x="0" y="12" font-family="sans-serif" font-size="11" font-weight="bold" fill="#fbbf24">📦 ได้ผลลัพธ์ทันที:</text>
+        <text x="0" y="32" font-family="sans-serif" font-size="10" fill="#cbd5e1">1. ไฟล์โมเดล (.onnx) ประจำแปลง</text>
+        <text x="0" y="50" font-family="sans-serif" font-size="10" fill="#cbd5e1">2. ปุ่มส่งไปทดสอบใน Tab 1</text>
+        <text x="0" y="68" font-family="sans-serif" font-size="10" fill="#cbd5e1">3. กราฟสรุปผลงานวิจัย</text>
+        <text x="0" y="94" font-family="sans-serif" font-size="10" font-weight="bold" fill="#38bdf8">💡 นำไปใส่ในแอปมือถือหรือเว็บส่วนตัวได้เลย</text>
+      </g>
+    </g>
+  </g>
+
+  <!-- Bottom Checklist Banner (Tips for Successful Workshop) -->
+  <g id="bottomTips" transform="translate(50, 580)">
+    <rect width="1100" height="205" rx="14" fill="url(#cardGrad)" stroke="#10b981" stroke-width="1.5" filter="url(#shadow)"/>
+    
+    <!-- Banner Header -->
+    <rect width="1100" height="42" rx="14" fill="#1e293b"/>
+    <rect y="28" width="1100" height="14" fill="#1e293b"/>
+    <text x="25" y="27" font-family="sans-serif" font-size="14" font-weight="bold" fill="#34d399">
+      💡 คำแนะนำสำหรับการจัดอบรม (Workshop Facilitator Checklist สำหรับวิทยากรและผู้จัด)
+    </text>
+
+    <!-- 3 Tip Boxes -->
+    <g transform="translate(20, 55)">
+      <!-- Tip 1 -->
+      <rect width="335" height="135" rx="8" fill="#0f172a" stroke="#334155"/>
+      <text x="15" y="25" font-family="sans-serif" font-size="12" font-weight="bold" fill="#93c5fd">1. แจ้งผู้เรียนถ่ายรูปมาล่วงหน้า</text>
+      <text x="15" y="48" font-family="sans-serif" font-size="11" fill="#cbd5e1">• แนะนำให้ถ่ายภาพพืชในสวนตนเองมา 2 คลาส</text>
+      <text x="15" y="66" font-family="sans-serif" font-size="11" fill="#cbd5e1">• เช่น "ใบปกติ" และ "ใบมีอาการป่วย"</text>
+      <text x="15" y="84" font-family="sans-serif" font-size="11" fill="#cbd5e1">• คลาสละอย่างน้อย 15-20 ภาพ</text>
+      <text x="15" y="108" font-family="sans-serif" font-size="10" fill="#34d399">✓ เพื่อให้ผู้เรียนได้โมเดลที่เป็นของตัวเองจริงๆ</text>
+
+      <!-- Tip 2 -->
+      <g transform="translate(360, 0)">
+        <rect width="335" height="135" rx="8" fill="#0f172a" stroke="#334155"/>
+        <text x="15" y="25" font-family="sans-serif" font-size="12" font-weight="bold" fill="#fcd34d">2. สาธิตการสร้างโฟลเดอร์ 1 นาที</text>
+        <text x="15" y="48" font-family="sans-serif" font-size="11" fill="#cbd5e1">• บน Windows/Mac ให้สร้างโฟลเดอร์ธรรมดา</text>
+        <text x="15" y="66" font-family="sans-serif" font-size="11" fill="#cbd5e1">• ตั้งชื่อโฟลเดอร์เป็นภาษาไทยหรืออังกฤษได้</text>
+        <text x="15" y="84" font-family="sans-serif" font-size="11" fill="#cbd5e1">• ลากคลุมแล้วคลิกขวา > Send to ZIP</text>
+        <text x="15" y="108" font-family="sans-serif" font-size="10" fill="#fbbf24">✓ ทุกคนในห้องสามารถทำได้ทันที ไม่ติดขัด</text>
+      </g>
+
+      <!-- Tip 3 -->
+      <g transform="translate(720, 0)">
+        <rect width="340" height="135" rx="8" fill="#0f172a" stroke="#334155"/>
+        <text x="15" y="25" font-family="sans-serif" font-size="12" font-weight="bold" fill="#d8b4fe">3. มีชุดข้อมูลสำรองให้เสมอ</text>
+        <text x="15" y="48" font-family="sans-serif" font-size="11" fill="#cbd5e1">• ผู้เรียนคนใดไม่ได้เตรียมภาพมา</text>
+        <text x="15" y="66" font-family="sans-serif" font-size="11" fill="#cbd5e1">• สามารถเลือกชุดข้อมูลวิจัยสำเร็จรูปของอาจารย์</text>
+        <text x="15" y="84" font-family="sans-serif" font-size="11" fill="#cbd5e1">• (ทุเรียนจันทบุรี, ดิน 5 ชนิด, แมลงศัตรูพืช)</text>
+        <text x="15" y="108" font-family="sans-serif" font-size="10" fill="#a7f3d0">✓ ทุกคนใน 50 คนฝึกปฏิบัติได้พร้อมกัน 100%</text>
+      </g>
+    </g>
+  </g>
+</svg>

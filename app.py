@@ -100,9 +100,23 @@ ANALYSIS_PROMPT = """
 }
 """
 
-# Header
-st.markdown('<div class="main-header">🌱 Smart Soil & Environmental AI Analyzer</div>', unsafe_allow_html=True)
-st.markdown('<div class="sub-header">ระบบวิเคราะห์คุณภาพดินและสุขภาพพืชอัจฉริยะ รองรับทั้ง Cloud Multimodal AI, Local Ollama, และ In-Process Edge AI โมเดลเฉพาะทาง</div>', unsafe_allow_html=True)
+# Header with Direct Links to Colab and GitHub
+col_head1, col_head2 = st.columns([7, 3])
+with col_head1:
+    st.markdown('<div class="main-header">🌱 Smart Soil & Environmental AI Analyzer</div>', unsafe_allow_html=True)
+    st.markdown('<div class="sub-header">ระบบวิเคราะห์คุณภาพดินและสุขภาพพืชอัจฉริยะ รองรับทั้ง Cloud Multimodal AI, Local Ollama, และ In-Process Edge AI</div>', unsafe_allow_html=True)
+with col_head2:
+    st.markdown("""
+    <div style="text-align: right; padding-top: 15px;">
+        <a href="https://colab.research.google.com/github/Tsanaphy2023/smart-agri-xai-workshop/blob/main/Smart_Agri_AI_LowCode_Workshop.ipynb" target="_blank" style="margin-right: 8px;">
+            <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab" style="height: 30px; vertical-align: middle;">
+        </a>
+        <a href="https://github.com/Tsanaphy2023/smart-agri-xai-workshop" target="_blank" style="text-decoration: none; background: #0f172a; color: #f8fafc; padding: 5px 12px; border-radius: 6px; font-size: 0.85rem; font-weight: 600; border: 1px solid #334155; display: inline-block; vertical-align: middle;">
+            🐙 GitHub
+        </a>
+    </div>
+    """, unsafe_allow_html=True)
+st.divider()
 
 # Helper function to convert PIL Image to base64
 def pil_to_base64(image):
@@ -199,6 +213,17 @@ with st.sidebar:
 
     st.markdown("---")
     st.info("💡 **สถานะระบบ:**\n- **In-Process Custom:** ออฟไลน์ 100% เร็ว ไม่ต้องเปิด server แยก\n- **Ollama:** ประมวลผลบนเครื่อง ปลอดภัยข้อมูลไม่ออกนอก\n- **Cloud:** ภาษาไทยสละสลวย ละเอียดสูง")
+
+    st.markdown("---")
+    st.markdown("""
+    #### 🎓 สื่อปฏิบัติการ Workshop
+    <a href="https://colab.research.google.com/github/Tsanaphy2023/smart-agri-xai-workshop/blob/main/Smart_Agri_AI_LowCode_Workshop.ipynb" target="_blank">
+        <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab" style="width: 100%; border-radius: 6px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+    </a>
+    <p style="font-size: 0.8rem; color: #64748b; margin-top: 6px;">
+        ⚡ <b>Free GPU (NVIDIA T4):</b> คลิกเพื่อเปิดสมุดงาน Colab ฝึกสอนโมเดล AI บนคลาวด์ Google ทันที
+    </p>
+    """, unsafe_allow_html=True)
 
 # 4. Inference Functions
 def analyze_with_gemini(image, prompt, location_info, api_key, model_name):
@@ -648,7 +673,19 @@ with tab3:
 
         start_train_btn = st.button("🚀 เริ่มการฝึกสอนโมเดล AI (Start Training)", type="primary", use_container_width=True)
 
-        st.info("💡 **คำแนะนำ:** สำหรับการฝึกสอนชุดข้อมูลขนาดใหญ่ที่ต้องการ GPU ความเร็วสูง สามารถใช้ [Google Colab Workshop](https://colab.research.google.com) ผ่านไฟล์ `Smart_Agri_AI_LowCode_Workshop.ipynb` ได้เช่นกัน")
+        st.markdown("""
+        <div style="background: #f0fdf4; border: 1px solid #86efac; border-radius: 8px; padding: 12px; margin-top: 15px;">
+            <p style="margin: 0; font-size: 0.88rem; color: #166534; font-weight: 600;">
+                ⚡ ต้องการฝึกสอนด้วย GPU ความเร็วสูงบนคลาวด์?
+            </p>
+            <p style="margin: 4px 0 8px 0; font-size: 0.82rem; color: #374151;">
+                ผู้เข้าอบรมสามารถคลิกปุ่มด้านล่างเพื่อเปิดสมุดงานภาษาไทยบน Google Colab ได้ทันที:
+            </p>
+            <a href="https://colab.research.google.com/github/Tsanaphy2023/smart-agri-xai-workshop/blob/main/Smart_Agri_AI_LowCode_Workshop.ipynb" target="_blank">
+                <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab">
+            </a>
+        </div>
+        """, unsafe_allow_html=True)
 
     with col_train_out:
         st.markdown("#### 📈 ขั้นตอนที่ 4: ความก้าวหน้าและผลลัพธ์การฝึกสอน")

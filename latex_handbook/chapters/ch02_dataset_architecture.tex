@@ -1,0 +1,78 @@
+% ==============================================================================
+% chapters/ch02_dataset_architecture.tex — บทที่ 2
+% ==============================================================================
+\chapter{สถาปัตยกรรมชุดข้อมูลแบบสองเสาหลัก}
+\label{ch:dataset_architecture}
+
+การจัดระเบียบชุดข้อมูลสำหรับระบบเกษตรอัจฉริยะจำเป็นต้องรองรับทั้งการประมวลผลเชิงฟิสิกส์เคมีของดิน และการวินิจฉัยทางชีวภาพของพืช ดังนั้น ระบบจึงจัดแบ่งโครงสร้างข้อมูลออกเป็น 2 เสาหลัก (Two-Pillar Architecture) ประกอบด้วย เสาหลักด้านดิน (\texttt{Soil}) และเสาหลักด้านพืช (\texttt{Plant}) พร้อมทั้งจำแนกย่อยตามชนิดพืชเศรษฐกิจสำคัญของไทย ได้แก่ ทุเรียน ข้าว ข้าวโพด มะเขือเทศ และมันสำปะหลัง
+
+จุดเด่นสำคัญของสถาปัตยกรรมนี้คือ การแบ่งโฟลเดอร์ย่อยในแต่ละคลาสออกเป็นสองชุดข้อมูลคู่ขนานกันอย่างชัดเจน ได้แก่ \texttt{01\_Real\_Data} สำหรับบรรจุข้อมูลภาพถ่ายจริงที่ผ่านการคัดสรรจากงานวิจัยระดับโลก และ \texttt{02\_Synthetic\_Data} สำหรับบรรจุข้อมูลภาพจำลองที่ระบบจัดทำขึ้นเพื่อใช้ในการทดสอบความพร้อมของระบบและเป็นชุดเริ่มต้น (Starter Kit)
+
+\academicsection{ผังโครงสร้างการจัดหมวดหมู่ข้อมูล}
+\label{sec:directory_tree}
+
+โครงสร้างโฟลเดอร์หลักในระบบถูกกำหนดเส้นทางการจัดเก็บที่สอดคล้องกับมาตรฐานการโหลดข้อมูลของ PyTorch \texttt{ImageFolder} เพื่อให้ผู้เรียนสามารถระบุพาท (Path) เข้าสู่การฝึกโมเดลได้ทันทีโดยไม่มีข้อผิดพลาด ดังแสดงในผังต่อไปนี้
+
+\begin{tcolorbox}[title=\textbf{ผังโครงสร้างไดเรกทอรีระบบ Smart Agri Datasets}]
+\fontsize{8.5}{11}\selectfont\raggedright
+\texttt{datasets/}\\
+\texttt{+-- Soil/}\\
+\texttt{|   +-- SoilNutrient/ -- 01\_Real\_Data/} (Crop\_recommendation.csv, OSSL Spectra)\\
+\texttt{|   +-- SoilType/     -- 01\_Real\_Data/} (ภาพดินจริง 5 ชนิด: ดินดำ ขี้เถ้า ลูกรัง พีต เหลือง)\\
+\texttt{+-- Plant/}\\
+\texttt{    +-- PlantDiseases/}\\
+\texttt{    |   +-- Durian/          --} ทุเรียน (01\_Real\_Data, 02\_Synthetic\_Data)\\
+\texttt{    |   +-- Maize/           --} ข้าวโพด (01\_Real\_Data, 02\_Synthetic\_Data)\\
+\texttt{    |   +-- Rice/            --} ข้าว (01\_Real\_Data, 02\_Synthetic\_Data)\\
+\texttt{    |   +-- Tomato/          --} มะเขือเทศ (01\_Real\_Data, 02\_Synthetic\_Data)\\
+\texttt{    |   +-- Cassava/         --} มันสำปะหลัง (01\_Real\_Data, 02\_Synthetic\_Data)\\
+\texttt{    +-- PlantInsect/}\\
+\texttt{    |   +-- Durian/          --} เพลี้ยไก่แจ้ (Real \& Synth)\\
+\texttt{    |   +-- Rice/            --} เพลี้ยกระโดด หนอนกอ หนอนห่อใบ\\
+\texttt{    |   +-- General\_Crops/   --} หนอนกระทู้ หนอนใยผัก\\
+\texttt{    +-- PlantNutrient/}\\
+\texttt{        +-- Deficiencies/    --} อาการขาดธาตุ N, P, K, Mg
+\end{tcolorbox}
+
+\academicsection{การแยกข้อมูลจริงและข้อมูลจำลอง}
+\label{sec:real_vs_synthetic}
+
+ความโปร่งใสในข้อมูลทางวิทยาศาสตร์เป็นหัวใจสำคัญของการประเมินความสามารถของโมเดลปัญญาประดิษฐ์ ในอดีตการนำภาพจำลองมาปะปนกับภาพถ่ายจริงอาจทำให้เกิดความเข้าใจผิดเกี่ยวกับประสิทธิภาพของโมเดลในสภาพแปลงจริง (Generalization Gap) ดังนั้นระบบจึงกำหนดกฎเกณฑ์การแยกข้อมูลดังนี้
+
+\begin{itemize}
+    \item \textbf{01\_Real\_Data:} บรรจุภาพถ่ายและข้อมูลตารางที่มาจากแปลงทดลอง สภาพแวดล้อมจริง หรือกล้องดักจับแมลงอัตโนมัติ โดยอ้างอิงจากฐานข้อมูลเปิดที่ผ่านการตีพิมพ์ในวารสารและเวทีประชุมวิชาการระดับนานาชาติ เช่น Kaggle, PlantVillage, Pest24, OSSL และ IRRI
+    \item \textbf{02\_Synthetic\_Data:} บรรจุภาพที่ถูกสร้างขึ้นอย่างมีแบบแผนเชิงคณิตศาสตร์และกราฟิก มีลักษณะอาการเด่นชัด เพื่อให้ผู้เรียนทุกคนสามารถเริ่มต้นทำแล็บได้ทันทีแม้ในกรณีที่ไม่ได้ดาวน์โหลดชุดข้อมูลขนาดใหญ่จากภายนอก
+\end{itemize}
+
+\academicsection{สถิติชุดข้อมูลในระบบปัจจุบัน}
+\label{sec:dataset_statistics}
+
+จากการบูรณาการและเชื่อมต่อชุดข้อมูลระดับโลกเข้าสู่ระบบ ปัจจุบันมีข้อมูลพร้อมใช้งานรวมทั้งสิ้น 2,875 ไฟล์ ดังรายละเอียดสรุปในตารางที่ \ref{tab:dataset_summary}
+
+\begin{table}[htbp]
+\caption{สรุปจำนวนข้อมูลจริงและข้อมูลจำลองในแต่ละหมวดหมู่ของระบบ}
+\label{tab:dataset_summary}
+\centering
+\fontsize{9}{12}\selectfont
+\begin{tabularx}{\textwidth}{llccX}
+\toprule
+\textbf{เสาหลัก} & \textbf{หมวดหมู่ / ชนิดพืช} & \textbf{ข้อมูลจริง} & \textbf{ข้อมูลจำลอง} & \textbf{แหล่งอ้างอิงหลัก} \\
+\midrule
+Soil & ชนิดเนื้อดิน (SoilType) & 156 ภาพ & --- & Kaggle CycleGAN Benchmark \\
+Soil & ธาตุอาหารดิน (SoilNutrient) & 9 ไฟล์ & --- & Crop Recommendation \& OSSL \\
+Plant & โรคทุเรียน (Durian Diseases) & 320 ภาพ & 60 ภาพ & Durian Leaf Disease Dataset \\
+Plant & โรคข้าวโพด (Maize Diseases) & 300 ภาพ & 60 ภาพ & Corn Leaf Disease Dataset \\
+Plant & โรคข้าว (Rice Diseases) & 126 ภาพ & 60 ภาพ & Rice Leaf Diseases Dataset \\
+Plant & โรคมะเขือเทศ (Tomato Diseases) & 300 ภาพ & 60 ภาพ & PlantVillage / PlantDoc \\
+Plant & โรคมันสำปะหลัง (Cassava Diseases) & คู่มือ & 60 ภาพ & Makerere AI Lab / Kaggle \\
+Plant & แมลงศัตรูทุเรียน (Durian Insects) & 160 ภาพ & 60 ภาพ & Allocaridara Pest Attack \\
+Plant & แมลงศัตรูข้าว (Rice Insects) & 181 ภาพ & 60 ภาพ & Pest24 Smart Trap Dataset \\
+Plant & แมลงพืชทั่วไป (General Insects) & 240 ภาพ & 60 ภาพ & Pest24 \& PlantVillage \\
+Plant & ธาตุอาหารพืช (Plant Nutrients) & คู่มือ & 304 ภาพ & Nutrient Deficiencies Starter \\
+\midrule
+\multicolumn{2}{l}{\textbf{รวมทั้งสิ้น}} & \textbf{1,795 ไฟล์} & \textbf{840 ภาพ} & \textbf{รวม 2,875 ไฟล์} \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+ทุกชุดข้อมูลทั้งในฝั่งข้อมูลจริงและข้อมูลจำลอง ได้รับการจัดสัดส่วนชุดข้อมูลฝึกสอน (Train Set) ร้อยละ 80 และชุดข้อมูลตรวจสอบ (Validation Set) ร้อยละ 20 ไว้อย่างสมบูรณ์ พร้อมสำหรับการนำเข้าสู่กระบวนการเรียนรู้เชิงลึกได้ทันที

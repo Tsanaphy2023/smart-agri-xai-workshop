@@ -1816,8 +1816,8 @@ class AgriClassifierService {
     st.markdown("### 4. 🤖 คลังชุดคำสั่ง AI Prompt & Context Kit (VS Code / Cursor / Google Antigravity)")
     st.caption("ชุดคำสั่งและคอนเทกต์มาตรฐาน ช่วยให้ผู้เข้าอบรมสั่งให้ AI Coding Assistants สร้างระบบ Web & Mobile ได้อย่างแม่นยำและประหยัดโทเค็นสูงสุด")
 
-    # Download All Prompts Kit Button
-    p_col1, p_col2 = st.columns([1.2, 2.8])
+    # Download Buttons (Prompts Kit ZIP & PDF Academic Handbook)
+    p_col1, p_col2 = st.columns([1.5, 1.5])
     with p_col1:
         prompts_zip_data = create_prompt_kit_zip()
         st.download_button(
@@ -1829,7 +1829,22 @@ class AgriClassifierService {
             help="ดาวน์โหลดไฟล์ .cursorrules, AGENTS.md, และพรอมพ์แม่แบบทั้งหมด"
         )
     with p_col2:
-        st.info("💡 **เคล็ดลับประหยัดโทเค็น:** คัดลอกคอนเทกต์ด้านล่างนี้ไปวางใน Custom Instructions หรือไฟล์ `.cursorrules` / `GEMINI.md` ที่รูทโปรเจกต์ จะช่วยประหยัดโทเค็นได้ถึง 85%!")
+        pdf_book_path = os.path.join(os.path.dirname(__file__), "docs", "Digital_Agri_xAI_Handbook_6x9.pdf")
+        if os.path.exists(pdf_book_path):
+            with open(pdf_book_path, "rb") as f:
+                pdf_bytes = f.read()
+            st.download_button(
+                label="📖 ดาวน์โหลดคู่มือวิชาการ 50 หน้า (.pdf)",
+                data=pdf_bytes,
+                file_name="Digital_Agri_xAI_Handbook_6x9.pdf",
+                mime="application/pdf",
+                use_container_width=True,
+                help="ดาวน์โหลดเอกสารคู่มือตำราวิชาการมาตรฐาน RBRU (6x9 นิ้ว, XeLaTeX) ฉบับสมบูรณ์"
+            )
+        else:
+            st.button("📖 กำลังจัดเตรียมคู่มือวิชาการ PDF...", disabled=True, use_container_width=True)
+
+    st.info("💡 **เคล็ดลับประหยัดโทเค็น:** คัดลอกคอนเทกต์ด้านล่างนี้ไปวางใน Custom Instructions หรือไฟล์ `.cursorrules` / `GEMINI.md` ที่รูทโปรเจกต์ จะช่วยประหยัดโทเค็นได้ถึง 85%!")
 
     # Interactive Prompt Selector
     selected_prompt_category = st.selectbox(

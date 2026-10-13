@@ -1,0 +1,36 @@
+% ==============================================================================
+% preamble/captions.tex — การจัดรูปแบบคำบรรยายภาพและตาราง
+% ตามมาตรฐาน thai-academic-latex-formatting
+% ==============================================================================
+
+% 1. กำหนดป้ายชื่อภาษาไทย
+\renewcommand{\figurename}{ภาพที่}
+\renewcommand{\tablename}{ตารางที่}
+
+% 2. ตัวคั่นระหว่างป้ายชื่อและข้อความบรรยาย: ใช้ช่องว่าง (Space) ห้ามใช้โคลอน (:)
+\DeclareCaptionLabelSeparator{space}{ }
+
+% 3. การตั้งค่าสไตล์คำบรรยายภาพรวม (Global Caption Settings)
+% ป้ายชื่อตัวหนา (Bold label), ตัวคั่นเป็นช่องว่าง
+\captionsetup{
+    labelsep=space,
+    labelfont=bf,
+    textfont=normalfont,
+    font=small,
+    skip=6pt
+}
+
+% 4. คำบรรยายตาราง (Table Captions): บังคับชิดซ้ายทั่วทั้งเล่ม (Left-aligned)
+% และไม่จัดกึ่งกลางแม้มีเพียงบรรทัดเดียว (singlelinecheck=false)
+\captionsetup[table]{
+    singlelinecheck=false,
+    justification=raggedright,
+    position=top,
+    skip=4pt
+}
+
+% 5. คำบรรยายภาพ (Figure Captions): วางใต้ภาพ จัดกึ่งกลางมาตรฐาน
+\captionsetup[figure]{
+    position=bottom,
+    skip=6pt
+}

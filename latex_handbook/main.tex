@@ -1,0 +1,55 @@
+% ==============================================================================
+% main.tex — คู่มือการจัดเตรียมชุดข้อมูลและการฝึกอบรมปัญญาประดิษฐ์เพื่อเกษตรดิจิทัลและสิ่งแวดล้อม
+% ตามมาตรฐาน thai-academic-latex-formatting (ขนาด 6 x 9 นิ้ว, XeLaTeX)
+% ผู้แต่ง: ผศ.ดร.ชีวะ ทัศนา (มหาวิทยาลัยราชภัฏรำไพพรรณี)
+% ==============================================================================
+\documentclass[10pt,twoside,openright]{book}
+
+% 1. โหลดการตั้งค่าและแพ็กเกจ (Preamble Components)
+\input{preamble/packages}
+\input{preamble/typography}
+\input{preamble/headings}
+\input{preamble/captions}
+
+\begin{document}
+
+% ------------------------------------------------------------------------------
+% ส่วนนำ (Front Matter)
+% ------------------------------------------------------------------------------
+\frontmatter
+\pagestyle{plain}
+
+\input{frontmatter/cover}
+\input{frontmatter/titlepage}
+\input{frontmatter/preface}
+\input{frontmatter/toc}
+
+% ------------------------------------------------------------------------------
+% ส่วนเนื้อหาหลัก (Main Matter)
+% ------------------------------------------------------------------------------
+\mainmatter
+\pagestyle{fancy}
+
+\input{chapters/ch01_introduction}
+\input{chapters/ch02_dataset_architecture}
+\input{chapters/ch03_soil_analysis}
+\input{chapters/ch04_plant_diagnostics}
+\input{chapters/ch05_model_training_deploy}
+\input{chapters/ch06_ai_prompt_engineering}
+
+% ------------------------------------------------------------------------------
+% ภาคผนวก (Appendices)
+% ------------------------------------------------------------------------------
+\appendix
+\input{appendices/appA_dataset_catalog}
+\input{appendices/appB_code_recipes}
+\input{appendices/appC_ai_prompts_catalog}
+
+% ------------------------------------------------------------------------------
+% ส่วนท้ายเล่มและบรรณานุกรม (Back Matter)
+% ------------------------------------------------------------------------------
+\backmatter
+\input{references/references}
+\input{frontmatter/author_bio}
+
+\end{document}

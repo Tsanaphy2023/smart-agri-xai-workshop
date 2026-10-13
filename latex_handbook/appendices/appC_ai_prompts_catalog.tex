@@ -1,0 +1,109 @@
+% ==============================================================================
+% appendices/appC_ai_prompts_catalog.tex
+% ภาคผนวก ค: คลังแม่แบบชุดคำสั่ง AI Prompts Kit และไฟล์คอนฟิกมาตรฐาน
+% ตามมาตรฐาน rbru-academic-formatter & rbru-latex-textbook-builder
+% ==============================================================================
+
+\chapter{คลังแม่แบบชุดคำสั่ง AI Prompts Kit และไฟล์คอนฟิกมาตรฐาน}
+\label{app:prompts_catalog}
+
+ในภาคผนวกนี้ ได้รวบรวมชุดคำสั่งและเทมเพลตมาตรฐาน (AI Prompts \& Configuration Templates) จากคลัง \texttt{ai\_prompts\_kit} ของโครงการ Digital Agri xAI เพื่อให้นักวิจัย คณาจารย์ และผู้เข้าร่วมกิจกรรมการอบรม สามารถคัดลอกและนำไปสั่งการ AI Coding Assistants (เช่น Cursor, VS Code, Google Antigravity, Claude Code) ในการพัฒนาแอปพลิเคชันทางการเกษตรได้อย่างรวดเร็ว ถูกต้อง และประหยัดโทเค็นสูงสุด
+
+\academicsection{ค.1 คอนเทกต์ระบบแบบประหยัดโทเค็น (Ultra-Compact System Context)}
+
+ข้อความคอนเทกต์ด้านล่างนี้ใช้สำหรับวางไว้ในช่อง Custom Instructions, System Prompt หรือบนสุดของหน้าต่างแชต AI เพื่อกำหนดขอบเขตและกฎเกณฑ์ของระบบทั้งหมดโดยใช้โทเค็นเพียงประมาณ 320 โทเค็น:
+
+\begin{tcolorbox}[colback=black!92,colframe=teal!80!black,arc=2mm,boxrule=0.6pt]
+\color{white}\fontsize{8.5}{11}\selectfont
+\begin{verbatim}
+PROJECT: Digital Agri xAI Platform
+AUTHOR: Asst. Prof. Dr. Chewa Thassana (RBRU Digital Agri-Physics)
+DOMAINS:
+  1_Soil: [Clay, Loam, Sand, Sandy Loam]
+  2_Plant_Diseases: [Leaf Spot, Rust, Downy Mildew, Anthracnose, Root Rot]
+  3_Insects: [Psyllid, Fruit Borer, Spider Mite]
+  4_Nutrient_Deficiency: [N_Deficient, P_Deficient, K_Deficient, Healthy]
+MODELS:
+  Web_Server: smart_agri_model.onnx (ONNX Runtime, Input: 224x224 RGB Float32)
+  Mobile_Edge: smart_agri_model.tflite (TensorFlow Lite, Quantized, <6MB)
+SENSORS: N-P-K (mg/kg), pH (3.5-9.5), Moisture (%), Temp (°C), Rainfall (mm)
+TECH_STACK:
+  Web: Python 3.10+, Streamlit, FastAPI, Vanilla CSS Glassmorphism
+  Mobile: Flutter 3.x, Dart, tflite_flutter, camera, flutter_blue_plus, Provider (MVVM)
+CODING_RULES:
+  - Clean Architecture, Zero RenderFlex Overflow, Strict Null Safety
+  - Offline-First for Mobile, Sub-20ms Latency for Edge AI
+  - UI Aesthetics: Dark Theme (#090D16), Emerald (#10B981), Cyan (#06B6D4)
+\end{verbatim}
+\end{tcolorbox}
+
+\academicsection{ค.2 ชุดคำสั่งสร้าง Web App Dashboard ด้วย Streamlit}
+
+\begin{tcolorbox}[colback=black!92,colframe=blue!70!black,arc=2mm,boxrule=0.6pt]
+\color{white}\fontsize{9}{13}\selectfont
+\noindent\textbf{คำสั่งสำหรับส่งให้ AI (Prompt Text):}\\[4pt]
+ช่วยออกแบบและเขียนโค้ดเว็บแอปพลิเคชัน Dashboard สำหรับเกษตรดิจิทัลอธิบายได้ (Digital Agri xAI) ด้วย Streamlit โดยมีข้อกำหนดดังนี้:
+\begin{enumerate}[leftmargin=1.8em, itemsep=2pt]
+    \item \textbf{ธีมและการออกแบบ (UI/UX):} ธีม Glassmorphism ทันสมัย โทนสีมรกต (\#10B981) และฟ้าไฮเทค (\#06B6D4) พร้อมแถบสถานะระบบสด (Telemetry HUD Bar) ด้านบน มีไฟกระพริบ Online Beacon และรองรับการแสดงผล Responsive บนสมาร์ทโฟนและแท็บเล็ต
+    \item \textbf{ฟังก์ชันที่ต้องมี (Features):}
+    \begin{itemize}[leftmargin=1.4em, itemsep=1pt]
+        \item แท็บ 1: Real-time Telemetry: เกจวัด N-P-K (mg/kg), pH ดิน, ความชื้น, อุณหภูมิ พร้อมปุ่มโหลดพรีเซ็ตแปลงจริง
+        \item แท็บ 2: AI Visual Diagnosis: ส่งภาพถ่ายเข้า smart\_agri\_model.onnx วินิจฉัย
+        \item แท็บ 3: Crop Recommender: คำนวณพืชที่เหมาะสมและแผนปุ๋ยสั่งตัด
+        \item แท็บ 4: Data Export: ปุ่มดาวน์โหลดรายงานสรุปเป็น JSON และ Markdown
+    \end{itemize}
+    \item \textbf{คุณภาพโค้ด:} เขียนโค้ดในไฟล์เดียว \texttt{app.py} ให้ทำงานได้ทันที มี Error Handling ครบถ้วน
+\end{enumerate}
+\end{tcolorbox}
+
+\academicsection{ค.3 ชุดคำสั่งสร้างแอปพลิเคชันสมาร์ทโฟนส่องกล้อง Edge AI ด้วย Flutter}
+
+\begin{tcolorbox}[colback=black!92,colframe=green!60!black,arc=2mm,boxrule=0.6pt]
+\color{white}\fontsize{9}{13}\selectfont
+\noindent\textbf{คำสั่งสำหรับส่งให้ AI (Prompt Text):}\\[4pt]
+ช่วยออกแบบและเขียนโค้ด Flutter Application สำหรับสมาร์ทโฟน (Android / iOS) ส่องกล้องวินิจฉัยสุขภาพดินและโรคพืชแบบ Offline Edge AI โดยมีข้อกำหนดดังนี้:
+\begin{enumerate}[leftmargin=1.8em, itemsep=2pt]
+    \item \textbf{สถาปัตยกรรมระบบ (Architecture):} Clean Architecture (MVVM ร่วมกับ Provider State Management), Strict Null Safety, 0 warnings, ปราศจาก RenderFlex Overflow
+    \item \textbf{การทำงานของ Edge AI (Inference Engine):} ใช้แพ็กเกจ \texttt{camera} และ \texttt{tflite\_flutter} โหลดโมเดลไฟล์ \texttt{assets/models/smart\_agri\_model.tflite} (Quantized Float32) สกัดเฟรมภาพและทำนายผลลัพธ์ในเครื่อง 100\% ไร้การเชื่อมต่ออินเทอร์เน็ต
+    \item \textbf{หน้าจอผู้ใช้งาน (UI/UX):} ธีม Dark Obsidian (\#090D16) ผสานเส้นแสงนีออนมรกต (\#10B981) หน้าจอกล้องมีกรอบเล็งเป้าหมาย (Target Reticle) กึ่งกลางหน้าจอ การ์ด Floating Glassmorphic แสดงผลการวินิจฉัย และปุ่มบันทึก GPS ลง SQLite ในเครื่อง
+\end{enumerate}
+\end{tcolorbox}
+
+\academicsection{ค.4 ชุดคำสั่งสร้างหน้าจอเชื่อมต่อเซนเซอร์ดินผ่าน Bluetooth LE}
+
+\begin{tcolorbox}[colback=black!92,colframe=cyan!70!black,arc=2mm,boxrule=0.6pt]
+\color{white}\fontsize{9}{13}\selectfont
+\noindent\textbf{คำสั่งสำหรับส่งให้ AI (Prompt Text):}\\[4pt]
+ช่วยออกแบบและเขียนโค้ด Flutter Screen สำหรับเชื่อมต่อหัวโพรบเซนเซอร์ดิน N-P-K และ pH ผ่าน Bluetooth Low Energy (BLE) โดยมีข้อกำหนดดังนี้:
+\begin{enumerate}[leftmargin=1.8em, itemsep=2pt]
+    \item \textbf{การเชื่อมต่อฮาร์ดแวร์ (BLE):} ใช้แพ็กเกจ \texttt{flutter\_blue\_plus} พร้อมปุ่มค้นหาอุปกรณ์ (Scan Devices) อ่านค่า Characteristic พารามิเตอร์ดิน (N, P, K, pH, Moisture, Temp)
+    \item \textbf{หน้าจอแดชบอร์ดเกจวัด (Sensor Telemetry UI):} เกจวัดวงกลมสำหรับการ์ด N, P, K และ pH พร้อมปุ่ม Reconnect และปุ่มคำนวณปุ๋ยสั่งตัดทันที พร้อม Mock Data จำลองค่าเซนเซอร์สุ่มให้อัตโนมัติกรณีไม่มีฮาร์ดแวร์จริง
+\end{enumerate}
+\end{tcolorbox}
+
+\academicsection{ค.5 ไฟล์คอนฟิกมาตรฐาน \texttt{.cursorrules} สำหรับ Cursor Editor}
+
+\begin{tcolorbox}[colback=black!92,colframe=purple!70!black,arc=2mm,boxrule=0.6pt]
+\color{white}\fontsize{8.5}{11}\selectfont
+\begin{verbatim}
+# .cursorrules - Precision Agriculture AI Assistant
+You are an expert full-stack engineer and agricultural AI specialist
+working on the Digital Agri xAI platform for Asst. Prof. Dr. Chewa Thassana.
+
+## Core Architectural Rules:
+1. Domain Taxonomy:
+   - Soil: Clay, Loam, Sand, Sandy Loam
+   - Plant Diseases: Leaf Spot, Rust, Downy Mildew, Anthracnose, Root Rot
+   - Pests: Psyllid, Fruit Borer, Spider Mite
+   - Nutrient Deficiency: Nitrogen (N), Phosphorus (P), Potassium (K), Healthy
+2. Technology Guidelines:
+   - Web: Streamlit, FastAPI, ONNX Runtime, Vanilla CSS Glassmorphism
+   - Mobile: Flutter 3.x, Dart, Clean Architecture (MVVM/Provider), tflite_flutter
+3. Aesthetics & UX:
+   - Theme: Dark Obsidian (#090D16), Vibrant Emerald (#10B981), Cyber Cyan (#06B6D4)
+   - Fonts: Prompt for Thai text, JetBrains Mono for telemetry metrics
+   - Usability: 48px min touch targets, responsive layout across desktop and mobile
+\end{verbatim}
+\end{tcolorbox}
+
+\clearpage

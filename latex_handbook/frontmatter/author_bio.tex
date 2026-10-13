@@ -1,0 +1,89 @@
+% ==============================================================================
+% frontmatter/author_bio.tex — ประวัติผู้เขียนตามมาตรฐาน rbru-academic-formatter
+% เลย์เอาต์ระดับพรีเมียมพอดี 1 หน้าเดียว (Executive Monograph Single-Page Layout)
+% ==============================================================================
+
+\chapter*{ประวัติผู้เขียน}
+\addcontentsline{toc}{chapter}{ประวัติผู้เขียน}
+
+\vspace{10pt}
+
+% ส่วนหัวประวัติผู้เขียน (Profile Header)
+\noindent
+\begin{minipage}[c]{0.26\textwidth}
+    \centering
+    \begin{tikzpicture}
+        % กรอบวงกลมขอบทองหรูหรา
+        \draw[line width=2pt, color=orange!80!yellow] (0,0) circle (1.45in/2);
+        \node at (0,0) [circle, minimum size=1.4in, fill=teal!15!black] {
+            \fontsize{24}{28}\selectfont\color{white!90}\textbf{CT}
+        };
+    \end{tikzpicture}
+\end{minipage}%
+\hfill
+\begin{minipage}[c]{0.70\textwidth}
+    {\fontsize{15}{19}\selectfont\bfseries\color{teal!70!black} ผู้ช่วยศาสตราจารย์ ดร.ชีวะ ทัศนา}\\[4pt]
+    {\fontsize{10}{13}\selectfont\bfseries Asst. Prof. Dr. Chewa Thassana}\\[6pt]
+    {\fontsize{9.5}{13}\selectfont
+    \textbf{สังกัด:}\\
+    สาขาวิชาปัญญาประดิษฐ์เพื่อเกษตรดิจิทัลและสิ่งแวดล้อม\\
+    คณะวิทยาศาสตร์และเทคโนโลยี มหาวิทยาลัยราชภัฏรำไพพรรณี\\
+    อีเมล: \texttt{chewa.t@rbru.ac.th} \enspace\textbar\enspace โทรศัพท์: 0-3931-9111
+    }
+\end{minipage}
+
+\vspace{16pt}
+{\color{gray!40}\hrule height 0.8pt}
+\vspace{16pt}
+
+% ส่วนล่างสองคอลัมน์สมดุล (Balanced Two-Column Body)
+\noindent
+\begin{minipage}[t]{0.48\textwidth}
+    {\fontsize{11}{14}\selectfont\bfseries\color{teal!80!black}\textbullet\ ประวัติการศึกษา}\\[6pt]
+    {\fontsize{9.5}{13.5}\selectfont
+    \begin{itemize}[leftmargin=1.4em, itemsep=3pt]
+        \item \textbf{ปร.ด. (ฟิสิกส์ประยุกต์)}\\
+        สถาบันเทคโนโลยีพระจอมเกล้าเจ้าคุณทหารลาดกระบัง (KMITL)
+        \item \textbf{วท.ม. (ฟิสิกส์ประยุกต์)}\\
+        สถาบันเทคโนโลยีพระจอมเกล้าเจ้าคุณทหารลาดกระบัง (KMITL)
+        \item \textbf{วท.บ. ฟิสิกส์ (คอมพิวเตอร์และอิเล็กทรอนิกส์)}\\
+        มหาวิทยาลัยนเรศวร (NU)
+    \end{itemize}
+    }
+
+    \vspace{12pt}
+    {\fontsize{11}{14}\selectfont\bfseries\color{teal!80!black}\textbullet\ ภาระงานสอนประจำ}\\[6pt]
+    {\fontsize{9}{12.5}\selectfont
+    \begin{itemize}[leftmargin=1.4em, itemsep=2pt]
+        \item ปัญญาประดิษฐ์เพื่อการเกษตรแม่นยำ
+        \item ฟิสิกส์เกษตรดิจิทัลและเซนเซอร์อัจฉริยะ
+        \item สเปกโตรสโกปีดินเชิงคำนวณ
+        \item ระบบฝังตัวและปัญญาประดิษฐ์บนอุปกรณ์ขอบ (Edge AI)
+    \end{itemize}
+    }
+\end{minipage}%
+\hfill
+\begin{minipage}[t]{0.48\textwidth}
+    {\fontsize{11}{14}\selectfont\bfseries\color{teal!80!black}\textbullet\ ความเชี่ยวชาญและงานวิจัย}\\[6pt]
+    {\fontsize{9.5}{13.5}\selectfont
+    \begin{itemize}[leftmargin=1.4em, itemsep=3pt]
+        \item \textbf{ปัญญาประดิษฐ์อธิบายได้ (xAI):}\\
+        การวินิจฉัยสุขภาพพืชและคุณภาพดินผ่าน Deep Learning
+        \item \textbf{การสร้างแบบจำลองฟิสิกส์เกษตร:}\\
+        การตรวจวัดและพยากรณ์ธาตุอาหารดินแบบ In-Process
+        \item \textbf{สเปกโตรสโกปีดินขั้นสูง:}\\
+        การวิเคราะห์สเปกตรัม VisNIR และ Mid-IR ร่วมกับ Open Soil Spectral Library (OSSL)
+        \item \textbf{วิศวกรรมระบบ AIoT:}\\
+        การพัฒนาฮาร์ดแวร์วัดดิน RS485 Modbus ร่วมกับสมาร์ทโฟนแอปพลิเคชัน
+    \end{itemize}
+    }
+
+    \vspace{12pt}
+    {\fontsize{11}{14}\selectfont\bfseries\color{teal!80!black}\textbullet\ ผลงานและการบริการวิชาการ}\\[6pt]
+    {\fontsize{9}{12.5}\selectfont
+    หัวหน้าโครงการวิจัยและบริการวิชาการด้านเกษตรดิจิทัล ถ่ายทอดเทคโนโลยี Low-Code AI และ IoT สู่เกษตรกรและผู้ประกอบการในจังหวัดจันทบุรีและภาคตะวันออก
+    }
+\end{minipage}
+
+\vfill
+\clearpage

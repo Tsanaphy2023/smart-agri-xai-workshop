@@ -1,0 +1,76 @@
+% ==============================================================================
+% preamble/typography.tex — การตั้งค่าฟอนต์ การเยื้อง และระยะบรรทัด
+% ตามมาตรฐาน thai-academic-latex-formatting
+% ==============================================================================
+
+% 1. ฟอนต์ภาษาไทยและอังกฤษ Sarabun (บรรจุในโฟลเดอร์ fonts/ แบบพกพาสมบูรณ์)
+\XeTeXlinebreaklocale "th"
+\XeTeXlinebreakskip = 0pt plus 1pt
+
+\defaultfontfeatures{Mapping=tex-text}
+\setmainfont{THSarabun.ttf}[
+    Path = fonts/,
+    BoldFont = THSarabun-Bold.ttf,
+    ItalicFont = THSarabun-Italic.ttf,
+    BoldItalicFont = THSarabun-BoldItalic.ttf,
+    Script = Thai,
+    Scale = 1.15
+]
+
+\newfontfamily\thaifont{THSarabun.ttf}[
+    Path = fonts/,
+    BoldFont = THSarabun-Bold.ttf,
+    ItalicFont = THSarabun-Italic.ttf,
+    BoldItalicFont = THSarabun-BoldItalic.ttf,
+    Script = Thai,
+    Scale = 1.15
+]
+
+\setmonofont{Courier}[Scale=0.92]
+
+% 2. ระยะห่างระหว่างบรรทัด (ประมาณ 1.18 เท่า ตามข้อกำหนด)
+\setstretch{1.18}
+
+% 3. การเยื้องย่อหน้า (Paragraph Indentation)
+% ข้อกำหนดเฉพาะ: เยื้อง 3em ไม่มีระยะห่างพิเศษระหว่างย่อหน้า (parskip = 0pt)
+\setlength{\parindent}{3em}
+\setlength{\parskip}{0pt}
+
+% 4. รายการ (Lists Formatting)
+% ไม่ให้การเยื้อง 3em ของย่อหน้าส่งผลกระทบต่อรายการซ้ำซ้อน (Retain distinct list indentation)
+\setlist[itemize]{
+    leftmargin=2.8em,
+    itemsep=2pt,
+    parsep=0pt,
+    topsep=4pt,
+    partopsep=0pt
+}
+\setlist[enumerate]{
+    leftmargin=2.8em,
+    itemsep=2pt,
+    parsep=0pt,
+    topsep=4pt,
+    partopsep=0pt
+}
+\setlist[description]{
+    leftmargin=2.8em,
+    itemsep=2pt,
+    parsep=0pt,
+    topsep=4pt,
+    partopsep=0pt
+}
+
+% 5. กล่องเน้นข้อความ (Callout Box) ไม่ให้ย่อหน้าแรกเยื้องผิดตำแหน่ง
+\tcbset{
+    enhanced,
+    boxrule=0.7pt,
+    colback=gray!5,
+    colframe=gray!50,
+    arc=3pt,
+    left=12pt,
+    right=12pt,
+    top=8pt,
+    bottom=8pt,
+    before skip=10pt,
+    after skip=10pt
+}

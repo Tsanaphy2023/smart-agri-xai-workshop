@@ -1,0 +1,49 @@
+% ==============================================================================
+% frontmatter/cover.tex — หน้าปกนอก (3D Pixar Style - Transparent / No Background Box)
+% ==============================================================================
+\begin{titlepage}
+\thispagestyle{empty}
+
+\begingroup
+\setlength{\XeTeXlinebreakskip}{0pt}
+
+\begin{tikzpicture}[remember picture, overlay]
+    % 1. ภาพอาร์ตเวิร์ก 3D Pixar แบบเต็มแผ่น (Full Bleed 6x9 in)
+    \node[anchor=center, inner sep=0pt] at (current page.center) {
+        \includegraphics[width=\paperwidth,height=\paperheight]{figures/cover_art.jpg}
+    };
+
+    % 2. ข้อความชื่อเรื่องด้านบน (โปร่งใส ไม่มีกล่อง/พื้นหลัง พร้อมเงาเรืองแสงสีขาวเพื่อความคมชัด)
+    % ชั้นเงาสีขาวบางๆ ช่วยให้อ่านง่ายบนท้องฟ้าธรรมชาติ
+    \node[anchor=north, align=center, text width=5.2in] at ([xshift=0.6pt, yshift=-0.44in]current page.north) {
+        {\fontsize{8.5}{11}\selectfont\bfseries\color{white} HANDS-ON WORKSHOP HANDBOOK \textbullet\ เอกสารประกอบการอบรม}\\[8pt]
+        {\fontsize{18}{22}\selectfont\bfseries\color{white} คู่มือการจัดเตรียมชุดข้อมูลและการฝึกอบรม}\\[4pt]
+        {\fontsize{20}{25}\selectfont\bfseries\color{white} ปัญญาประดิษฐ์เพื่อเกษตรดิจิทัลและสิ่งแวดล้อม}\\[6pt]
+        {\fontsize{8.5}{11}\selectfont\bfseries\color{white} DIGITAL AGRI xAI: PRECISION AGRICULTURE \& AI SYSTEM HANDBOOK}
+    };
+    % ชั้นตัวอักษรจริง (สีน้ำเงินเข้มและสีเขียวมรกต)
+    \node[anchor=north, align=center, text width=5.2in] at ([yshift=-0.45in]current page.north) {
+        {\fontsize{8.5}{11}\selectfont\bfseries\color{teal!80!black} HANDS-ON WORKSHOP HANDBOOK \textbullet\ เอกสารประกอบการอบรม}\\[8pt]
+        {\fontsize{18}{22}\selectfont\bfseries\color{blue!45!black} คู่มือการจัดเตรียมชุดข้อมูลและการฝึกอบรม}\\[4pt]
+        {\fontsize{20}{25}\selectfont\bfseries\color{green!45!black} ปัญญาประดิษฐ์เพื่อเกษตรดิจิทัลและสิ่งแวดล้อม}\\[6pt]
+        {\fontsize{8.5}{11}\selectfont\bfseries\color{gray!85!black} DIGITAL AGRI xAI: PRECISION AGRICULTURE \& AI SYSTEM HANDBOOK}
+    };
+
+    % 3. ข้อความข้อมูลผู้แต่งด้านล่าง (โปร่งใส ไม่มีกล่อง/พื้นหลัง วางที่ขอบล่างของผืนดิน)
+    % ชั้นเงาดำช่วยขับให้อ่านชัดเจนแม้ทับซ้อนแนวแสง
+    \node[anchor=south, align=center, text width=5.2in] at ([xshift=0.6pt, yshift=0.09in]current page.south) {
+        {\fontsize{12}{15}\selectfont\bfseries\color{black} ผู้ช่วยศาสตราจารย์ ดร.ชีวะ ทัศนา}\\[2pt]
+        {\fontsize{8.5}{11}\selectfont\color{black} สาขาวิชาปัญญาประดิษฐ์เพื่อเกษตรดิจิทัลและสิ่งแวดล้อม คณะวิทยาศาสตร์และเทคโนโลยี มหาวิทยาลัยราชภัฏรำไพพรรณี}\\[4pt]
+        {\fontsize{8}{10}\selectfont\color{black} โครงการพัฒนาผู้ประกอบการนวัตกรรมเกษตรและปัญญาประดิษฐ์ฝังตัว พ.ศ. 2569}
+    };
+    % ชั้นตัวอักษรจริงสีขาวสว่าง
+    \node[anchor=south, align=center, text width=5.2in] at ([yshift=0.10in]current page.south) {
+        {\fontsize{12}{15}\selectfont\bfseries\color{white} ผู้ช่วยศาสตราจารย์ ดร.ชีวะ ทัศนา}\\[2pt]
+        {\fontsize{8.5}{11}\selectfont\color{white!95} สาขาวิชาปัญญาประดิษฐ์เพื่อเกษตรดิจิทัลและสิ่งแวดล้อม คณะวิทยาศาสตร์และเทคโนโลยี มหาวิทยาลัยราชภัฏรำไพพรรณี}\\[4pt]
+        {\fontsize{8}{10}\selectfont\color{yellow!90!white} โครงการพัฒนาผู้ประกอบการนวัตกรรมเกษตรและปัญญาประดิษฐ์ฝังตัว พ.ศ. 2569}
+    };
+\end{tikzpicture}
+
+\endgroup
+\end{titlepage}
+\cleardoublepage

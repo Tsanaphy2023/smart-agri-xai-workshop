@@ -1,0 +1,79 @@
+% ==============================================================================
+% appendices/appA_dataset_catalog.tex — ภาคผนวก ก
+% ==============================================================================
+\chapter{สารบัญชุดข้อมูลและแหล่งข้อมูลเปิดระดับโลก}
+\label{app:dataset_catalog}
+
+เพื่อส่งเสริมการวิจัยแบบเปิด (Open Science) และอำนวยความสะดวกแก่นักวิจัย คณาจารย์ และนักศึกษาในการศึกษาต่อเนื่อง ภาคผนวกนี้ได้รวบรวมรายละเอียดของแหล่งฐานข้อมูลเปิดระดับโลกที่ระบบได้บูรณาการและเชื่อมโยงไว้ โดยแบ่งออกเป็นกลุ่มข้อมูลโรคพืชและแมลงศัตรูพืช และกลุ่มข้อมูลดินและสเปกโทรสโกปี
+
+\academicsection{ฐานข้อมูลเปิดด้านโรคพืชและแมลงศัตรูพืช}
+\label{sec:plant_open_repos}
+
+\begin{enumerate}
+    \item \textbf{PlantDoc Dataset (IIT Dharwad, อินเดีย):}
+    \begin{itemize}
+        \item \textit{คำอธิบาย:} ชุดข้อมูลภาพถ่ายโรคพืชในสภาพแปลงจริงตามธรรมชาติ (In-the-wild) จำนวน 2,598 ภาพ ครอบคลุม 13 ชนิดพืช และ 17 คลาสโรค พร้อมพิกัด Bounding Box
+        \item \textit{จุดเด่น:} มีฉากหลังเป็นดิน ใบหญ้า แสงเงาธรรมชาติ ช่วยแก้ปัญหา Overfitting ของโมเดลในแปลงจริง
+        \item \textit{ที่อยู่คลังข้อมูล:} \url{https://github.com/pratikkayal/PlantDoc-Dataset}
+    \end{itemize}
+
+    \item \textbf{IP102 Large-Scale Pest Dataset:}
+    \begin{itemize}
+        \item \textit{คำอธิบาย:} ชุดข้อมูลแมลงศัตรูพืชขนาดใหญ่ที่สุดระดับโลก ประกอบด้วยภาพถ่ายกว่า 75,000 ภาพ แบ่งเป็น 102 คลาสแมลงศัตรูพืช ครอบคลุมวงจรชีวิตไข่ ตัวอ่อน ดักแด้ และตัวเต็มวัย
+        \item \textit{ที่อยู่คลังข้อมูล:} \url{https://github.com/xpwu95/IP102}
+    \end{itemize}
+
+    \item \textbf{PlantVillage Dataset:}
+    \begin{itemize}
+        \item \textit{คำอธิบาย:} ชุดข้อมูลภาพใบพืชในห้องปฏิบัติการมาตรฐาน จำนวน 54,306 ภาพ ครอบคลุม 14 ชนิดพืช และ 38 คลาสสุขภาพ
+        \item \textit{จุดเด่น:} เหมาะสำหรับการศึกษาพื้นฐานและการสร้างโมเดลตัวแทน (Baseline Model)
+        \item \textit{ที่อยู่คลังข้อมูล:} \url{https://github.com/spMohanty/PlantVillage-Dataset}
+    \end{itemize}
+
+    \item \textbf{Pest24 Dataset:}
+    \begin{itemize}
+        \item \textit{คำอธิบาย:} ชุดข้อมูลภาพถ่ายแมลงศัตรูพืชในกับดักแสงไฟภาคสนาม (Field Light-trap) จำนวน 25,378 ภาพ ครอบคลุม 24 คลาสแมลงศัตรูพืชเศรษฐกิจ
+        \item \textit{ที่อยู่คลังข้อมูล:} \url{https://github.com/vis-nlp/Pest24}
+    \end{itemize}
+\end{enumerate}
+
+\academicsection{ฐานข้อมูลเปิดด้านดินและสเปกโทรสโกปีระดับโลก}
+\label{sec:soil_open_repos}
+
+\begin{enumerate}
+    \item \textbf{Open Soil Spectral Library (OSSL):}
+    \begin{itemize}
+        \item \textit{คำอธิบาย:} คลังข้อมูลสเปกตรัมดินที่ใหญ่ที่สุดในโลก นำโดย Woodwell Climate Research Center รวบรวมข้อมูลสเปกตรัมดิน VisNIR และ MIR กว่า 150,000 ตัวอย่าง พร้อมคุณสมบัติทางเคมี เช่น คาร์บอนอินทรีย์ ด่าง-กรด และความจุการแลกเปลี่ยนประจุบวก
+        \item \textit{ที่อยู่คลังข้อมูล:} \url{https://soilspectroscopy.org/}
+    \end{itemize}
+
+    \item \textbf{World Soil Information Service (WoSIS / ISRIC):}
+    \begin{itemize}
+        \item \textit{คำอธิบาย:} ฐานข้อมูลคุณสมบัติดินโลกที่ผ่านการตรวจสอบคุณภาพและมาตรฐานสากล ครอบคลุมพิกัดภูมิศาสตร์และค่าธาตุอาหาร N-P-K ทั่วโลก
+        \item \textit{ที่อยู่คลังข้อมูล:} \url{https://www.isric.org/explore/wosis}
+    \end{itemize}
+
+    \item \textbf{LUCAS Topsoil Spectral Database (สหภาพยุโรป):}
+    \begin{itemize}
+        \item \textit{คำอธิบาย:} ข้อมูลสำรวจดินชั้นบนทั่วยุโรปกว่า 20,000 จุด พร้อมค่าสเปกตรัม VisNIR ช่วงคลื่น 400--2,500 nm สำหรับการวิเคราะห์องค์ประกอบดินเชิงลึก
+        \item \textit{ที่อยู่คลังข้อมูล:} \url{https://esdac.jrc.ec.europa.eu/projects/lucas}
+    \end{itemize}
+\end{enumerate}
+
+\begin{table}[htbp]
+\centering
+\caption{สรุปฐานข้อมูลเปิดที่เชื่อมโยงกับระบบเกษตรอัจฉริยะ}
+\label{tab:open_datasets_summary}
+\begin{tabular}{llrl}
+\toprule
+\textbf{ชื่อฐานข้อมูล} & \textbf{ประเภทข้อมูล} & \textbf{จำนวนตัวอย่าง} & \textbf{ความเหมาะสมในการใช้งาน} \\
+\midrule
+PlantDoc    & ภาพถ่ายสภาพแปลงจริง & 2,598 ภาพ   & จำแนกโรคพืชในสภาพธรรมชาติ \\
+IP102       & ภาพแมลงศัตรูพืช     & 75,222 ภาพ  & จำแนกชนิดและระยะการเจริญเติบโต \\
+PlantVillage & ภาพใบพืชบนฉากหลังสีเทา & 54,306 ภาพ & การฝึกสอนระดับเริ่มต้น / Baseline \\
+Pest24      & ภาพกับดักแมลงกลางคืน & 25,378 ภาพ & ระบบเฝ้าระวังการระบาดอัตโนมัติ \\
+OSSL        & สเปกตรัม VisNIR-MIR & 150,000+ ตัวอย่าง & ตรวจวัดธาตุอาหารดินแบบไร้สารเคมี \\
+WoSIS       & พิกัดและคุณสมบัติดิน & 800,000+ โปรไฟล์ & วิเคราะห์ความอุดมสมบูรณ์ระดับมหภาค \\
+\bottomrule
+\end{tabular}
+\end{table}

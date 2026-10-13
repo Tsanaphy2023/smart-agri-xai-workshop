@@ -1,0 +1,76 @@
+% ==============================================================================
+% preamble/packages.tex — แพ็กเกจมาตรฐานสำหรับตำราวิชาการขนาด 6 x 9 นิ้ว
+% ตามมาตรฐาน thai-academic-latex-formatting
+% ==============================================================================
+
+% 1. กำหนดขนาดรูปเล่ม 6 x 9 นิ้ว (Royal Octavo / Standard Academic Book)
+\usepackage[
+    paperwidth=6in,
+    paperheight=9in,
+    top=0.85in,
+    bottom=0.85in,
+    inner=1.00in,     % เผื่อเย็บเล่มด้านใน (Binding Gutter)
+    outer=0.75in,
+    footskip=0.45in,
+    headheight=14pt
+]{geometry}
+
+% 2. ระบบฟอนต์และภาษาสำหรับ XeLaTeX
+\usepackage{fontspec}
+\usepackage{xunicode}
+\usepackage{xltxtra}
+
+% 3. การควบคุมระยะบรรทัดและการเยื้องย่อหน้า
+\usepackage{setspace}
+\usepackage{indentfirst} % บังคับย่อหน้าแรกหลังหัวข้อ (Heading) ให้เยื้องเท่ากับย่อหน้าปกติ
+
+% 4. การจัดการหัวข้อและป้องกันหัวข้อตกค้าง (Heading Pagination)
+\usepackage{titlesec}
+\usepackage{needspace}
+
+% 5. คำบรรยายภาพและตาราง (Caption Formatting)
+\usepackage{caption}
+
+% 6. รายการและโครงสร้าง (Lists)
+\usepackage{enumitem}
+
+% 7. ตารางและคณิตศาสตร์
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{array}
+
+% 8. กราฟิกและกล่องข้อความ
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{tikz}
+\usepackage[most]{tcolorbox}
+
+% สภาพแวดล้อมกล่องข้อความวิชาการ (Academic Callout Box)
+\newtcolorbox{academicNote}[1][]{
+    enhanced,
+    breakable,
+    colback=teal!6!white,
+    colframe=teal!75!black,
+    fonttitle=\bfseries,
+    title=ข้อสังเกตและแนวทางปฏิบัติ,
+    arc=3mm,
+    boxrule=0.8pt,
+    left=12pt, right=12pt, top=10pt, bottom=10pt,
+    #1
+}
+
+% 9. หัวกระดาษและท้ายกระดาษ (Running Headers)
+\usepackage{fancyhdr}
+
+% 10. ลิงก์และบุ๊กมาร์ก (Hyperref & xurl)
+\usepackage{xurl}
+\usepackage[
+    colorlinks=true,
+    linkcolor=black,
+    citecolor=black,
+    urlcolor=blue!70!black,
+    bookmarksnumbered=true,
+    pdfstartview=FitH
+]{hyperref}

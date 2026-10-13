@@ -1,0 +1,145 @@
+% ==============================================================================
+% preamble_template_quickref.tex
+% มาตรฐานการตั้งค่า XeLaTeX ตำราวิชาการภาษาไทย ขนาด 6 x 9 นิ้ว
+% อ้างอิงมาตรฐาน: thai-academic-latex-formatting
+% พัฒนาโดย: ผศ.ดร.ชีวะ ทัศนา (มหาวิทยาลัยราชภัฏรำไพพรรณี)
+% ==============================================================================
+
+\documentclass[11pt,twoside,openright]{book}
+
+% ------------------------------------------------------------------------------
+% 1. ขนาดรูปเล่มและระยะขอบ (Physical Geometry: 6 x 9 นิ้ว)
+% ------------------------------------------------------------------------------
+\usepackage{geometry}
+\geometry{
+    paperwidth=6in,
+    paperheight=9in,
+    inner=1.0in,     % ขอบในสำหรับเข้าเล่ม (Binding Gutter)
+    outer=0.75in,    % ขอบนอก
+    top=0.85in,      % ขอบบน
+    bottom=0.85in,   % ขอบล่าง
+    headheight=14pt,
+    headsep=18pt,
+    footskip=24pt
+}
+
+% ------------------------------------------------------------------------------
+% 2. ฟอนต์และการจัดพิมพ์ภาษาไทย (Thai Typography & Micro-spacing)
+% ------------------------------------------------------------------------------
+\usepackage{fontspec}
+\usepackage{setspace}
+\usepackage{indentfirst} % บังคับย่อหน้าแรกหลังหัวข้อเสมอ
+
+% กำหนดฟอนต์หลัก (Sarabun จากโฟลเดอร์ fonts/ หรือระบบ)
+\setmainfont{Sarabun}[
+    Path = fonts/,
+    Extension = .ttf,
+    UprightFont = *-Regular,
+    BoldFont = *-Bold,
+    ItalicFont = *-Italic,
+    BoldItalicFont = *-BoldItalic
+]
+
+% ระบบตัดคำภาษาไทยอัตโนมัติใน XeLaTeX
+\XeTeXlinebreaklocale "th"
+\XeTeXlinebreakskip = 0pt plus 1pt
+
+% ระยะห่างบรรทัด 1.18 เท่าเพื่อความสบายตาและรองรับวรรณยุกต์ 4 ชั้น
+\setstretch{1.18}
+
+% ย่อหน้า 3em ตามความต้องการของผู้ใช้งาน ไม่เว้นวรรคระหว่างย่อหน้า
+\setlength{\parindent}{3em}
+\setlength{\parskip}{0pt}
+
+% ------------------------------------------------------------------------------
+% 3. แพ็กเกจสนับสนุนงานวิชาการและกราฟิก
+% ------------------------------------------------------------------------------
+\usepackage{graphicx}
+\usepackage[dvipsnames,table]{xcolor}
+\usepackage{tikz}
+\usepackage{tcolorbox}
+\tcbuselibrary{skins,breakable}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{amsmath,amssymb}
+\usepackage{needspace}
+\usepackage{fancyhdr}
+\usepackage{caption}
+
+% ------------------------------------------------------------------------------
+% 4. รูปแบบคำบรรยายภาพและตาราง (Captions: ภาพที่ / ตารางที่ ไร้โคลอน)
+% ------------------------------------------------------------------------------
+\DeclareCaptionLabelSeparator{space}{ }
+\captionsetup{
+    labelsep=space,
+    labelfont=bf,
+    font=small
+}
+% ตาราง: จัดชิดซ้ายทั้งเล่ม
+\captionsetup[table]{
+    singlelinecheck=false,
+    justification=raggedright,
+    position=top
+}
+% ภาพ: กึ่งกลาง
+\captionsetup[figure]{
+    justification=centering,
+    position=bottom
+}
+\renewcommand{\figurename}{ภาพที่}
+\renewcommand{\tablename}{ตารางที่}
+
+% ------------------------------------------------------------------------------
+% 5. หัวกระดาษและท้ายกระดาษ (Running Headers: หน้าคู่ / หน้าคี่)
+% ------------------------------------------------------------------------------
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[LE]{\small\thepage\quad\textbar\quad\textsf{คู่มือปฏิบัติการ Digital Agri xAI}}
+\fancyhead[RO]{\small\textsf{\leftmark}\quad\textbar\quad\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\chaptermark}[1]{\markboth{บทที่ \thechapter\ #1}{}}
+
+% ------------------------------------------------------------------------------
+% 6. หัวข้อและการป้องกันหัวข้อตกขอบ (Headings with \needspace)
+% ------------------------------------------------------------------------------
+\usepackage{titlesec}
+
+% ปรับแต่งรูปแบบบท (Chapter Heading: ชิดขวา ตัวหนาเด่นชัด)
+\titleformat{\chapter}[display]
+    {\normalfont\huge\bfseries\raggedleft}
+    {\fontsize{18pt}{22pt}\selectfont\color{ForestGreen}บทที่ \thechapter}
+    {12pt}
+    {\fontsize{22pt}{28pt}\selectfont\color{black!90}}
+
+\titlespacing*{\chapter}{0pt}{20pt}{35pt}
+
+% ก่อนขึ้น Section ป้องกันหัวข้อโดดเดี่ยวท้ายหน้า
+\newcommand{\safeSection}[1]{%
+    \needspace{5\baselineskip}%
+    \section{#1}%
+}
+\newcommand{\safeSubsection}[1]{%
+    \needspace{4\baselineskip}%
+    \subsection{#1}%
+}
+
+% ------------------------------------------------------------------------------
+% 7. เอกสารอ้างอิงมาตรฐาน APA 7th Edition
+% ------------------------------------------------------------------------------
+\newcommand{\bibentry}[1]{\noindent\hangindent=2.5em\hangafter=1 #1\par\vspace{7pt}}
+
+% ------------------------------------------------------------------------------
+% 8. กล่องข้อความวิชาการ (Academic Callout Box)
+% ------------------------------------------------------------------------------
+\newtcolorbox{academicNote}[1][]{
+    enhanced,
+    breakable,
+    colback=Emerald!6!white,
+    colframe=Emerald!75!black,
+    fonttitle=\bfseries,
+    title=💡 ข้อสังเกตและแนวทางปฏิบัติ,
+    arc=4mm,
+    boxrule=0.8pt,
+    left=15pt, right=15pt, top=12pt, bottom=12pt,
+    #1
+}

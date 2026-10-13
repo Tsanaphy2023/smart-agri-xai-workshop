@@ -1839,7 +1839,8 @@ class AgriClassifierService {
             "🖥️ 2. พรอมพ์สั่งสร้าง Web App Dashboard (Streamlit & Fullstack)",
             "📱 3. พรอมพ์สั่งสร้าง Smartphone App (Flutter Camera Edge AI ออฟไลน์)",
             "🧪 4. พรอมพ์สั่งสร้างหน้าเชื่อมต่อเซนเซอร์ดิน NPK ผ่าน Bluetooth LE",
-            "⚙️ 5. ไฟล์คอนฟิกมาตรฐาน (.cursorrules สำหรับ Cursor / AGENTS.md สำหรับ Antigravity)"
+            "⚙️ 5. ไฟล์คอนฟิกมาตรฐาน (.cursorrules สำหรับ Cursor / AGENTS.md สำหรับ Antigravity)",
+            "📖 6. พรอมพ์จัดทำหนังสือ/ตำราวิชาการ LaTeX (6×9 นิ้ว สไตล์ Pixar Cover + XeLaTeX ไทย)"
         ]
     )
 
@@ -1915,7 +1916,7 @@ CODING_RULES:
    - ปุ่ม "คำนวณปุ๋ยสั่งตัดทันที" เมื่อกดจะคำนวณสูตรปุ๋ยที่แปลงต้องการตามค่าปัจจุบัน
    - มี Mock Data จำลองค่าเซนเซอร์สุ่มให้อัตโนมัติในกรณีที่ยังไม่มีฮาร์ดแวร์จริง""", language="markdown")
 
-    else:
+    elif "5. ไฟล์คอนฟิกมาตรฐาน" in selected_prompt_category:
         st.markdown("##### ⚙️ ไฟล์คอนฟิกมาตรฐาน `.cursorrules` (สำหรับวางที่ Root โฟลเดอร์ใน Cursor):")
         st.code("""# .cursorrules - Precision Agriculture AI Assistant
 You are an expert full-stack engineer and agricultural AI specialist working on the Digital Agri xAI platform for Asst. Prof. Dr. Chewa Thassana.
@@ -1933,6 +1934,39 @@ You are an expert full-stack engineer and agricultural AI specialist working on 
    - Theme: Dark Obsidian (#090D16), Vibrant Emerald (#10B981), Cyber Cyan (#06B6D4)
    - Fonts: Prompt for Thai text, JetBrains Mono for telemetry metrics
    - Usability: 48px min touch targets, responsive layout across desktop and mobile""", language="yaml")
+
+    else:
+        st.markdown("##### 📖 พรอมพ์จัดทำหนังสือ/ตำราวิชาการ LaTeX (6×9 นิ้ว สไตล์ Pixar Cover + XeLaTeX ไทย):")
+        st.code(r"""ช่วยออกแบบและสร้างโปรเจกต์หนังสือตำราวิชาการหรือคู่มือปฏิบัติการฉบับสมบูรณ์ ด้วยภาษา XeLaTeX ภาษาไทย ขนาดเล่ม 6 × 9 นิ้ว (Royal Octavo) ตามมาตรฐานสถาปัตยกรรมทางวิชาการชั้นสูง (thai-academic-latex-formatting) โดยมีข้อกำหนดทางเทคนิคดังนี้:
+
+1. โครงสร้างโปรเจกต์แบบโมดูลาร์ (Modular Architecture):
+   - แยกไฟล์เป็นสัดส่วน: main.tex, preamble/ (packages.tex, typography.tex, headings.tex, captions.tex)
+   - โฟลเดอร์ frontmatter/ (cover.tex, titlepage.tex, preface.tex), chapters/, appendices/
+   - สร้างสคริปต์ build.sh คอมไพล์ xelatex 2 รอบอัตโนมัติ
+
+2. การตั้งค่าหน้ากระดาษและการจัดพิมพ์ภาษาไทย (Typography & Geometry):
+   - ขนาดกระดาษ: 6 × 9 นิ้ว (inner=1.0in, outer=0.75in, top/bottom=0.85in)
+   - แบบอักษร: Sarabun ผ่าน fontspec พร้อมตัดคำไทย (\XeTeXlinebreaklocale "th")
+   - ระยะห่างบรรทัด: 1.18 เท่า (\setstretch{1.18})
+   - ย่อหน้าแรก: กำหนด 3em (\setlength{\parindent}{3em}) ไม่มีช่องว่างระหว่างย่อหน้า (\parskip=0pt)
+   - บังคับย่อหน้าแรกหลังหัวข้อด้วย indentfirst
+
+3. รูปแบบหัวข้อและการขึ้นบทใหม่ (Headings & Chapters):
+   - ทุกบทและภาคผนวกเริ่มต้นที่หน้าคี่ (openright, twoside) เสมอ
+   - ป้ายกำกับบทและชื่อบทจัดชิดขวา (\raggedleft) ตัวเลขบทตัวหนาเด่นชัด
+   - ใช้ \\needspace{5\\baselineskip} หน้า \\section และ \\needspace{4\\baselineskip} หน้า \\subsection ป้องกันหัวข้อโดดเดี่ยวท้ายหน้า
+
+4. รูปแบบคำบรรยายภาพและตาราง (Captions Specification):
+   - ใช้ป้าย "ภาพที่" และ "ตารางที่" คั่นด้วยเว้นวรรค 1 เคาะ (ห้ามมีโคลอน :)
+   - คำบรรยายตารางทั้งหมดต้อง "จัดชิดซ้าย (Left-aligned)" เสมอ
+   - ป้ายกำกับภาพและตารางเป็นตัวหนา (labelfont=bf)
+
+5. สถาปัตยกรรมปกคู่ (Dual-Cover System):
+   - ปกนอก (cover.tex): ภาพประกอบ 3D Pixar สัดส่วน 2:3 แบบ Full-bleed TikZ พร้อม Transparent Text ซ้อนเงาคมชัด 100% ไร้กล่องทึบบดบังภาพ
+   - ปกใน (titlepage.tex): หน้าทางการวิชาการระบุชื่อเรื่อง, ชื่อผู้แต่ง (ผศ.ดร.ชีวะ ทัศนา), ภาควิชา, คณะ, มหาวิทยาลัย, และปีงบประมาณ
+
+6. ระบบการอ้างอิงและบรรณานุกรม:
+   - จัดรูปแบบรายการเอกสารอ้างอิงแบบย่อหน้าแขวน (Hanging Indent 2.5em) ตามมาตรฐาน APA 7th Edition""", language="markdown")
 
 
 

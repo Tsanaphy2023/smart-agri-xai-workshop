@@ -27,8 +27,13 @@ ai_prompts_kit/
 ├── 03_smartphone_flutter_prompts/
 │   ├── prompt_flutter_camera_tflite.md      # สั่งสร้างหน้าจอส่องกล้อง Edge AI ออฟไลน์
 │   └── prompt_flutter_bluetooth_sensor.md   # สั่งสร้างหน้ารับค่าเซนเซอร์ NPK ผ่าน BLE
-└── 04_config_templates/
-    ├── .cursorrules                         # สำหรับ Cursor Editor
-    ├── AGENTS.md                            # สำหรับ Google Antigravity & Agent IDEs
-    └── copilot-instructions.md              # สำหรับ VS Code GitHub Copilot
+├── 04_config_templates/
+│   ├── .cursorrules                         # สำหรับ Cursor Editor
+│   ├── AGENTS.md                            # สำหรับ Google Antigravity & Agent IDEs
+│   └── copilot-instructions.md              # สำหรับ VS Code GitHub Copilot
+└── 05_latex_academic_book_prompts/
+    ├── README.md                            # คู่มือการออกแบบและจัดทำตำราวิชาการ LaTeX (6x9 นิ้ว)
+    ├── prompt_latex_book_full_architecture.md # พรอมพ์สั่งสร้างโครงสร้างโปรเจกต์ตำรา LaTeX ทั้งเล่ม
+    ├── prompt_latex_cover_art_and_tikz.md   # พรอมพ์สั่งเจนภาพ 3D Pixar และโค้ด TikZ ปกโปร่งใส
+    └── preamble_template_quickref.tex       # พรีแอมเบิลมาตรฐาน XeLaTeX ภาษาไทย (ย่อหน้า 3em ไร้โคลอน)
 ```

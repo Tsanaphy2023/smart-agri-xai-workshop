@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CFBundleDevelopmentRegion</key>
+	<string>$(DEVELOPMENT_LANGUAGE)</string>
+	<key>CFBundleDisplayName</key>
+	<string>Digital Agri xAI</string>
+	<key>CFBundleExecutable</key>
+	<string>$(EXECUTABLE_NAME)</string>
+	<key>CFBundleIdentifier</key>
+	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key>CFBundleName</key>
+	<string>digital_agri_xai_mobile</string>
+	<key>CFBundlePackageType</key>
+	<string>APPL</string>
+	<key>CFBundleShortVersionString</key>
+	<string>$(FLUTTER_BUILD_NAME)</string>
+	<key>CFBundleSignature</key>
+	<string>????</string>
+	<key>CFBundleVersion</key>
+	<string>$(FLUTTER_BUILD_NUMBER)</string>
+	<key>LSRequiresIPhoneOS</key>
+	<true/>
+	<key>UILaunchStoryboardName</key>
+	<string>LaunchScreen</string>
+	<key>UIMainStoryboardFile</key>
+	<string>Main</string>
+	<key>UISupportedInterfaceOrientations</key>
+	<array>
+		<string>UIInterfaceOrientationPortrait</string>
+	</array>
+	<key>UISupportedInterfaceOrientations~ipad</key>
+	<array>
+		<string>UIInterfaceOrientationPortrait</string>
+		<string>UIInterfaceOrientationPortraitUpsideDown</string>
+		<string>UIInterfaceOrientationLandscapeLeft</string>
+		<string>UIInterfaceOrientationLandscapeRight</string>
+	</array>
+	<key>UIViewControllerBasedStatusBarAppearance</key>
+	<false/>
+	<key>CADisableMinimumFrameDurationOnPhone</key>
+	<true/>
+	<key>UIApplicationSupportsIndirectInputEvents</key>
+	<true/>
+
+	<!-- iOS Hardware Permissions for Precision Agriculture -->
+	<key>NSCameraUsageDescription</key>
+	<string>แอปพลิเคชันต้องการเข้าถึงกล้องเพื่อถ่ายภาพดินและใบพืชสำหรับการวินิจฉัยสุขภาพพืชด้วย Edge AI</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>แอปพลิเคชันต้องการเข้าถึงคลังภาพเพื่อเลือกภาพถ่ายตัวอย่างดินและใบพืช</string>
+	<key>NSBluetoothAlwaysUsageDescription</key>
+	<string>แอปพลิเคชันต้องการเชื่อมต่อ Bluetooth Low Energy เพื่อรับส่งข้อมูลจากเซนเซอร์โพรบวัดดิน RS485 แบบเรียลไทม์</string>
+	<key>NSBluetoothPeripheralUsageDescription</key>
+	<string>แอปพลิเคชันต้องการเชื่อมต่อเซนเซอร์โพรบวัดดิน RS485 ผ่านบลูทูธ</string>
+</dict>
+</plist>

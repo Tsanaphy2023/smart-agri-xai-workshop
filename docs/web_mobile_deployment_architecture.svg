@@ -1,0 +1,153 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 720" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0b0f19"/>
+      <stop offset="50%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#090d16"/>
+    </linearGradient>
+    <linearGradient id="emeraldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#10b981"/>
+      <stop offset="100%" stop-color="#059669"/>
+    </linearGradient>
+    <linearGradient id="cyanGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#06b6d4"/>
+      <stop offset="100%" stop-color="#0284c7"/>
+    </linearGradient>
+    <linearGradient id="purpleGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#a855f7"/>
+      <stop offset="100%" stop-color="#7c3aed"/>
+    </linearGradient>
+    <linearGradient id="amberGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f59e0b"/>
+      <stop offset="100%" stop-color="#d97706"/>
+    </linearGradient>
+    <filter id="glowEffect" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="8" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+    <filter id="cardShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#000" flood-opacity="0.45"/>
+    </filter>
+  </defs>
+
+  <style>
+    .title-text { font-family: 'Prompt', 'Inter', sans-serif; font-size: 26px; font-weight: 800; fill: #ffffff; }
+    .subtitle-text { font-family: 'Prompt', 'Inter', sans-serif; font-size: 14px; fill: #94a3b8; }
+    .card-title { font-family: 'Prompt', 'Inter', sans-serif; font-size: 17px; font-weight: 700; }
+    .card-body { font-family: 'Prompt', 'Inter', sans-serif; font-size: 13px; fill: #cbd5e1; line-height: 1.5; }
+    .mono-tag { font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 600; }
+    .badge { rx: 6; ry: 6; }
+  </style>
+
+  <!-- Background -->
+  <rect width="1200" height="720" fill="url(#bgGrad)"/>
+  <circle cx="150" cy="120" r="140" fill="#10b981" opacity="0.06" filter="url(#glowEffect)"/>
+  <circle cx="1050" cy="200" r="180" fill="#06b6d4" opacity="0.06" filter="url(#glowEffect)"/>
+  <circle cx="600" cy="650" r="200" fill="#a855f7" opacity="0.05" filter="url(#glowEffect)"/>
+
+  <!-- Header Banner -->
+  <g transform="translate(60, 45)">
+    <rect x="0" y="0" width="1080" height="75" rx="14" fill="rgba(30, 41, 59, 0.6)" stroke="rgba(255, 255, 255, 0.1)" stroke-width="1" filter="url(#cardShadow)"/>
+    <circle cx="35" cy="38" r="8" fill="#10b981" filter="url(#glowEffect)"/>
+    <text x="55" y="36" class="title-text">🚀 สถาปัตยกรรมนำโมเดล AI สู่การใช้งานจริง (Web Dashboard &amp; Mobile App Deployment)</text>
+    <text x="55" y="58" class="subtitle-text">กรอบการพัฒนาระบบหลังฝึกสอนโมเดล: เชื่อมโยงโมเดล ONNX/TFLite สู่ Web Dashboard และ แอปพลิเคชันสมาร์ทโฟน Flutter</text>
+  </g>
+
+  <!-- Central Source Node: Trained AI Model Artifacts -->
+  <g transform="translate(60, 145)">
+    <rect x="0" y="0" width="1080" height="110" rx="14" fill="rgba(30, 41, 59, 0.75)" stroke="#10b981" stroke-width="1.5" filter="url(#cardShadow)"/>
+    
+    <text x="30" y="38" class="card-title" fill="#10b981">🧠 จุดเริ่มต้น: ผลผลิตโมเดล AI จากการฝึกสอน (Trained AI Artifacts)</text>
+    <text x="30" y="62" class="card-body">เมื่อผู้เข้าอบรมเทรนโมเดลเสร็จแล้ว (จาก Google Colab หรือ No-Code Web Studio) จะได้ไฟล์สมองกล 2 รูปแบบหลัก:</text>
+
+    <!-- Artifact Badges -->
+    <g transform="translate(30, 75)">
+      <rect x="0" y="0" width="310" height="24" rx="6" fill="rgba(16, 185, 129, 0.15)" stroke="#10b981" stroke-width="1"/>
+      <text x="10" y="16" class="mono-tag" fill="#6ee7b7">📦 smart_agri_model.onnx (Open Neural Engine)</text>
+
+      <rect x="330" y="0" width="310" height="24" rx="6" fill="rgba(6, 182, 212, 0.15)" stroke="#06b6d4" stroke-width="1"/>
+      <text x="340" y="16" class="mono-tag" fill="#7dd3fc">📱 smart_agri_model.tflite (Mobile Quantized &lt;6MB)</text>
+
+      <rect x="660" y="0" width="330" height="24" rx="6" fill="rgba(168, 85, 247, 0.15)" stroke="#a855f7" stroke-width="1"/>
+      <text x="670" y="16" class="mono-tag" fill="#d8b4fe">🌐 REST / FastAPI Endpoint (Cloud / Localhost)</text>
+    </g>
+  </g>
+
+  <!-- Connective Arrows Flowing Down -->
+  <g stroke="#64748b" stroke-width="2" stroke-dasharray="6,4">
+    <line x1="330" y1="255" x2="330" y2="295"/>
+    <line x1="870" y1="255" x2="870" y2="295"/>
+  </g>
+  <polygon points="330,302 325,292 335,292" fill="#06b6d4"/>
+  <polygon points="870,302 865,292 875,292" fill="#10b981"/>
+
+  <!-- Left Platform: Web App Dashboard (ศูนย์สั่งการเว็บและแดชบอร์ด) -->
+  <g transform="translate(60, 305)">
+    <rect x="0" y="0" width="520" height="375" rx="16" fill="rgba(15, 23, 42, 0.85)" stroke="#06b6d4" stroke-width="1.5" filter="url(#cardShadow)"/>
+    
+    <!-- Header -->
+    <rect x="0" y="0" width="520" height="52" rx="16" fill="url(#cyanGrad)"/>
+    <text x="20" y="32" font-family="'Prompt', sans-serif" font-size="17" font-weight="800" fill="#ffffff">🖥️ PLATFORM 1: Web App Dashboard (ศูนย์สั่งการ)</text>
+    <text x="400" y="32" class="mono-tag" fill="rgba(255,255,255,0.85)">WEB &amp; CLOUD</text>
+
+    <!-- Content Sections -->
+    <g transform="translate(20, 70)">
+      <text x="0" y="18" class="card-title" fill="#38bdf8">1. วัตถุประสงค์และการใช้งาน (Use Case)</text>
+      <text x="0" y="38" class="card-body">• สำหรับนักวิจัย, ผู้จัดการฟาร์ม, และเจ้าหน้าที่ศูนย์วิเคราะห์</text>
+      <text x="0" y="58" class="card-body">• แสดงผลรวมแปลงเกษตร, แผนที่ GIS, กราฟแนวโน้มธาตุอาหาร</text>
+      <text x="0" y="78" class="card-body">• ระบบ Batch Analysis วิเคราะห์ภาพถ่ายดิน/พืชครั้งละหลายรูป</text>
+
+      <text x="0" y="115" class="card-title" fill="#38bdf8">2. เทคโนโลยีที่เหมาะสม (Tech Stack)</text>
+      <text x="0" y="135" class="card-body">• <tspan fill="#6ee7b7" font-weight="700">Streamlit Python:</tspan> สร้างเสร็จใน 1 วัน เหมาะกับนักวิจัย/Low-code</text>
+      <text x="0" y="155" class="card-body">• <tspan fill="#38bdf8" font-weight="700">FastAPI + HTML5/CSS/JS:</tspan> สำหรับระบบโปรดักชัน รองรับผู้ใช้สูง</text>
+      <text x="0" y="175" class="card-body">• <tspan fill="#d8b4fe" font-weight="700">ONNX Runtime Python:</tspan> ประมวลผล Inference แบบ In-Process</text>
+
+      <text x="0" y="212" class="card-title" fill="#38bdf8">3. ฟังก์ชันหลักที่ต้องมีใน Dashboard</text>
+      <!-- Sub cards -->
+      <g transform="translate(0, 222)">
+        <rect x="0" y="0" width="235" height="55" rx="8" fill="rgba(30, 41, 59, 0.7)" stroke="rgba(255,255,255,0.1)"/>
+        <text x="12" y="22" font-size="12" font-weight="700" fill="#f8fafc" font-family="'Prompt', sans-serif">📊 Real-time Sensor HUD</text>
+        <text x="12" y="40" font-size="11" fill="#94a3b8" font-family="'Prompt', sans-serif">เกจวัด N-P-K, pH, ความชื้นดิน</text>
+
+        <rect x="245" y="0" width="235" height="55" rx="8" fill="rgba(30, 41, 59, 0.7)" stroke="rgba(255,255,255,0.1)"/>
+        <text x="257" y="22" font-size="12" font-weight="700" fill="#f8fafc" font-family="'Prompt', sans-serif">📷 Visual AI Classifier</text>
+        <text x="257" y="40" font-size="11" fill="#94a3b8" font-family="'Prompt', sans-serif">วินิจฉัยโรคพืช &amp; ชนิดเนื้อดิน</text>
+      </g>
+    </g>
+  </g>
+
+  <!-- Right Platform: Smartphone Application (สมาร์ทโฟนแอปพลิเคชัน) -->
+  <g transform="translate(620, 305)">
+    <rect x="0" y="0" width="520" height="375" rx="16" fill="rgba(15, 23, 42, 0.85)" stroke="#10b981" stroke-width="1.5" filter="url(#cardShadow)"/>
+    
+    <!-- Header -->
+    <rect x="0" y="0" width="520" height="52" rx="16" fill="url(#emeraldGrad)"/>
+    <text x="20" y="32" font-family="'Prompt', sans-serif" font-size="17" font-weight="800" fill="#ffffff">📱 PLATFORM 2: Smartphone Application (แอปมือถือ)</text>
+    <text x="415" y="32" class="mono-tag" fill="rgba(255,255,255,0.85)">FLUTTER &amp; EDGE</text>
+
+    <!-- Content Sections -->
+    <g transform="translate(20, 70)">
+      <text x="0" y="18" class="card-title" fill="#6ee7b7">1. วัตถุประสงค์และการใช้งาน (Use Case)</text>
+      <text x="0" y="38" class="card-body">• สำหรับเกษตรกรและผู้ปฏิบัติงานในแปลงจริง (Field Inspections)</text>
+      <text x="0" y="58" class="card-body">• ส่องกล้องมือถือวินิจฉัยโรคพืชและดินแบบออฟไลน์ 100% ไร้เน็ต</text>
+      <text x="0" y="78" class="card-body">• ปักหมุด GPS พร้อม Geotagged บันทึกประวัติและดาวน์โหลด PDF</text>
+
+      <text x="0" y="115" class="card-title" fill="#6ee7b7">2. เทคโนโลยีที่เหมาะสม (Tech Stack)</text>
+      <text x="0" y="135" class="card-body">• <tspan fill="#6ee7b7" font-weight="700">Flutter 3.x (Dart):</tspan> ครอสแพลตฟอร์ม iOS &amp; Android พร้อมกัน</text>
+      <text x="0" y="155" class="card-body">• <tspan fill="#38bdf8" font-weight="700">tflite_flutter / onnxruntime:</tspan> รันบน NPU/CPU มือถือ &lt;15ms</text>
+      <text x="0" y="175" class="card-body">• <tspan fill="#fcd34d" font-weight="700">Bluetooth LE / USB RS485:</tspan> ต่อเซนเซอร์ดิน NPK หัวโพรบตรง</text>
+
+      <text x="0" y="212" class="card-title" fill="#6ee7b7">3. สถาปัตยกรรมแอปมาตรฐาน (Clean Architecture)</text>
+      <!-- Sub cards -->
+      <g transform="translate(0, 222)">
+        <rect x="0" y="0" width="235" height="55" rx="8" fill="rgba(30, 41, 59, 0.7)" stroke="rgba(255,255,255,0.1)"/>
+        <text x="12" y="22" font-size="12" font-weight="700" fill="#f8fafc" font-family="'Prompt', sans-serif">⚡ On-Device Camera AI</text>
+        <text x="12" y="40" font-size="11" fill="#94a3b8" font-family="'Prompt', sans-serif">ตรวจจับทันทีผ่าน Live Preview</text>
+
+        <rect x="245" y="0" width="235" height="55" rx="8" fill="rgba(30, 41, 59, 0.7)" stroke="rgba(255,255,255,0.1)"/>
+        <text x="257" y="22" font-size="12" font-weight="700" fill="#f8fafc" font-family="'Prompt', sans-serif">📍 GPS &amp; Offline Caching</text>
+        <text x="257" y="40" font-size="11" fill="#94a3b8" font-family="'Prompt', sans-serif">บันทึกฐานข้อมูล SQLite ในเครื่อง</text>
+      </g>
+    </g>
+  </g>
+</svg>

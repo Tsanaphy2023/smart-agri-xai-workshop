@@ -708,6 +708,24 @@ app.mount("/static", StaticFiles(directory="static"), name="static")
     buf.seek(0)
     return buf.getvalue()
 
+# Helper to generate AI Prompts Kit ZIP package
+def create_prompt_kit_zip():
+    import zipfile
+    buf = io.BytesIO()
+    kit_dir = os.path.join(os.path.dirname(__file__), "ai_prompts_kit")
+    with zipfile.ZipFile(buf, "w", zipfile.ZIP_DEFLATED) as zf:
+        if os.path.exists(kit_dir):
+            for root, _, files in os.walk(kit_dir):
+                for f in files:
+                    full_p = os.path.join(root, f)
+                    rel_p = os.path.relpath(full_p, kit_dir)
+                    zf.write(full_p, arcname=f"ai_prompts_kit/{rel_p}")
+        else:
+            zf.writestr("ai_prompts_kit/README.txt", "Prompt Kit Package")
+    buf.seek(0)
+    return buf.getvalue()
+
+
 
 # 3. Sidebar: Engine & Model Selection (Hybrid AI Architecture)
 with st.sidebar:
@@ -1791,5 +1809,130 @@ class AgriClassifierService {
         </ol>
     </div>
     """, unsafe_allow_html=True)
+
+    st.markdown("---")
+
+    # Section 4: AI Prompts & Context Engineering Kit for VS Code / Cursor / Google Antigravity
+    st.markdown("### 4. 🤖 คลังชุดคำสั่ง AI Prompt & Context Kit (VS Code / Cursor / Google Antigravity)")
+    st.caption("ชุดคำสั่งและคอนเทกต์มาตรฐาน ช่วยให้ผู้เข้าอบรมสั่งให้ AI Coding Assistants สร้างระบบ Web & Mobile ได้อย่างแม่นยำและประหยัดโทเค็นสูงสุด")
+
+    # Download All Prompts Kit Button
+    p_col1, p_col2 = st.columns([1.2, 2.8])
+    with p_col1:
+        prompts_zip_data = create_prompt_kit_zip()
+        st.download_button(
+            label="📦 ดาวน์โหลดชุดคำสั่ง AI Prompts Kit (.zip)",
+            data=prompts_zip_data,
+            file_name="smart_agri_ai_prompts_kit.zip",
+            mime="application/zip",
+            use_container_width=True,
+            help="ดาวน์โหลดไฟล์ .cursorrules, AGENTS.md, และพรอมพ์แม่แบบทั้งหมด"
+        )
+    with p_col2:
+        st.info("💡 **เคล็ดลับประหยัดโทเค็น:** คัดลอกคอนเทกต์ด้านล่างนี้ไปวางใน Custom Instructions หรือไฟล์ `.cursorrules` / `GEMINI.md` ที่รูทโปรเจกต์ จะช่วยประหยัดโทเค็นได้ถึง 85%!")
+
+    # Interactive Prompt Selector
+    selected_prompt_category = st.selectbox(
+        "เลือกดูชุดคำสั่งและคอนเทกต์ตามการใช้งาน:",
+        [
+            "⚡ 1. คอนเทกต์ระบบแบบประหยัดโทเค็น (Ultra-Compact System Context ~320 Tokens)",
+            "🖥️ 2. พรอมพ์สั่งสร้าง Web App Dashboard (Streamlit & Fullstack)",
+            "📱 3. พรอมพ์สั่งสร้าง Smartphone App (Flutter Camera Edge AI ออฟไลน์)",
+            "🧪 4. พรอมพ์สั่งสร้างหน้าเชื่อมต่อเซนเซอร์ดิน NPK ผ่าน Bluetooth LE",
+            "⚙️ 5. ไฟล์คอนฟิกมาตรฐาน (.cursorrules สำหรับ Cursor / AGENTS.md สำหรับ Antigravity)"
+        ]
+    )
+
+    if "1. คอนเทกต์ระบบแบบประหยัดโทเค็น" in selected_prompt_category:
+        st.markdown("##### ⚡ คอนเทกต์ระบบแบบประหยัดโทเค็น (คัดลอกไปวางบนสุดของแชต AI):")
+        st.code("""PROJECT: Smart Agri XAI Platform
+AUTHOR: Asst. Prof. Dr. Chewa Thassana (RBRU Digital Agri-Physics)
+DOMAINS:
+  1_Soil: [Clay, Loam, Sand, Sandy Loam]
+  2_Plant_Diseases: [Leaf Spot, Rust, Downy Mildew, Anthracnose, Root Rot]
+  3_Insects: [Psyllid, Fruit Borer, Spider Mite]
+  4_Nutrient_Deficiency: [N_Deficient, P_Deficient, K_Deficient, Healthy]
+MODELS:
+  Web_Server: smart_agri_model.onnx (ONNX Runtime, Input: 224x224 RGB Float32)
+  Mobile_Edge: smart_agri_model.tflite (TensorFlow Lite, Quantized, <6MB)
+SENSORS: N-P-K (mg/kg), pH (3.5-9.5), Moisture (%), Temp (°C), Rainfall (mm)
+TECH_STACK:
+  Web: Python 3.10+, Streamlit, FastAPI, Vanilla CSS Glassmorphism
+  Mobile: Flutter 3.x, Dart, tflite_flutter, camera, flutter_blue_plus, Provider (MVVM)
+CODING_RULES:
+  - Clean Architecture, Zero RenderFlex Overflow, Strict Null Safety
+  - Offline-First for Mobile, Sub-20ms Latency for Edge AI
+  - UI Aesthetics: Dark Theme (#090D16), Emerald (#10B981), Cyan (#06B6D4)""", language="yaml")
+
+    elif "2. พรอมพ์สั่งสร้าง Web App Dashboard" in selected_prompt_category:
+        st.markdown("##### 🖥️ พรอมพ์สั่งสร้าง Web App Dashboard ด้วย Streamlit:")
+        st.code("""ช่วยออกแบบและเขียนโค้ดเว็บแอปพลิเคชัน Dashboard สำหรับเกษตรแม่นยำ (Smart Agriculture) ด้วย Streamlit โดยมีข้อกำหนดดังนี้:
+
+1. ธีมและการออกแบบ (UI/UX):
+   - ธีม Glassmorphism ทันสมัย โทนสีมรกต (#10B981) และฟ้าไฮเทค (#06B6D4)
+   - แถบสถานะระบบสด (Telemetry HUD Bar) ด้านบน มีไฟกระพริบ Online Beacon
+   - รองรับการแสดงผล Responsive บนสมาร์ทโฟนและแท็บเล็ต
+
+2. ฟังก์ชันที่ต้องมี (Features):
+   - แท็บ 1: Real-time Telemetry: แสดงเกจวัด N-P-K (mg/kg), pH ดิน, ความชื้น และอุณหภูมิ พร้อมปุ่มโหลดพรีเซ็ตแปลงจริง
+   - แท็บ 2: AI Visual Diagnosis: ลากวางภาพถ่ายดินหรือใบพืช แล้วส่งเข้าโมเดล smart_agri_model.onnx แสดงค่าความมั่นใจ (%) ป้ายผลการวินิจฉัย และแผนคำแนะนำการปรับปรุงดิน
+   - แท็บ 3: Crop Recommender: คำนวณพืชที่เหมาะสม 3 อันดับแรกตามค่า N-P-K และ pH พร้อมแผนปุ๋ยสั่งตัด
+   - แท็บ 4: Data Export: ปุ่มดาวน์โหลดรายงานสรุปเป็น JSON และ Markdown
+
+3. คุณภาพโค้ด:
+   - เขียนโค้ดในไฟล์เดียว app.py ให้ทำงานได้ทันที มี Error Handling ครบถ้วน""", language="markdown")
+
+    elif "3. พรอมพ์สั่งสร้าง Smartphone App" in selected_prompt_category:
+        st.markdown("##### 📱 พรอมพ์สั่งสร้าง Flutter App ส่องกล้อง Edge AI ออฟไลน์:")
+        st.code("""ช่วยออกแบบและเขียนโค้ด Flutter Application สำหรับสมาร์ทโฟน (Android / iOS) ส่องกล้องวินิจฉัยสุขภาพดินและโรคพืชแบบ Offline Edge AI โดยมีข้อกำหนดดังนี้:
+
+1. สถาปัตยกรรมระบบ (Architecture):
+   - Clean Architecture (MVVM ร่วมกับ Provider State Management)
+   - Strict Null Safety, 0 warnings, ปราศจาก RenderFlex Overflow
+
+2. การทำงานของ Edge AI (Inference Engine):
+   - ใช้แพ็กเกจ camera และ tflite_flutter
+   - โหลดโมเดลไฟล์ assets/models/smart_agri_model.tflite (Quantized Float32 [1, 224, 224, 3])
+   - สกัดเฟรมภาพจากกล้องแบบเรียลไทม์ และทำนายผลลัพธ์ในเครื่อง 100% ไร้การเชื่อมต่ออินเทอร์เน็ต
+
+3. หน้าจอผู้ใช้งาน (UI/UX):
+   - ธีม Dark Obsidian (#090D16) ผสานเส้นแสงนีออนมรกต (#10B981)
+   - หน้าจอกล้องมีกรอบเล็งเป้าหมาย (Target Reticle) กึ่งกลางหน้าจอ
+   - ด้านล่างมีแถบการ์ด Floating Glassmorphic แสดงผลลัพธ์การวินิจฉัย ความมั่นใจ และปุ่มบันทึก GPS ลง SQLite ในเครื่อง""", language="markdown")
+
+    elif "4. พรอมพ์สั่งสร้างหน้าเชื่อมต่อเซนเซอร์ดิน" in selected_prompt_category:
+        st.markdown("##### 🧪 พรอมพ์สั่งสร้าง Flutter หน้าเชื่อมต่อเซนเซอร์ดิน NPK ผ่าน Bluetooth LE:")
+        st.code("""ช่วยออกแบบและเขียนโค้ด Flutter Screen สำหรับเชื่อมต่อหัวโพรบเซนเซอร์ดิน N-P-K และ pH ผ่าน Bluetooth Low Energy (BLE) โดยมีข้อกำหนดดังนี้:
+
+1. การเชื่อมต่อฮาร์ดแวร์ (BLE):
+   - ใช้แพ็กเกจ flutter_blue_plus
+   - มีปุ่ม "ค้นหาอุปกรณ์เซนเซอร์รอบตัว (Scan Devices)"
+   - เชื่อมต่อและอ่านค่า Characteristic ที่ส่งข้อมูลพารามิเตอร์ดิน (N, P, K, pH, Moisture, Temp)
+
+2. หน้าจอแดชบอร์ดเกจวัด (Sensor Telemetry UI):
+   - เกจวัดวงกลมหรือการ์ดสำหรับ ไนโตรเจน (N), ฟอสฟอรัส (P), โพแทสเซียม (K), ความเป็นกรด-ด่าง (pH)
+   - แถบสถานะการเชื่อมต่อบลูทูธ (Connected / Disconnected) พร้อมปุ่ม Reconnect
+   - ปุ่ม "คำนวณปุ๋ยสั่งตัดทันที" เมื่อกดจะคำนวณสูตรปุ๋ยที่แปลงต้องการตามค่าปัจจุบัน
+   - มี Mock Data จำลองค่าเซนเซอร์สุ่มให้อัตโนมัติในกรณีที่ยังไม่มีฮาร์ดแวร์จริง""", language="markdown")
+
+    else:
+        st.markdown("##### ⚙️ ไฟล์คอนฟิกมาตรฐาน `.cursorrules` (สำหรับวางที่ Root โฟลเดอร์ใน Cursor):")
+        st.code("""# .cursorrules - Precision Agriculture AI Assistant
+You are an expert full-stack engineer and agricultural AI specialist working on the Smart Agri XAI platform for Asst. Prof. Dr. Chewa Thassana.
+
+## Core Architectural Rules:
+1. Domain Taxonomy:
+   - Soil: Clay, Loam, Sand, Sandy Loam
+   - Plant Diseases: Leaf Spot, Rust, Downy Mildew, Anthracnose, Root Rot
+   - Pests: Psyllid, Fruit Borer, Spider Mite
+   - Nutrient Deficiency: Nitrogen (N), Phosphorus (P), Potassium (K), Healthy
+2. Technology Guidelines:
+   - Web: Streamlit, FastAPI, ONNX Runtime, Vanilla CSS Glassmorphism
+   - Mobile: Flutter 3.x, Dart, Clean Architecture (MVVM/Provider), tflite_flutter, zero RenderFlex overflow
+3. Aesthetics & UX:
+   - Theme: Dark Obsidian (#090D16), Vibrant Emerald (#10B981), Cyber Cyan (#06B6D4)
+   - Fonts: Prompt for Thai text, JetBrains Mono for telemetry metrics
+   - Usability: 48px min touch targets, responsive layout across desktop and mobile""", language="yaml")
+
 
 

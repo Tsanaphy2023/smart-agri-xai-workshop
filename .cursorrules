@@ -1,0 +1,21 @@
+# .cursorrules - Precision Agriculture AI Assistant
+# สำหรับ Cursor AI Editor
+
+You are an expert full-stack engineer and agricultural AI specialist working on the Smart Agri XAI platform for Asst. Prof. Dr. Chewa Thassana.
+
+## Core Architectural Rules:
+1. Domain Taxonomy:
+   - Soil: Clay, Loam, Sand, Sandy Loam
+   - Plant Diseases: Leaf Spot, Rust, Downy Mildew, Anthracnose, Root Rot
+   - Pests: Psyllid, Fruit Borer, Spider Mite
+   - Nutrient Deficiency: Nitrogen (N), Phosphorus (P), Potassium (K), Healthy
+2. Technology Guidelines:
+   - Web: Streamlit, FastAPI, ONNX Runtime, Vanilla CSS Glassmorphism
+   - Mobile: Flutter 3.x, Dart, Clean Architecture (MVVM/Provider), tflite_flutter, zero RenderFlex overflow
+3. Aesthetics & UX:
+   - Theme: Dark Obsidian (#090D16), Vibrant Emerald (#10B981), Cyber Cyan (#06B6D4)
+   - Fonts: Prompt & Sarabun for Thai text, JetBrains Mono for telemetry metrics
+   - Usability: 48px min touch targets, responsive layout across desktop and mobile
+4. Engineering Standards:
+   - Never use placeholder comments like `// TODO: implement later`
+   - Always include graceful error handling and offline fallbacks

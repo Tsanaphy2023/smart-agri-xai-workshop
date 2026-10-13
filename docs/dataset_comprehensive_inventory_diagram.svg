@@ -56,7 +56,7 @@
     <rect width="570" height="46" rx="14" fill="url(#soilPillar)"/>
     <rect y="32" width="570" height="14" fill="url(#soilPillar)"/>
     <text x="20" y="29" font-family="sans-serif" font-size="15" font-weight="bold" fill="#ffffff">
-      🌱 เสาหลักที่ 1: ระบบอัจฉริยะด้านดิน (Soil Intelligence Pillar)
+      🌱 1. ระบบอัจฉริยะด้านดิน (Soil Analysis) — 4 กลุ่มย่อย
     </text>
     <text x="550" y="29" font-family="sans-serif" font-size="12" fill="#fef3c7" text-anchor="end" font-weight="bold">166 Files</text>
 
@@ -161,7 +161,7 @@
     <rect width="570" height="46" rx="14" fill="url(#plantPillar)"/>
     <rect y="32" width="570" height="14" fill="url(#plantPillar)"/>
     <text x="20" y="29" font-family="sans-serif" font-size="15" font-weight="bold" fill="#ffffff">
-      🍃 เสาหลักที่ 2: ระบบอัจฉริยะด้านพืช (Plant Intelligence Pillar)
+      🍃 2. ระบบอัจฉริยะด้านพืช (Plant) — 3 หมวดหมู่หลัก
     </text>
     <text x="550" y="29" font-family="sans-serif" font-size="12" fill="#d1fae5" text-anchor="end" font-weight="bold">2,413 Files</text>
 
@@ -170,8 +170,8 @@
       <rect width="534" height="215" rx="10" fill="#0f172a" stroke="#334155"/>
       <rect x="12" y="12" width="90" height="24" rx="6" fill="#ef4444" fill-opacity="0.2"/>
       <text x="57" y="28" font-family="sans-serif" font-size="11" font-weight="bold" fill="#f87171" text-anchor="middle">Plant Diseases</text>
-      <text x="112" y="29" font-family="sans-serif" font-size="13" font-weight="bold" fill="#f8fafc">2.1 PlantDiseases/ (โรคพืชสำคัญ 1,347 ภาพ)</text>
-      <text x="520" y="29" font-family="sans-serif" font-size="11" fill="#34d399" text-anchor="end" font-weight="bold">5 พืชเศรษฐกิจ</text>
+      <text x="112" y="29" font-family="sans-serif" font-size="13" font-weight="bold" fill="#f8fafc">2.1 โรคพืช (Plant Diseases) — 5 กลุ่มย่อย (1,347 ภาพ)</text>
+      <text x="520" y="29" font-family="sans-serif" font-size="11" fill="#34d399" text-anchor="end" font-weight="bold">5 กลุ่มย่อย</text>
       
       <g transform="translate(12, 45)">
         <rect width="510" height="155" rx="6" fill="#1e293b"/>
@@ -189,8 +189,8 @@
       <rect width="534" height="205" rx="10" fill="#0f172a" stroke="#334155"/>
       <rect x="12" y="12" width="85" height="24" rx="6" fill="#f59e0b" fill-opacity="0.2"/>
       <text x="54" y="28" font-family="sans-serif" font-size="11" font-weight="bold" fill="#fbbf24" text-anchor="middle">Insect Pests</text>
-      <text x="108" y="29" font-family="sans-serif" font-size="13" font-weight="bold" fill="#f8fafc">2.2 PlantInsect/ (แมลงศัตรูพืช 761 ภาพ)</text>
-      <text x="520" y="29" font-family="sans-serif" font-size="11" fill="#34d399" text-anchor="end" font-weight="bold">3 กลุ่มเป้าหมาย</text>
+      <text x="108" y="29" font-family="sans-serif" font-size="13" font-weight="bold" fill="#f8fafc">2.2 แมลงศัตรูพืช (Plant Insect Pests) — 3 กลุ่ม (761 ภาพ)</text>
+      <text x="520" y="29" font-family="sans-serif" font-size="11" fill="#34d399" text-anchor="end" font-weight="bold">3 กลุ่ม</text>
       
       <g transform="translate(12, 45)">
         <rect width="510" height="145" rx="6" fill="#1e293b"/>
@@ -207,8 +207,8 @@
       <rect width="534" height="190" rx="10" fill="#0f172a" stroke="#334155"/>
       <rect x="12" y="12" width="105" height="24" rx="6" fill="#10b981" fill-opacity="0.2"/>
       <text x="64" y="28" font-family="sans-serif" font-size="11" font-weight="bold" fill="#34d399" text-anchor="middle">Nutrient Deficiency</text>
-      <text x="128" y="29" font-family="sans-serif" font-size="13" font-weight="bold" fill="#f8fafc">2.3 PlantNutrient/ (อาการขาด N-P-K 305 ภาพ)</text>
-      <text x="520" y="29" font-family="sans-serif" font-size="11" fill="#34d399" text-anchor="end" font-weight="bold">4 ชนิดพืช</text>
+      <text x="128" y="29" font-family="sans-serif" font-size="13" font-weight="bold" fill="#f8fafc">2.3 การขาดธาตุอาหารหลัก (Plant Nutrient Deficiencies) — 4 กลุ่ม (305 ภาพ)</text>
+      <text x="520" y="29" font-family="sans-serif" font-size="11" fill="#34d399" text-anchor="end" font-weight="bold">4 กลุ่ม</text>
       
       <g transform="translate(12, 45)">
         <rect width="510" height="130" rx="6" fill="#1e293b"/>

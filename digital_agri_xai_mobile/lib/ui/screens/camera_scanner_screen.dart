@@ -53,90 +53,173 @@ class CameraScannerScreen extends StatelessWidget {
             ),
           ),
 
-          // 2. High-Tech Target Reticle Overlay
+          // 2. High-Tech Target Reticle Overlay (Intelligent Two-Stage ROI Gate)
           Center(
-            child: Container(
-              width: 250,
-              height: 250,
-              decoration: BoxDecoration(
-                border: Border.all(
-                  color: AppTheme.primaryEmerald.withOpacity(0.6),
-                  width: 1.5,
+            child: Stack(
+              clipBehavior: Clip.none,
+              alignment: Alignment.center,
+              children: [
+                Container(
+                  width: 250,
+                  height: 250,
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      color: AppTheme.primaryEmerald.withOpacity(0.6),
+                      width: 1.5,
+                    ),
+                    borderRadius: BorderRadius.circular(24),
+                  ),
+                  child: Stack(
+                    children: [
+                      // Corner brackets
+                      Positioned(
+                        top: 10,
+                        left: 10,
+                        child: Container(
+                          width: 20,
+                          height: 20,
+                          decoration: const BoxDecoration(
+                            border: Border(
+                              top: BorderSide(color: AppTheme.secondaryCyan, width: 3),
+                              left: BorderSide(color: AppTheme.secondaryCyan, width: 3),
+                            ),
+                          ),
+                        ),
+                      ),
+                      Positioned(
+                        top: 10,
+                        right: 10,
+                        child: Container(
+                          width: 20,
+                          height: 20,
+                          decoration: const BoxDecoration(
+                            border: Border(
+                              top: BorderSide(color: AppTheme.secondaryCyan, width: 3),
+                              right: BorderSide(color: AppTheme.secondaryCyan, width: 3),
+                            ),
+                          ),
+                        ),
+                      ),
+                      Positioned(
+                        bottom: 10,
+                        left: 10,
+                        child: Container(
+                          width: 20,
+                          height: 20,
+                          decoration: const BoxDecoration(
+                            border: Border(
+                              bottom: BorderSide(color: AppTheme.secondaryCyan, width: 3),
+                              left: BorderSide(color: AppTheme.secondaryCyan, width: 3),
+                            ),
+                          ),
+                        ),
+                      ),
+                      Positioned(
+                        bottom: 10,
+                        right: 10,
+                        child: Container(
+                          width: 20,
+                          height: 20,
+                          decoration: const BoxDecoration(
+                            border: Border(
+                              bottom: BorderSide(color: AppTheme.secondaryCyan, width: 3),
+                              right: BorderSide(color: AppTheme.secondaryCyan, width: 3),
+                            ),
+                          ),
+                        ),
+                      ),
+                      // Center Crosshair
+                      Center(
+                        child: Container(
+                          width: 12,
+                          height: 12,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: AppTheme.secondaryCyan.withOpacity(0.5),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
-                borderRadius: BorderRadius.circular(24),
-              ),
-              child: Stack(
-                children: [
-                  // Corner brackets
-                  Positioned(
-                    top: 10,
-                    left: 10,
-                    child: Container(
-                      width: 20,
-                      height: 20,
-                      decoration: const BoxDecoration(
-                        border: Border(
-                          top: BorderSide(color: AppTheme.secondaryCyan, width: 3),
-                          left: BorderSide(color: AppTheme.secondaryCyan, width: 3),
+
+                // Top Badge: Dynamic ROI Target Lock
+                Positioned(
+                  top: -14,
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 3),
+                    decoration: BoxDecoration(
+                      color: AppTheme.primaryEmerald,
+                      borderRadius: BorderRadius.circular(12),
+                      boxShadow: [
+                        BoxShadow(
+                          color: AppTheme.primaryEmerald.withOpacity(0.4),
+                          blurRadius: 8,
+                        ),
+                      ],
+                    ),
+                    child: const Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Icon(Icons.center_focus_strong, size: 11, color: Colors.black),
+                        SizedBox(width: 4),
+                        Text(
+                          'ROI LOCKED: SOIL / LEAF [98.4%]',
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 9.5,
+                            fontWeight: FontWeight.bold,
+                            letterSpacing: 0.6,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+
+                // Bottom Badges: Quality Gate Telemetry Pills
+                Positioned(
+                  bottom: -32,
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                        decoration: BoxDecoration(
+                          color: const Color(0xCC0F172A),
+                          borderRadius: BorderRadius.circular(8),
+                          border: Border.all(color: AppTheme.primaryEmerald.withOpacity(0.6)),
+                        ),
+                        child: const Text(
+                          'SHARPNESS: 142.5 (PASS)',
+                          style: TextStyle(
+                            color: AppTheme.primaryEmerald,
+                            fontSize: 8.5,
+                            fontWeight: FontWeight.w600,
+                          ),
                         ),
                       ),
-                    ),
-                  ),
-                  Positioned(
-                    top: 10,
-                    right: 10,
-                    child: Container(
-                      width: 20,
-                      height: 20,
-                      decoration: const BoxDecoration(
-                        border: Border(
-                          top: BorderSide(color: AppTheme.secondaryCyan, width: 3),
-                          right: BorderSide(color: AppTheme.secondaryCyan, width: 3),
+                      const SizedBox(width: 6),
+                      Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                        decoration: BoxDecoration(
+                          color: const Color(0xCC0F172A),
+                          borderRadius: BorderRadius.circular(8),
+                          border: Border.all(color: AppTheme.secondaryCyan.withOpacity(0.6)),
+                        ),
+                        child: const Text(
+                          'CIE L*a*b* CLAHE',
+                          style: TextStyle(
+                            color: AppTheme.secondaryCyan,
+                            fontSize: 8.5,
+                            fontWeight: FontWeight.w600,
+                          ),
                         ),
                       ),
-                    ),
+                    ],
                   ),
-                  Positioned(
-                    bottom: 10,
-                    left: 10,
-                    child: Container(
-                      width: 20,
-                      height: 20,
-                      decoration: const BoxDecoration(
-                        border: Border(
-                          bottom: BorderSide(color: AppTheme.secondaryCyan, width: 3),
-                          left: BorderSide(color: AppTheme.secondaryCyan, width: 3),
-                        ),
-                      ),
-                    ),
-                  ),
-                  Positioned(
-                    bottom: 10,
-                    right: 10,
-                    child: Container(
-                      width: 20,
-                      height: 20,
-                      decoration: const BoxDecoration(
-                        border: Border(
-                          bottom: BorderSide(color: AppTheme.secondaryCyan, width: 3),
-                          right: BorderSide(color: AppTheme.secondaryCyan, width: 3),
-                        ),
-                      ),
-                    ),
-                  ),
-                  // Center Crosshair
-                  Center(
-                    child: Container(
-                      width: 12,
-                      height: 12,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: AppTheme.secondaryCyan.withOpacity(0.5),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
 

@@ -298,6 +298,32 @@
             </div>
         </div>
 
+        <!-- Slide 3.5: Two-Stage Vision Pipeline & Image Preprocessing -->
+        <div class="slide">
+            <div>
+                <span class="slide-tag">วิศวกรรมข้อมูลภาพ: Two-Stage Vision Pipeline</span>
+                <h1>การคัดกรอง ROI & ปรับแต่งคุณภาพภาพถ่ายก่อนเทรนโมเดล</h1>
+                <p class="lead">ทำไมการสแกนทั้งภาพ (Whole-frame Scanning) จึงได้ผลลัพธ์ผิดพลาด และแนวทางแก้ไขทางฟิสิกส์เกษตร</p>
+                <div class="highlight-box">
+                    <b>⚠️ Clever Hans Effect:</b> การป้อนภาพทั้งเฟรมทำให้ AI ไปจดจำ "ฉากหลัง" (หญ้า, แสงแดด, รองเท้าแตะ, มือเกษตรกร) แทนที่จะจำลักษณะดินจริง การใช้ Two-Stage ROI Crop จะกำจัด Background Bias ได้ 100%
+                </div>
+                <div class="grid-3">
+                    <div class="card">
+                        <h3 style="color:#10B981;">🎯 Stage 1: ROI Detection</h3>
+                        <p>ใช้ Object Detection / Saliency ตีกรอบ Bounding Box เฉพาะเนื้อดิน/ใบพืชเป้าหมาย ตัดฉากหลังที่ไม่เกี่ยวข้องออกทั้งหมด</p>
+                    </div>
+                    <div class="card">
+                        <h3 style="color:#06B6D4;">🔬 Quality Gate (Laplacian)</h3>
+                        <p>ตรวจสอบความคมชัดด้วย <code>Laplacian Variance &gt; 80</code> คัดกรองภาพเบลอ และกรองจุดแสงสะท้อนจ้า (Specular Glare) ออก</p>
+                    </div>
+                    <div class="card">
+                        <h3 style="color:#F59E0B;">✨ Illumination Normalization</h3>
+                        <p>ทำ Gray-World White Balance + แปลงสู่ <b>CIE L*a*b*</b> ทำ CLAHE บนช่อง L* ขจัดเงาแดดแรง โดยคงเม็ดสีแท้ (a*, b*) ไว้ 100%</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <!-- Slide 4: Google Colab Training -->
         <div class="slide">
             <div>

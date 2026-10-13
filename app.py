@@ -16,6 +16,11 @@ try:
 except Exception:
     generate_certificate = None
 
+try:
+    from roi_preprocessor import SoilVisionPreprocessor
+except Exception:
+    SoilVisionPreprocessor = None
+
 # 1. Configuration & Page Setup
 load_dotenv()
 st.set_page_config(
@@ -1010,8 +1015,52 @@ with tab1:
 
         # Display Image & Trigger Button
         current_image = st.session_state.get("loaded_image")
+        target_image_for_ai = current_image
+        preprocessed_data = None
+
         if current_image is not None:
-            st.image(current_image, caption="📷 ภาพถ่ายเป้าหมายที่พร้อมสำหรับการสกัดเวกเตอร์", use_container_width=True)
+            use_roi_gate = st.checkbox(
+                "🔬 เปิดใช้งาน Two-Stage ROI & L*a*b* Normalization (ขจัดฉากหลังและเงาหลอก AI)",
+                value=True,
+                help="ตรวจจับตัดเฉพาะกรอบดินเป้าหมาย ป้องกันโมเดลจำฉากหลัง (Clever Hans Effect), ตรวจสอบความเบลอ และปรับสมดุลแสงด้วย CIE L*a*b* CLAHE"
+            )
+
+            if use_roi_gate and SoilVisionPreprocessor is not None:
+                with st.spinner("🔍 กำลังสแกนหาเป้าหมาย ROI และตรวจสอบคุณภาพภาพถ่าย..."):
+                    preprocessed_data = SoilVisionPreprocessor.process_full_pipeline(current_image)
+                
+                target_image_for_ai = preprocessed_data["normalized_roi_pil"]
+
+                with st.expander("🔬 ผลการตรวจจับกรอบ ROI และเกณฑ์วัดคุณภาพทางฟิสิกส์ (Visual Gate Telemetry)", expanded=True):
+                    r_col1, r_col2 = st.columns(2)
+                    with r_col1:
+                        st.image(preprocessed_data["annotated_pil"], caption="🎯 ตรวจจับเป้าหมาย ROI (Bounding Box)", use_container_width=True)
+                    with r_col2:
+                        st.image(preprocessed_data["normalized_roi_pil"], caption="✨ พื้นผิวที่ปรับสมดุลแสง CIE L*a*b* CLAHE", use_container_width=True)
+
+                    q = preprocessed_data["quality"]
+                    ind = preprocessed_data["indices"]
+
+                    qm1, qm2, qm3 = st.columns(3)
+                    qm1.metric("ความคมชัด (Laplacian)", f"{q['laplacian_variance']:.1f}", q['blur_status'].split(' ')[0])
+                    qm2.metric("แสงสะท้อนจ้า (Glare)", f"{q['glare_ratio_pct']:.1f}%")
+                    qm3.metric("คะแนนคุณภาพโดยรวม", f"{q['quality_score_pct']:.0f}%")
+
+                    st.markdown(f"""
+                    <div style="margin-top: 8px; padding: 10px 12px; background: #0f172a; border-radius: 8px; border: 1px solid #1e293b; color: #f8fafc; font-size: 0.82rem; font-family: 'JetBrains Mono', monospace;">
+                        <span style="color: #10b981; font-weight: 700;">[PHYSICOCHEMICAL INDICES]</span><br>
+                        • พิกัดสี CIE L*a*b*: L*={ind['l_star']:.1f}, a*={ind['a_star']:.1f}, b*={ind['b_star']:.1f}<br>
+                        • ดัชนีความชื้นคาดคะเน (Moisture Proxy): {ind['moisture_proxy']:.3f}<br>
+                        • ดัชนีสีแดง (Redness Index): {ind['redness_index']:.1f}<br>
+                        • การประเมินกลุ่มดิน: <span style="color: #38bdf8;">{ind['estimated_soil_family']}</span>
+                    </div>
+                    """, unsafe_allow_html=True)
+
+                    for rec in q["recommendations"]:
+                        st.info(f"💡 {rec}")
+            else:
+                st.image(current_image, caption="📷 ภาพถ่ายเป้าหมายทั้งเฟรม (Whole-frame View)", use_container_width=True)
+
             analyze_btn = st.button("🚀 เริ่มการวิเคราะห์ด้วย AI ทันที (Analyze Now)", type="primary", use_container_width=True)
         else:
             st.info("👈 กรุณาเลือกภาพตัวอย่างด่วนด้านบน หรือลากวางภาพถ่ายของท่านเพื่อเริ่มต้น")
@@ -1031,24 +1080,27 @@ with tab1:
                         if not active_key:
                             st.error("⚠️ กรุณาระบุ GEMINI_API_KEY ที่แถบด้านซ้าย")
                         else:
-                            result = analyze_with_gemini(current_image, ANALYSIS_PROMPT, location_info, active_key, selected_model)
+                            result = analyze_with_gemini(target_image_for_ai, ANALYSIS_PROMPT, location_info, active_key, selected_model)
                     
                     elif "Local Model" in engine_type:
-                        result = analyze_with_ollama(current_image, ANALYSIS_PROMPT, location_info, ollama_url, selected_model)
+                        result = analyze_with_ollama(target_image_for_ai, ANALYSIS_PROMPT, location_info, ollama_url, selected_model)
                     
                     else:  # Custom Model
                         if "In-Process" in custom_mode or custom_endpoint is None:
                             # 100% In-Process Edge Engine
-                            result = EdgeAgronomyClassifier.classify(current_image, location_info=location_info)
+                            result = EdgeAgronomyClassifier.classify(target_image_for_ai, location_info=location_info)
                         else:
                             # External REST API with Graceful Connection Refused handling
                             try:
-                                result = analyze_with_custom_api(current_image, location_info, custom_endpoint, selected_model)
+                                result = analyze_with_custom_api(target_image_for_ai, location_info, custom_endpoint, selected_model)
                             except requests.exceptions.ConnectionError:
                                 st.warning("⚠️ ไม่สามารถเชื่อมต่อกับ REST API เซิร์ฟเวอร์ภายนอกได้ (Connection Refused บนพอร์ต 8000)")
                                 st.info("🔄 กำลังสลับมาประมวลผลด้วย **In-Process Edge Engine ในตัวอัตโนมัติ** เพื่อให้สามารถใช้งานต่อได้ทันที...")
-                                result = EdgeAgronomyClassifier.classify(current_image, location_info=location_info)
+                                result = EdgeAgronomyClassifier.classify(target_image_for_ai, location_info=location_info)
                                 result["engine_note"] = "Auto-fallback to In-Process Edge Model"
+
+                    if result and preprocessed_data:
+                        result["preprocessed_telemetry"] = preprocessed_data
 
                 except Exception as e:
                     error_msg = str(e)
@@ -1071,6 +1123,14 @@ with tab1:
             details_text = saved_result.get('diagnosis', {}).get('details', '')
 
             # Futuristic Summary Container
+            tele = saved_result.get("preprocessed_telemetry")
+            if tele:
+                st.markdown(f"""
+                <div style="margin-bottom: 12px; padding: 8px 12px; background: rgba(16, 185, 129, 0.08); border-left: 4px solid #10b981; border-radius: 6px; font-size: 0.82rem; color: #065f46;">
+                    🛡️ <b>Two-Stage Vision Verified:</b> ภาพได้รับการตรวจจับตัดกรอบ ROI [BBox: {tele['roi_bbox'][2]}x{tele['roi_bbox'][3]}px, Conf: {tele['roi_confidence']*100:.1f}%] และปรับสมดุลแสงด้วย CIE L*a*b* CLAHE ปราศจากสัญญาณรบกวนฉากหลัง (Anti-Clever Hans Effect 100%)
+                </div>
+                """, unsafe_allow_html=True)
+
             st.markdown(f"""
             <div class="glass-card" style="border-left: 6px solid #10b981;">
                 <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;">

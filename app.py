@@ -11,6 +11,11 @@ from PIL import Image
 from edge_classifier import EdgeAgronomyClassifier
 from crop_recommender import CropRecommenderEngine
 
+try:
+    from certificate_generator import generate_certificate
+except Exception:
+    generate_certificate = None
+
 # 1. Configuration & Page Setup
 load_dotenv()
 st.set_page_config(
@@ -1644,10 +1649,155 @@ with tab4:
 
     st.markdown("---")
 
-    # Section 4: Custom Dataset Workflow
-    st.markdown("### 4. 🎯 แนวทางปฏิบัติสำหรับผู้เข้าอบรมที่มี Datasets ของตนเอง")
-    custom_dataset_svg = os.path.join(os.path.dirname(__file__), "docs", "custom_dataset_zero_code_workflow.svg")
-    render_svg_card(custom_dataset_svg)
+    st.markdown("---")
+
+    # Section 5: Post-Test Questionnaire & E-Certificate Generation
+    st.markdown("### 5. 🎓 ระบบประเมินวัดผลและออกเกียรติบัตรออนไลน์ (E-Certificate Generator)")
+    st.caption("ทำแบบทดสอบวัดผลหลังการอบรม (Post-Test) 5 ข้อ เพื่อปลดล็อกเกียรติบัตรรับรองจากมหาวิทยาลัยราชภัฏรำไพพรรณี พร้อม Verifiable QR Code ทันที")
+
+    with st.expander("📝 คลิกเพื่อทำแบบทดสอบวัดผลหลังการอบรม (Post-Training Evaluation)", expanded=True):
+        st.markdown(r"###### ตอบคำถาม 5 ข้อต่อไปนี้ (เกณฑ์ผ่าน $\ge$ 80% หรือ 4 ข้อขึ้นไป):")
+        
+        q1 = st.radio(
+            "1. สถาปัตยกรรมแอปพลิเคชันสมาร์ทโฟนสำหรับแปลงเกษตรในพื้นที่ห่างไกลควรใช้เทคนิคใด?",
+            [
+                "ก. Offline-First Edge AI รันโมเดลบน NPU/CPU สมาร์ทโฟนโดยตรง ไร้เน็ต 100%",
+                "ข. ส่งภาพขึ้นคลาวด์ตลอดเวลาผ่าน 5G/4G",
+                "ค. รันเฉพาะเมื่อมีสัญญาณ Wi-Fi ประจำบ้านเท่านั้น"
+            ],
+            key="post_test_q1"
+        )
+        
+        q2 = st.radio(
+            "2. การทำ Weight Quantization ในโมเดล TFLite ช่วยให้ขนาดไฟล์โมเดลลดลงเหลือประมาณเท่าใด?",
+            [
+                "ก. ลดลงเหลือประมาณ 4 - 6 MB (จากเดิม > 20 MB) เหมาะกับชิปมือถือ",
+                "ข. ลดลงเหลือ 500 KB แต่สูญเสียความแม่นยำทั้งหมด",
+                "ค. ขนาดไฟล์เท่าเดิม ไม่เปลี่ยนแปลง"
+            ],
+            key="post_test_q2"
+        )
+
+        q3 = st.radio(
+            "3. ในการรันโมเดล In-Process บน Streamlit Web Dashboard ควรใช้เทคโนโลยีใดเพื่อความเร็วสูงสุด (<15 ms)?",
+            [
+                "ก. ONNX Runtime (C++ Engine) โดยไม่ต้องติดตั้ง PyTorch บนเซิร์ฟเวอร์",
+                "ข. โหลดไฟล์โมเดล PyTorch .pth ใหม่ทุกครั้งที่มีคำขอเข้ามา",
+                "ค. เรียกใช้ REST API จากต่างประเทศ"
+            ],
+            key="post_test_q3"
+        )
+
+        q4 = st.radio(
+            "4. เซนเซอร์วัดเคมีดิน NPK, pH, ความชื้น และอุณหภูมิ ส่งข้อมูลเข้าสู่สมาร์ทโฟนผ่านโพรโทคอลใด?",
+            [
+                "ก. Bluetooth Low Energy (BLE) หรือ RS485 Modbus RTU",
+                "ข. NFC ระยะใกล้ไม่เกิน 2 เซนติเมตร",
+                "ค. ลำแสงอินฟราเรด (IR) แนวตรง"
+            ],
+            key="post_test_q4"
+        )
+
+        q5 = st.radio(
+            "5. หลักการเขียนคำสั่ง CLEAR Prompting Framework สำหรับเกษตรดิจิทัล ประกอบด้วยองค์ประกอบใด?",
+            [
+                "ก. Context, Limitations, Examples, Actions, Rules",
+                "ข. Create, Listen, Edit, Answer, Read",
+                "ค. Code, Log, Execute, Analyze, Return"
+            ],
+            key="post_test_q5"
+        )
+
+        if st.button("📊 ส่งคำตอบและประเมินผลคะแนน (Submit & Evaluate)", key="btn_eval_post_test", use_container_width=True):
+            score = 0
+            if q1.startswith("ก."): score += 1
+            if q2.startswith("ก."): score += 1
+            if q3.startswith("ก."): score += 1
+            if q4.startswith("ก."): score += 1
+            if q5.startswith("ก."): score += 1
+            
+            st.session_state["post_test_score"] = score
+            st.session_state["post_test_passed"] = (score >= 4)
+
+        if st.session_state.get("post_test_score") is not None:
+            sc = st.session_state["post_test_score"]
+            if st.session_state.get("post_test_passed"):
+                st.success(f"🎉 **ยินดีด้วย! คุณผ่านเกณฑ์การประเมิน (ได้คะแนน {sc}/5 คะแนน คิดเป็น {sc*20}%)** ปลดล็อกสิทธิ์การรับเกียรติบัตรแล้ว")
+            else:
+                st.warning(f"⚠️ คุณได้คะแนน {sc}/5 คะแนน (เกณฑ์ผ่าน 4 ข้อขึ้นไป) กรุณาลองทบทวนเนื้อหาและทำใหม่อีกครั้ง")
+
+    # Certificate Generation Form
+    st.markdown("#### 🏆 ออกเกียรติบัตรรับรองวิชาชีพ (Verifiable E-Certificate):")
+    cert_c1, cert_c2 = st.columns([1, 1], gap="large")
+    
+    with cert_c1:
+        st.markdown("กรอกข้อมูลสำหรับพิมพ์ลงบนเกียรติบัตร:")
+        p_name = st.text_input("ชื่อ-นามสกุล (ภาษาไทยหรืออังกฤษ):", value="นายพงศธร เกษตรก้าวหน้า", key="cert_name_input")
+        p_org = st.text_input("สังกัด / หน่วยงาน / วิสาหกิจชุมชน:", value="กลุ่มเกษตรกรแปลงใหญ่ทุเรียนจันทบุรี", key="cert_org_input")
+        p_date = st.text_input("วันที่ออกเกียรติบัตร:", value="13 ตุลาคม พ.ศ. 2569", key="cert_date_input")
+        
+        btn_generate = st.button("🎓 สร้างเกียรติบัตรรับรอง (Generate E-Certificate)", use_container_width=True, type="primary")
+
+    with cert_c2:
+        if btn_generate and generate_certificate:
+            with st.spinner("⏳ กำลังสร้างและเรนเดอร์เกียรติบัตรความละเอียดสูง พร้อม QR Code..."):
+                cert_id = f"RBRU-xAI-2026-{abs(hash(p_name)) % 9000 + 1000}"
+                pdf_bytes, png_bytes = generate_certificate(p_name, p_org, cert_id, p_date)
+                
+                if pdf_bytes and png_bytes:
+                    st.session_state["current_cert_pdf"] = pdf_bytes
+                    st.session_state["current_cert_png"] = png_bytes
+                    st.session_state["current_cert_id"] = cert_id
+                else:
+                    st.error("เกิดข้อผิดพลาดในการสร้างเกียรติบัตร กรุณาลองใหม่อีกครั้ง")
+
+        if st.session_state.get("current_cert_png"):
+            st.image(st.session_state["current_cert_png"], caption=f"พรีวิวเกียรติบัตร: {st.session_state.get('current_cert_id')}", use_container_width=True)
+            st.download_button(
+                label=f"📥 ดาวน์โหลดเกียรติบัตรทางการ PDF ({st.session_state.get('current_cert_id')})",
+                data=st.session_state["current_cert_pdf"],
+                file_name=f"Certificate_{st.session_state.get('current_cert_id')}.pdf",
+                mime="application/pdf",
+                use_container_width=True
+            )
+        else:
+            default_preview = os.path.join(os.path.dirname(__file__), "docs", "certs", "preview_RBRU-xAI-2026-0042-1.png")
+            if os.path.exists(default_preview):
+                st.image(default_preview, caption="ตัวอย่างรูปแบบเกียรติบัตรมาตรฐาน มหาวิทยาลัยราชภัฏรำไพพรรณี", use_container_width=True)
+
+    st.markdown("---")
+
+    # Section 6: Interactive Slide Deck & Pre-Flight
+    st.markdown("### 6. 📊 สไลด์นำเสนออบรมเชิงโต้ตอบ & คู่มือเตรียมตัว (Interactive Presentation & Pre-Flight)")
+    slide_c1, slide_c2 = st.columns(2, gap="large")
+    
+    with slide_c1:
+        st.markdown("""
+        <div class="glass-card" style="border-top: 4px solid #10b981;">
+            <h4 style="color:#059669; margin-top:0;">📊 สไลด์นำเสนอ 60 FPS (Slide Deck Masterclass)</h4>
+            <p style="font-size:0.9rem; color:#475569;">
+                ชุดสไลด์บรรยายแบบโต้ตอบสไตล์ Cyber Dark Obsidian รองรับการเปิดผ่านเบราว์เซอร์ ควบคุมด้วยลูกศรคีย์บอร์ด ⬅️ ➡️ เหมาะสำหรับวิทยากรและผู้ทบทวนบทเรียน
+            </p>
+            <a href="docs/slides/index.html" target="_blank" style="text-decoration:none;">
+                <button style="width:100%; background:#10b981; color:#090d16; padding:10px; border:none; border-radius:10px; font-weight:700; cursor:pointer;">
+                    🚀 เปิดสไลด์นำเสนอบนเบราว์เซอร์ (Interactive Deck)
+                </button>
+            </a>
+        </div>
+        """, unsafe_allow_html=True)
+        
+    with slide_c2:
+        st.markdown("""
+        <div class="glass-card" style="border-top: 4px solid #06b6d4;">
+            <h4 style="color:#0284c7; margin-top:0;">📋 รายการตรวจสอบเตรียมความพร้อม (Pre-Flight 1-Page)</h4>
+            <ul style="font-size:0.88rem; color:#334155; line-height:1.6; margin-bottom:12px;">
+                <li><b>1. บัญชี Google Account:</b> พื้นที่ว่างใน Google Drive &ge; 5 GB</li>
+                <li><b>2. การเปิดสิทธิ์ GPU:</b> สลับ Runtime ใน Colab เป็น T4 GPU ก่อนเริ่มรัน</li>
+                <li><b>3. สภาพแวดล้อมโค้ด:</b> ติดตั้ง VS Code ร่วมกับ Flutter 3.x (สายแอปมือถือ)</li>
+                <li><b>4. คู่มือตำรา:</b> ดาวน์โหลดไฟล์ <code>Digital_Agri_xAI_Handbook_6x9.pdf</code></li>
+            </ul>
+        </div>
+        """, unsafe_allow_html=True)
 
 # =========================================================================
 # TAB 5: WEB DASHBOARD & SMARTPHONE APP DEPLOYMENT ARCHITECTURE

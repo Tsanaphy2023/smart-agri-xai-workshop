@@ -1,0 +1,103 @@
+\documentclass[landscape,a4paper]{article}
+\usepackage[margin=1.5cm]{geometry}
+\usepackage{fontspec}
+\usepackage{xcolor}
+\usepackage{tikz}
+\usepackage{graphicx}
+
+\setmainfont[
+    Path = fonts/,
+    BoldFont = THSarabun-Bold.ttf,
+    ItalicFont = THSarabun-Italic.ttf,
+    BoldItalicFont = THSarabun-BoldItalic.ttf
+]{THSarabun.ttf}
+
+\definecolor{golddark}{RGB}{180, 130, 20}
+\definecolor{emeralddeep}{RGB}{6, 78, 59}
+\definecolor{obsidian}{RGB}{15, 23, 42}
+\definecolor{cybercyan}{RGB}{8, 145, 178}
+
+\pagestyle{empty}
+
+\begin{document}
+
+\begin{tikzpicture}[remember picture, overlay]
+    % Outer Frame
+    \draw[line width=4.5pt, color=emeralddeep] 
+        ([xshift=0.9cm,yshift=-0.9cm]current page.north west) 
+        rectangle 
+        ([xshift=-0.9cm,yshift=0.9cm]current page.south east);
+        
+    % Inner Gold Accent Frame
+    \draw[line width=1.6pt, color=golddark] 
+        ([xshift=1.15cm,yshift=-1.15cm]current page.north west) 
+        rectangle 
+        ([xshift=-1.15cm,yshift=1.15cm]current page.south east);
+
+    % Thin Inner Border
+    \draw[line width=0.6pt, color=emeralddeep!50] 
+        ([xshift=1.35cm,yshift=-1.35cm]current page.north west) 
+        rectangle 
+        ([xshift=-1.35cm,yshift=1.35cm]current page.south east);
+
+    % Corner Dots
+    \fill[golddark] ([xshift=1.15cm,yshift=-1.15cm]current page.north west) circle (3.5pt);
+    \fill[golddark] ([xshift=-1.15cm,yshift=-1.15cm]current page.north east) circle (3.5pt);
+    \fill[golddark] ([xshift=1.15cm,yshift=1.15cm]current page.south west) circle (3.5pt);
+    \fill[golddark] ([xshift=-1.15cm,yshift=1.15cm]current page.south east) circle (3.5pt);
+\end{tikzpicture}
+
+\begin{center}
+    \vspace*{0.3cm}
+    
+    {\fontsize{22}{26}\selectfont\bfseries\color{obsidian} มหาวิทยาลัยราชภัฏรำไพพรรณี}\par
+    \vspace{0.15cm}
+    {\fontsize{16}{20}\selectfont\color{emeralddeep} ศูนย์วิจัยและบริการวิชาการเกษตรดิจิทัลและปัญญาประดิษฐ์ (Digital Agri xAI Center)}\par
+    \vspace{0.5cm}
+    
+    {\fontsize{34}{40}\selectfont\bfseries\color{emeralddeep} เกียรติบัตรรับรองการฝึกอบรม}\par
+    \vspace{0.15cm}
+    {\fontsize{15}{18}\selectfont\color{golddark}\bfseries CERTIFICATE OF PROFESSIONAL TRAINING ACHIEVEMENT}\par
+    \vspace{0.5cm}
+    
+    {\fontsize{18}{22}\selectfont ขอมอบเกียรติบัตรฉบับนี้เพื่อแสดงว่า}\par
+    \vspace{0.4cm}
+    
+    {\fontsize{32}{36}\selectfont\bfseries\color{obsidian} นายพงศธร เกษตรก้าวหน้า}\par
+    \vspace{0.15cm}
+    {\fontsize{16}{20}\selectfont\color{cybercyan}\bfseries วิสาหกิจชุมชนเกษตรแปลงใหญ่ทุเรียนจันทบุรี}\par
+    \vspace{0.45cm}
+    
+    {\fontsize{17}{21}\selectfont ได้สำเร็จการฝึกอบรมเชิงปฏิบัติการหลักสูตรวิชาชีพขั้นสูง}\par
+    \vspace{0.25cm}
+    {\fontsize{22}{26}\selectfont\bfseries\color{emeralddeep} ``การพัฒนาปัญญาประดิษฐ์ตรวจวิเคราะห์ดินและสุขภาวะพืช (Digital Agri xAI)''}\par
+    \vspace{0.2cm}
+    {\fontsize{15}{19}\selectfont ครอบคลุมการสร้างโมเดล Machine Learning ใน Google Colab, สถาปัตยกรรม Edge AI ออฟไลน์บนมือถือ,\\และการเชื่อมต่อโทรมาตรเซนเซอร์ดิน NPK/pH ผ่าน Bluetooth Low Energy (BLE)}\par
+    
+\end{center}
+
+\vfill
+
+\noindent
+\begin{minipage}[b]{0.30\textwidth}
+    \begin{center}
+        \includegraphics[width=2.5cm]{/Users/chewathassana/Desktop/6_My_Business/6.2_Products_Services/smart-soil-ai/docs/certs/qr_RBRU-xAI-2026-0042.png}\par
+        \vspace{0.1cm}
+        {\fontsize{11}{13}\selectfont รหัสตรวจสอบ: \textbf{RBRU-xAI-2026-0042}}\par
+        {\fontsize{10}{12}\selectfont สแกน QR เพื่อตรวจสอบความถูกต้อง}
+    \end{center}
+\end{minipage}
+\hfill
+\begin{minipage}[b]{0.42\textwidth}
+    \begin{center}
+        {\fontsize{14}{17}\selectfont ออกให้ ณ วันที่ 13 ตุลาคม พ.ศ. 2569}\par
+        \vspace{0.8cm}
+        \rule{5.5cm}{0.8pt}\par
+        \vspace{0.15cm}
+        {\fontsize{16}{19}\selectfont\bfseries (ผู้ช่วยศาสตราจารย์ ดร.ชีวะ ทัศนา)}\par
+        {\fontsize{13}{16}\selectfont หัวหน้าโครงการวิจัยและผู้เชี่ยวชาญ Digital Agri-Physics}\par
+        {\fontsize{12}{15}\selectfont มหาวิทยาลัยราชภัฏรำไพพรรณี}
+    \end{center}
+\end{minipage}
+
+\end{document}

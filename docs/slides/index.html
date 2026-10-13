@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Agri xAI: Slide Deck การอบรมเชิงปฏิบัติการ</title>
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #090D16;
+            --bg-card: rgba(15, 23, 42, 0.85);
+            --emerald: #10B981;
+            --cyan: #06B6D4;
+            --gold: #F59E0B;
+            --text-main: #F8FAFC;
+            --text-sub: #94A3B8;
+            --border: rgba(51, 65, 85, 0.8);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Prompt', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            overflow: hidden;
+            height: 100vh;
+            width: 100vw;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        header {
+            padding: 18px 36px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border);
+            background: rgba(9, 13, 22, 0.9);
+            backdrop-filter: blur(10px);
+            z-index: 100;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 700;
+            font-size: 1.25rem;
+            color: var(--emerald);
+        }
+
+        .author-tag {
+            font-size: 0.88rem;
+            color: var(--text-sub);
+        }
+
+        .deck-container {
+            flex: 1;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+        }
+
+        .slide {
+            display: none;
+            width: 92%;
+            max-width: 1100px;
+            height: 82%;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 42px 48px;
+            box-shadow: 0 20px 45px rgba(0,0,0,0.6);
+            backdrop-filter: blur(14px);
+            animation: fadeIn 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+            overflow-y: auto;
+        }
+
+        .slide.active {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(14px) scale(0.98); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        .slide-tag {
+            display: inline-block;
+            font-size: 0.82rem;
+            font-weight: 600;
+            padding: 4px 14px;
+            border-radius: 999px;
+            background: rgba(16, 185, 129, 0.15);
+            color: var(--emerald);
+            border: 1px solid rgba(16, 185, 129, 0.35);
+            margin-bottom: 12px;
+            width: fit-content;
+        }
+
+        h1 {
+            font-size: 2.3rem;
+            font-weight: 800;
+            margin-bottom: 16px;
+            background: linear-gradient(135deg, #FFF 0%, #CBD5E1 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1.25;
+        }
+
+        p.lead {
+            font-size: 1.15rem;
+            color: var(--text-sub);
+            line-height: 1.6;
+            margin-bottom: 24px;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            margin-top: 10px;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 18px;
+            margin-top: 10px;
+        }
+
+        .card {
+            background: rgba(30, 41, 59, 0.7);
+            border: 1px solid rgba(71, 85, 105, 0.6);
+            border-radius: 14px;
+            padding: 20px;
+        }
+
+        .card h3 {
+            font-size: 1.15rem;
+            color: var(--cyan);
+            margin-bottom: 8px;
+        }
+
+        .card p, .card ul {
+            font-size: 0.94rem;
+            color: #CBD5E1;
+            line-height: 1.55;
+        }
+
+        .card ul {
+            padding-left: 20px;
+        }
+
+        .highlight-box {
+            background: rgba(16, 185, 129, 0.08);
+            border-left: 4px solid var(--emerald);
+            padding: 16px 20px;
+            border-radius: 8px;
+            margin: 16px 0;
+            font-size: 0.98rem;
+            color: #E2E8F0;
+        }
+
+        footer {
+            padding: 16px 36px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid var(--border);
+            background: rgba(9, 13, 22, 0.95);
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 12px;
+        }
+
+        button.btn {
+            background: rgba(30, 41, 59, 0.8);
+            color: white;
+            border: 1px solid var(--border);
+            padding: 8px 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 0.92rem;
+            font-weight: 600;
+            transition: all 0.2s ease;
+        }
+
+        button.btn:hover {
+            background: var(--emerald);
+            color: #090D16;
+            border-color: var(--emerald);
+        }
+
+        .slide-counter {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.95rem;
+            color: var(--text-sub);
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="brand">
+            🌱 Digital Agri xAI: Slide Masterclass
+        </div>
+        <div class="author-tag">
+            ผศ.ดร.ชีวะ ทัศนา | มหาวิทยาลัยราชภัฏรำไพพรรณี
+        </div>
+    </header>
+
+    <div class="deck-container">
+        <!-- Slide 1: Title -->
+        <div class="slide active">
+            <div>
+                <span class="slide-tag">หลักสูตรฝึกอบรมวิชาชีพขั้นสูง</span>
+                <h1>การพัฒนาปัญญาประดิษฐ์และเซนเซอร์ดินอัจฉริยะ<br><span style="color:#10B981;">Digital Agri xAI Workshop 2026</span></h1>
+                <p class="lead">กรอบการเรียนรู้บูรณาการจากคลังข้อมูลวิจัย สู่โมเดลคลาวด์ Colab, เว็บแดชบอร์ด, และสมาร์ทโฟนแอปพลิเคชันภาคสนาม</p>
+                <div class="grid-3">
+                    <div class="card">
+                        <h3>☁️ Cloud AI & Colab</h3>
+                        <p>ฝึกสอนโมเดล MobileNetV3 บน GPU ฟรีด้วย Colab Cloud</p>
+                    </div>
+                    <div class="card">
+                        <h3>🖥️ Web Dashboard</h3>
+                        <p>ศูนย์สั่งการแปลง In-Process ONNX Runtime & FastAPI</p>
+                    </div>
+                    <div class="card">
+                        <h3>📱 Mobile Edge AI</h3>
+                        <p>ส่องกล้องวินิจฉัยพืชออฟไลน์ 100% พร้อมเซนเซอร์ BLE</p>
+                    </div>
+                </div>
+            </div>
+            <div style="font-size:0.85rem; color:var(--text-sub); margin-top:20px;">
+                💡 ใช้ปุ่มลูกศร ⬅️ ➡️ บนคีย์บอร์ด หรือปุ่มถัดไปด้านล่างเพื่อเลื่อนสไลด์
+            </div>
+        </div>
+
+        <!-- Slide 2: Problem & Vision -->
+        <div class="slide">
+            <div>
+                <span class="slide-tag">บทที่ 1: ความท้าทาย & วิสัยทัศน์</span>
+                <h1>ความสำคัญของข้อมูลและปัญญาประดิษฐ์ในแปลงเกษตร</h1>
+                <p class="lead">การเปลี่ยนผ่านจากการเกษตรดั้งเดิม สู่การเกษตรดิจิทัลแม่นยำสูง (Precision Agri-Physics)</p>
+                <div class="grid-2">
+                    <div class="card">
+                        <h3 style="color:#EF4444;">⚠️ ปัญหาและความสูญเสียในแปลงจริง</h3>
+                        <ul>
+                            <li>การใส่ปุ๋ยเกินความจำเป็น สิ้นเปลืองต้นทุนและดินเป็นกรดรุนแรง</li>
+                            <li>การวินิจฉัยโรคพืชล่าช้า ส่งผลให้โรคแอนแทรคโนสลุกลามทั่วทั้งสวน</li>
+                            <li>พื้นที่ห่างไกลไร้สัญญาณเน็ต ไม่สามารถใช้ Cloud AI ได้</li>
+                        </ul>
+                    </div>
+                    <div class="card">
+                        <h3 style="color:#10B981;">🚀 โซลูชัน Digital Agri xAI</h3>
+                        <ul>
+                            <li><b>Offline-First Edge AI:</b> วินิจฉัยพืชในเครื่อง 100% ความเร็ว &lt;20 ms</li>
+                            <li><b>Precision NPK Telemetry:</b> อ่านค่าหัวโพรบ RS485 Modbus แบบเวลาจริง</li>
+                            <li><b>Tailored Fertilizer:</b> คำนวณสูตรปุ๋ยสั่งตัดเฉพาะแปลงทันที</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 3: Dataset Architecture -->
+        <div class="slide">
+            <div>
+                <span class="slide-tag">บทที่ 2: คลังชุดข้อมูลงานวิจัย</span>
+                <h1>โครงสร้างคลังข้อมูล 2,583+ ไฟล์ (4 โดเมนหลัก)</h1>
+                <p class="lead">ชุดข้อมูลจริงและมาตรฐาน OSSL ผ่านการคัดสรรและทำความสะอาดอย่างเข้มงวด</p>
+                <div class="grid-2">
+                    <div class="card">
+                        <h3>🧪 1. คลังข้อมูลดิน (Soil Intelligence)</h3>
+                        <ul>
+                            <li><b>Soil Types:</b> ดินดำ, ดินลูกรัง, ดินร่วน, ดินเหนียว, ดินทราย</li>
+                            <li><b>OSSL Spectroscopy:</b> ข้อมูลสเปกตรัม Mid-IR & VisNIR</li>
+                            <li><b>Thai Crop Recommender:</b> ฐานข้อมูล N-P-K, pH พืชเศรษฐกิจไทย</li>
+                        </ul>
+                    </div>
+                    <div class="card">
+                        <h3>🍃 2. คลังข้อมูลพืชและศัตรูพืช (Plant Intelligence)</h3>
+                        <ul>
+                            <li><b>Plant Diseases:</b> แอนแทรคโนส, ราสนิม, รากเน่า, ใบจุด</li>
+                            <li><b>Insect Pests:</b> เพลี้ยไก่แจ้ทุเรียน, เพลี้ยกระโดด, หนอนกอ</li>
+                            <li><b>Deficiencies:</b> ขาดไนโตรเจน (N), ฟอสฟอรัส (P), โพแทสเซียม (K)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 4: Google Colab Training -->
+        <div class="slide">
+            <div>
+                <span class="slide-tag">บทที่ 3 & 4: ปฏิบัติการ Colab</span>
+                <h1>การฝึกสอนโมเดลบน Google Colab & T4 GPU</h1>
+                <p class="lead">สถาปัตยกรรมห้องอบรม 50 คน แยก VM อิสระ 100% ไร้การแย่งทรัพยากร</p>
+                <div class="highlight-box">
+                    <b>🎯 4 ขั้นตอนการฝึกสอน:</b> 1. เปิด T4 GPU ➔ 2. เลือก Datasets (หรืออัปโหลด ZIP ของตนเอง) ➔ 3. รันเทรน MobileNetV3 ➔ 4. ส่งออกโมเดล .onnx / .tflite
+                </div>
+                <div class="grid-3">
+                    <div class="card">
+                        <h3>⚡ T4 GPU Fast-Train</h3>
+                        <p>เทรนเสร็จภายใน 3-5 นาทีต่อโมเดล ด้วยการทำ Transfer Learning</p>
+                    </div>
+                    <div class="card">
+                        <h3>🎯 Accuracy > 92%</h3>
+                        <p>วัดผลด้วย Confusion Matrix, F1-Score และ Loss Curves</p>
+                    </div>
+                    <div class="card">
+                        <h3>📦 Auto Export Bridge</h3>
+                        <p>บันทึกไฟล์พร้อมส่งมอบเข้าสู่ Web Dashboard ทันที</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 5: Deployment Bridge -->
+        <div class="slide">
+            <div>
+                <span class="slide-tag">บทที่ 5: การส่งมอบโมเดล</span>
+                <h1>การนำโมเดลไปใช้งาน: Web Dashboard vs Mobile App</h1>
+                <p class="lead">การแปลงน้ำหนักโมเดลเป็นฟอร์แมตที่เหมาะสมสำหรับแต่ละอุปกรณ์</p>
+                <div class="grid-2">
+                    <div class="card">
+                        <h3 style="color:#0284C7;">🖥️ Web Dashboard (Streamlit & FastAPI)</h3>
+                        <ul>
+                            <li><b>ฟอร์แมต:</b> <code>smart_agri_model.onnx</code></li>
+                            <li><b>เอนจิน:</b> In-Process ONNX Runtime Python</li>
+                            <li><b>จุดเด่น:</b> ความหน่วงต่ำ &lt; 15ms ไร้ PyTorch dependency</li>
+                            <li><b>การใช้งาน:</b> แดชบอร์ดศูนย์สั่งการ วิเคราะห์สถิติแปลง</li>
+                        </ul>
+                    </div>
+                    <div class="card">
+                        <h3 style="color:#10B981;">📱 Smartphone App (Flutter Offline Edge AI)</h3>
+                        <ul>
+                            <li><b>ฟอร์แมต:</b> <code>smart_agri_model.tflite</code> (Quantized &lt; 5MB)</li>
+                            <li><b>เอนจิน:</b> <code>tflite_flutter</code> บน NPU/CPU มือถือ</li>
+                            <li><b>จุดเด่น:</b> ทำงานออฟไลน์ 100% ไร้สัญญาณอินเทอร์เน็ต</li>
+                            <li><b>การใช้งาน:</b> ส่องกล้องวินิจฉัยใบพืช และอ่านค่าโพรบ BLE</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 6: Prompt Engineering & Conclusion -->
+        <div class="slide">
+            <div>
+                <span class="slide-tag">บทที่ 6: AI Coding & ต่อรูปเล่ม</span>
+                <h1>CLEAR Prompting & สถาปัตยกรรมตำราวิชาการ XeLaTeX</h1>
+                <p class="lead">การต่อยอดสู่นวัตกรรมเชิงพาณิชย์และผลงานทางวิชาการ มรภ.รำไพพรรณี</p>
+                <div class="grid-2">
+                    <div class="card">
+                        <h3>🤖 Ultra-Compact Prompting (~320 Tokens)</h3>
+                        <p>การบีบอัดข้อมูลระบบด้วย YAML เพื่อประหยัดโทเค็นได้ถึง 85% คุมให้ AI สร้างโค้ดตามมาตรฐาน Clean Architecture</p>
+                    </div>
+                    <div class="card">
+                        <h3>📚 ตำราวิชาการ 52 หน้า (6×9 นิ้ว)</h3>
+                        <p>ระบบ XeLaTeX มาตรฐาน RBRU: ปกนอก 3D Pixar, คำบรรยายภาพไร้โคลอน, สารบัญภาพออโต้ และบรรจุโค้ดสมบูรณ์</p>
+                    </div>
+                </div>
+                <div class="highlight-box" style="margin-top:20px; border-left-color: var(--gold);">
+                    🏆 <b>การรับเกียรติบัตร:</b> ผู้เข้าอบรมทำแบบทดสอบ Post-Test บนเว็บแท็บ 4 เพื่อรับเกียรติบัตร E-Certificate พร้อมรหัสตรวจสอบ QR Code ได้ทันที!
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="nav-buttons">
+            <button class="btn" id="prevBtn" onclick="prevSlide()">◀ ย้อนกลับ</button>
+            <button class="btn" id="nextBtn" onclick="nextSlide()">ถัดไป ▶</button>
+        </div>
+        <div class="slide-counter" id="slideNum">1 / 6</div>
+    </footer>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const slideNum = document.getElementById('slideNum');
+
+        function updateSlide() {
+            slides.forEach((s, idx) => {
+                s.classList.toggle('active', idx === currentSlide);
+            });
+            slideNum.textContent = `${currentSlide + 1} / ${slides.length}`;
+        }
+
+        function nextSlide() {
+            if (currentSlide < slides.length - 1) {
+                currentSlide++;
+                updateSlide();
+            }
+        }
+
+        function prevSlide() {
+            if (currentSlide > 0) {
+                currentSlide--;
+                updateSlide();
+            }
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === ' ') nextSlide();
+            if (e.key === 'ArrowLeft') prevSlide();
+        });
+    </script>
+</body>
+</html>

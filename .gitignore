@@ -33,3 +33,10 @@ datasets/downloads/
 *.pth
 *.pt
 !models/*.onnx
+
+# LaTeX build files
+*.aux
+*.log
+*.out
+*.toc
+*.synctex.gz

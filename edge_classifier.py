@@ -7,6 +7,7 @@ Smart Soil & Plant AI — Edge Agronomy Classifier (In-Process Offline Engine)
 พัฒนาตามหลักวิชาการปฐพีวิทยาและโรคพืช มหาวิทยาลัยราชภัฏรำไพพรรณี
 """
 
+import os
 import numpy as np
 from PIL import Image
 
@@ -46,8 +47,48 @@ class EdgeAgronomyClassifier:
             "redness": redness
         }
 
+    _onnx_clf = None
+    _onnx_checked = False
+
+    @classmethod
+    def _get_onnx(cls):
+        """โหลดโมเดล ONNX ที่เทรนเอง (smart_agri_model.onnx + labels.json) หากมีในโฟลเดอร์โปรเจกต์"""
+        if not cls._onnx_checked:
+            cls._onnx_checked = True
+            base = os.path.dirname(os.path.abspath(__file__))
+            m, l = (os.path.join(base, f) for f in ("smart_agri_model.onnx", "labels.json"))
+            if os.path.exists(m) and os.path.exists(l):
+                try:
+                    from onnx_classifier import OnnxClassifier
+                    cls._onnx_clf = OnnxClassifier(m, l)
+                except Exception as e:
+                    print(f"[edge_classifier] โหลดโมเดล ONNX ไม่สำเร็จ ใช้เกณฑ์สีแทน: {e}")
+        return cls._onnx_clf
+
+    @classmethod
+    def reload_model(cls):
+        cls._onnx_clf, cls._onnx_checked = None, False
+
     @classmethod
     def classify(cls, pil_image: Image.Image, location_info: str = "") -> dict:
+        """ใช้โมเดล ONNX ที่เทรนแล้วก่อน; ถ้าไม่มีให้ใช้เกณฑ์สีเบื้องต้นและระบุชัดว่าไม่ใช่โมเดล"""
+        clf = cls._get_onnx()
+        if clf is not None:
+            try:
+                result = clf.classify(pil_image, location_info)
+                result["method"] = "onnx_model"
+                return result
+            except Exception as e:
+                print(f"[edge_classifier] ONNX ทำนายไม่สำเร็จ ใช้เกณฑ์สีแทน: {e}")
+        result = cls._classify_heuristic(pil_image, location_info)
+        result["method"] = "colorimetry_heuristic"
+        result["confidence_score"] = "ไม่มี (เกณฑ์สีเบื้องต้น)"
+        result["disclaimer"] = ("[ผลนี้มาจากเกณฑ์ค่าสีเฉลี่ยของภาพ ไม่ใช่โมเดลที่ผ่านการเรียนรู้ และไม่มีการวัดความมั่นใจ] "
+                                + result.get("disclaimer", ""))
+        return result
+
+    @classmethod
+    def _classify_heuristic(cls, pil_image: Image.Image, location_info: str = "") -> dict:
         """
         วิเคราะห์และส่งคืนผลลัพธ์ในรูปแบบ Unified JSON Schema
         """

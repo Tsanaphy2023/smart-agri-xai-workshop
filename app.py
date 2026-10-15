@@ -825,9 +825,14 @@ with st.sidebar:
             custom_endpoint = None
             selected_model = st.selectbox(
                 "สถาปัตยกรรมโมเดล In-Process",
-                ["EdgeAgronomy-MobileNetV3 (In-Process)", "Soil-Colorimetry-Descriptor", "Plant-Nutrient-Heuristic-v1"],
+                ["ONNX Model ที่เทรนเอง / เกณฑ์สีสำรอง (In-Process)", "Soil-Colorimetry-Descriptor", "Plant-Nutrient-Heuristic-v1"],
                 index=0
             )
+            _mp = os.path.join(os.path.dirname(os.path.abspath(__file__)), "smart_agri_model.onnx")
+            if os.path.exists(_mp):
+                st.success("✅ พบโมเดล ONNX ที่เทรนเอง (smart_agri_model.onnx) — ใช้โมเดลจริง ความมั่นใจปรับเทียบแล้ว")
+            else:
+                st.warning("⚠️ ยังไม่พบ smart_agri_model.onnx และ labels.json ในโฟลเดอร์โปรเจกต์ — ระบบใช้เกณฑ์สีเบื้องต้น (ไม่ใช่โมเดลที่ผ่านการเรียนรู้ และไม่มีค่าความมั่นใจ)")
 
     st.markdown("---")
     st.info("💡 **สถานะระบบ:**\n- **In-Process Custom:** ออฟไลน์ 100% เร็ว ไม่ต้องเปิด server แยก\n- **Ollama:** ประมวลผลบนเครื่อง ปลอดภัยข้อมูลไม่ออกนอก\n- **Cloud:** ภาษาไทยสละสลวย ละเอียดสูง")
@@ -1353,6 +1358,10 @@ with tab1:
         if saved_result:
             target_type = saved_result.get("target_type", "-").upper()
             confidence = str(saved_result.get("confidence_score", "-"))
+            if saved_result.get("is_uncertain"):
+                st.warning("❓ โมเดลไม่แน่ใจ: ความมั่นใจต่ำกว่าเกณฑ์ จึงไม่สรุปผล — ถ่ายภาพใหม่ในแสงสม่ำเสมอหรือส่งตรวจยืนยัน")
+            if saved_result.get("method") == "colorimetry_heuristic":
+                st.warning("ℹ️ ผลนี้มาจากเกณฑ์ค่าสีเฉลี่ยของภาพ ไม่ใช่โมเดลที่ผ่านการเรียนรู้ ใช้เป็นข้อมูลประกอบเท่านั้น")
             status_text = saved_result.get('diagnosis', {}).get('status', 'N/A')
             details_text = saved_result.get('diagnosis', {}).get('details', '')
 

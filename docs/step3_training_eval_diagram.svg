@@ -1,0 +1,102 @@
+<svg viewBox="0 0 1000 320" width="100%" height="auto" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+        <linearGradient id="s3Bg" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#090d16"/>
+            <stop offset="50%" stop-color="#0f172a"/>
+            <stop offset="100%" stop-color="#090d16"/>
+        </linearGradient>
+
+        <linearGradient id="s3Grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#ec4899" stop-opacity="0.22"/>
+            <stop offset="100%" stop-color="#be185d" stop-opacity="0.05"/>
+        </linearGradient>
+        <linearGradient id="s3Grad2" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#f59e0b" stop-opacity="0.22"/>
+            <stop offset="100%" stop-color="#b45309" stop-opacity="0.05"/>
+        </linearGradient>
+        <linearGradient id="s3Grad3" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#10b981" stop-opacity="0.22"/>
+            <stop offset="100%" stop-color="#047857" stop-opacity="0.05"/>
+        </linearGradient>
+
+        <marker id="s3Arr1" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M 0 1 L 10 5 L 0 9 z" fill="#f59e0b"/>
+        </marker>
+        <marker id="s3Arr2" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M 0 1 L 10 5 L 0 9 z" fill="#10b981"/>
+        </marker>
+    </defs>
+
+    <!-- Canvas Background -->
+    <rect width="1000" height="320" rx="16" fill="url(#s3Bg)" stroke="#1e293b" stroke-width="2"/>
+
+    <!-- Header / Banner -->
+    <g transform="translate(35, 24)">
+        <rect x="0" y="0" width="130" height="22" rx="5" fill="#f59e0b" fill-opacity="0.15" stroke="#f59e0b" stroke-width="1"/>
+        <text x="65" y="15" fill="#fbbf24" font-size="10" font-weight="700" text-anchor="middle" font-family="'JetBrains Mono', monospace">STEP 3 PIPELINE</text>
+        <text x="145" y="16" fill="#f8fafc" font-size="16" font-weight="800" font-family="'Prompt', sans-serif">⚙️ ขั้นตอนที่ 3: ตั้งค่าพารามิเตอร์ เริ่มการฝึกสอน และประเมินผลโมเดลเชิงลึก</text>
+    </g>
+
+    <!-- Card 1: Target ROI Crop -->
+    <g transform="translate(35, 65)">
+        <rect width="280" height="225" rx="12" fill="url(#s3Grad1)" stroke="#ec4899" stroke-width="1.5"/>
+        <circle cx="36" cy="36" r="18" fill="#ec4899" fill-opacity="0.2" stroke="#ec4899" stroke-width="1.2"/>
+        <text x="36" y="42" font-size="18" text-anchor="middle">🎯</text>
+        
+        <text x="66" y="32" fill="#fbcfe8" font-size="14" font-weight="700" font-family="'Prompt', sans-serif">1. สกัดเฉพาะกรอบ ROI</text>
+        <text x="66" y="48" fill="#94a3b8" font-size="11" font-family="'JetBrains Mono', monospace">Target ROI Crop</text>
+
+        <rect x="18" y="72" width="244" height="85" rx="8" fill="#0f172a" stroke="#1e293b"/>
+        <text x="28" y="92" fill="#cbd5e1" font-size="11" font-family="'Prompt', sans-serif">• <b>enable_target_roi_crop:</b> เปิดใช้งาน</text>
+        <text x="28" y="112" fill="#cbd5e1" font-size="11" font-family="'Prompt', sans-serif">• สกัดพิกัดดิน/ใบพืชตรงกลางเลนส์</text>
+        <text x="28" y="132" fill="#f472b6" font-size="11" font-weight="700" font-family="'Prompt', sans-serif">• ขจัดขอบโต๊ะ รองเท้า หรือนิ้วมือ 100%</text>
+        <text x="28" y="148" fill="#94a3b8" font-size="9" font-family="'JetBrains Mono', monospace">Prevents Clever Hans Background Cheating</text>
+
+        <rect x="18" y="172" width="244" height="34" rx="6" fill="#1e293b" stroke="#ec4899" stroke-width="1"/>
+        <text x="140" y="193" fill="#fbcfe8" font-size="11" font-weight="700" text-anchor="middle" font-family="'Prompt', sans-serif">พิกัดเป้าหมาย: 150×150 พิกเซลแท้</text>
+    </g>
+
+    <!-- Arrow 1 -> 2 -->
+    <path d="M 325 178 L 350 178" stroke="#f59e0b" stroke-width="2.5" marker-end="url(#s3Arr1)"/>
+
+    <!-- Card 2: Neural Net Training -->
+    <g transform="translate(360, 65)">
+        <rect width="280" height="225" rx="12" fill="url(#s3Grad2)" stroke="#f59e0b" stroke-width="1.5"/>
+        <circle cx="36" cy="36" r="18" fill="#f59e0b" fill-opacity="0.2" stroke="#f59e0b" stroke-width="1.2"/>
+        <text x="36" y="42" font-size="18" text-anchor="middle">🧠</text>
+        
+        <text x="66" y="32" fill="#fde68a" font-size="14" font-weight="700" font-family="'Prompt', sans-serif">2. ฝึกสอนสมองกล AI</text>
+        <text x="66" y="48" fill="#94a3b8" font-size="11" font-family="'JetBrains Mono', monospace">Transfer Learning Loop</text>
+
+        <rect x="18" y="72" width="244" height="85" rx="8" fill="#0f172a" stroke="#1e293b"/>
+        <text x="28" y="92" fill="#cbd5e1" font-size="11" font-family="'Prompt', sans-serif">• โครงสร้างโมเดล <b>MobileNetV2</b> น้ำหนักเบา</text>
+        <text x="28" y="112" fill="#cbd5e1" font-size="11" font-family="'Prompt', sans-serif">• <b>Epochs:</b> 10-15 รอบอ่านทบทวน</text>
+        <text x="28" y="132" fill="#fbbf24" font-size="11" font-weight="700" font-family="'Prompt', sans-serif">• <b>Batch:</b> 16 ภาพ / <b>LR:</b> 0.001</text>
+        <text x="28" y="148" fill="#94a3b8" font-size="9" font-family="'JetBrains Mono', monospace">Adam Optimizer + Categorical Cross-Entropy</text>
+
+        <rect x="18" y="172" width="244" height="34" rx="6" fill="#1e293b" stroke="#f59e0b" stroke-width="1"/>
+        <text x="140" y="193" fill="#fde68a" font-size="11" font-weight="700" text-anchor="middle" font-family="'Prompt', sans-serif">การประมวลผล: ดึงพลัง GPU อัตโนมัติ</text>
+    </g>
+
+    <!-- Arrow 2 -> 3 -->
+    <path d="M 650 178 L 675 178" stroke="#10b981" stroke-width="2.5" marker-end="url(#s3Arr2)"/>
+
+    <!-- Card 3: Deep Evaluation Suite -->
+    <g transform="translate(685, 65)">
+        <rect width="280" height="225" rx="12" fill="url(#s3Grad3)" stroke="#10b981" stroke-width="1.5"/>
+        <circle cx="36" cy="36" r="18" fill="#10b981" fill-opacity="0.2" stroke="#10b981" stroke-width="1.2"/>
+        <text x="36" y="42" font-size="18" text-anchor="middle">📊</text>
+        
+        <text x="66" y="32" fill="#6ee7b7" font-size="14" font-weight="700" font-family="'Prompt', sans-serif">3. รายงานผลสอบความแม่นยำ</text>
+        <text x="66" y="48" fill="#94a3b8" font-size="11" font-family="'JetBrains Mono', monospace">Deep Evaluation Suite</text>
+
+        <rect x="18" y="72" width="244" height="85" rx="8" fill="#0f172a" stroke="#1e293b"/>
+        <text x="28" y="92" fill="#cbd5e1" font-size="11" font-family="'Prompt', sans-serif">• กราฟเส้นความแม่นยำ Validation Acc</text>
+        <text x="28" y="112" fill="#cbd5e1" font-size="11" font-family="'Prompt', sans-serif">• ตารางไขว้ <b>Confusion Matrix</b></text>
+        <text x="28" y="132" fill="#34d399" font-size="11" font-weight="700" font-family="'Prompt', sans-serif">• ค่า Precision, Recall และ F1-Score</text>
+        <text x="28" y="148" fill="#94a3b8" font-size="9" font-family="'JetBrains Mono', monospace">Multi-Class Classification Report</text>
+
+        <rect x="18" y="172" width="244" height="34" rx="6" fill="#1e293b" stroke="#10b981" stroke-width="1"/>
+        <text x="140" y="193" fill="#34d399" font-size="11" font-weight="700" text-anchor="middle" font-family="'Prompt', sans-serif">เกณฑ์ผ่าน: Accuracy &gt; 90-95%</text>
+    </g>
+</svg>

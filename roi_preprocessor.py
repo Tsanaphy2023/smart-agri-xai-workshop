@@ -554,6 +554,16 @@ class SoilVisionPreprocessor:
         }
 
     @classmethod
+    def extract_adaptive_roi(cls, pil_img: Image.Image, auto_crop: bool = True):
+        """
+        สกัดกรอบพื้นที่เป้าหมายแบบอัตโนมัติ (Adaptive Precision ROI Extraction):
+        คืนค่า: (cropped_roi_pil, roi_bbox, stages)
+        """
+        res = cls.process_full_pipeline(pil_img, auto_crop=auto_crop)
+        return res["cropped_roi_pil"], res["roi_bbox"], res["stages"]
+
+
+    @classmethod
     def generate_color_spaces_gallery(cls, pil_img: Image.Image) -> Dict[str, Any]:
         """
         แปลงภาพถ่ายเข้าสู่ 6 ปริภูมิสีและการสอบเทียบเชิงแสง (Multi-Channel Color Space Gallery):

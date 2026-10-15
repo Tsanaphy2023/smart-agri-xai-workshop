@@ -23,23 +23,14 @@ def train_classifier(data_dir=None, source="auto", num_epochs=10, batch_size=16,
     elif not os.path.isabs(data_dir):
         data_dir = os.path.abspath(data_dir)
 
-    # Smart auto-detection of 01_Real_Data vs 02_Synthetic_Data
+    # Smart auto-detection of 01_Real_Data
     real_candidate = os.path.join(data_dir, "01_Real_Data")
-    synth_candidate = os.path.join(data_dir, "02_Synthetic_Data")
 
-    if source == "real" and os.path.exists(os.path.join(real_candidate, "train")):
+    if os.path.exists(os.path.join(real_candidate, "train")):
         data_dir = real_candidate
-        print("📌 เลือกใช้: 01_Real_Data (ชุดข้อมูลภาพจริงจากงานวิจัย)")
-    elif source == "synthetic" and os.path.exists(os.path.join(synth_candidate, "train")):
-        data_dir = synth_candidate
-        print("📌 เลือกใช้: 02_Synthetic_Data (ชุดข้อมูลภาพจำลอง)")
-    elif source == "auto":
-        if os.path.exists(os.path.join(real_candidate, "train")):
-            data_dir = real_candidate
-            print("💡 ตรวจพบชุดข้อมูลจริง: เลือกใช้ 01_Real_Data อัตโนมัติ")
-        elif os.path.exists(os.path.join(synth_candidate, "train")):
-            data_dir = synth_candidate
-            print("💡 ไม่พบชุดข้อมูลจริง: เลือกใช้ 02_Synthetic_Data อัตโนมัติ")
+        print("📌 ตรวจพบชุดข้อมูลจริง: โหลดจาก 01_Real_Data เรียบร้อย")
+    elif os.path.exists(os.path.join(data_dir, "train")):
+        print(f"📌 โหลดชุดข้อมูลจาก: {data_dir}")
 
     print("=" * 65)
     print(f"🌱 Smart Agri AI Model Trainer — ผศ.ดร.ชีวะ ทัศนา")

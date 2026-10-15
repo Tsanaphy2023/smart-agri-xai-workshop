@@ -42,11 +42,8 @@ datasets/
 ```
 
 > [!NOTE]
-> **การแยกข้อมูลจริงและข้อมูลจำลองอย่างชัดเจน (Real vs Synthetic Separation):**  
-> ในแต่ละโฟลเดอร์พืชและดิน ได้จัดแบ่งโครงสร้างออกเป็น 2 หมวดย่อยเพื่อความโปร่งใสทางวิชาการและการเปรียบเทียบผลลัพธ์ (Ablation Study):
-> - **`01_Real_Data/`**: รวบรวมภาพถ่ายและข้อมูลจริง 100% จากฐานข้อมูลวิจัยระดับโลก (Kaggle, PlantVillage, Durian Dataset, Rice Dataset, Corn Dataset, Pest24, OSSL Spectroscopy, Crop Recommendation) รวมกว่า **1,795 ไฟล์จริง**
-> - **`02_Synthetic_Data/`**: รวบรวมภาพจำลองเสมือนจริงที่จัดทำขึ้นสำหรับการทดสอบระบบและ Starter Kit รวม **840 ภาพ**
-> รวมทั้งสิ้น **2,875 ไฟล์** ทุกโฟลเดอร์ย่อยแบ่งสัดส่วน `train/` และ `val/` สมบูรณ์ รองรับ PyTorch `ImageFolder` โดยตรง 100%
+> **ชุดข้อมูลภาพถ่ายจริงเพื่องานวิจัยและฝึกอบรม (100% Real Research Data):**  
+> ข้อมูลทั้งหมดในโฟลเดอร์พืชและดินถูกจัดโครงสร้างมาตรฐานอยู่ในหมวด **`01_Real_Data/`** รวบรวมภาพถ่ายจริงจากฐานข้อมูลวิจัยระดับโลกและแปลงเพาะปลูกจริง (Kaggle, PlantVillage, Durian Dataset, Rice Dataset, Corn Dataset, Pest24, OSSL Spectroscopy, Crop Recommendation) ทุกโฟลเดอร์ย่อยแบ่งสัดส่วน `train/` และ `val/` สมบูรณ์ รองรับ PyTorch `ImageFolder` โดยตรง 100%
 
 ---
 

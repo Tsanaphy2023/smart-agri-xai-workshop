@@ -1,0 +1,5 @@
+black_soil
+cinder_soil
+laterite_soil
+peat_soil
+yellow_soil

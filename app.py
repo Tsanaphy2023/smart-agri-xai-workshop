@@ -823,16 +823,38 @@ with st.sidebar:
             )
         else:
             custom_endpoint = None
-            selected_model = st.selectbox(
-                "สถาปัตยกรรมโมเดล In-Process",
-                ["ONNX Model ที่เทรนเอง / เกณฑ์สีสำรอง (In-Process)", "Soil-Colorimetry-Descriptor", "Plant-Nutrient-Heuristic-v1"],
+            workshop_models = {
+                "🌟 [โมเดลเริ่มต้น] ดิน 5 ชนิด (smart_agri_model.onnx - Acc 83.3%)": ("smart_agri_model.onnx", "labels.json"),
+                "🌽 [Workshop] โรคราสนิมและใบไหม้ข้าวโพด (Acc 95.0%)": ("model-workshop/2.1_maize_diseases/smart_maize_disease_model.onnx", "model-workshop/2.1_maize_diseases/labels.json"),
+                "🐛 [Workshop] แมลงศัตรูพืชทุเรียน - เพลี้ยไก่แจ้ (Acc 95.0%)": ("model-workshop/2.2_durian_insects/smart_durian_insect_model.onnx", "model-workshop/2.2_durian_insects/labels.json"),
+                "🍅 [Workshop] โรคมะเขือเทศ 4 ชนิด (Acc 88.3%)": ("model-workshop/2.1_tomato_diseases/smart_tomato_disease_model.onnx", "model-workshop/2.1_tomato_diseases/labels.json"),
+                "🧪 [Workshop] จำแนกชนิดเนื้อดิน 5 ชนิด (Acc 83.3%)": ("model-workshop/1.1_soil_types/smart_soil_type_model.onnx", "model-workshop/1.1_soil_types/labels.json"),
+                "🌾 [Workshop] โรคข้าว 3 ชนิด (Acc 66.7%)": ("model-workshop/2.1_rice_diseases/smart_rice_disease_model.onnx", "model-workshop/2.1_rice_diseases/labels.json"),
+                "🍃 [Workshop] โรคทุเรียนจันทบุรี 4 ชนิด (Acc 55.0%)": ("model-workshop/2.1_durian_diseases/smart_durian_disease_model.onnx", "model-workshop/2.1_durian_diseases/labels.json"),
+                "🐛 [Workshop] แมลงศัตรูพืชทั่วไป 4 ชนิด (Acc 54.2%)": ("model-workshop/2.2_general_insects/smart_general_insect_model.onnx", "model-workshop/2.2_general_insects/labels.json"),
+                "🐛 [Workshop] แมลงศัตรูพืชข้าว 4 ชนิด (Acc 33.3%)": ("model-workshop/2.2_rice_insects/smart_rice_insect_model.onnx", "model-workshop/2.2_rice_insects/labels.json"),
+                "🎨 เกณฑ์สีเชิงสำรวจ (Soil-Colorimetry Heuristic)": (None, None)
+            }
+            model_choice = st.selectbox(
+                "สถาปัตยกรรมโมเดล AI (Workshop Pre-trained)",
+                list(workshop_models.keys()),
                 index=0
             )
-            _mp = os.path.join(os.path.dirname(os.path.abspath(__file__)), "smart_agri_model.onnx")
-            if os.path.exists(_mp):
-                st.success("✅ พบโมเดล ONNX ที่เทรนเอง (smart_agri_model.onnx) — ใช้โมเดลจริง ความมั่นใจปรับเทียบแล้ว")
+            selected_model = model_choice
+            m_rel, l_rel = workshop_models[model_choice]
+            if m_rel and l_rel:
+                m_abs = os.path.join(os.path.dirname(os.path.abspath(__file__)), m_rel)
+                l_abs = os.path.join(os.path.dirname(os.path.abspath(__file__)), l_rel)
+                if os.path.exists(m_abs) and os.path.exists(l_abs):
+                    from edge_classifier import EdgeAgronomyClassifier
+                    EdgeAgronomyClassifier.load_specific_model(m_abs, l_abs)
+                    st.success(f"✅ ใช้งานโมเดลสำเร็จรูป: {os.path.basename(m_rel)}")
+                else:
+                    st.warning(f"⚠️ ไม่พบไฟล์ {m_rel}")
             else:
-                st.warning("⚠️ ยังไม่พบ smart_agri_model.onnx และ labels.json ในโฟลเดอร์โปรเจกต์ — ระบบใช้เกณฑ์สีเบื้องต้น (ไม่ใช่โมเดลที่ผ่านการเรียนรู้ และไม่มีค่าความมั่นใจ)")
+                from edge_classifier import EdgeAgronomyClassifier
+                EdgeAgronomyClassifier.reload_model()
+                st.info("ℹ️ ใช้เกณฑ์สีเบื้องต้น (ไม่ใช่โมเดลที่ผ่านการเรียนรู้)")
 
     st.markdown("---")
     st.info("💡 **สถานะระบบ:**\n- **In-Process Custom:** ออฟไลน์ 100% เร็ว ไม่ต้องเปิด server แยก\n- **Ollama:** ประมวลผลบนเครื่อง ปลอดภัยข้อมูลไม่ออกนอก\n- **Cloud:** ภาษาไทยสละสลวย ละเอียดสูง")

@@ -1,0 +1,32 @@
+{
+  "model_id": "2.1_rice_diseases",
+  "model_name_th": "โรคข้าว (ไหม้/ขอบใบแห้ง/ใบจุดสีน้ำตาล)",
+  "architecture": "MobileNetV3-Small",
+  "classes": [
+    "bacterial_leaf_blight_ขอบใบแห้ง",
+    "brown_spot_ใบจุดสีน้ำตาล",
+    "rice_blast_โรคไหม้"
+  ],
+  "num_classes": 3,
+  "input_shape": [
+    1,
+    3,
+    224,
+    224
+  ],
+  "mean": [
+    0.485,
+    0.456,
+    0.406
+  ],
+  "std": [
+    0.229,
+    0.224,
+    0.225
+  ],
+  "validation_accuracy": 66.67,
+  "validation_loss": 1.5768,
+  "best_epoch": 4,
+  "onnx_filename": "smart_rice_disease_model.onnx",
+  "tflite_filename": "smart_rice_disease_model.tflite"
+}

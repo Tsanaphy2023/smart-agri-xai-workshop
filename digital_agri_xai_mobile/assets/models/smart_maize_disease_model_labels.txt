@@ -1,0 +1,4 @@
+common_rust_ราสนิมข้าวโพด
+gray_leaf_spot_ใบจุดสีเทา
+healthy
+leaf_blight_ใบไหม้

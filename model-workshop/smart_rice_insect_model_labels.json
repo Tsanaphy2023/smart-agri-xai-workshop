@@ -1,0 +1,33 @@
+{
+  "model_id": "2.2_rice_insects",
+  "model_name_th": "แมลงศัตรูพืชข้าว (เพลี้ยกระโดด/หนอนกอ/หนอนห่อใบ)",
+  "architecture": "MobileNetV3-Small",
+  "classes": [
+    "brown_planthopper_เพลี้ยกระโดดสีน้ำตาล",
+    "healthy",
+    "leaf_folder_หนอนห่อใบข้าว",
+    "rice_stem_borer_หนอนกอข้าว"
+  ],
+  "num_classes": 4,
+  "input_shape": [
+    1,
+    3,
+    224,
+    224
+  ],
+  "mean": [
+    0.485,
+    0.456,
+    0.406
+  ],
+  "std": [
+    0.229,
+    0.224,
+    0.225
+  ],
+  "validation_accuracy": 33.33,
+  "validation_loss": 1.3832,
+  "best_epoch": 6,
+  "onnx_filename": "smart_rice_insect_model.onnx",
+  "tflite_filename": "smart_rice_insect_model.tflite"
+}

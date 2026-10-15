@@ -1,0 +1,33 @@
+{
+  "model_id": "2.1_tomato_diseases",
+  "model_name_th": "โรคมะเขือเทศ (ใบไหม้/ใบจุดวงแหวน/รากำมะหยี่)",
+  "architecture": "MobileNetV3-Small",
+  "classes": [
+    "healthy",
+    "tomato_early_blight_ใบจุดวงแหวน",
+    "tomato_late_blight_ใบไหม้",
+    "tomato_leaf_mold_รากำมะหยี่"
+  ],
+  "num_classes": 4,
+  "input_shape": [
+    1,
+    3,
+    224,
+    224
+  ],
+  "mean": [
+    0.485,
+    0.456,
+    0.406
+  ],
+  "std": [
+    0.229,
+    0.224,
+    0.225
+  ],
+  "validation_accuracy": 88.33,
+  "validation_loss": 0.4786,
+  "best_epoch": 6,
+  "onnx_filename": "smart_tomato_disease_model.onnx",
+  "tflite_filename": "smart_tomato_disease_model.tflite"
+}

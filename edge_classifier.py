@@ -66,6 +66,19 @@ class EdgeAgronomyClassifier:
         return cls._onnx_clf
 
     @classmethod
+    def load_specific_model(cls, model_path: str, labels_path: str):
+        """โหลดโมเดล ONNX เฉพาะเจาะจงจากโฟลเดอร์ model-workshop"""
+        try:
+            if os.path.exists(model_path) and os.path.exists(labels_path):
+                from onnx_classifier import OnnxClassifier
+                cls._onnx_clf = OnnxClassifier(model_path, labels_path)
+                cls._onnx_checked = True
+                return True
+        except Exception as e:
+            print(f"[edge_classifier] โหลดโมเดล {model_path} ไม่สำเร็จ: {e}")
+        return False
+
+    @classmethod
     def reload_model(cls):
         cls._onnx_clf, cls._onnx_checked = None, False
 

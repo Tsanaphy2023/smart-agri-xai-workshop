@@ -1,0 +1,33 @@
+{
+  "model_id": "2.2_general_insects",
+  "model_name_th": "แมลงศัตรูพืชทั่วไป (หนอนกระทู้/หนอนเจาะสมอฝ้าย/หนอนใยผัก)",
+  "architecture": "MobileNetV3-Small",
+  "classes": [
+    "armyworm_หนอนกระทู้",
+    "bollworm_หนอนเจาะสมอฝ้าย",
+    "diamondback_moth_หนอนใยผัก",
+    "healthy"
+  ],
+  "num_classes": 4,
+  "input_shape": [
+    1,
+    3,
+    224,
+    224
+  ],
+  "mean": [
+    0.485,
+    0.456,
+    0.406
+  ],
+  "std": [
+    0.229,
+    0.224,
+    0.225
+  ],
+  "validation_accuracy": 54.17,
+  "validation_loss": 1.1151,
+  "best_epoch": 6,
+  "onnx_filename": "smart_general_insect_model.onnx",
+  "tflite_filename": "smart_general_insect_model.tflite"
+}

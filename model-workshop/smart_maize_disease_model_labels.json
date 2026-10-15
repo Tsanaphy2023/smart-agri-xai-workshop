@@ -1,0 +1,33 @@
+{
+  "model_id": "2.1_maize_diseases",
+  "model_name_th": "โรคราสนิมและใบไหม้ข้าวโพด",
+  "architecture": "MobileNetV3-Small",
+  "classes": [
+    "common_rust_ราสนิมข้าวโพด",
+    "gray_leaf_spot_ใบจุดสีเทา",
+    "healthy",
+    "leaf_blight_ใบไหม้"
+  ],
+  "num_classes": 4,
+  "input_shape": [
+    1,
+    3,
+    224,
+    224
+  ],
+  "mean": [
+    0.485,
+    0.456,
+    0.406
+  ],
+  "std": [
+    0.229,
+    0.224,
+    0.225
+  ],
+  "validation_accuracy": 95.0,
+  "validation_loss": 0.3506,
+  "best_epoch": 6,
+  "onnx_filename": "smart_maize_disease_model.onnx",
+  "tflite_filename": "smart_maize_disease_model.tflite"
+}

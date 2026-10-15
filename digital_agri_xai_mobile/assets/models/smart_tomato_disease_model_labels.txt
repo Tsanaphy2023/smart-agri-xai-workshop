@@ -1,0 +1,4 @@
+healthy
+tomato_early_blight_ใบจุดวงแหวน
+tomato_late_blight_ใบไหม้
+tomato_leaf_mold_รากำมะหยี่

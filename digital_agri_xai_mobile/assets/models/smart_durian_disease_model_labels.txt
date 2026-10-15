@@ -1,0 +1,4 @@
+algal_leaf_spot_จุดสนิมสาหร่าย
+anthracnose_blight_แอนแทรคโนส
+healthy
+phomopsis_leaf_spot_ใบจุด

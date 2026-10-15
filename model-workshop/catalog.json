@@ -1,0 +1,125 @@
+{
+  "generated_at": "2026-10-15 15:26:24",
+  "total_models": 8,
+  "total_training_time_seconds": 828.8,
+  "models": [
+    {
+      "id": "1.1_soil_types",
+      "name_th": "การจำแนกชนิดเนื้อดิน 5 ชนิด",
+      "classes": [
+        "black_soil",
+        "cinder_soil",
+        "laterite_soil",
+        "peat_soil",
+        "yellow_soil"
+      ],
+      "num_classes": 5,
+      "val_acc": 83.33333333333334,
+      "onnx_size_mb": 0.3,
+      "tflite_size_mb": 5.92,
+      "prefix": "smart_soil_type_model"
+    },
+    {
+      "id": "2.1_durian_diseases",
+      "name_th": "โรคใบจุดและใบไหม้ทุเรียนจันทบุรี",
+      "classes": [
+        "algal_leaf_spot_จุดสนิมสาหร่าย",
+        "anthracnose_blight_แอนแทรคโนส",
+        "healthy",
+        "phomopsis_leaf_spot_ใบจุด"
+      ],
+      "num_classes": 4,
+      "val_acc": 55.00000000000001,
+      "onnx_size_mb": 0.3,
+      "tflite_size_mb": 5.91,
+      "prefix": "smart_durian_disease_model"
+    },
+    {
+      "id": "2.1_maize_diseases",
+      "name_th": "โรคราสนิมและใบไหม้ข้าวโพด",
+      "classes": [
+        "common_rust_ราสนิมข้าวโพด",
+        "gray_leaf_spot_ใบจุดสีเทา",
+        "healthy",
+        "leaf_blight_ใบไหม้"
+      ],
+      "num_classes": 4,
+      "val_acc": 95.0,
+      "onnx_size_mb": 0.3,
+      "tflite_size_mb": 5.91,
+      "prefix": "smart_maize_disease_model"
+    },
+    {
+      "id": "2.1_rice_diseases",
+      "name_th": "โรคข้าว (ไหม้/ขอบใบแห้ง/ใบจุดสีน้ำตาล)",
+      "classes": [
+        "bacterial_leaf_blight_ขอบใบแห้ง",
+        "brown_spot_ใบจุดสีน้ำตาล",
+        "rice_blast_โรคไหม้"
+      ],
+      "num_classes": 3,
+      "val_acc": 66.66666666666666,
+      "onnx_size_mb": 0.3,
+      "tflite_size_mb": 5.91,
+      "prefix": "smart_rice_disease_model"
+    },
+    {
+      "id": "2.1_tomato_diseases",
+      "name_th": "โรคมะเขือเทศ (ใบไหม้/ใบจุดวงแหวน/รากำมะหยี่)",
+      "classes": [
+        "healthy",
+        "tomato_early_blight_ใบจุดวงแหวน",
+        "tomato_late_blight_ใบไหม้",
+        "tomato_leaf_mold_รากำมะหยี่"
+      ],
+      "num_classes": 4,
+      "val_acc": 88.33333333333333,
+      "onnx_size_mb": 0.3,
+      "tflite_size_mb": 5.91,
+      "prefix": "smart_tomato_disease_model"
+    },
+    {
+      "id": "2.2_durian_insects",
+      "name_th": "แมลงศัตรูพืชทุเรียน (เพลี้ยไก่แจ้)",
+      "classes": [
+        "durian_psyllid_เพลี้ยไก่แจ้",
+        "healthy"
+      ],
+      "num_classes": 2,
+      "val_acc": 95.0,
+      "onnx_size_mb": 0.3,
+      "tflite_size_mb": 5.9,
+      "prefix": "smart_durian_insect_model"
+    },
+    {
+      "id": "2.2_rice_insects",
+      "name_th": "แมลงศัตรูพืชข้าว (เพลี้ยกระโดด/หนอนกอ/หนอนห่อใบ)",
+      "classes": [
+        "brown_planthopper_เพลี้ยกระโดดสีน้ำตาล",
+        "healthy",
+        "leaf_folder_หนอนห่อใบข้าว",
+        "rice_stem_borer_หนอนกอข้าว"
+      ],
+      "num_classes": 4,
+      "val_acc": 33.33333333333333,
+      "onnx_size_mb": 0.3,
+      "tflite_size_mb": 5.91,
+      "prefix": "smart_rice_insect_model"
+    },
+    {
+      "id": "2.2_general_insects",
+      "name_th": "แมลงศัตรูพืชทั่วไป (หนอนกระทู้/หนอนเจาะสมอฝ้าย/หนอนใยผัก)",
+      "classes": [
+        "armyworm_หนอนกระทู้",
+        "bollworm_หนอนเจาะสมอฝ้าย",
+        "diamondback_moth_หนอนใยผัก",
+        "healthy"
+      ],
+      "num_classes": 4,
+      "val_acc": 54.166666666666664,
+      "onnx_size_mb": 0.3,
+      "tflite_size_mb": 5.91,
+      "prefix": "smart_general_insect_model"
+    }
+  ]
+}

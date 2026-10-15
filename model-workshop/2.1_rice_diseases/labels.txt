@@ -1,0 +1,3 @@
+bacterial_leaf_blight_ขอบใบแห้ง
+brown_spot_ใบจุดสีน้ำตาล
+rice_blast_โรคไหม้

@@ -393,7 +393,7 @@ ANALYSIS_PROMPT = """
 col_head1, col_head2 = st.columns([7, 3])
 with col_head1:
     st.markdown('<div class="main-header">🌱 Embedded AI & Edge AIoT for Agriculture and Environment</div>', unsafe_allow_html=True)
-    st.markdown('<div class="sub-header">ปัญญาประดิษฐ์ฝังตัวและเอดจ์เอไอโอทีเพื่อการเกษตรและสิ่งแวดล้อม: จากวิศวกรรมข้อมูลภาพระดับพิกเซลและเซนเซอร์เคมีดิน สู่การพัฒนาอุปกรณ์วินิจฉัยอัจฉริยะภาคสนาม • ผศ.ดร.ชีวะ ทัศนา</div>', unsafe_allow_html=True)
+    st.markdown('<div class="sub-header">ปัญญาประดิษฐ์ฝังตัวและเอดจ์เอไอโอทีเพื่อการเกษตรและสิ่งแวดล้อม: จากวิศวกรรมข้อมูลภาพระดับพิกเซลและเซนเซอร์เคมีดิน สู่การพัฒนาอุปกรณ์วินิจฉัยอัจฉริยะภาคสนาม • คณะวิจัยและวิทยากร มรภ.รำไพพรรณี (ผศ.ดร.ชีวะ ทัศนา และคณะ)</div>', unsafe_allow_html=True)
 with col_head2:
     st.markdown("""
     <div style="text-align: right; padding-top: 10px;">
@@ -842,6 +842,23 @@ with st.sidebar:
         ⚡ <b>Free GPU (NVIDIA T4):</b> คลิกเพื่อเปิดสมุดงาน Colab ฝึกสอนโมเดล AI บนคลาวด์ Google ทันที
     </p>
     """, unsafe_allow_html=True)
+
+    st.markdown("---")
+    with st.expander("👥 คณะวิทยากร & หน่วยวิจัย", expanded=False):
+        st.markdown("""
+        **คณะวิทยากรประจำหลักสูตร:**
+        - **ผศ.ดร.ชีวะ ทัศนา** (หัวหน้าโครงการ)
+        - **ผศ.อรรถกร คำฉัตร**
+        - **ผศ.ดร.จิรภัทร จันทมาลี**
+        - **ผศ.ดร.ณมนรัก คำฉัตร**
+        - **รศ.ดร.นิภัทร เปี่ยมอรุณ**
+        - **รศ.ดร.นันทพร มูลรังษี**
+
+        **หน่วยงานวิจัยและสนับสนุน:**
+        - **LEQS:** หน่วยวิเคราะห์คุณภาพสิ่งแวดล้อมสำหรับพื้นที่
+        - **หน่วยวิจัย:** ปัญญาประดิษฐ์ฝังตัวและเอดจ์เอไอโอทีเพื่อเกษตรดิจิทัลและสิ่งแวดล้อม
+        - มหาวิทยาลัยราชภัฏรำไพพรรณี
+        """)
 
 # 4. Inference Functions
 def analyze_with_gemini(image, prompt, location_info, api_key, model_name):
@@ -1742,6 +1759,32 @@ with tab4:
     render_svg_card(dataset_inventory_svg)
 
     st.markdown("---")
+
+    # Section 4: Low-Code Visual Blueprint & Plain-Thai Parameter Guide
+    st.markdown("### 4. 🗺️ แผนผังการไหลของข้อมูลและกลไกโค้ดสำหรับผู้เริ่มต้น (Low-Code Visual Blueprint)")
+    st.caption("ทำความเข้าใจกลไกการเดินทางของข้อมูลภาพถ่ายดินสู่โมเดล AI และพารามิเตอร์สำคัญในรูปแบบภาษาไทยที่เข้าใจง่าย ไร้ศัพท์เทคนิคซับซ้อน")
+
+    st.markdown("""
+    <div style="background: rgba(15, 23, 42, 0.95); border: 1px solid #1e293b; border-radius: 12px; padding: 18px 20px; margin-bottom: 18px; color: #e2e8f0; font-family: 'JetBrains Mono', monospace; font-size: 0.84rem; line-height: 1.6;">
+        <span style="color: #38bdf8; font-weight: 700;">[DATAFLOW PIPELINE & RUNTIME ARCHITECTURE]</span><br>
+        <div style="margin-top: 8px;">
+            <b style="color: #34d399;">[STEP 1: ภาพถ่าย]</b> 📸 ภาพดิน/ใบพืช ➔ 🎯 Auto Center-Crop (150×150 px) ตัดพื้นหลังขจัดสิ่งรบกวน<br>
+            <b style="color: #60a5fa;">[STEP 2: สังเคราะห์]</b> ⚖️ Train 80% / Val 20% ➔ 🧪 ดึงค่าสี CIE L*a*b* & Augmentation เพิ่มความหลากหลาย<br>
+            <b style="color: #fbbf24;">[STEP 3: ถ่ายทอด]</b> 🧠 MobileNetV2 Transfer Learning ➔ ปรับค่าน้ำหนักเฉพาะชั้นล่างสุด (Edge Weights)<br>
+            <b style="color: #f87171;">[STEP 4: บีบอัด]</b> 📦 แปลงเป็น .tflite / .onnx ➔ ติดตั้งลงมือถือ/บอร์ดฝังตัว วินิจฉัยออฟไลน์ &lt;15ms
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
+
+    st.markdown("#### 💡 ตารางถอดรหัสพารามิเตอร์โค้ด AI ฉบับภาษาชาวบ้าน")
+    st.markdown("""
+    | ชื่อพารามิเตอร์ในโค้ด | คำอุปมาอุปไมยในชีวิตประจำวัน | หน้าที่และความหมายเชิงปฏิบัติการ | ค่าที่แนะนำสำหรับ Workshop |
+    | :--- | :--- | :--- | :--- |
+    | **`Epochs`** | **จำนวนรอบอ่านหนังสือสอบ** | จำนวนครั้งที่ AI ได้กวาดสายตาดูภาพตัวอย่างทั้งหมดซ้ำๆ เพื่อจดจำลักษณะสำคัญ | **5 – 10 รอบ** (กำลังพอดี ไม่เสียเวลา) |
+    | **`Batch Size`** | **จำนวนการ์ดคำศัพท์ที่ทบทวนต่อครั้ง** | จำนวนรูปภาพที่ส่งเข้าไปคำนวณพร้อมกันใน GPU เพื่อประหยัดเวลาและแรม | **16 หรือ 32 ภาพ** (เสถียรบน GPU ฟรี) |
+    | **`Learning Rate`** | **ก้าวย่างความเร็วในการเดิน** | ก้าวสั้นเกินไปเดินช้า (เรียนรู้ช้า) ก้าวยาวเกินไปสะดุดหกล้ม (โมเดลหลุดโค้ง) | **0.0001 – 0.001** (แม่นยำและนุ่มนวล) |
+    | **`Target ROI Crop`**| **การเอาแว่นขยายส่องเฉพาะจุด** | สกัดเอาเฉพาะพิกัดดินตรงกลางเลนส์ 150×150 px ขจัดขอบโต๊ะ พื้นซีเมนต์ หรือรองเท้า | **(150, 150)** หรือ 50% ของภาพ |
+    """)
 
     st.markdown("---")
 

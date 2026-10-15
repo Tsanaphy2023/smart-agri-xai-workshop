@@ -48,6 +48,61 @@ ResNet-50         & 25.6 & 4.10 & 115.0 & 94.1 \\
     \item \textbf{ImageNet Normalization:} ปรับสเกลค่าพิกเซลด้วยค่าเฉลี่ย $\mu = [0.485,\, 0.456,\, 0.406]$ และส่วนเบี่ยงเบนมาตรฐาน $\sigma = [0.229,\, 0.224,\, 0.225]$
 \end{itemize}
 
+\academicsection{แผนผังการไหลของข้อมูลและกลไกโค้ดสำหรับผู้เริ่มต้น (Low-Code Visual Blueprint)}
+\label{sec:lowcode_visual_blueprint}
+
+เพื่อให้ผู้เข้ารับการอบรม เกษตรกร และนักศึกษาที่ไม่มีพื้นฐานการเขียนโปรแกรม สามารถทำความเข้าใจขั้นตอนการทำงานของโค้ดภาษาไพทอน (Python) ในสภาพแวดล้อม Google Colab ได้อย่างเป็นระบบ ระบบจึงได้สรุปกระบวนการประมวลผลออกเป็นแผนผังภาพ 4 สเต็ปหลัก ดังแสดงในภาพที่ \ref{fig:lowcode_code_flow}:
+
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[
+    node distance=0.25cm,
+    stepBox/.style={rectangle, rounded corners=4pt, text width=4.1in, minimum height=0.55in, align=left, inner sep=6pt, font=\fontsize{8.5}{11.5}\selectfont},
+    arrowLine/.style={->, >=stealth, line width=1.5pt, color=teal!70!black}
+]
+    % สเต็ป 1
+    \node[stepBox, fill=blue!8!white, draw=blue!60!black] (s1) {
+        \textbf{\color{blue!80!black}สเต็ป 1: เชื่อมต่อและดึงพลังฮาร์ดแวร์ GPU (Hardware Handshake)}\\
+        ตรวจสอบสถานะชิปประมวลผล \texttt{torch.cuda} และซิงก์คลังโค้ดวิจัยเวอร์ชันล่าสุดจาก GitHub อัตโนมัติ
+    };
+
+    % สเต็ป 2
+    \node[stepBox, fill=green!8!white, draw=green!60!black, below=0.28cm of s1] (s2) {
+        \textbf{\color{green!50!black}สเต็ป 2: โหลดข้อมูลจริงและกรองพิกเซลอัตโนมัติ (Precision ROI)}\\
+        โหลดภาพจริง 100\% (ดิน/พืช) และใช้ดัชนี ExG ร่วมกับเกาส์เซียนตัดเฉพาะใบไม้หรือเนื้อดินออกจากฉากหลัง
+    };
+
+    % สเต็ป 3
+    \node[stepBox, fill=orange!8!white, draw=orange!70!black, below=0.28cm of s2] (s3) {
+        \textbf{\color{orange!80!black}สเต็ป 3: ฝึกสอนสมองกล AI และประเมินผลสอบ (Training \& Evaluation)}\\
+        ป้อนภาพเข้าโครงข่ายประสาทเทียม MobileNetV3 ผ่านรอบการเรียนรู้ (\texttt{Epochs}) และวัดผลความแม่นยำ
+    };
+
+    % สเต็ป 4
+    \node[stepBox, fill=purple!8!white, draw=purple!60!black, below=0.28cm of s3] (s4) {
+        \textbf{\color{purple!80!black}สเต็ป 4: ส่งออกโมเดลสู่สมาร์ทโฟนและเว็บ (Edge AI Export)}\\
+        แปลงโมเดลเป็นมาตรฐานเปิด ONNX (สำหรับเว็บ) และควอนไทซ์เป็น TFLite $<5$ MB (สำหรับสมาร์ทโฟนออฟไลน์)
+    };
+
+    % เส้นเชื่อมต่อ
+    \draw[arrowLine] (s1.south) -- (s2.north);
+    \draw[arrowLine] (s2.south) -- (s3.north);
+    \draw[arrowLine] (s3.south) -- (s4.north);
+\end{tikzpicture}
+\caption{แผนผังการไหลของข้อมูลและกลไกการทำงานของโค้ด Low-Code 4 สเต็ป}
+\label{fig:lowcode_code_flow}
+\end{figure}
+
+\begin{academicNote}[คำอธิบายพารามิเตอร์สำคัญในโค้ดแบบเข้าใจง่าย]
+สำหรับผู้เรียนที่ไม่เคยเขียนโปรแกรมมาก่อน สามารถปรับแต่งค่าสำคัญในเซลล์คำสั่งได้โดยอาศัยหลักคิดเชิงปฏิบัติ ดังนี้:
+\begin{itemize}[leftmargin=1.2em, itemsep=3pt]
+    \item \textbf{Epochs (รอบการเรียนรู้):} เปรียบเสมือนจำนวนรอบที่สมองกล AI นั่งอ่านทบทวนชุดภาพเพื่อจำแนกลักษณะ (ค่าแนะนำ 10--15 รอบ หากน้อยไป AI จะจำไม่ได้ หากมากไปอาจเกิดการท่องจำข้อสอบเดิม)
+    \item \textbf{Batch Size (ขนาดกลุ่มภาพ):} จำนวนภาพที่ส่งเข้าไปปรับน้ำหนักพร้อมกันในหนึ่งวินาที (ค่าแนะนำ 16 ภาพ เพื่อความสมดุลของหน่วยความจำ)
+    \item \textbf{Learning Rate (อัตราการปรับตัว):} ความเร็วในการก้าวเดินปรับตัวของเซลล์ประสาทเทียม (ค่าแนะนำ 0.001 เพื่อไม่ให้สมองกลปรับค่าน้ำหนักกระโชกโฮกฮากจนหลุดกรอบ)
+    \item \textbf{Target ROI Crop (การตัดกรอบเป้าหมาย):} สั่งให้ตัดเฉพาะบริเวณสี่เหลี่ยมสีเขียวส่งเข้าเทรน เพื่อป้องกันไม่ให้โมเดลจำสิ่งที่ติดมาในฉากหลัง เช่น มือคน ก้อนหิน หรือขอบกระถาง
+\end{itemize}
+\end{academicNote}
+
 \academicsection{โครงสร้างสคริปต์การฝึกสอน PyTorch และการเชื่อมต่อ Precision ROI}
 \label{sec:pytorch_training}
 

@@ -76,6 +76,36 @@
 
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Tsanaphy2023/smart-agri-xai-workshop/blob/main/Smart_Agri_AI_LowCode_Workshop.ipynb)
 
+### 🗺️ แผนผังภาพรวมการทำงานของโค้ดและระบบสำหรับผู้เริ่มต้น (Code & Architecture Flowchart)
+
+```mermaid
+graph TD
+    A["📸 ข้อมูลภาพถ่ายจริง 100%<br/>(ดิน 5 ชนิด / โรคพืชทุเรียน จันทบุรี)"] --> B["🌿 Agri-Vision 2.0 Precision ROI<br/>(ExG Bio-Spectral + 2D Center Gaussian)"]
+    B --> C["⚡ Google Colab Cloud GPU<br/>(Low-Code Interactive Form Training)"]
+    C --> D{"📦 Export Model Standard"}
+    D -->|"ONNX Runtime"| E["💻 Web Dashboard<br/>(Streamlit / In-Process API)"]
+    D -->|"Quantized TFLite <5MB"| F["📱 Mobile App (Flutter)<br/>(Offline Edge AI 100% ในสวน)"]
+
+    style A fill:#1b382b,stroke:#2e7d32,stroke-width:2px,color:#ffffff
+    style B fill:#12323a,stroke:#00838f,stroke-width:2px,color:#ffffff
+    style C fill:#3e2723,stroke:#e65100,stroke-width:2px,color:#ffffff
+    style D fill:#263238,stroke:#eceff1,stroke-width:2px,color:#ffffff
+    style E fill:#1a237e,stroke:#3949ab,stroke-width:2px,color:#ffffff
+    style F fill:#004d40,stroke:#00bfa5,stroke-width:2px,color:#ffffff
+```
+
+#### 💡 สรุปความหมายของพารามิเตอร์สำคัญในโค้ด (ปรับง่าย ไม่ต้องเขียนโค้ดเอง):
+| พารามิเตอร์ในโค้ด | ชื่อเรียกที่เข้าใจง่าย | หน้าที่การทำงาน | ค่าที่แนะนำ |
+| :--- | :--- | :--- | :--- |
+| `enable_target_roi_crop` | **ระบบตัดเฉพาะเป้าหมาย** | สั่งให้ AI สนใจเฉพาะใบไม้หรือก้อนดินในกรอบเขียว ตัดฉากหลัง/มือคนออก | `True` (แนะนำเปิดเสมอ) |
+| `epochs` | **รอบการอ่านทบทวน** | จำนวนรอบที่สมองกล AI ทำแบบฝึกหัดทบทวนข้อมูลทั้งชุด | `10 - 15` รอบ |
+| `batch_size` | **ขนาดกลุ่มภาพ** | จำนวนภาพที่ส่งเข้าปรับน้ำหนักเซลล์ประสาทพร้อมกัน | `16` ภาพ |
+| `learning_rate` | **อัตราการปรับตัว** | ความเร็วในการก้าวปรับค่าน้ำหนักสมองกล (ไม่ให้หลุดกรอบ) | `0.001` |
+| `sigma_center_scale` | **วงรัศมีโฟกัสกึ่งกลาง** | ขนาดวงรีความสนใจตรงกลางภาพ ป้องกันการตัดขอบวัตถุ | `0.35` (หากชิดขอบให้ปรับเป็น `0.45`) |
+| `min_solidity` | **ความแน่นตันของรูปทรง** | อัตราส่วนเนื้อที่ของวัตถุชีวภาพ ป้องกันการตีกรอบแตกแขนง | `0.45` (ใบไม้ทั่วไป) |
+
+---
+
 ### 📖 แผนภาพคู่มือการใช้งาน Colab สำหรับผู้เข้าอบรม (4-Step Visual Guide)
 ![คู่มือการใช้งาน Colab สำหรับผู้เข้าอบรม](docs/colab_user_guide_infographic.svg)
 

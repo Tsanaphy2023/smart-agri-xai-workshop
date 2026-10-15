@@ -326,6 +326,186 @@ class SoilVisionPreprocessor:
         }
 
     @classmethod
+    def get_pipeline_stages(
+        cls, 
+        cv_img: np.ndarray,
+        padding_ratio: float = 0.08,
+        mode: str = "auto",
+        sigma_scale: float = 0.35,
+        min_solidity: float = 0.45
+    ) -> Dict[str, Any]:
+        """
+        แยกย่อยขั้นตอนการคำนวณตามแผนผัง ROI Pipeline เพื่อการตรวจสอบ (Diagnostic Breakdown):
+        Stage 1: ภาพต้นฉบับและจุดเล็งศูนย์กลาง (Original Frame & Center Target)
+        Stage 2: แผนที่ความเด่นชัดทางชีวภาพ (Bio-Spectral Salience: ExG / Lab Gradient)
+        Stage 3: แมตริกซ์ถ่วงน้ำหนักเกาส์เซียนเชิงพื้นที่ 2 มิติ (2D Center Gaussian Spatial Prior)
+        Stage 4: หน้ากากรวมศูนย์หลังสัณฐานวิทยา (Fused Weighted Mask & Morphological Closing)
+        Stage 5: การวิเคราะห์คอนทัวร์, Convex Hull และ Solidity Filter
+        Stage 6: ตีกรอบเป้าหมาย ROI และ Corner Reticles
+        Stage 7: การครอบตัดและปรับสมดุลแสงสี (Normalized Target Crop: Gray-World + CLAHE)
+        """
+        h, w = cv_img.shape[:2]
+        cy, cx = h / 2.0, w / 2.0
+        
+        # Stage 1: Input Frame with Center Crosshair
+        stage_1_cv = cv_img.copy()
+        cv2.drawMarker(stage_1_cv, (int(cx), int(cy)), (0, 255, 255), cv2.MARKER_CROSS, 28, 2)
+        cv2.circle(stage_1_cv, (int(cx), int(cy)), int(min(w, h) * 0.25), (0, 255, 255), 1, cv2.LINE_AA)
+        
+        # คำนวณ ExG
+        b_ch = cv_img[:, :, 0].astype(np.float32)
+        g_ch = cv_img[:, :, 1].astype(np.float32)
+        r_ch = cv_img[:, :, 2].astype(np.float32)
+        sum_rgb = r_ch + g_ch + b_ch + 1e-6
+        norm_r, norm_g, norm_b = r_ch / sum_rgb, g_ch / sum_rgb, b_ch / sum_rgb
+        exg = 2.0 * norm_g - norm_r - norm_b
+        mean_center_exg = float(np.mean(exg[int(h*0.25):int(h*0.75), int(w*0.25):int(w*0.75)]))
+        
+        is_plant = (mode == "plant") or (mode == "auto" and mean_center_exg > 0.02)
+        
+        # Stage 2: Bio-Spectral Salience Map
+        if is_plant:
+            sal_norm = cv2.normalize(exg, None, 0, 255, cv2.NORM_MINMAX).astype(np.uint8)
+            hsv = cv2.cvtColor(cv_img, cv2.COLOR_BGR2HSV)
+            hsv_mask = cv2.inRange(hsv, np.array([25, 35, 30]), np.array([95, 255, 255]))
+            stage_2_raw = cv2.addWeighted(sal_norm, 0.7, hsv_mask, 0.3, 0)
+            target_type_str = "พืช/ใบไม้ (Bio-Spectral ExG + Chlorophyll Gate)"
+        else:
+            lab = cv2.cvtColor(cv_img, cv2.COLOR_BGR2LAB)
+            l_chan, _, _ = cv2.split(lab)
+            grad_l = cv2.Sobel(l_chan, cv2.CV_64F, 1, 1, ksize=3)
+            stage_2_raw = cv2.normalize(np.abs(grad_l), None, 0, 255, cv2.NORM_MINMAX).astype(np.uint8)
+            target_type_str = "หน้าดิน (CIE L*a*b* Gradient Texture Saliency)"
+            
+        stage_2_colored = cv2.applyColorMap(stage_2_raw, cv2.COLORMAP_JET)
+
+        # Stage 3: 2D Center Gaussian Spatial Prior
+        y_coords, x_coords = np.ogrid[:h, :w]
+        sig_x, sig_y = w * sigma_scale, h * sigma_scale
+        center_prior = np.exp(-0.5 * (((x_coords - cx)**2 / (sig_x**2)) + ((y_coords - cy)**2 / (sig_y**2))))
+        prior_u8 = (center_prior * 255.0).astype(np.uint8)
+        stage_3_colored = cv2.applyColorMap(prior_u8, cv2.COLORMAP_VIRIDIS)
+
+        # Stage 4: Weighted Saliency & Morphological Closing
+        weighted_sal = (stage_2_raw.astype(np.float32) * center_prior).astype(np.uint8)
+        _, thresh = cv2.threshold(weighted_sal, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
+        k_size = 17 if is_plant else 21
+        kernel = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (k_size, k_size))
+        stage_4_closed = cv2.morphologyEx(thresh, cv2.MORPH_CLOSE, kernel)
+
+        # Stage 5: Contour Analysis, Convex Hull & Solidity
+        stage_5_cv = cv_img.copy()
+        contours, _ = cv2.findContours(stage_4_closed, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+        
+        best_bbox = (int(w * 0.1), int(h * 0.1), int(w * 0.8), int(h * 0.8))
+        best_score = 0.80
+        best_cnt = None
+        best_solidity = 0.50
+        best_area_ratio = 0.50
+        best_norm_dist = 0.0
+        
+        if contours:
+            max_score = 0.0
+            total_img_area = float(w * h)
+            
+            for cnt in contours:
+                area = cv2.contourArea(cnt)
+                if area < (total_img_area * 0.02):
+                    continue
+                bx, by, bw, bh = cv2.boundingRect(cnt)
+                cnt_cx, cnt_cy = bx + bw / 2.0, by + bh / 2.0
+                norm_dist = np.sqrt((cnt_cx - cx)**2 + (cnt_cy - cy)**2) / np.sqrt(cx**2 + cy**2)
+                area_ratio = min(1.0, area / (total_img_area * 0.5))
+                
+                hull = cv2.convexHull(cnt)
+                hull_area = cv2.contourArea(hull)
+                solidity = float(area) / hull_area if hull_area > 0 else 0.5
+                
+                # Draw candidate contours in thin gray
+                cv2.drawContours(stage_5_cv, [cnt], -1, (160, 160, 160), 1)
+                
+                composite_score = (area_ratio * 0.4) + ((1.0 - norm_dist) * 0.3) + (solidity * 0.3)
+                if solidity < min_solidity:
+                    composite_score *= 0.5
+                    
+                if composite_score > max_score:
+                    max_score = composite_score
+                    best_cnt = cnt
+                    best_solidity = solidity
+                    best_area_ratio = area_ratio
+                    best_norm_dist = norm_dist
+                    
+                    pad_w = int(bw * padding_ratio)
+                    pad_h = int(bh * padding_ratio)
+                    x1 = max(0, bx - pad_w)
+                    y1 = max(0, by - pad_h)
+                    x2 = min(w, bx + bw + pad_w)
+                    y2 = min(h, by + bh + pad_h)
+                    best_bbox = (x1, y1, x2 - x1, y2 - y1)
+                    best_score = min(0.99, 0.75 + float(composite_score) * 0.24)
+            
+            # Highlight best contour & convex hull on Stage 5
+            if best_cnt is not None:
+                hull = cv2.convexHull(best_cnt)
+                cv2.drawContours(stage_5_cv, [hull], -1, (0, 165, 255), 2)       # Orange Convex Hull
+                cv2.drawContours(stage_5_cv, [best_cnt], -1, (0, 255, 0), 2)     # Green Contour
+                bx, by, bw, bh = cv2.boundingRect(best_cnt)
+                cv2.line(stage_5_cv, (int(cx), int(cy)), (int(bx + bw/2), int(by + bh/2)), (255, 0, 255), 2)
+
+        # Stage 6: Annotated Bounding Box & Corner Brackets
+        stage_6_cv = cv_img.copy()
+        bx, by, bw, bh = best_bbox
+        cv2.rectangle(stage_6_cv, (bx, by), (bx + bw, by + bh), (129, 185, 16), 2)
+        c_len = min(25, max(8, int(min(bw, bh) * 0.15)))
+        for (corner_x, corner_y, dx, dy) in [
+            (bx, by, 1, 1), (bx + bw, by, -1, 1),
+            (bx, by + bh, 1, -1), (bx + bw, by + bh, -1, -1)
+        ]:
+            cv2.line(stage_6_cv, (corner_x, corner_y), (corner_x + dx * c_len, corner_y), (212, 182, 6), 3)
+            cv2.line(stage_6_cv, (corner_x, corner_y), (corner_x, corner_y + dy * c_len), (212, 182, 6), 3)
+        lbl = f"TARGET ROI [{bw}x{bh}] Conf: {best_score*100:.1f}%"
+        cv2.putText(stage_6_cv, lbl, (bx + 8, max(24, by - 8)), cv2.FONT_HERSHEY_SIMPLEX, 0.52, (129, 185, 16), 2, cv2.LINE_AA)
+
+        # Stage 7: Cropped & Normalized
+        cropped = cv_img[by:by+bh, bx:bx+bw].copy() if (bw > 30 and bh > 30) else cv_img.copy()
+        normalized_bgr, norm_stats = cls.normalize_illumination_and_color(cropped)
+        quality = cls.assess_quality(cropped)
+
+        # Recommendations for parameter tuning
+        tuning_hints = []
+        if best_solidity < min_solidity:
+            tuning_hints.append(f"ค่า Solidity ต่ำ ({best_solidity:.2f} < {min_solidity:.2f}): วัตถุอาจเว้าแหว่งหรือแตกเป็นเสี่ยง ลองลด min_solidity หรือเพิ่มขนาดโครงสร้าง Closing")
+        if best_norm_dist > 0.4:
+            tuning_hints.append(f"วัตถุอยู่ห่างจากศูนย์กลาง ({best_norm_dist:.2f}): ลองขยาย sigma_scale (เช่น 0.45-0.50) หากภาพถ่ายไม่ได้จัดกึ่งกลาง")
+        if quality["laplacian_variance"] < 80.0:
+            tuning_hints.append("ภาพมีความเบลอ: พิจารณาเพิ่มเกณฑ์ Laplacian หรือเลือกถ่ายซ้ำเพื่อผลลัพธ์ที่ดีขึ้น")
+        if not tuning_hints:
+            tuning_hints.append("การคัดกรอง ROI สมบูรณ์แบบ พารามิเตอร์ปัจจุบันเหมาะสมกับชุดข้อมูลนี้อย่างยิ่ง")
+
+        return {
+            "stage_1_input_pil": cls.cv2_to_pil(stage_1_cv),
+            "stage_2_salience_pil": cls.cv2_to_pil(stage_2_colored),
+            "stage_3_center_prior_pil": cls.cv2_to_pil(stage_3_colored),
+            "stage_4_mask_pil": Image.fromarray(stage_4_closed),
+            "stage_5_contour_pil": cls.cv2_to_pil(stage_5_cv),
+            "stage_6_annotated_pil": cls.cv2_to_pil(stage_6_cv),
+            "stage_7_normalized_pil": cls.cv2_to_pil(normalized_bgr),
+            "bbox": best_bbox,
+            "confidence": best_score,
+            "telemetry": {
+                "target_type": target_type_str,
+                "center_exg": mean_center_exg,
+                "solidity": best_solidity,
+                "area_ratio": best_area_ratio,
+                "center_dist_penalty": best_norm_dist,
+                "laplacian_blur": quality["laplacian_variance"],
+                "glare_pct": quality["glare_ratio_pct"],
+                "shadow_pct": quality["shadow_ratio_pct"],
+                "tuning_hints": tuning_hints
+            }
+        }
+
+    @classmethod
     def process_full_pipeline(
         cls, 
         pil_img: Image.Image,
@@ -338,8 +518,11 @@ class SoilVisionPreprocessor:
         orig_cv = cls.pil_to_cv2(pil_img)
         h, w = orig_cv.shape[:2]
 
-        # 1. Detect ROI
-        bbox, roi_conf, annotated_cv = cls.detect_roi(orig_cv)
+        # 1. Detect ROI & Detailed Stage Breakdown
+        stages = cls.get_pipeline_stages(orig_cv)
+        bbox = stages["bbox"]
+        roi_conf = stages["confidence"]
+        annotated_cv = cls.pil_to_cv2(stages["stage_6_annotated_pil"])
         bx, by, bw, bh = bbox
 
         if auto_crop and bw > 30 and bh > 30:
@@ -361,10 +544,80 @@ class SoilVisionPreprocessor:
             "original_size": (w, h),
             "roi_bbox": bbox,
             "roi_confidence": roi_conf,
-            "annotated_pil": cls.cv2_to_pil(annotated_cv),
+            "annotated_pil": stages["stage_6_annotated_pil"],
             "cropped_roi_pil": cls.cv2_to_pil(roi_cv),
             "normalized_roi_pil": cls.cv2_to_pil(norm_cv),
             "quality": quality,
             "norm_stats": norm_stats,
-            "indices": indices
+            "indices": indices,
+            "stages": stages
         }
+
+
+def extract_target_roi(
+    img_rgb_or_bgr: np.ndarray,
+    mode: str = "auto",
+    pad_ratio: float = 0.08,
+    return_stages: bool = False
+) -> Tuple[np.ndarray, Tuple[int, int, int, int]]:
+    """
+    ฟังก์ชันสากลแบบ Standalone สำหรับสกัดพื้นที่เป้าหมายความแม่นยำสูง (Agri-Vision 2.0 Precision ROI)
+    รองรับทั้งการเทรนใน PyTorch DataLoader, ใน Colab Notebook และใน Server REST API
+    """
+    if len(img_rgb_or_bgr.shape) == 2:
+        img_bgr = cv2.cvtColor(img_rgb_or_bgr, cv2.COLOR_GRAY2BGR)
+    elif img_rgb_or_bgr.shape[2] == 3:
+        # สมมติเป็น BGR ตามมาตรฐาน OpenCV แต่ตรวจสอบถ้าเป็น RGB
+        img_bgr = img_rgb_or_bgr
+    else:
+        img_bgr = img_rgb_or_bgr[:, :, :3]
+
+    stages = SoilVisionPreprocessor.get_pipeline_stages(img_bgr, padding_ratio=pad_ratio, mode=mode)
+    bx, by, bw, bh = stages["bbox"]
+    cropped = img_bgr[by:by+bh, bx:bx+bw] if (bw > 30 and bh > 30) else img_bgr
+
+    if return_stages:
+        return cropped, stages["bbox"], stages
+    return cropped, stages["bbox"]
+
+
+def plot_roi_diagnostic_stages(stages_dict: Dict[str, Any], title: Optional[str] = None):
+    """
+    วาดแผนภาพแสดงรายละเอียดทุกขั้นตอนของ ROI Pipeline (6-Panel High-Tech Layout)
+    เหมาะสำหรับใช้ใน Colab, รายงานวิจัย หรือ Streamlit Matplotlib rendering
+    """
+    try:
+        import matplotlib.pyplot as plt
+    except ImportError:
+        print("⚠️ กรุณาติดตั้ง matplotlib เพื่อแสดงผลกราฟ (pip install matplotlib)")
+        return None
+
+    fig, axes = plt.subplots(2, 3, figsize=(15, 9.5))
+    axes = axes.flatten()
+
+    panels = [
+        ("Step 1: Input Frame & Target Center", stages_dict["stage_1_input_pil"]),
+        ("Step 2: Bio-Spectral Salience (ExG/Lab)", stages_dict["stage_2_salience_pil"]),
+        ("Step 3: 2D Center Gaussian Spatial Prior", stages_dict["stage_3_center_prior_pil"]),
+        ("Step 4: Fused Mask & Morphological Closing", stages_dict["stage_4_mask_pil"]),
+        ("Step 5: Contours & Convex Hull (Solidity)", stages_dict["stage_5_contour_pil"]),
+        ("Step 6: Bounding Box & Target ROI", stages_dict["stage_6_annotated_pil"])
+    ]
+
+    for i, (p_title, p_img) in enumerate(panels):
+        axes[i].imshow(p_img, cmap='gray' if i == 3 else None)
+        axes[i].set_title(p_title, fontsize=11, fontweight='bold', pad=8)
+        axes[i].axis('off')
+
+    tel = stages_dict.get("telemetry", {})
+    t_type = tel.get("target_type", "General")
+    sol = tel.get("solidity", 0.0)
+    conf = stages_dict.get("confidence", 0.0) * 100
+    blur = tel.get("laplacian_blur", 0.0)
+    
+    header_title = title or f"Agri-Vision 2.0 Precision ROI Diagnostic: {t_type}"
+    fig.suptitle(f"{header_title}\n[Conf: {conf:.1f}% | Solidity: {sol:.2f} | Sharpness Lap: {blur:.1f}]", 
+                 fontsize=13, fontweight='bold', y=0.98)
+    plt.tight_layout(rect=[0, 0.02, 1, 0.94])
+    return fig
+

@@ -1058,8 +1058,42 @@ with tab1:
 
                     for rec in q["recommendations"]:
                         st.info(f"💡 {rec}")
-            else:
-                st.image(current_image, caption="📷 ภาพถ่ายเป้าหมายทั้งเฟรม (Whole-frame View)", use_container_width=True)
+
+                    # Step-by-Step Pipeline Diagnostic Breakdown
+                    if "stages" in preprocessed_data:
+                        with st.expander("🔬 แผนผังขั้นตอน ROI เจาะลึก 6 สเต็ป (Step-by-Step Diagnostic Breakdown)", expanded=False):
+                            stages = preprocessed_data["stages"]
+                            st.caption("🔍 ติดตามการทำงานของอัลกอริทึมตั้งแต่การคำนวณดัชนีแสงชีวภาพ (ExG/Lab) ไปจนถึงการตัดกรอบเป้าหมายเพื่อนำข้อมูลย้อนกลับมาปรับพารามิเตอร์")
+                            
+                            # Row 1
+                            s_col1, s_col2, s_col3 = st.columns(3)
+                            with s_col1:
+                                st.image(stages["stage_1_input_pil"], caption="1. ภาพดิบ + จุดเล็งกลางเลนส์", use_container_width=True)
+                            with s_col2:
+                                st.image(stages["stage_2_salience_pil"], caption="2. แผนที่ความเด่นชัด (ExG / Lab)", use_container_width=True)
+                            with s_col3:
+                                st.image(stages["stage_3_center_prior_pil"], caption="3. 2D Gaussian Spatial Prior", use_container_width=True)
+                                
+                            # Row 2
+                            s_col4, s_col5, s_col6 = st.columns(3)
+                            with s_col4:
+                                st.image(stages["stage_4_mask_pil"], caption="4. หน้ากากสัณฐานวิทยา (Closing)", use_container_width=True)
+                            with s_col5:
+                                st.image(stages["stage_5_contour_pil"], caption="5. คอนทัวร์ & Convex Hull (Solidity)", use_container_width=True)
+                            with s_col6:
+                                st.image(stages["stage_6_annotated_pil"], caption="6. กรอบตีกรอบเป้าหมาย ROI", use_container_width=True)
+
+                            # Telemetry & Tuning Hints
+                            tel = stages.get("telemetry", {})
+                            st.markdown(f"""
+                            <div style="margin-top: 10px; padding: 10px 14px; background: rgba(15, 23, 42, 0.95); border-radius: 8px; border-left: 4px solid #06b6d4; font-size: 0.82rem; color: #e2e8f0; font-family: 'JetBrains Mono', monospace;">
+                                <b style="color: #06b6d4;">[DIAGNOSTIC TELEMETRY & TUNING FEEDBACK]</b><br>
+                                • ประเภทเป้าหมายที่ตรวจพบ: <span style="color: #10b981;">{tel.get('target_type', 'N/A')}</span><br>
+                                • ค่าดัชนีคลอโรฟิลล์กึ่งกลาง (Center ExG): <b>{tel.get('center_exg', 0.0):.4f}</b><br>
+                                • ความแน่นตันรูปทรง (Solidity): <b>{tel.get('solidity', 0.0):.3f}</b> | สัดส่วนพื้นที่เป้าหมาย: <b>{tel.get('area_ratio', 0.0)*100:.1f}%</b><br>
+                                • บทวิเคราะห์การปรับแต่ง: <span style="color: #fde047;">{tel.get('tuning_hints', ['สมบูรณ์แบบ'])[0]}</span>
+                            </div>
+                            """, unsafe_allow_html=True)
 
             analyze_btn = st.button("🚀 เริ่มการวิเคราะห์ด้วย AI ทันที (Analyze Now)", type="primary", use_container_width=True)
         else:

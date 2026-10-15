@@ -137,8 +137,42 @@ train_transforms = transforms.Compose([
 \end{verbatim}
 \end{tcolorbox}
 
+\academicsection{การทดสอบโมเดลแบบโต้ตอบบน Google Colab (Interactive Model Inference Sandbox)}
+\label{sec:interactive_inference_sandbox}
+
+หลังจากกระบวนการฝึกสอนโมเดลเสร็จสิ้นในขั้นตอนที่ 3 คำถามสำคัญของนักวิจัยและผู้เข้าอบรมคือ \textit{"สามารถทดสอบโมเดลกับภาพถ่ายใหม่จริงจากแปลง ด้วยการเปิดภาพ อัปโหลดไฟล์ หรือเปิดกล้องของอุปกรณ์ได้ทันทีใน Google Colab หรือไม่?"} ระบบได้ออกแบบและติดตั้ง \textbf{ขั้นตอนที่ 3.1: Interactive Model Inference Sandbox} ขึ้นมารองรับการทดสอบจริงแบบครบวงจร 100\% ดังแสดงสถาปัตยกรรมการทำงานในภาพที่ \ref{fig:interactive_inference_flow}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.98\textwidth]{figures/interactive_inference_flow_diagram.png}
+\caption{สถาปัตยกรรมกระบวนการทดสอบโมเดลแบบโต้ตอบบน Google Colab (Interactive Model Inference Sandbox) รองรับการป้อนข้อมูลภาพ 3 ช่องทางหลัก}
+\label{fig:interactive_inference_flow}
+\end{figure}
+
+ระบบทดสอบแบบโต้ตอบใน Google Colab รองรับการป้อนข้อมูลภาพ 3 มิติหลัก:
+\begin{enumerate}
+    \item \textbf{การเปิดกล้องอุปกรณ์สดผ่านโปรโตคอล WebRTC (Live Camera WebRTC):}
+    เนื่องจาก Google Colab ประมวลผลอยู่บนคลาวด์เซิร์ฟเวอร์เสมือน จึงไม่สามารถเรียกคำสั่งเข้าถึงฮาร์ดแวร์เว็บแคมโดยตรงอย่าง \texttt{cv2.VideoCapture} ได้ ระบบจึงใช้เทคนิคการฉีดสคริปต์ JavaScript ผ่าน \texttt{IPython.display.Javascript} เพื่อเชื่อมต่อ \texttt{navigator.mediaDevices.getUserMedia} ของเว็บเบราว์เซอร์บนเครื่องผู้ใช้ (โน้ตบุ๊ก หรือสมาร์ทโฟน) นำเฟรมภาพวิดีโอแปลงเป็น Base64 Data URL และส่งกลับมาถอดรหัสเป็นไฟล์ภาพไบนารีบน Colab:
+    \begin{equation}
+        \text{Webcam Stream} \xrightarrow{\text{canvas.toDataURL}} \text{Base64 String} \xrightarrow{\text{b64decode}} \text{JPEG Buffer}
+    \end{equation}
+
+    \item \textbf{การอัปโหลดไฟล์ภาพจากเครื่องผู้ใช้ (Local File Upload):}
+    เชื่อมต่อกับ \texttt{google.colab.files.upload()} ให้ผู้เข้าอบรมสามารถลากไฟล์ภาพถ่ายโรคพืชหรือภาพหน้าดินจริงจากโทรศัพท์หรือโฟลเดอร์ในเครื่องขึ้นสู่หน่วยความจำ Colab ได้ทันที
+
+    \item \textbf{การสุ่มภาพจากชุดข้อมูลทดสอบ (Validation Dataset Sampling):}
+    ดึงภาพจากชุดตรวจสอบความถูกต้อง (Validation Set) ที่โมเดลไม่เคยเห็นในกระบวนการเทรน เพื่อทดสอบความสามารถในการสรุปนัยทั่วไป (Generalization Ability)
+\end{enumerate}
+
+ภาพที่ผ่านการป้อนเข้ามาจะถูกส่งผ่านระบบ \textbf{Agri-Vision 2.0 Precision ROI} เพื่อตัดเฉพาะวัตถุเป้าหมายชีวภาพ ก่อนนำเข้าสู่โมเดลโครงข่ายประสาทเทียมเพื่อคำนวณค่าความน่าจะเป็นแบบซอฟต์แมกซ์ (Softmax Probability Distribution):
+\begin{equation}
+    P(y = c \mid \mathbf{x}) = \frac{\exp(z_c)}{\sum_{j=1}^C \exp(z_j)}
+\end{equation}
+พร้อมเรนเดอร์กราฟแท่งแนวนอน (Horizontal Top-$K$ Bar Chart) แสดงระดับความเชื่อมั่น (\%), ค่าพิกัดสี $L^*, a^*, b^*$, ดัชนีความชื้นคาดคะเน ($100 - L^*$) และดัชนีสีแดงดินลูกรัง ($R^2 / BG$) เพื่อให้ผู้เข้าอบรมเห็นผลลัพธ์เชิงฟิสิกส์อย่างรอบด้าน
+
 \academicsection{การส่งออกโมเดลและการประยุกต์ใช้งานบนเว็บและสมาร์ทโฟน}
 \label{sec:model_export_deployment}
+
 
 เมื่อแบบจำลองได้รับการฝึกสอนในสภาพแวดล้อม Google Colab จนลู่เข้าสู่จุดเหมาะสม (Convergence) และมีค่าความแม่นยำสูงกว่า 92\% แล้ว ขั้นตอนสำคัญลำดับถัดไปคือการแปลงโมเดลให้อยู่ในฟอร์แมตที่เหมาะสมต่อการใช้งานจริงในแปลงเกษตร ดังแสดงในภาพที่ \ref{fig:colab_to_app_pipeline} ซึ่งจำแนกออกเป็น 2 เส้นทางหลัก:
 

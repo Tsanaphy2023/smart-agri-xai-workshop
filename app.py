@@ -1012,15 +1012,28 @@ with tab1:
                         st.rerun()
                 idx += 1
 
-        # 1.2 File Uploader with Drop-zone styling
-        uploaded_file = st.file_uploader(
-            "📂 หรือลากวางไฟล์ภาพถ่ายของคุณเอง (JPG, PNG)", 
-            type=["jpg", "jpeg", "png"],
-            key="uploader"
-        )
+        # 1.2 Image Acquisition Options: File Upload vs Device Camera
+        input_tab1, input_tab2 = st.tabs(["📂 ลากวางไฟล์ภาพถ่าย (Upload)", "📸 เปิดกล้องอุปกรณ์ถ่ายภาพสด (Camera)"])
         
-        if uploaded_file is not None:
-            st.session_state["loaded_image"] = Image.open(uploaded_file)
+        with input_tab1:
+            uploaded_file = st.file_uploader(
+                "ลากวางไฟล์ภาพถ่ายของคุณเอง (JPG, PNG)", 
+                type=["jpg", "jpeg", "png"],
+                key="uploader"
+            )
+            if uploaded_file is not None:
+                st.session_state["loaded_image"] = Image.open(uploaded_file)
+                st.session_state["analysis_result"] = None
+
+        with input_tab2:
+            camera_file = st.camera_input(
+                "เปิดกล้องเว็บแคมหรือสมาร์ทโฟนเพื่อถ่ายภาพตัวอย่างสดในแปลง",
+                key="camera_input"
+            )
+            if camera_file is not None:
+                st.session_state["loaded_image"] = Image.open(camera_file)
+                st.session_state["analysis_result"] = None
+
 
         # 1.3 Location Input
         location_info = st.text_input(

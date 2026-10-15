@@ -1,0 +1,263 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 480" width="100%" height="100%">
+  <defs>
+    <!-- Dark Tech Gradient -->
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#090d16" />
+      <stop offset="50%" stop-color="#0f172a" />
+      <stop offset="100%" stop-color="#050811" />
+    </linearGradient>
+    
+    <!-- Neon Accent Gradients -->
+    <linearGradient id="cyanGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#06b6d4" />
+      <stop offset="100%" stop-color="#3b82f6" />
+    </linearGradient>
+    
+    <linearGradient id="emeraldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#10b981" />
+      <stop offset="100%" stop-color="#059669" />
+    </linearGradient>
+
+    <linearGradient id="amberGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f59e0b" />
+      <stop offset="100%" stop-color="#ea580c" />
+    </linearGradient>
+
+    <linearGradient id="purpleGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#a855f7" />
+      <stop offset="100%" stop-color="#6366f1" />
+    </linearGradient>
+
+    <!-- Filter for Glow Effect -->
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="4" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+
+  <!-- Background Canvas -->
+  <rect width="1000" height="480" rx="16" fill="url(#bgGrad)" stroke="#1e293b" stroke-width="2" />
+  
+  <!-- Subtle Grid Lines -->
+  <g opacity="0.12" stroke="#94a3b8" stroke-width="1">
+    <line x1="50" y1="0" x2="50" y2="480" />
+    <line x1="200" y1="0" x2="200" y2="480" />
+    <line x1="380" y1="0" x2="380" y2="480" />
+    <line x1="600" y1="0" x2="600" y2="480" />
+    <line x1="800" y1="0" x2="800" y2="480" />
+    <line x1="0" y1="80" x2="1000" y2="80" />
+    <line x1="0" y1="240" x2="1000" y2="240" />
+    <line x1="0" y1="400" x2="1000" y2="400" />
+  </g>
+
+  <!-- Title Banner -->
+  <g transform="translate(50, 42)">
+    <text x="0" y="0" font-family="-apple-system, BlinkMacSystemFont, 'Prompt', sans-serif" font-size="22" font-weight="bold" fill="#f8fafc">
+      🧪 กลไกการทดสอบโมเดลสดบน Google Colab (Interactive Model Inference Sandbox)
+    </text>
+    <text x="0" y="24" font-family="'JetBrains Mono', monospace" font-size="13" fill="#38bdf8">
+      Pipeline 3.1: Live Camera (WebRTC) | File Upload | Dataset Test Sample → Agri-Vision ROI → Neural Inference
+    </text>
+  </g>
+
+  <!-- ================= STAGE 1: MULTI-MODAL INPUT SOURCES ================= -->
+  <!-- Box 1A: Live Camera -->
+  <g transform="translate(40, 105)">
+    <rect width="220" height="95" rx="10" fill="#0b1329" stroke="#10b981" stroke-width="1.8" />
+    <circle cx="28" cy="28" r="14" fill="#10b981" opacity="0.2" />
+    <text x="28" y="33" text-anchor="middle" font-size="14">📸</text>
+    <text x="52" y="32" font-family="'Prompt', sans-serif" font-size="14" font-weight="bold" fill="#10b981">
+      1. กล้องสดของอุปกรณ์
+    </text>
+    <text x="18" y="58" font-family="'Prompt', sans-serif" font-size="11" fill="#cbd5e1">
+      • WebRTC MediaDevices API
+    </text>
+    <text x="18" y="76" font-family="'Prompt', sans-serif" font-size="11" fill="#94a3b8">
+      • ถ่ายภาพจากเว็บแคม / มือถือทันที
+    </text>
+  </g>
+
+  <!-- Box 1B: File Upload -->
+  <g transform="translate(40, 218)">
+    <rect width="220" height="95" rx="10" fill="#0b1329" stroke="#06b6d4" stroke-width="1.8" />
+    <circle cx="28" cy="28" r="14" fill="#06b6d4" opacity="0.2" />
+    <text x="28" y="33" text-anchor="middle" font-size="14">📂</text>
+    <text x="52" y="32" font-family="'Prompt', sans-serif" font-size="14" font-weight="bold" fill="#06b6d4">
+      2. อัปโหลดไฟล์จากเครื่อง
+    </text>
+    <text x="18" y="58" font-family="'Prompt', sans-serif" font-size="11" fill="#cbd5e1">
+      • google.colab.files.upload()
+    </text>
+    <text x="18" y="76" font-family="'Prompt', sans-serif" font-size="11" fill="#94a3b8">
+      • รองรับไฟล์ JPG, PNG ความละเอียดสูง
+    </text>
+  </g>
+
+  <!-- Box 1C: Dataset Pool -->
+  <g transform="translate(40, 331)">
+    <rect width="220" height="95" rx="10" fill="#0b1329" stroke="#f59e0b" stroke-width="1.8" />
+    <circle cx="28" cy="28" r="14" fill="#f59e0b" opacity="0.2" />
+    <text x="28" y="33" text-anchor="middle" font-size="14">🔀</text>
+    <text x="52" y="32" font-family="'Prompt', sans-serif" font-size="14" font-weight="bold" fill="#f59e0b">
+      3. สุ่มภาพจากชุดข้อมูล
+    </text>
+    <text x="18" y="58" font-family="'Prompt', sans-serif" font-size="11" fill="#cbd5e1">
+      • ชุด Validation / Test set
+    </text>
+    <text x="18" y="76" font-family="'Prompt', sans-serif" font-size="11" fill="#94a3b8">
+      • สุ่มอัตโนมัติ หรือเลือกคลาสเป้าหมาย
+    </text>
+  </g>
+
+  <!-- Connector Lines from 3 inputs to Hub -->
+  <path d="M 260 152 L 310 152 L 310 265 L 340 265" fill="none" stroke="#10b981" stroke-width="2" stroke-dasharray="4,3" />
+  <path d="M 260 265 L 340 265" fill="none" stroke="#06b6d4" stroke-width="2.5" />
+  <path d="M 260 378 L 310 378 L 310 265 L 340 265" fill="none" stroke="#f59e0b" stroke-width="2" stroke-dasharray="4,3" />
+
+  <!-- ================= STAGE 2: ADAPTIVE ROI PREPROCESSING ================= -->
+  <g transform="translate(345, 140)">
+    <rect width="200" height="250" rx="12" fill="#0f172a" stroke="#a855f7" stroke-width="2" filter="url(#glow)" />
+    <rect width="200" height="38" rx="10" fill="#a855f7" opacity="0.2" />
+    <text x="100" y="26" text-anchor="middle" font-family="'Prompt', sans-serif" font-size="13" font-weight="bold" fill="#e9d5ff">
+      🎯 Agri-Vision 2.0 ROI
+    </text>
+
+    <!-- Sub-bullets -->
+    <text x="18" y="65" font-family="'Prompt', sans-serif" font-size="12" font-weight="bold" fill="#38bdf8">
+      1. ตรวจสอบคุณภาพ (Gate):
+    </text>
+    <text x="22" y="85" font-family="'Prompt', sans-serif" font-size="10.5" fill="#94a3b8">
+      • Laplacian Var ≥ 80 (ความคม)
+    </text>
+    <text x="22" y="103" font-family="'Prompt', sans-serif" font-size="10.5" fill="#94a3b8">
+      • Specular Glare &lt; 4% (แสงจ้า)
+    </text>
+
+    <text x="18" y="132" font-family="'Prompt', sans-serif" font-size="12" font-weight="bold" fill="#10b981">
+      2. สกัดเป้าหมาย (Crop):
+    </text>
+    <text x="22" y="152" font-family="'Prompt', sans-serif" font-size="10.5" fill="#94a3b8">
+      • ExG สเปกตรัม หรือ Lab Salience
+    </text>
+    <text x="22" y="170" font-family="'Prompt', sans-serif" font-size="10.5" fill="#94a3b8">
+      • 2D Gaussian Spatial Prior
+    </text>
+    <text x="22" y="188" font-family="'Prompt', sans-serif" font-size="10.5" fill="#94a3b8">
+      • ตัดฉากหลังและขอบกระถางออก
+    </text>
+
+    <text x="18" y="217" font-family="'Prompt', sans-serif" font-size="12" font-weight="bold" fill="#f59e0b">
+      3. ปรับขนาดมาตรฐาน:
+    </text>
+    <text x="22" y="237" font-family="'JetBrains Mono', monospace" font-size="10" fill="#fde047">
+      Resize 224x224 Float32
+    </text>
+  </g>
+
+  <!-- Arrow to Inference -->
+  <path d="M 545 265 L 590 265" fill="none" stroke="#a855f7" stroke-width="2.5" marker-end="url(#arrow)" />
+  <polygon points="590,260 600,265 590,270" fill="#a855f7" />
+
+  <!-- ================= STAGE 3: IN-MEMORY NEURAL MODEL ================= -->
+  <g transform="translate(605, 140)">
+    <rect width="170" height="250" rx="12" fill="#0f172a" stroke="#38bdf8" stroke-width="2" />
+    <rect width="170" height="38" rx="10" fill="#38bdf8" opacity="0.2" />
+    <text x="85" y="26" text-anchor="middle" font-family="'Prompt', sans-serif" font-size="13" font-weight="bold" fill="#bae6fd">
+      🧠 โมเดลที่เทรนเสร็จ
+    </text>
+
+    <text x="14" y="65" font-family="'Prompt', sans-serif" font-size="11.5" font-weight="bold" fill="#f8fafc">
+      MobileNetV3 / ResNet
+    </text>
+    <text x="14" y="85" font-family="'JetBrains Mono', monospace" font-size="10" fill="#38bdf8">
+      • best_agri_model.pt
+    </text>
+    <text x="14" y="103" font-family="'JetBrains Mono', monospace" font-size="10" fill="#94a3b8">
+      • model.eval()
+    </text>
+    <text x="14" y="121" font-family="'JetBrains Mono', monospace" font-size="10" fill="#94a3b8">
+      • Forward Pass (GPU/CPU)
+    </text>
+
+    <path d="M 15 140 L 155 140" stroke="#334155" stroke-width="1" />
+
+    <text x="14" y="165" font-family="'Prompt', sans-serif" font-size="11.5" font-weight="bold" fill="#10b981">
+      Softmax Probability
+    </text>
+    <text x="14" y="188" font-family="'Prompt', sans-serif" font-size="10.5" fill="#94a3b8">
+      คำนวณร้อยละความมั่นใจ
+    </text>
+    <text x="14" y="206" font-family="'Prompt', sans-serif" font-size="10.5" fill="#94a3b8">
+      กระจายตัวทุกคลาส
+    </text>
+    <text x="14" y="232" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="bold" fill="#38bdf8">
+      Speed: &lt;15 ms
+    </text>
+  </g>
+
+  <!-- Arrow to Output -->
+  <path d="M 775 265 L 820 265" fill="none" stroke="#38bdf8" stroke-width="2.5" />
+  <polygon points="820,260 830,265 820,270" fill="#38bdf8" />
+
+  <!-- ================= STAGE 4: INTERACTIVE DIAGNOSTIC REPORT ================= -->
+  <g transform="translate(835, 105)">
+    <rect width="135" height="320" rx="12" fill="#0b1329" stroke="#10b981" stroke-width="2" />
+    <rect width="135" height="35" rx="10" fill="#10b981" opacity="0.2" />
+    <text x="67" y="24" text-anchor="middle" font-family="'Prompt', sans-serif" font-size="12" font-weight="bold" fill="#a7f3d0">
+      📊 ผลลัพธ์สด
+    </text>
+
+    <text x="12" y="60" font-family="'Prompt', sans-serif" font-size="11" font-weight="bold" fill="#38bdf8">
+      1. กราฟ 3 มิติ:
+    </text>
+    <text x="12" y="78" font-family="'Prompt', sans-serif" font-size="9.5" fill="#cbd5e1">
+      • ภาพต้นฉบับ + กรอบ
+    </text>
+    <text x="12" y="94" font-family="'Prompt', sans-serif" font-size="9.5" fill="#cbd5e1">
+      • ภาพ Crop เข้าโมเดล
+    </text>
+    <text x="12" y="110" font-family="'Prompt', sans-serif" font-size="9.5" fill="#cbd5e1">
+      • Bar Chart ทุกคลาส
+    </text>
+
+    <path d="M 12 125 L 123 125" stroke="#1e293b" stroke-width="1" />
+
+    <text x="12" y="145" font-family="'Prompt', sans-serif" font-size="11" font-weight="bold" fill="#f59e0b">
+      2. ผลทำนาย Top-1:
+    </text>
+    <text x="12" y="165" font-family="'Prompt', sans-serif" font-size="10" font-weight="bold" fill="#10b981">
+      คลาส: Clay Soil
+    </text>
+    <text x="12" y="182" font-family="'Prompt', sans-serif" font-size="10" fill="#94a3b8">
+      Conf: 98.6%
+    </text>
+
+    <path d="M 12 195 L 123 195" stroke="#1e293b" stroke-width="1" />
+
+    <text x="12" y="215" font-family="'Prompt', sans-serif" font-size="11" font-weight="bold" fill="#e9d5ff">
+      3. ค่าเทเลเมทรี:
+    </text>
+    <text x="12" y="235" font-family="'Prompt', sans-serif" font-size="9.5" fill="#94a3b8">
+      • ความชื้น: 54.2%
+    </text>
+    <text x="12" y="252" font-family="'Prompt', sans-serif" font-size="9.5" fill="#94a3b8">
+      • pH คาดคะเน: 6.2
+    </text>
+    <text x="12" y="269" font-family="'Prompt', sans-serif" font-size="9.5" fill="#94a3b8">
+      • ดัชนีสีแดง: 4.8
+    </text>
+
+    <path d="M 12 282 L 123 282" stroke="#1e293b" stroke-width="1" />
+
+    <text x="12" y="302" font-family="'Prompt', sans-serif" font-size="10" font-weight="bold" fill="#10b981">
+      ✅ แม่นยำสูง
+    </text>
+  </g>
+
+  <!-- Bottom Footer Pill -->
+  <g transform="translate(50, 442)">
+    <text x="0" y="15" font-family="'Prompt', sans-serif" font-size="12" fill="#64748b">
+      💡 รองรับ 100% บน Google Colab (รันได้ทันทีโดยไม่ต้องติดตั้งไดรเวอร์กล้องภายนอก ผ่าน WebRTC และ Google Colab Files API)
+    </text>
+  </g>
+</svg>

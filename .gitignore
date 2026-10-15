@@ -23,6 +23,7 @@ __pycache__/
 .idea/
 .agents/
 .claude/
+*.iml
 
 # Temporary and Large Download Files
 datasets/downloads/

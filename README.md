@@ -88,10 +88,16 @@
 
 ---
 
-## 🎓 สมุดงานสำหรับจัดอบรม (Workshop Notebook)
-ผู้เข้าอบรมสามารถเปิดไฟล์สมุดงาน [Smart_Agri_AI_LowCode_Workshop.ipynb](Smart_Agri_AI_LowCode_Workshop.ipynb) บน Google Colab ได้โดยตรง:
+## 🎓 สมุดงานสำหรับจัดอบรมเชิงปฏิบัติการ (Workshop Notebooks on Google Colab)
 
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Tsanaphy2023/smart-agri-xai-workshop/blob/main/Smart_Agri_AI_LowCode_Workshop.ipynb)
+ผู้เข้ารับการอบรมและนักวิจัยสามารถคลิกเปิดสมุดงานผ่าน Google Colab ได้โดยตรงตามวัตถุประสงค์การเรียนรู้:
+
+| ฉบับสมุดงาน (Edition) | วัตถุประสงค์และฟีเจอร์เด่น | ลิงก์เปิดรันบน Google Colab (1-Click) |
+| :--- | :--- | :---: |
+| **1. Master Low-Code Edition**<br>([`Smart_Agri_AI_LowCode_Workshop.ipynb`](Smart_Agri_AI_LowCode_Workshop.ipynb)) | • แผนผังภาพ SVG สวยงามครบทุกขั้นตอน<br>• รองรับชุดข้อมูลดินและโรคพืชทุเรียน/ข้าว/ข้าวโพด/มะเขือเทศ<br>• มีสตูดิโอวิเคราะห์ภาพ Agri-Vision 2.0 ROI & WebRTC Live Camera<br>• ระบบขยายข้อมูลภาพ Smart Data Augmentation Studio (Step 2.3) | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Tsanaphy2023/smart-agri-xai-workshop/blob/main/Smart_Agri_AI_LowCode_Workshop.ipynb) |
+| **2. Advanced Research & Validation Edition (v2)**<br>([`Smart_Agri_AI_LowCode_Workshop_v2.ipynb`](Smart_Agri_AI_LowCode_Workshop_v2.ipynb)) | • ตัดภาพซ้ำป้องกัน Data Leakage ด้วยลายนิ้วมือภาพ `dhash` (64-bit)<br>• ขยายภาพชุดฝึก 300 ภาพ/คลาส พร้อมปรับสมดุล<br>• รายงานช่วงเชื่อมั่น Wilson Score 95% CI & Macro-F1<br>• ประเมินความเสถียรด้วย k-fold Cross-Validation<br>• ทดสอบความทนทานต่อสภาพแสง/เงา/เบลอภาคสนาม (Robustness Test)<br>• ปรับเทียบความมั่นใจ Temperature Scaling ($T$) ป้องกัน Overconfidence | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Tsanaphy2023/smart-agri-xai-workshop/blob/main/Smart_Agri_AI_LowCode_Workshop_v2.ipynb) |
+
+> 📌 *หมายเหตุ:* ทั้งสองไฟล์สามารถเปิดใช้งานคู่ขนานกันได้ โดยมีเวอร์ชันลงวันที่สำรองไว้ที่ [`2026-10-15-Smart_Agri_AI_LowCode_Workshop.ipynb`](2026-10-15-Smart_Agri_AI_LowCode_Workshop.ipynb) และ [`2026-10-15-Smart_Agri_AI_LowCode_Workshop_v2.ipynb`](2026-10-15-Smart_Agri_AI_LowCode_Workshop_v2.ipynb)
 
 ### 🗺️ แผนผังภาพรวมการทำงานของโค้ดและระบบสำหรับผู้เริ่มต้น (Low-Code Visual Blueprint)
 

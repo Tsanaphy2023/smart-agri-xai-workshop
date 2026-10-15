@@ -177,8 +177,9 @@ train_transforms = transforms.Compose([
 เมื่อแบบจำลองได้รับการฝึกสอนในสภาพแวดล้อม Google Colab จนลู่เข้าสู่จุดเหมาะสม (Convergence) และมีค่าความแม่นยำสูงกว่า 92\% แล้ว ขั้นตอนสำคัญลำดับถัดไปคือการแปลงโมเดลให้อยู่ในฟอร์แมตที่เหมาะสมต่อการใช้งานจริงในแปลงเกษตร ดังแสดงในภาพที่ \ref{fig:colab_to_app_pipeline} ซึ่งจำแนกออกเป็น 2 เส้นทางหลัก:
 
 \begin{enumerate}
-    \item \textbf{เส้นทาง Web Application Dashboard (ONNX Format):}
-    แปลงโมเดล PyTorch เข้าสู่มาตรฐาน Open Neural Network Exchange (\texttt{smart\_agri\_model.onnx}) ผ่านคำสั่ง \texttt{torch.onnx.export} โดยกำหนดให้แกนขนาดแบทช์ (Batch Size) เป็นไดนามิก เพื่อให้เซิร์ฟเวอร์ Streamlit และ FastAPI สามารถโหลดโมเดลผ่าน In-Process ONNX Runtime ได้โดยตรงโดยไม่ต้องติดตั้ง PyTorch หรือไดรเวอร์ GPU ขนาดใหญ่ มีความหน่วงในการประมวลผลต่ำกว่า 15 มิลลิวินาที
+    \item \textbf{เส้นทาง Web Application Dashboard (ONNX Format \& Classes Metadata):}
+    แปลงโมเดล PyTorch ที่ดีที่สุด (Best Checkpoint) เข้าสู่มาตรฐาน Open Neural Network Exchange (\texttt{smart\_agri\_model.onnx}) ผ่านคำสั่ง \texttt{torch.onnx.export} โดยกำหนดให้แกนขนาดแบทช์ (Batch Size) เป็นไดนามิก พร้อมสร้างไฟล์นิยามคลาส (\texttt{smart\_agri\_classes.json}) ที่บรรจุรายชื่อคลาส ลำดับดัชนี และค่า Normalization เพื่อให้เซิร์ฟเวอร์ Streamlit และ FastAPI สามารถโหลดโมเดลผ่าน In-Process ONNX Runtime ได้โดยตรงโดยไม่ต้องติดตั้ง PyTorch หรือไดรเวอร์ GPU ขนาดใหญ่ มีความหน่วงในการประมวลผลต่ำกว่า 15 มิลลิวินาที
+
     
     \item \textbf{เส้นทาง Smartphone Mobile App (Quantized TFLite):}
     นำโมเดลเข้าสู่กระบวนการบีบอัดและควอนไทเซชัน (Weight Quantization) เพื่อแปลงเป็น TensorFlow Lite (\texttt{smart\_agri\_model.tflite}) ช่วยลดขนาดไฟล์จากเดิมกว่า 20 MB เหลือเพียง 4--6 MB จากนั้นนำไปบรรจุลงในโฟลเดอร์ \texttt{assets/models/} ของแอปพลิเคชัน Flutter เพื่อให้ชิปเร่งความเร็ว NPU/CPU ภายในสมาร์ทโฟนประมวลผลการวินิจฉัยโรคพืชและวิเคราะห์ภาพดินได้แบบออฟไลน์ 100\% ไร้สัญญาณอินเทอร์เน็ต

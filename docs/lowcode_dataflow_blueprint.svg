@@ -1,0 +1,205 @@
+<svg viewBox="0 0 1200 620" width="100%" height="auto" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+        <!-- Gradients -->
+        <linearGradient id="blueprintBg" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#090d16"/>
+            <stop offset="50%" stop-color="#0f172a"/>
+            <stop offset="100%" stop-color="#090d16"/>
+        </linearGradient>
+
+        <linearGradient id="cardGradStep1" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#10b981" stop-opacity="0.22"/>
+            <stop offset="100%" stop-color="#047857" stop-opacity="0.05"/>
+        </linearGradient>
+        <linearGradient id="cardGradStep2" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#06b6d4" stop-opacity="0.22"/>
+            <stop offset="100%" stop-color="#0891b2" stop-opacity="0.05"/>
+        </linearGradient>
+        <linearGradient id="cardGradStep3" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#f59e0b" stop-opacity="0.22"/>
+            <stop offset="100%" stop-color="#d97706" stop-opacity="0.05"/>
+        </linearGradient>
+        <linearGradient id="cardGradStep4" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#8b5cf6" stop-opacity="0.22"/>
+            <stop offset="100%" stop-color="#7c3aed" stop-opacity="0.05"/>
+        </linearGradient>
+
+        <!-- Arrow Markers -->
+        <marker id="flowArrow1" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M 0 1 L 10 5 L 0 9 z" fill="#10b981"/>
+        </marker>
+        <marker id="flowArrow2" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M 0 1 L 10 5 L 0 9 z" fill="#06b6d4"/>
+        </marker>
+        <marker id="flowArrow3" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M 0 1 L 10 5 L 0 9 z" fill="#f59e0b"/>
+        </marker>
+    </defs>
+
+    <!-- Canvas Background -->
+    <rect width="1200" height="620" rx="18" fill="url(#blueprintBg)" stroke="#1e293b" stroke-width="2"/>
+
+    <!-- Header Section -->
+    <g transform="translate(40, 36)">
+        <rect x="0" y="0" width="180" height="26" rx="6" fill="#06b6d4" fill-opacity="0.15" stroke="#06b6d4" stroke-width="1"/>
+        <text x="90" y="18" fill="#38bdf8" font-size="11" font-weight="700" text-anchor="middle" font-family="'JetBrains Mono', monospace">LOW-CODE ARCHITECTURE</text>
+        
+        <text x="0" y="58" fill="#f8fafc" font-size="22" font-weight="800" font-family="'Prompt', sans-serif">🗺️ แผนผังการไหลของข้อมูลและกลไกโค้ด AI สำหรับผู้เริ่มต้น (Dataflow Blueprint)</text>
+        <text x="0" y="82" fill="#94a3b8" font-size="13" font-family="'Prompt', sans-serif">ลำดับขั้นตอนการประมวลผลข้อมูลภาพและการฝึกสอนโมเดลปัญญาประดิษฐ์ฝังตัว เข้าใจง่าย ไร้ความซับซ้อน</text>
+    </g>
+
+    <!-- 4 Main Sequential Flow Cards -->
+
+    <!-- STEP 1: Ingestion & Auto ROI -->
+    <g transform="translate(40, 130)">
+        <rect width="250" height="340" rx="14" fill="url(#cardGradStep1)" stroke="#10b981" stroke-width="1.6"/>
+        <rect x="20" y="20" width="46" height="46" rx="10" fill="#10b981" fill-opacity="0.2" stroke="#10b981" stroke-width="1.5"/>
+        <text x="43" y="49" fill="#34d399" font-size="20" font-weight="800" text-anchor="middle" font-family="'Prompt', sans-serif">①</text>
+
+        <text x="78" y="38" fill="#34d399" font-size="15" font-weight="700" font-family="'Prompt', sans-serif">การโหลดภาพ &amp; สกัด ROI</text>
+        <text x="78" y="56" fill="#94a3b8" font-size="11" font-family="'JetBrains Mono', monospace">Target Ingestion</text>
+
+        <!-- Illustration Box -->
+        <rect x="20" y="80" width="210" height="95" rx="8" fill="#1e293b" stroke="#334155"/>
+        <rect x="35" y="92" width="70" height="70" rx="6" fill="#0f172a" stroke="#64748b" stroke-dasharray="2,2"/>
+        <rect x="50" y="107" width="40" height="40" rx="4" fill="#10b981" fill-opacity="0.4" stroke="#34d399" stroke-width="1.5"/>
+        <text x="160" y="112" fill="#e2e8f0" font-size="11" font-weight="600" font-family="'Prompt', sans-serif">Auto Center-Crop</text>
+        <text x="160" y="130" fill="#10b981" font-size="13" font-weight="700" font-family="'JetBrains Mono', monospace">150 × 150 px</text>
+        <text x="160" y="150" fill="#94a3b8" font-size="10" font-family="'Prompt', sans-serif">ขจัดขอบโต๊ะ/มือ</text>
+
+        <!-- Plain Thai Mechanics Explainer -->
+        <g transform="translate(20, 190)">
+            <text x="0" y="16" fill="#38bdf8" font-size="11" font-weight="700" font-family="'JetBrains Mono', monospace">[CODE MECHANISM]</text>
+            <text x="0" y="35" fill="#f8fafc" font-size="11" font-family="'Prompt', sans-serif">• <b>cv2.imread:</b> เปิดไฟล์ภาพเข้าหน่วยความจำ</text>
+            <text x="0" y="54" fill="#f8fafc" font-size="11" font-family="'Prompt', sans-serif">• <b>[y1:y2, x1:x2]:</b> กรีดตัดเฉพาะกึ่งกลางภาพ</text>
+            <text x="0" y="73" fill="#f8fafc" font-size="11" font-family="'Prompt', sans-serif">• <b>cv2.resize:</b> ปรับสเกลเข้า 224×224 พิกเซล</text>
+        </g>
+
+        <!-- Parameter Badge -->
+        <rect x="20" y="285" width="210" height="34" rx="6" fill="#0f172a" stroke="#10b981" stroke-width="1"/>
+        <text x="125" y="306" fill="#6ee7b7" font-size="11" font-weight="700" text-anchor="middle" font-family="'JetBrains Mono', monospace">Target: Pure Soil / Leaf</text>
+    </g>
+
+    <!-- Arrow 1 -> 2 -->
+    <path d="M 290 300 L 325 300" stroke="#10b981" stroke-width="2.5" marker-end="url(#flowArrow1)"/>
+
+    <!-- STEP 2: Preprocessing & Data Split -->
+    <g transform="translate(330, 130)">
+        <rect width="250" height="340" rx="14" fill="url(#cardGradStep2)" stroke="#06b6d4" stroke-width="1.6"/>
+        <rect x="20" y="20" width="46" height="46" rx="10" fill="#06b6d4" fill-opacity="0.2" stroke="#06b6d4" stroke-width="1.5"/>
+        <text x="43" y="49" fill="#22d3ee" font-size="20" font-weight="800" text-anchor="middle" font-family="'Prompt', sans-serif">②</text>
+
+        <text x="78" y="38" fill="#22d3ee" font-size="15" font-weight="700" font-family="'Prompt', sans-serif">เตรียมข้อมูล &amp; วิเคราะห์สี</text>
+        <text x="78" y="56" fill="#94a3b8" font-size="11" font-family="'JetBrains Mono', monospace">Preprocess &amp; Split</text>
+
+        <!-- Illustration Box -->
+        <rect x="20" y="80" width="210" height="95" rx="8" fill="#1e293b" stroke="#334155"/>
+        <!-- Train / Val ratio bar -->
+        <rect x="35" y="95" width="128" height="20" rx="4" fill="#0891b2"/>
+        <text x="99" y="109" fill="#ffffff" font-size="10" font-weight="700" text-anchor="middle" font-family="'JetBrains Mono', monospace">TRAIN 80%</text>
+        <rect x="167" y="95" width="48" height="20" rx="4" fill="#3b82f6"/>
+        <text x="191" y="109" fill="#ffffff" font-size="10" font-weight="700" text-anchor="middle" font-family="'JetBrains Mono', monospace">VAL 20%</text>
+        
+        <text x="35" y="140" fill="#e2e8f0" font-size="11" font-family="'Prompt', sans-serif">🧪 วิเคราะห์พิกัดสี: <b>CIE L*a*b*</b></text>
+        <text x="35" y="160" fill="#94a3b8" font-size="10" font-family="'Prompt', sans-serif">ดัชนีแสง L* สัมพันธ์กับค่าความชื้นและ pH</text>
+
+        <!-- Plain Thai Mechanics Explainer -->
+        <g transform="translate(20, 190)">
+            <text x="0" y="16" fill="#38bdf8" font-size="11" font-weight="700" font-family="'JetBrains Mono', monospace">[CODE MECHANISM]</text>
+            <text x="0" y="35" fill="#f8fafc" font-size="11" font-family="'Prompt', sans-serif">• <b>ImageDataGen:</b> บรรทัดเดียวแบ่ง 80/20</text>
+            <text x="0" y="54" fill="#f8fafc" font-size="11" font-family="'Prompt', sans-serif">• <b>Rescaling 1./255:</b> ปรับค่าพิกเซล 0-1</text>
+            <text x="0" y="73" fill="#f8fafc" font-size="11" font-family="'Prompt', sans-serif">• <b>Augment:</b> หมุน/ซูมจำลองสภาพแสงจริง</text>
+        </g>
+
+        <!-- Parameter Badge -->
+        <rect x="20" y="285" width="210" height="34" rx="6" fill="#0f172a" stroke="#06b6d4" stroke-width="1"/>
+        <text x="125" y="306" fill="#67e8f9" font-size="11" font-weight="700" text-anchor="middle" font-family="'JetBrains Mono', monospace">Normalization: 0.0 - 1.0</text>
+    </g>
+
+    <!-- Arrow 2 -> 3 -->
+    <path d="M 580 300 L 615 300" stroke="#06b6d4" stroke-width="2.5" marker-end="url(#flowArrow2)"/>
+
+    <!-- STEP 3: Transfer Learning -->
+    <g transform="translate(620, 130)">
+        <rect width="250" height="340" rx="14" fill="url(#cardGradStep3)" stroke="#f59e0b" stroke-width="1.6"/>
+        <rect x="20" y="20" width="46" height="46" rx="10" fill="#f59e0b" fill-opacity="0.2" stroke="#f59e0b" stroke-width="1.5"/>
+        <text x="43" y="49" fill="#fbbf24" font-size="20" font-weight="800" text-anchor="middle" font-family="'Prompt', sans-serif">③</text>
+
+        <text x="78" y="38" fill="#fbbf24" font-size="15" font-weight="700" font-family="'Prompt', sans-serif">ฝึกสอนโมเดล AI</text>
+        <text x="78" y="56" fill="#94a3b8" font-size="11" font-family="'JetBrains Mono', monospace">Transfer Learning</text>
+
+        <!-- Illustration Box -->
+        <rect x="20" y="80" width="210" height="95" rx="8" fill="#1e293b" stroke="#334155"/>
+        <!-- Neural Net layers -->
+        <rect x="35" y="93" width="75" height="24" rx="4" fill="#334155"/>
+        <text x="72" y="109" fill="#94a3b8" font-size="9" font-weight="700" text-anchor="middle" font-family="'JetBrains Mono', monospace">MobileNetV2</text>
+        <rect x="115" y="93" width="45" height="24" rx="4" fill="#d97706"/>
+        <text x="137" y="109" fill="#ffffff" font-size="9" font-weight="700" text-anchor="middle" font-family="'JetBrains Mono', monospace">GAP</text>
+        <rect x="165" y="93" width="50" height="24" rx="4" fill="#f59e0b"/>
+        <text x="190" y="109" fill="#0f172a" font-size="9" font-weight="800" text-anchor="middle" font-family="'JetBrains Mono', monospace">Dense</text>
+        
+        <text x="35" y="140" fill="#e2e8f0" font-size="11" font-family="'Prompt', sans-serif">🧠 <b>ส่งต่อความรู้ (ImageNet)</b></text>
+        <text x="35" y="160" fill="#94a3b8" font-size="10" font-family="'Prompt', sans-serif">ล็อกฐานโมเดล ปรับเฉพาะส่วนหัววินิจฉัย</text>
+
+        <!-- Plain Thai Mechanics Explainer -->
+        <g transform="translate(20, 190)">
+            <text x="0" y="16" fill="#38bdf8" font-size="11" font-weight="700" font-family="'JetBrains Mono', monospace">[HYPERPARAMETERS]</text>
+            <text x="0" y="35" fill="#f8fafc" font-size="11" font-family="'Prompt', sans-serif">• <b>Epochs (5-10):</b> รอบการอ่านหนังสือ</text>
+            <text x="0" y="54" fill="#f8fafc" font-size="11" font-family="'Prompt', sans-serif">• <b>Batch (16-32):</b> จำนวนภาพตรวจทีละชุด</text>
+            <text x="0" y="73" fill="#f8fafc" font-size="11" font-family="'Prompt', sans-serif">• <b>Learning Rate (0.001):</b> ก้าวการเรียนรู้</text>
+        </g>
+
+        <!-- Parameter Badge -->
+        <rect x="20" y="285" width="210" height="34" rx="6" fill="#0f172a" stroke="#f59e0b" stroke-width="1"/>
+        <text x="125" y="306" fill="#fde68a" font-size="11" font-weight="700" text-anchor="middle" font-family="'JetBrains Mono', monospace">Adam Optimizer + Softmax</text>
+    </g>
+
+    <!-- Arrow 3 -> 4 -->
+    <path d="M 870 300 L 905 300" stroke="#f59e0b" stroke-width="2.5" marker-end="url(#flowArrow3)"/>
+
+    <!-- STEP 4: Compression & Deployment -->
+    <g transform="translate(910, 130)">
+        <rect width="250" height="340" rx="14" fill="url(#cardGradStep4)" stroke="#8b5cf6" stroke-width="1.6"/>
+        <rect x="20" y="20" width="46" height="46" rx="10" fill="#8b5cf6" fill-opacity="0.2" stroke="#8b5cf6" stroke-width="1.5"/>
+        <text x="43" y="49" fill="#c4b5fd" font-size="20" font-weight="800" text-anchor="middle" font-family="'Prompt', sans-serif">④</text>
+
+        <text x="78" y="38" fill="#c4b5fd" font-size="15" font-weight="700" font-family="'Prompt', sans-serif">บีบอัด &amp; ติดตั้งใช้งาน</text>
+        <text x="78" y="56" fill="#94a3b8" font-size="11" font-family="'JetBrains Mono', monospace">Deploy &amp; Export</text>
+
+        <!-- Illustration Box -->
+        <rect x="20" y="80" width="210" height="95" rx="8" fill="#1e293b" stroke="#334155"/>
+        <!-- File size compression visual -->
+        <rect x="35" y="93" width="90" height="24" rx="4" fill="#334155"/>
+        <text x="80" y="109" fill="#94a3b8" font-size="9" font-weight="700" text-anchor="middle" font-family="'JetBrains Mono', monospace">H5: ~14 MB</text>
+        <text x="133" y="110" fill="#c4b5fd" font-size="12" font-weight="800">➔</text>
+        <rect x="145" y="93" width="70" height="24" rx="4" fill="#7c3aed"/>
+        <text x="180" y="109" fill="#ffffff" font-size="9" font-weight="800" text-anchor="middle" font-family="'JetBrains Mono', monospace">2.5 MB</text>
+        
+        <text x="35" y="140" fill="#e2e8f0" font-size="11" font-family="'Prompt', sans-serif">📱 <b>ติดตั้งในสมาร์ทโฟน / บอร์ด</b></text>
+        <text x="35" y="160" fill="#94a3b8" font-size="10" font-family="'Prompt', sans-serif">วินิจฉัยออฟไลน์ 100% ไร้สัญญาณเน็ต</text>
+
+        <!-- Plain Thai Mechanics Explainer -->
+        <g transform="translate(20, 190)">
+            <text x="0" y="16" fill="#38bdf8" font-size="11" font-weight="700" font-family="'JetBrains Mono', monospace">[EDGE DEPLOYMENT]</text>
+            <text x="0" y="35" fill="#f8fafc" font-size="11" font-family="'Prompt', sans-serif">• <b>TFLite Converter:</b> แปลงโมเดลเป็นชุดคำสั่งเบา</text>
+            <text x="0" y="54" fill="#f8fafc" font-size="11" font-family="'Prompt', sans-serif">• <b>Quantization:</b> บีบอัดลดขนาดลง 70-80%</text>
+            <text x="0" y="73" fill="#f8fafc" font-size="11" font-family="'Prompt', sans-serif">• <b>Latency &lt;15ms:</b> ตอบสนองเรียลไทม์</text>
+        </g>
+
+        <!-- Parameter Badge -->
+        <rect x="20" y="285" width="210" height="34" rx="6" fill="#0f172a" stroke="#8b5cf6" stroke-width="1"/>
+        <text x="125" y="306" fill="#ddd6fe" font-size="11" font-weight="700" text-anchor="middle" font-family="'JetBrains Mono', monospace">Format: .tflite / .onnx</text>
+    </g>
+
+    <!-- Bottom Quick Summary Bar -->
+    <g transform="translate(40, 490)">
+        <rect width="1120" height="100" rx="12" fill="#0f172a" stroke="#1e293b" stroke-width="1.5"/>
+        <g transform="translate(25, 25)">
+            <circle cx="12" cy="12" r="10" fill="#10b981" fill-opacity="0.2"/>
+            <text x="12" y="16" fill="#34d399" font-size="11" font-weight="700" text-anchor="middle">✓</text>
+            <text x="32" y="16" fill="#f8fafc" font-size="13" font-weight="700" font-family="'Prompt', sans-serif">สรุปภาพรวมสำหรับผู้เรียน:</text>
+            <text x="32" y="38" fill="#94a3b8" font-size="12" font-family="'Prompt', sans-serif">ผู้เรียนไม่จำเป็นต้องเขียนโค้ดเองตั้งแต่ต้น เพียงทำความเข้าใจการไหลของข้อมูล 4 ขั้นตอนนี้ แล้วกดรันตามเซลล์ใน Google Colab ได้ทันที</text>
+            <text x="32" y="58" fill="#38bdf8" font-size="11" font-family="'JetBrains Mono', monospace">Input (150x150 Crop) ➔ Preprocessing (80/20 Split) ➔ Transfer Learning (MobileNetV2) ➔ Edge TFLite (&lt;15ms Offline)</text>
+        </g>
+    </g>
+</svg>

@@ -1081,6 +1081,9 @@ with tab1:
                         with st.expander("🔬 แผนผังขั้นตอน ROI เจาะลึก 6 สเต็ป (Step-by-Step Diagnostic Breakdown)", expanded=False):
                             stages = preprocessed_data["stages"]
                             st.caption("🔍 ติดตามการทำงานของอัลกอริทึมตั้งแต่การคำนวณดัชนีแสงชีวภาพ (ExG/Lab) ไปจนถึงการตัดกรอบเป้าหมายเพื่อนำข้อมูลย้อนกลับมาปรับพารามิเตอร์")
+
+                            roi_svg_path = os.path.join(os.path.dirname(__file__), "docs", "roi_adaptive_pipeline_diagram.svg")
+                            render_svg_card(roi_svg_path)
                             
                             # Row 1
                             s_col1, s_col2, s_col3 = st.columns(3)
@@ -1764,6 +1767,12 @@ with tab4:
     st.markdown("### 4. 🗺️ แผนผังการไหลของข้อมูลและกลไกโค้ดสำหรับผู้เริ่มต้น (Low-Code Visual Blueprint)")
     st.caption("ทำความเข้าใจกลไกการเดินทางของข้อมูลภาพถ่ายดินสู่โมเดล AI และพารามิเตอร์สำคัญในรูปแบบภาษาไทยที่เข้าใจง่าย ไร้ศัพท์เทคนิคซับซ้อน")
 
+    blueprint_svg = os.path.join(os.path.dirname(__file__), "docs", "lowcode_dataflow_blueprint.svg")
+    render_svg_card(blueprint_svg)
+
+    hyperparam_svg = os.path.join(os.path.dirname(__file__), "docs", "hyperparameter_intuitive_guide.svg")
+    render_svg_card(hyperparam_svg)
+
     st.markdown("""
     <div style="background: rgba(15, 23, 42, 0.95); border: 1px solid #1e293b; border-radius: 12px; padding: 18px 20px; margin-bottom: 18px; color: #e2e8f0; font-family: 'JetBrains Mono', monospace; font-size: 0.84rem; line-height: 1.6;">
         <span style="color: #38bdf8; font-weight: 700;">[DATAFLOW PIPELINE & RUNTIME ARCHITECTURE]</span><br>
@@ -1979,6 +1988,10 @@ with tab5:
 
     # Section 1: End-to-End Architecture SVG & Deployment Infographic
     st.markdown("### 1. 🌐 แผนผังสถาปัตยกรรมระบบและขั้นตอนการส่งมอบโมเดลจาก Colab (Deployment Pipeline)")
+    
+    ecosystem_svg = os.path.join(os.path.dirname(__file__), "docs", "edge_aiot_ecosystem_architecture.svg")
+    render_svg_card(ecosystem_svg)
+
     info_col1, info_col2 = st.columns([1.1, 1], gap="medium")
     with info_col1:
         deployment_arch_svg = os.path.join(os.path.dirname(__file__), "docs", "web_mobile_deployment_architecture.svg")

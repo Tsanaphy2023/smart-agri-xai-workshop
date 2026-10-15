@@ -60,8 +60,19 @@
    
    ![แผนผังขั้นตอน ROI 6 สเต็ป](docs/roi_adaptive_pipeline_diagram.svg)
 
-4. **Structured Diagnostic Output:** แสดงผลสถานะปัญหา, อาการที่พบ, คำแนะนำเชิงปฏิบัติ, และค่าความมั่นใจ (Confidence Score)
-5. **Export Diagnostic Report:** ปุ่มดาวน์โหลดรายงานผลเป็น **JSON** และ **Markdown Summary Card**
+4. **🌈 สตูดิโอสุ่มวิเคราะห์หลายจุด & เปรียบเทียบปริภูมิสี (Multi-Point & Color Space Studio):**
+   - 🎛️ **Dropdown เลือกลักษณะการสุ่มตัวอย่าง (Sampling Strategy):**
+     - ⭐ *Composite 5-Point (W/Star Sampling):* มาตรฐานการสุ่มดิน 5 จุดรวม (จุดกึ่งกลางแปลง + 4 มุมตัวแทน) ตามหลักปฐพีวิทยา
+     - 🎯 *Single Center (1 จุดกึ่งกลาง):* สำหรับทดสอบวัตถุเดี่ยวตรงกลาง
+     - 🗺️ *3x3 Spatial Grid (ตารางเมทริกซ์ 9 โซน A1-C3):* สร้างแผนที่ความแปรปรวนเชิงพื้นที่แบบ Micro-topography
+     - 📍 *Custom Coordinates (สุ่มพิกัดเอง):* เลื่อนสไลเดอร์ X-Y เพื่อกำหนดจุดวิเคราะห์ได้อิสระ
+   - 🌈 **Dropdown เลือกและเปรียบเทียบปริภูมิสี (Color Space & Radiometric Calibration):**
+     - 🖼️ *All 6 Channels Side-by-Side:* แสดงเปรียบเทียบพร้อมกัน 6 แชนแนล (RGB, HSV, CIE $L^*a^*b^*$, ExG, CLAHE Equalization, Clean Binary Mask)
+     - 🎚️ หรือเลือกดูเจาะลึกเฉพาะแชนแนลที่สนใจ
+   - 📊 **ดัชนีความสม่ำเสมอของแปลง (Spatial Homogeneity Index):** คำนวณ $H_{\text{spatial}} = 100 - \text{CV}_{\%}$ และออกข้อวินิจฉัยเชิงพื้นที่แบบเรียลไทม์ (ดินสม่ำเสมอเหมาะกับการหว่านปุ๋ยสูตรเดียวทั้งแปลง หรือ ดินแปรปรวนสูงควรใช้การให้ปุ๋ยแบบเฉพาะเจาะจง VRA)
+   - 📋 **ตารางเปรียบเทียบข้อมูลรายจุด (Point-by-Point Data Comparison Table):** แสดงค่า $L^*, a^*, b^*$, ดัชนีความชื้นคาดคะเน (\%), ดัชนีสีแดงดินลูกรัง, ความคมชัด Laplacian, ค่า pH คาดคะเน และกลุ่มดินที่คาดคะเน
+5. **Structured Diagnostic Output:** แสดงผลสถานะปัญหา, อาการที่พบ, คำแนะนำเชิงปฏิบัติ, และค่าความมั่นใจ (Confidence Score)
+6. **Export Diagnostic Report:** ปุ่มดาวน์โหลดรายงานผลเป็น **JSON** และ **Markdown Summary Card**
 
 ### แท็บ 2: 🧪 วิเคราะห์ธาตุอาหารเคมีและแนะนำพืช (Soil Sensor & Crop AI)
 1. **Field Sensor Inputs:** รับค่า ไนโตรเจน (N), ฟอสฟอรัส (P), โพแทสเซียม (K), ค่าความเป็นกรด-ด่าง (pH), อุณหภูมิ, ความชื้น, ปริมาณน้ำฝน

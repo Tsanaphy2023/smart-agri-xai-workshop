@@ -105,6 +105,41 @@
 \label{fig:two_stage_vision_pipeline}
 \end{figure}
 
+\subsection{ระเบียบวิธีวิจัยการสุ่มตัวอย่างดินหลายจุดและการแปลงปริภูมิสี (Multi-Point Composite Soil Sampling \& Multi-Spectral Analysis)}
+\label{subsec:multi_point_sampling}
+
+ในการประเมินคุณสมบัติของดินจากภาพถ่ายในแปลงเกษตรกรรมจริง ความแปรปรวนเชิงพื้นที่ (Spatial Heterogeneity) แสงเงาตกกระทบ และรอยขรุขระของหน้าดิน มักทำให้การเก็บตัวอย่างแบบจุดเดียวที่กึ่งกลางภาพ (Single-Point Sampling) มีความคลาดเคลื่อนสูง เพื่อแก้ไขปัญหานี้ งานวิจัยได้พัฒนาระบบ \textbf{สตูดิโอสุ่มวิเคราะห์หลายจุด (Multi-Point Spatial Sampling)} และการแปลงภาพสู่หลากหลายปริภูมิสี (Multi-Channel Color Spaces) เพื่อการเปรียบเทียบประสิทธิภาพอย่างรอบด้าน:
+
+\begin{enumerate}
+    \item \textbf{กลยุทธ์การสุ่มตัวอย่างดินตามมาตรฐานปฐพีวิทยา (Spatial Sampling Strategies):}
+    \begin{itemize}
+        \item \textit{Composite 5-Point Sampling (มาตรฐานตัวอย่างรวม 5 จุด):} จำลองวิธีการเก็บตัวอย่างดินแบบกากบาทหรือรูปดาว (W/Star Sampling Pattern) ประกอบด้วยจุดกึ่งกลาง $(x_c, y_c)$ และจุดตัวแทน 4 ทิศในแต่ละจตุภาค $(x_c \pm \Delta x, y_c \pm \Delta y)$
+        \item \textit{3$\times$3 Spatial Grid Sampling (ตารางเมทริกซ์ 9 โซน):} แบ่งพื้นที่ผิวหน้าดินออกเป็น 9 พิกัด ($A_1$ ถึง $C_3$) เพื่อสร้างแผนที่ความแปรปรวนเชิงพื้นที่แบบ Micro-topography
+        \item \textit{Interactive User Coordinates:} อนุญาตให้นักวิจัยกำหนดพิกัด $(x_i, y_i)$ บนหน้าจอได้โดยตรงเพื่อศึกษาเฉพาะจุดที่สนใจ
+    \end{itemize}
+
+    \item \textbf{ดัชนีชี้วัดคุณสมบัติทางแสงและปฐพีวิทยา (Optical \& Pedological Proxies):}
+    ในแต่ละแพตช์ขนาด $W_p \times H_p$ พิกเซล ระบบจะคำนวณดัชนีชี้วัดทางฟิสิกส์ 5 มิติ:
+    \begin{equation}
+        \text{Moisture Proxy (\%)} = 100 - L^*, \quad \text{Redness Index (RI)} = \frac{R^2}{G \cdot B + \epsilon} \times 100
+    \end{equation}
+    \begin{equation}
+        \text{Calibrated pH Proxy} = 4.0 + 3.8 \times \left( \frac{b^* - 5.0}{35.0} \right)
+    \end{equation}
+    โดย $L^*, a^*, b^*$ คือค่าสีในระบบ CIE $L^*a^*b^*$ ซึ่ง $L^*$ มีความสัมพันธ์แบบผกผันกับความชื้นในดินอย่างมีนัยสำคัญทางสถิติ ($R^2 > 0.85$) เนื่องจากน้ำในช่องว่างระหว่างเม็ดดินจะดูดกลืนแสงทำให้ดินมีสีเข้มขึ้น
+
+    \item \textbf{ดัชนีความสม่ำเสมอเชิงพื้นที่ของแปลง (Spatial Homogeneity Index):}
+    ความแปรปรวนระหว่างจุดตรวจวัด $N$ จุด ประเมินจากสัมประสิทธิ์ความแปรปรวน (Coefficient of Variation: $\text{CV}$) ของค่าความสว่าง $L^*$:
+    \begin{equation}
+        \mu_{L^*} = \frac{1}{N} \sum_{i=1}^N L^*_i, \quad \sigma_{L^*} = \sqrt{ \frac{1}{N} \sum_{i=1}^N (L^*_i - \mu_{L^*})^2 }
+    \end{equation}
+    \begin{equation}
+        \text{CV}_{\%} = \frac{\sigma_{L^*}}{\mu_{L^*}} \times 100\%, \quad H_{\text{spatial}} = 100\% - \text{CV}_{\%}
+    \end{equation}
+    หาก $H_{\text{spatial}} \ge 88.0\%$ แสดงว่าแปลงดินมีความสม่ำเสมอสูงมาก เกษตรกรสามารถใส่ปุ๋ยสูตรเดียวกันทั้งแปลงได้ หาก $H_{\text{spatial}} < 88.0\%$ แสดงว่าแปลงดินมีความแปรปรวนเชิงพื้นที่สูง ควรใช้เทคโนโลยีการให้ปุ๋ยแบบอัตราแปรผัน (Variable Rate Application: VRA)
+\end{enumerate}
+
+
 \academicsection{การวิเคราะห์ธาตุอาหารด้วยสเปกโทรสโกปีคลื่นแสงสะท้อน (OSSL)}
 \label{sec:soil_spectroscopy}
 

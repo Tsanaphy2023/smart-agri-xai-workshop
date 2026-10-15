@@ -1115,6 +1115,173 @@ with tab1:
                             </div>
                             """, unsafe_allow_html=True)
 
+                    # Advanced Multi-Point Sampling & Spectral Color Space Studio
+                    with st.expander("🌈 สตูดิโอสุ่มวิเคราะห์หลายจุด & เปรียบเทียบปริภูมิสี (Multi-Point & Color Space Studio)", expanded=False):
+                        st.markdown("##### 🔬 เครื่องมือวิเคราะห์ความแปรปรวนเชิงพื้นที่และการแปลงช่องสัญญาณภาพ (Precision Agri-Vision Studio)")
+                        st.caption("จำลองการเก็บตัวอย่างดินแบบผสมหลายจุด (Composite Sampling) และตรวจสอบภาพผ่าน 6 ปริภูมิสีเพื่อขจัดสิ่งรบกวนก่อนป้อนเข้าสู่โมเดล AI")
+
+                        ms_col1, ms_col2 = st.columns(2)
+                        with ms_col1:
+                            sampling_strategy_label = st.selectbox(
+                                "🎯 เลือกกลยุทธ์การสุ่มพื้นที่วิเคราะห์ (Sampling Strategy)",
+                                [
+                                    "⭐ มาตรฐานปฐพีวิทยา 5 จุดรวม (Composite 5-Point Cross/Star)",
+                                    "🎯 สกัดเฉพาะกึ่งกลางเลนส์จุดเดียว (Single Center Crop)",
+                                    "🗺️ ตารางเมทริกซ์ 9 โซนย่อยทั่วแปลง (3×3 Spatial Grid)",
+                                    "🎛️ กำหนดพิกัดและขนาดจุดอิสระ (Custom Multi-Point Interactive)"
+                                ],
+                                index=0
+                            )
+                        with ms_col2:
+                            colorspace_view_label = st.selectbox(
+                                "🌈 เลือกมุมมองปริภูมิสี & การสอบเทียบ (Color Space & Calibration)",
+                                [
+                                    "📊 แสดงเปรียบเทียบพร้อมกัน 6 ปริภูมิสี (All 6 Channels Side-by-Side)",
+                                    "1. 📸 ภาพถ่ายสีธรรมชาติ (RGB Original)",
+                                    "2. 🌿 ปริภูมิสี HSV (Hue & Saturation - ใบซีดเหลือง/รอยไหม้)",
+                                    "3. 🧪 ปริภูมิสี CIE L*a*b* (Lightness & Moisture Proxy)",
+                                    "4. 🍃 ดัชนีชีวภาพ ExG (2G-R-B คลอโรฟิลล์พืช)",
+                                    "5. ✨ การสอบเทียบแสง CLAHE (ขจัดเงามืด & Glare)",
+                                    "6. 🛡️ หน้ากากทำความสะอาดข้อมูล (Clean Mask & Edges)"
+                                ],
+                                index=0
+                            )
+
+                        custom_pts = None
+                        patch_sz = 60
+                        if "Custom Multi-Point" in sampling_strategy_label:
+                            st.markdown("###### 🎛️ ปรับแต่งพิกัดและขนาดของจุดสุ่มตัวอย่าง (Custom Coordinates):")
+                            c_num_pts = st.slider("จำนวนจุดสุ่มตัวอย่าง", min_value=1, max_value=4, value=3)
+                            patch_sz = st.slider("ขนาดกรอบตัวอย่าง (พิกเซล)", min_value=30, max_value=120, value=60, step=10)
+                            
+                            c_cols = st.columns(c_num_pts)
+                            custom_pts = []
+                            w_curr, h_curr = current_image.size
+                            for p_i in range(c_num_pts):
+                                with c_cols[p_i]:
+                                    st.caption(f"📍 จุดที่ {p_i+1}")
+                                    def_x = int(w_curr * (0.25 + 0.25 * p_i))
+                                    def_y = int(h_curr * 0.5)
+                                    px = st.number_input(f"แกน X_{p_i+1}", min_value=0, max_value=w_curr, value=def_x, key=f"cpt_x_{p_i}")
+                                    py = st.number_input(f"แกน Y_{p_i+1}", min_value=0, max_value=h_curr, value=def_y, key=f"cpt_y_{p_i}")
+                                    custom_pts.append((px, py))
+
+                        # Map strategy keyword
+                        if "5-Point" in sampling_strategy_label:
+                            strat_key = "composite_5point"
+                        elif "Single Center" in sampling_strategy_label:
+                            strat_key = "single_center"
+                        elif "3×3 Spatial Grid" in sampling_strategy_label:
+                            strat_key = "grid_3x3"
+                        else:
+                            strat_key = "custom_points"
+
+                        # Run Multi-Point Sampling
+                        multi_res = SoilVisionPreprocessor.multi_point_sampling(
+                            current_image, 
+                            strategy=strat_key,
+                            custom_points=custom_pts,
+                            patch_size=patch_sz
+                        )
+
+                        # Display Annotated Multi-Point Image & Aggregate Statistics
+                        m_img_col, m_stat_col = st.columns([1.1, 1], gap="medium")
+                        with m_img_col:
+                            st.image(
+                                multi_res["annotated_pil"], 
+                                caption=f"🎯 แผนที่สุ่มตรวจ {multi_res['total_points']} พิกัดตามกลยุทธ์ {sampling_strategy_label.split(' ')[0]}", 
+                                use_container_width=True
+                            )
+                        with m_stat_col:
+                            agg = multi_res["aggregate_stats"]
+                            st.markdown(f"""
+                            <div style="background: rgba(15, 23, 42, 0.95); border: 1px solid #1e293b; border-radius: 10px; padding: 12px 14px; font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; color: #f8fafc; line-height: 1.55;">
+                                <b style="color: #10b981;">[COMPOSITE SOIL TELEMETRY AGGREGATE]</b><br>
+                                • จำนวนจุดตรวจวัด: <b>{multi_res['total_points']} จุด</b><br>
+                                • ค่าความสว่างเฉลี่ย (Mean L*): <b>{agg['mean_l_star']} ± {agg['std_l_star']}</b><br>
+                                • ดัชนีความชื้นรวม (Moisture Proxy): <b>{agg['mean_moisture_pct']}% ± {agg['std_moisture_pct']}%</b><br>
+                                • ดัชนีสีแดงดินลูกรัง (Mean Redness): <b>{agg['mean_redness']}</b><br>
+                                • ค่า pH คาดคะเนรวม: <b>{agg['mean_estimated_ph']} ± {agg['std_estimated_ph']}</b><br>
+                                • ความสม่ำเสมอของแปลง (Homogeneity): <b style="color: #38bdf8;">{agg['homogeneity_index_pct']}%</b><br>
+                                • ข้อวินิจฉัยเชิงพื้นที่: <span style="color: #fde047;">{agg['homogeneity_verdict']}</span>
+                            </div>
+                            """, unsafe_allow_html=True)
+
+                            st.caption("💡 ค่าความแปรปรวน (Std Dev) ยิ่งต่ำ แสดงว่าเนื้อดินทั้งแปลงมีความสม่ำเสมอเป็นเนื้อเดียวกันมาก สามารถใส่ปุ๋ยสูตรเดียวได้ทั้งแปลง")
+
+                        # Detailed Breakdown Table of each sampled point
+                        st.markdown("###### 📋 ตารางเปรียบเทียบคุณสมบัติเชิงแสงและเคมีดินรายจุด (Point-by-Point Data Comparison):")
+                        point_data_table = []
+                        for s in multi_res["samples"]:
+                            point_data_table.append({
+                                "จุด": s["label"],
+                                "พิกัด (X, Y)": f"{s['center'][0]}, {s['center'][1]}",
+                                "L* (ความสว่าง)": s["l_star"],
+                                "a* (เขียว-แดง)": s["a_star"],
+                                "b* (น้ำเงิน-เหลือง)": s["b_star"],
+                                "ความชื้นคาดคะเน (%)": f"{s['moisture_proxy_pct']}%",
+                                "ดัชนีสีแดง": s["redness_index"],
+                                "ความคมชัด Lap": s["sharpness_lap"],
+                                "pH คาดคะเน": s["estimated_ph"],
+                                "กลุ่มดินที่คาดคะเน": s["soil_family"]
+                            })
+                        st.dataframe(point_data_table, use_container_width=True)
+
+                        st.markdown("---")
+
+                        # Color Space & Data Calibration Views
+                        st.markdown("##### 🌈 การแสดงผลช่องสัญญาณภาพและการปรับเทียบ (Color Space & Data Calibration Gallery)")
+                        gallery = SoilVisionPreprocessor.generate_color_spaces_gallery(current_image)
+
+                        if "All 6 Channels" in colorspace_view_label:
+                            g_col1, g_col2, g_col3 = st.columns(3)
+                            with g_col1:
+                                st.image(gallery["rgb"]["pil"], caption=gallery["rgb"]["name"], use_container_width=True)
+                                st.caption(f"🔍 {gallery['rgb']['purpose']}")
+                                st.image(gallery["exg"]["pil"], caption=gallery["exg"]["name"], use_container_width=True)
+                                st.caption(f"🔍 {gallery['exg']['purpose']}")
+                            with g_col2:
+                                st.image(gallery["hsv"]["pil"], caption=gallery["hsv"]["name"], use_container_width=True)
+                                st.caption(f"🔍 {gallery['hsv']['purpose']}")
+                                st.image(gallery["clahe"]["pil"], caption=gallery["clahe"]["name"], use_container_width=True)
+                                st.caption(f"🔍 {gallery['clahe']['purpose']}")
+                            with g_col3:
+                                st.image(gallery["lab"]["pil"], caption=gallery["lab"]["name"], use_container_width=True)
+                                st.caption(f"🔍 {gallery['lab']['purpose']}")
+                                st.image(gallery["mask"]["pil"], caption=gallery["mask"]["name"], use_container_width=True)
+                                st.caption(f"🔍 {gallery['mask']['purpose']}")
+                        else:
+                            # Selected single view
+                            key_map = {
+                                "RGB Original": "rgb",
+                                "HSV": "hsv",
+                                "CIE L*a*b*": "lab",
+                                "ExG": "exg",
+                                "CLAHE": "clahe",
+                                "Clean Mask": "mask"
+                            }
+                            sel_k = "rgb"
+                            for k_text, k_val in key_map.items():
+                                if k_text in colorspace_view_label:
+                                    sel_k = k_val
+                                    break
+                            
+                            item = gallery[sel_k]
+                            v_col1, v_col2 = st.columns([1.2, 1])
+                            with v_col1:
+                                st.image(item["pil"], caption=item["name"], use_container_width=True)
+                            with v_col2:
+                                st.markdown(f"""
+                                <div style="background: rgba(15, 23, 42, 0.9); border: 1px solid #1e293b; border-radius: 10px; padding: 14px 16px; color: #f8fafc; font-family: 'JetBrains Mono', monospace;">
+                                    <b style="color: #38bdf8;">[CHANNEL METRIC TELEMETRY]</b><br>
+                                    • ชื่อช่องสัญญาณ: <span style="color: #10b981;">{item['name']}</span><br>
+                                    • โดเมนการประมวลผล: <b>{item['domain']}</b><br>
+                                    • วัตถุประสงค์เชิงลึก: <span style="color: #cbd5e1; font-family: 'Prompt', sans-serif;">{item['purpose']}</span><br><br>
+                                    <b style="color: #fbbf24;">[COMPUTED METRIC DETAILS]</b><br>
+                                    {'<br>'.join([f'• {k}: <b>{v}</b>' for k, v in item['stats'].items()])}
+                                </div>
+                                """, unsafe_allow_html=True)
+
             analyze_btn = st.button("🚀 เริ่มการวิเคราะห์ด้วย AI ทันที (Analyze Now)", type="primary", use_container_width=True)
         else:
             st.info("👈 กรุณาเลือกภาพตัวอย่างด่วนด้านบน หรือลากวางภาพถ่ายของท่านเพื่อเริ่มต้น")

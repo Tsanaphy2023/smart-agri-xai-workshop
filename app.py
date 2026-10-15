@@ -24,7 +24,7 @@ except Exception:
 # 1. Configuration & Page Setup
 load_dotenv()
 st.set_page_config(
-    page_title="Digital Agri xAI: Soil & Plant Analyzer",
+    page_title="Embedded AI & Edge AIoT for Agriculture and Environment",
     page_icon="🌱",
     layout="wide"
 )
@@ -392,8 +392,8 @@ ANALYSIS_PROMPT = """
 # Header with Direct Links to Colab and GitHub & Live Cyber-Agri Telemetry HUD
 col_head1, col_head2 = st.columns([7, 3])
 with col_head1:
-    st.markdown('<div class="main-header">🌱 Digital Agri xAI: Intelligent Soil & Crop Health Analyzer</div>', unsafe_allow_html=True)
-    st.markdown('<div class="sub-header">แพลตฟอร์มปัญญาประดิษฐ์อธิบายได้เพื่อการเกษตรดิจิทัล (Digital Agri xAI) • Hybrid Cloud & On-Device Edge Computing • ผศ.ดร.ชีวะ ทัศนา</div>', unsafe_allow_html=True)
+    st.markdown('<div class="main-header">🌱 Embedded AI & Edge AIoT for Agriculture and Environment</div>', unsafe_allow_html=True)
+    st.markdown('<div class="sub-header">ปัญญาประดิษฐ์ฝังตัวและเอดจ์เอไอโอทีเพื่อการเกษตรและสิ่งแวดล้อม: จากวิศวกรรมข้อมูลภาพระดับพิกเซลและเซนเซอร์เคมีดิน สู่การพัฒนาอุปกรณ์วินิจฉัยอัจฉริยะภาคสนาม • ผศ.ดร.ชีวะ ทัศนา</div>', unsafe_allow_html=True)
 with col_head2:
     st.markdown("""
     <div style="text-align: right; padding-top: 10px;">

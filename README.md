@@ -1,11 +1,13 @@
-# 🌱 Digital Agri xAI: Intelligent Soil & Crop Health Analyzer
+# 🌱 Embedded AI & Edge AIoT for Agriculture and Environment
+## ปัญญาประดิษฐ์ฝังตัวและเอดจ์เอไอโอทีเพื่อการเกษตรและสิ่งแวดล้อม
+### จากวิศวกรรมข้อมูลภาพระดับพิกเซลและเซนเซอร์เคมีดิน สู่การพัฒนาอุปกรณ์วินิจฉัยอัจฉริยะภาคสนาม
 **พัฒนาโดย:** ผศ.ดร.ชีวะ ทัศนา | มหาวิทยาลัยราชภัฏรำไพพรรณี
 
-> 📖 **คู่มือวิชาการ 52 หน้า (XeLaTeX 6×9 นิ้ว):** [`docs/Digital_Agri_xAI_Handbook_6x9.pdf`](docs/Digital_Agri_xAI_Handbook_6x9.pdf)  
+> 📖 **คู่มือวิชาการ 58 หน้า (XeLaTeX 6×9 นิ้ว):** [`docs/Digital_Agri_xAI_Handbook_6x9.pdf`](docs/Digital_Agri_xAI_Handbook_6x9.pdf)  
 > 🖼️ **คลังภาพทุกขั้นตอน (Step-by-Step Gallery):** [`docs/STEP_BY_STEP_GALLERY.md`](docs/STEP_BY_STEP_GALLERY.md)  
-> 📱 **แอปพลิเคชันมือถือ Flutter:** [`digital_agri_xai_mobile/`](digital_agri_xai_mobile/)
+> 📱 **แอปพลิเคชันมือถือ Flutter (Edge Inference):** [`digital_agri_xai_mobile/`](digital_agri_xai_mobile/)
 
-ระบบวิเคราะห์คุณภาพดิน สภาพแวดล้อม และสุขภาวะพืชด้วยปัญญาประดิษฐ์อธิบายได้เพื่อการเกษตรดิจิทัล (Digital Agri xAI Diagnostic Platform) รองรับทั้งการประมวลผลผ่าน Cloud AI, Local On-Device (Ollama) และโมเดลวิจัยเฉพาะทางแบบ In-Process Edge AI พร้อมระบบแนะนำพืชและวิเคราะห์ธาตุอาหารจากเซนเซอร์เคมีดิน
+ระบบปัญญาประดิษฐ์ฝังตัวและโครงข่ายไอโอทีบนขอบเครือข่ายเพื่อการเกษตรและสิ่งแวดล้อม (Embedded AI & Edge AIoT Diagnostic Platform) รองรับการประมวลผลบนอุปกรณ์ขอบและสมาร์ทโฟนแบบออฟไลน์ 100% ไร้สัญญาณอินเทอร์เน็ต (In-Process Edge AI, Quantized TFLite, ONNX Runtime) ผสานการวิเคราะห์ภาพถ่ายความแม่นยำสูง (Agri-Vision 2.0 Precision ROI), สเปกโทรสโกปี และระบบแนะนำพืชจากเซนเซอร์เคมีดินภาคสนาม
 
 ---
 

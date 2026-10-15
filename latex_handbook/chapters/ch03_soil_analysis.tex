@@ -21,34 +21,81 @@
 
 ภาพถ่ายดินเหล่านี้ถูกปรับขนาดมาตรฐานเป็น $224 \times 224$ พิกเซล และผ่านกระบวนการปรับปรุงข้อมูลภาพ (Data Augmentation) เพื่อจำลองสภาพแสงในแปลงเพาะปลูกจริง
 
-\academicsection{สถาปัตยกรรม Two-Stage Computer Vision และการเตรียมข้อมูลภาพถ่าย}
+\academicsection{สถาปัตยกรรม Two-Stage Computer Vision และการเตรียมข้อมูลภาพถ่าย (Agri-Vision 2.0)}
 \label{sec:two_stage_cv_preprocessing}
 
-ในการประยุกต์ใช้คอมพิวเตอร์วิทัศน์กับงานเกษตรกรรมภาคสนาม ปัญหาใหญ่ที่สุดประการหนึ่งของการป้อนภาพถ่ายทั้งภาพ (Whole-frame Analysis) คือปรากฏการณ์ \textbf{Clever Hans Effect} ซึ่งโมเดลไม่ได้เรียนรู้ลักษณะจำเพาะของเนื้อดินจริง แต่กลับไปจดจำองค์ประกอบของฉากหลังที่ไม่เกี่ยวข้อง เช่น พื้นหญ้ารก แสงแดดสะท้อน เงาของกิ่งไม้ หรือแม้กระทั่งรองเท้าแตะและมือของเกษตรกร นอกจากนี้ การย่อภาพถ่ายมือถือที่มีความละเอียดสูงลงเหลือ $224 \times 224$ พิกเซลโดยตรง จะทำให้พื้นที่เป้าหมาย (ดินหรือรอยโรค) ถูกบีบอัดจนสูญเสียรายละเอียดเชิงพื้นผิว (Texture \& Granular pores) ไปอย่างมีนัยสำคัญ
+ในการประยุกต์ใช้คอมพิวเตอร์วิทัศน์กับงานเกษตรกรรมภาคสนาม ปัญหาใหญ่ที่สุดประการหนึ่งของการป้อนภาพถ่ายทั้งภาพ (Whole-frame Analysis) คือปรากฏการณ์ \textbf{Clever Hans Effect} ซึ่งโมเดลไม่ได้เรียนรู้ลักษณะจำเพาะของเนื้อดินหรือโรคพืชจริง แต่กลับไปจดจำองค์ประกอบของฉากหลังที่ไม่เกี่ยวข้อง เช่น พื้นหญ้ารก แสงแดดสะท้อน กิ่งไม้แห้ง ก้อนหิน หรือมือของเกษตรกร นอกจากนี้ การย่อภาพถ่ายมือถือที่มีความละเอียดสูงลงเหลือ $224 \times 224$ พิกเซลโดยตรง จะทำให้พื้นที่เป้าหมาย (ดินหรือรอยโรคบนใบ) ถูกบีบอัดจนสูญเสียรายละเอียดเชิงพื้นผิว (Micro-texture \& Granular pores) ไปอย่างมีนัยสำคัญ
 
-เพื่อแก้ปัญหาดังกล่าว ระบบจึงใช้สถาปัตยกรรม \textbf{Two-Stage Precision Agri Vision Pipeline} ดังแสดงในภาพที่ \ref{fig:two_stage_vision_pipeline} โดยมีขั้นตอนการประมวลผลตามลำดับดังนี้:
+\subsection{ข้อจำกัดของอัลกอริทึมค้นหาขอบแบบดั้งเดิม (Limitations of Classical Edge-based ROI)}
+จากการทดสอบภาคสนามพบว่า การใช้ตัวกรองขอบภาพแบบคลาสสิก เช่น Sobel หรือ Canny ร่วมกับ Otsu Thresholding บนภาพระดับสีเทา (Grayscale) ประสบปัญหาความคลาดเคลื่อนสูงในสภาพแปลงเกษตรจริง เนื่องจากสาเหตุทางกายภาพ 3 ประการ:
+\begin{enumerate}
+    \item \textbf{High-Frequency Background Clutter:} พื้นหลังธรรมชาติในแปลงเกษตร (เช่น เปลือกไม้ เศษฟาง หญ้ารก ก้อนหิน) มีการเปลี่ยนแปลงความถี่ของระดับสีเทาสูงกว่าผิวใบพืชหรือหน้าดินที่เรียบเนียน ทำให้ตัวกรองขอบ Sobel สร้างค่า Gradient Energy ในบริเวณพื้นหลังสูงกว่าเป้าหมาย
+    \item \textbf{Loss of Chromatic Separation:} การแปลงภาพเป็นระดับสีเทาทันทีทำให้สูญเสียข้อมูลความยาวคลื่นแสงที่เป็นอัตลักษณ์ทางชีวภาพ (Biological Spectral Identity) เช่น การดูดกลืนแสงสีเขียวของคลอโรฟิลล์ หรือการสะท้อนสีแดง-น้ำตาลของเหล็กออกไซด์ในดิน
+    \item \textbf{Lack of Spatial Priors:} อัลกอริทึมคลาสสิกไม่มีการให้น้ำหนักตำแหน่งภาพ ทำให้วัตถุที่ไม่เกี่ยวข้องบริเวณขอบภาพหรือมุมเฟรมถูกเลือกเป็น ROI แทนวัตถุที่ผู้ถ่ายตั้งใจเล็งไว้ตรงกลาง
+\end{enumerate}
+
+\subsection{สถาปัตยกรรม Agri-Vision 2.0 Precision ROI Localization}
+เพื่อแก้ปัญหาดังกล่าวอย่างบูรณาการ ระบบได้รับการยกระดับสู่สถาปัตยกรรม \textbf{Agri-Vision 2.0 Precision ROI Pipeline} ดังแสดงในภาพที่ \ref{fig:two_stage_vision_pipeline} โดยมีขั้นตอนการคำนวณทางคณิตศาสตร์และชีวฟิสิกส์ 5 ขั้นตอนหลัก:
 
 \begin{enumerate}
-    \item \textbf{Stage 1: Intelligent ROI Localization (การตรวจจับและตัดกรอบเป้าหมาย):}
-    ประยุกต์ใช้อัลกอริทึมการตรวจจับวัตถุ (Object Detection เช่น YOLO-Nano หรือ Color Saliency ผสาน Sobel Gradient Energy และ Adaptive Otsu Thresholding) เพื่อตีกรอบ Bounding Box ล้อมรอบเฉพาะเนื้อดินเป้าหมาย จากนั้นทำการครอบตัด (Crop) พื้นที่เป้าหมายออกมา ส่งผลให้โมเดลได้รับข้อมูลที่มีความหนาแน่นเชิงสารสนเทศ 100\% และตัดสัญญาณรบกวนของฉากหลังออกอย่างเด็ดขาด
-    
+    \item \textbf{Bio-Spectral Salience \& Color Gating:}
+    ทำการแยกแยะวัตถุเป้าหมายออกจากฉากหลังโดยใช้คุณสมบัติการสะท้อนคลื่นแสงเฉพาะทาง:
+    \begin{itemize}
+        \item \textit{สำหรับใบพืช (Plant Foliage):} คำนวณดัชนีสีเขียวส่วนเกิน (Excess Green Index: ExG) ร่วมกับการจำกัดขอบเขตในปริภูมิสี HSV:
+        \begin{equation}
+            \text{ExG}(x, y) = 2G(x, y) - R(x, y) - B(x, y)
+        \end{equation}
+        ร่วมกับเกตกรองคลอโรฟิลล์ (Chlorophyll Gate):
+        \begin{equation}
+            M_\text{foliage}(x, y) = \begin{cases} 
+            1, & \text{if } H \in [25^\circ, 88^\circ] \land S \ge 35 \land V \ge 40 \\ 
+            0, & \text{otherwise} 
+            \end{cases}
+        \end{equation}
+        \item \textit{สำหรับหน้าดิน (Soil Surface):} คำนวณพลังงานความลาดชันหลายช่องสัญญาณในปริภูมิสี CIE $L^*a^*b^*$:
+        \begin{equation}
+            \nabla I_{Lab}(x, y) = \sqrt{\left(\frac{\partial L^*}{\partial x}\right)^2 + \left(\frac{\partial L^*}{\partial y}\right)^2 + \left(\frac{\partial a^*}{\partial x}\right)^2 + \left(\frac{\partial a^*}{\partial y}\right)^2 + \left(\frac{\partial b^*}{\partial x}\right)^2 + \left(\frac{\partial b^*}{\partial y}\right)^2}
+        \end{equation}
+    \end{itemize}
+
+    \item \textbf{2D Center Gaussian Spatial Prior:}
+    เกษตรกรและผู้ใช้งานกล้องโทรศัพท์มือถือมีพฤติกรรมธรรมชาติในการจัดวางวัตถุเป้าหมายไว้บริเวณกึ่งกลางภาพ ระบบจึงนำแมตริกซ์ถ่วงน้ำหนักความน่าจะเป็นเชิงพื้นที่แบบเกาส์เซียนสองมิติ ($W_\text{prior}$) มาคูณกับแผนที่ความเด่นชัด (Saliency Map):
+    \begin{equation}
+        W_\text{prior}(x, y) = \exp\left( -\frac{(x - x_c)^2}{2\sigma_x^2} - \frac{(y - y_c)^2}{2\sigma_y^2} \right)
+    \end{equation}
+    โดยที่ $(x_c, y_c) = (W/2, H/2)$ คือจุดศูนย์กลางภาพ และส่วนเบี่ยงเบนมาตรฐานถูกกำหนดให้ครอบคลุมพื้นที่เป้าหมาย $\sigma_x = 0.35W, \sigma_y = 0.35H$ ส่งผลให้สัญญาณรบกวนตามขอบภาพลดลงจนเป็นศูนย์อย่างนุ่มนวล:
+    \begin{equation}
+        S_\text{final}(x, y) = S_\text{bio}(x, y) \cdot W_\text{prior}(x, y)
+    \end{equation}
+
+    \item \textbf{Morphological Filtering \& Convex Hull Selection:}
+    นำแผนที่ความเด่นชัดที่ถ่วงน้ำหนักแล้วผ่านการแปลงทางสัณฐานวิทยาแบบปิด (Morphological Closing) ด้วยโครงสร้างรูปวงรี (Elliptical Structuring Element ขนาด $9 \times 9$) เพื่อเชื่อมต่อรอยแตกและรูพรุนภายในใบหรือผิวดิน จากนั้นทำการคัดเลือกคอนทัวร์ที่มีค่าความแน่นตันรูปทรง (Solidity) สูง:
+    \begin{equation}
+        \text{Solidity}(C) = \frac{\text{Area}(C)}{\text{Area}(\text{ConvexHull}(C))} \ge 0.45
+    \end{equation}
+    และเลือกคอนทัวร์ที่มีคะแนนผลคูณระหว่างพื้นที่และระยะห่างจากศูนย์กลางสูงสุดเป็นกรอบ ROI เริ่มต้น
+
+    \item \textbf{Stage-2 Boundary Refinement ด้วย GrabCut Energy Minimization:}
+    เพื่อความแม่นยำสูงสุดในระดับพิกเซล กรอบ ROI จะถูกส่งเข้าสู่อัลกอริทึม GrabCut ซึ่งสร้างแบบจำลองการกระจายตัวของสีด้วย Gaussian Mixture Models (GMMs) จำนวน 5 องค์ประกอบสำหรับโฟร์กราวด์และแบ็กกราวด์ และลดทอนฟังก์ชันพลังงานของกราฟด้วย Boykov-Kolmogorov Min-Cut Algorithm:
+    \begin{equation}
+        E(\alpha, k, \theta, z) = U(\alpha, k, \theta, z) + V(\alpha, z)
+    \end{equation}
+    โดย $U$ คือพจน์ความน่าจะเป็นของสี (Data Term) และ $V$ คือพจน์ความเรียบเนียนของขอบเขตพิกเซลข้างเคียง (Smoothness Term)
+
     \item \textbf{Data Quality Gate (การคัดกรองคุณภาพภาพถ่ายอัตโนมัติ):}
     ก่อนส่งภาพเข้าสู่โครงข่ายประสาทเทียม ภาพ Crop จะต้องผ่านการประเมินคุณภาพ 3 ด่านสำคัญ:
     \begin{itemize}
-        \item \textit{การตรวจวัดความคมชัด (Blur Detection):} คำนวณค่าความแปรปรวนของตัวดำเนินการลาปลาเซียน (Laplacian Variance, $\sigma^2_\text{Lap}$) หากต่ำกว่า 80.0 จะปฏิเสธภาพเนื่องจากเกิดการสั่นไหวของกล้อง
-        \item \textit{การกรองแสงสะท้อนจ้า (Specular Glare Rejection):} ตรวจนับพิกเซลที่ขาวโพลน ($RGB \ge 248$) หากเกิน 4\% จะแจ้งเตือนให้เกษตรกรปรับมุมกล้องเฉียง 30 องศาเพื่อหลบแสงแดดตรง
-        \item \textit{การตรวจสอบเงามืด (Underexposure Check):} ตรวจสอบพื้นที่ที่มีความสว่างต่ำ ($L^* \le 28$) ป้องกันการอ่านค่าผิดพลาด
+        \item \textit{การตรวจวัดความคมชัด (Blur Detection):} คำนวณค่าความแปรปรวนของตัวดำเนินการลาปลาเซียน (Laplacian Variance):
+        \begin{equation}
+            \sigma^2_\text{Lap} = \frac{1}{MN} \sum_{x,y} \left( \nabla^2 I(x, y) - \mu_\text{Lap} \right)^2
+        \end{equation}
+        หาก $\sigma^2_\text{Lap} < 80.0$ ระบบจะปฏิเสธภาพและแนะนำให้เกษตรกรจับกล้องให้นิ่งขึ้น
+        \item \textit{การกรองแสงสะท้อนจ้า (Specular Glare Rejection):} ตรวจนับพิกเซลที่ขาวโพลน ($RGB \ge 248$) หากเกิน 4\% ของพื้นที่เป้าหมาย จะแจ้งเตือนให้เกษตรกรปรับมุมกล้องเฉียง 30 องศาเพื่อหลบแสงสะท้อนตรง
+        \item \textit{การตรวจสอบเงามืด (Underexposure Check):} ตรวจสอบพื้นที่ที่มีความสว่างเฉลี่ยต่ำ ($L^* < 28$) ป้องกันการอ่านค่าผิดพลาด
     \end{itemize}
 
     \item \textbf{Illumination \& Color Normalization (การปรับสมดุลแสงและสีเชิงฟิสิกส์):}
-    แสงแดดกลางแจ้งมีอุณหภูมิสี ($Kelvin$) แปรปรวนอย่างมากตลอดทั้งวัน ระบบจึงชดเชยด้วย:
-    \begin{itemize}
-        \item \textit{Gray-World White Balance:} ปรับสมดุลค่าเฉลี่ยสีให้อยู่ในแกนสีเทากลาง
-        \item \textit{CIE $L^*a^*b^*$ CLAHE:} แปลงปริภูมิสีสู่ CIE $L^*a^*b^*$ ซึ่งแยกช่องความสว่าง ($L^*$: Luminance) ออกจากช่องเนื้อสีแท้ ($a^*, b^*$: Chrominance) จากนั้นใช้เทคนิค CLAHE (Contrast Limited Adaptive Histogram Equalization, \texttt{clipLimit=2.5}) เกลี่ยแสงเงาเฉพาะช่อง $L^*$ ส่งผลให้เงาแดดที่ตกกระทบดินจางหายไป ในขณะที่เม็ดสีดั้งเดิมของดินยังคงสภาพเดิม 100\%
-    \end{itemize}
-
-    \item \textbf{Physicochemical Color Indices Extraction (การสกัดดัชนีสีฟิสิกส์เกษตร):}
-    คำนวณดัชนีความชื้นคาดคะเน (Moisture Proxy Index: $\text{MI} = \frac{R-B}{R+B}$), ดัชนีสีแดง (Redness Index: $\text{RI} = \frac{R^2}{B \cdot G^3}$), และสัดส่วนอินทรียวัตถุคาดคะเนจากค่าการดูดกลืนแสงบนช่อง $L^*$
+    ชดเชยการเปลี่ยนแปลงของแสงแดดธรรมชาติด้วย Gray-World White Balance และการปรับสมดุลคอนทราสต์เฉพาะที่แบบจำกัดขอบเขตในช่องความสว่าง (CIE $L^*a^*b^*$ CLAHE, \texttt{clipLimit=2.5}) ทำให้โครงสร้างเนื้อดินเด่นชัดโดยไม่สูญเสียความถูกต้องของสีดั้งเดิม
 \end{enumerate}
 
 \begin{figure}[htbp]

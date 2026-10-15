@@ -298,27 +298,27 @@
             </div>
         </div>
 
-        <!-- Slide 3.5: Two-Stage Vision Pipeline & Image Preprocessing -->
+        <!-- Slide 3.5: Agri-Vision 2.0 Precision ROI Pipeline -->
         <div class="slide">
             <div>
-                <span class="slide-tag">วิศวกรรมข้อมูลภาพ: Two-Stage Vision Pipeline</span>
+                <span class="slide-tag">วิศวกรรมข้อมูลภาพ: Agri-Vision 2.0 Precision ROI</span>
                 <h1>การคัดกรอง ROI & ปรับแต่งคุณภาพภาพถ่ายก่อนเทรนโมเดล</h1>
-                <p class="lead">ทำไมการสแกนทั้งภาพ (Whole-frame Scanning) จึงได้ผลลัพธ์ผิดพลาด และแนวทางแก้ไขทางฟิสิกส์เกษตร</p>
+                <p class="lead">ทำไมการตัดกรอบขอบภาพแบบคลาสสิกจึงล้มเหลว และแนวทางแก้ไขด้วย Bio-Spectral Salience & Center Gaussian Prior</p>
                 <div class="highlight-box">
-                    <b>⚠️ Clever Hans Effect:</b> การป้อนภาพทั้งเฟรมทำให้ AI ไปจดจำ "ฉากหลัง" (หญ้า, แสงแดด, รองเท้าแตะ, มือเกษตรกร) แทนที่จะจำลักษณะดินจริง การใช้ Two-Stage ROI Crop จะกำจัด Background Bias ได้ 100%
+                    <b>⚠️ ทำไม Sobel/Otsu เดิมถึงหลุด?:</b> พื้นหลังแปลงเกษตร (หญ้าแห้ง, ก้อนกรวด, แสงแดดสะท้อน) มี High-Frequency Edges สูงกว่าใบหรือดิน ระบบจึงพัฒนาเป็น <b>Agri-Vision 2.0</b> ผสาน ExG Index, Center Gaussian Prior และ GrabCut
                 </div>
                 <div class="grid-3">
                     <div class="card">
-                        <h3 style="color:#10B981;">🎯 Stage 1: ROI Detection</h3>
-                        <p>ใช้ Object Detection / Saliency ตีกรอบ Bounding Box เฉพาะเนื้อดิน/ใบพืชเป้าหมาย ตัดฉากหลังที่ไม่เกี่ยวข้องออกทั้งหมด</p>
+                        <h3 style="color:#10B981;">🌿 Bio-Spectral Index (ExG)</h3>
+                        <p>สกัดสัญญาณคลอโรฟิลล์ด้วย <code>ExG = 2G - R - B</code> ร่วมกับ HSV Chlorophyll Filter และ CIE L*a*b* Multi-channel Gradient สำหรับดิน</p>
                     </div>
                     <div class="card">
-                        <h3 style="color:#06B6D4;">🔬 Quality Gate (Laplacian)</h3>
-                        <p>ตรวจสอบความคมชัดด้วย <code>Laplacian Variance &gt; 80</code> คัดกรองภาพเบลอ และกรองจุดแสงสะท้อนจ้า (Specular Glare) ออก</p>
+                        <h3 style="color:#06B6D4;">🎯 2D Center Gaussian Prior</h3>
+                        <p>ใช้ Spatial Probability Map <code>W_prior = exp(-Δx²/2σx² - Δy²/2σy²)</code> ถ่วงน้ำหนักวัตถุกึ่งกลางภาพ ขจัดสัญญาณรบกวนขอบเฟรม 100%</p>
                     </div>
                     <div class="card">
-                        <h3 style="color:#F59E0B;">✨ Illumination Normalization</h3>
-                        <p>ทำ Gray-World White Balance + แปลงสู่ <b>CIE L*a*b*</b> ทำ CLAHE บนช่อง L* ขจัดเงาแดดแรง โดยคงเม็ดสีแท้ (a*, b*) ไว้ 100%</p>
+                        <h3 style="color:#F59E0B;">🛡️ Quality Gate & Refinement</h3>
+                        <p>คัดกรองความคมชัดด้วย <code>Laplacian Variance ≥ 80</code>, กรองแสงสะท้อนจ้า (Glare &lt; 4%), ปรับสมดุล L* CLAHE และลดทอนพลังงาน GrabCut</p>
                     </div>
                 </div>
             </div>

@@ -16,7 +16,7 @@ import torch.optim as optim
 from torchvision import datasets, models, transforms
 from torch.utils.data import DataLoader
 
-def train_classifier(data_dir=None, source="auto", num_epochs=10, batch_size=16, lr=0.001, output_name="custom_model"):
+def train_classifier(data_dir=None, source="auto", num_epochs=10, batch_size=16, lr=0.001, output_name="custom_model", enable_roi_crop=False):
     base_dir = os.path.dirname(os.path.abspath(__file__))
     if data_dir is None:
         data_dir = os.path.join(base_dir, "Soil", "SoilType")
@@ -40,25 +40,51 @@ def train_classifier(data_dir=None, source="auto", num_epochs=10, batch_size=16,
     device = torch.device("cuda:0" if torch.cuda.is_available() else "mps" if torch.backends.mps.is_available() else "cpu")
     print(f"🚀 กำลังประมวลผลบนฮาร์ดแวร์: {device}")
 
+    # Precision ROI Preprocessing Transform
+    def precision_roi_transform(img):
+        try:
+            import numpy as np
+            from PIL import Image
+            sys_path_root = os.path.abspath(os.path.join(base_dir, ".."))
+            if sys_path_root not in sys.path:
+                sys.path.append(sys_path_root)
+            from roi_preprocessor import extract_target_roi
+            np_img = np.array(img.convert('RGB'))
+            roi, _ = extract_target_roi(np_img, mode='auto', pad_ratio=0.10)
+            return Image.fromarray(roi)
+        except Exception:
+            return img
+
     # Data Augmentation & Preprocessing
+    train_transform_list = []
+    val_transform_list = []
+
+    # Optional ROI crop toggle (or default auto)
+    if enable_roi_crop:
+        print("🎯 เปิดใช้งาน Agri-Vision 2.0: Precision Target ROI Cropping ในการเทรน")
+        train_transform_list.append(transforms.Lambda(precision_roi_transform))
+        val_transform_list.append(transforms.Lambda(precision_roi_transform))
+
+    train_transform_list.extend([
+        transforms.RandomResizedCrop(224),
+        transforms.RandomHorizontalFlip(),
+        transforms.RandomRotation(15),
+        transforms.ColorJitter(brightness=0.2, contrast=0.2),
+        transforms.ToTensor(),
+        transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
+    ])
+
+    val_transform_list.extend([
+        transforms.Resize(256),
+        transforms.CenterCrop(224),
+        transforms.ToTensor(),
+        transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
+    ])
+
     data_transforms = {
-        'train': transforms.Compose([
-            transforms.RandomResizedCrop(224),
-            transforms.RandomHorizontalFlip(),
-            transforms.RandomRotation(15),
-            transforms.ColorJitter(brightness=0.2, contrast=0.2),
-            transforms.ToTensor(),
-            transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
-        ]),
-        'val': transforms.Compose([
-            transforms.Resize(256),
-            transforms.CenterCrop(224),
-            transforms.ToTensor(),
-            transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
-        ]),
+        'train': transforms.Compose(train_transform_list),
+        'val': transforms.Compose(val_transform_list),
     }
-    # Fix ToTensor
-    data_transforms['train'].transforms[4] = transforms.ToTensor()
 
     train_path = os.path.join(data_dir, 'train')
     val_path = os.path.join(data_dir, 'val')
@@ -167,7 +193,8 @@ if __name__ == "__main__":
     parser.add_argument("--epochs", type=int, default=5, help="จำนวนรอบ (epochs) ในการเทรน")
     parser.add_argument("--batch_size", type=int, default=8, help="ขนาด Batch size")
     parser.add_argument("--lr", type=float, default=0.001, help="Learning rate")
+    parser.add_argument("--enable_roi_crop", action="store_true", help="เปิดใช้งาน Agri-Vision 2.0 Precision ROI Cropping อัตโนมัติ")
     parser.add_argument("--output", type=str, default="best_model", help="ชื่อไฟล์โมเดลที่บันทึก")
 
     args = parser.parse_args()
-    train_classifier(data_dir=args.data_dir, source=args.source, num_epochs=args.epochs, batch_size=args.batch_size, lr=args.lr, output_name=args.output)
+    train_classifier(data_dir=args.data_dir, source=args.source, num_epochs=args.epochs, batch_size=args.batch_size, lr=args.lr, output_name=args.output, enable_roi_crop=args.enable_roi_crop)

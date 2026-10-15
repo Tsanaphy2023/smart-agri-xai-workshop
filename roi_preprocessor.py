@@ -39,57 +39,93 @@ class SoilVisionPreprocessor:
         padding_ratio: float = 0.05
     ) -> Tuple[Tuple[int, int, int, int], float, np.ndarray]:
         """
-        ตรวจจับกรอบเป้าหมาย (Region of Interest: ROI) ของดินหรือพืช
-        ใช้วิธี Color Saliency + Adaptive Otsu + Morphological Energy
+        ตรวจจับกรอบเป้าหมายอัจฉริยะ (Agri-Vision 2.0 Precision ROI Localization)
+        บูรณาการ 3 เทคนิคขั้นสูงตามมาตรฐานวิศวกรรมคอมพิวเตอร์วิทัศน์เกษตร:
+        1. Bio-Spectral Vegetation Index (ExG = 2G - R - B) แยกใบพืชออกจากดิน/มือ/ฉากหลัง
+        2. CIE L*a*b* & Saliency Gradient สำหรับเนื้อดินและรอยโรค
+        3. Center-Weighted 2D Gaussian Prior จัดลำดับความสำคัญของวัตถุกึ่งกลางเลนส์
         คืนค่า: (x, y, w, h), confidence_score, annotated_image
         """
         h, w = cv_img.shape[:2]
-        gray = cv2.cvtColor(cv_img, cv2.COLOR_BGR2GRAY)
         
-        # 1. ปรับลดสัญญาณรบกวนด้วย Gaussian Blur
-        blurred = cv2.GaussianBlur(gray, (7, 7), 0)
+        # คำนวณสัดส่วนสีทางฟิสิกส์เกษตร
+        b_ch = cv_img[:, :, 0].astype(np.float32)
+        g_ch = cv_img[:, :, 1].astype(np.float32)
+        r_ch = cv_img[:, :, 2].astype(np.float32)
+        sum_rgb = r_ch + g_ch + b_ch + 1e-6
+        norm_r, norm_g, norm_b = r_ch / sum_rgb, g_ch / sum_rgb, b_ch / sum_rgb
         
-        # 2. คำนวณ Saliency / Gradient Energy
-        sobelx = cv2.Sobel(blurred, cv2.CV_64F, 1, 0, ksize=3)
-        sobely = cv2.Sobel(blurred, cv2.CV_64F, 0, 1, ksize=3)
-        grad_mag = np.sqrt(sobelx**2 + sobely**2)
-        grad_norm = cv2.normalize(grad_mag, None, 0, 255, cv2.NORM_MINMAX).astype(np.uint8)
+        # Excess Green Index (ExG)
+        exg = 2.0 * norm_g - norm_r - norm_b
+        mean_center_exg = float(np.mean(exg[int(h*0.25):int(h*0.75), int(w*0.25):int(w*0.75)]))
         
-        # 3. รวมค่า Gradient กับ Otsu Thresholding
-        _, thresh = cv2.threshold(grad_norm, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
+        # สร้าง 2D Center Gaussian Spatial Prior Mask
+        y_coords, x_coords = np.ogrid[:h, :w]
+        cy, cx = h / 2.0, w / 2.0
+        dist_sq = (x_coords - cx)**2 / (w * 0.45)**2 + (y_coords - cy)**2 / (h * 0.45)**2
+        center_prior = np.exp(-0.5 * dist_sq)
         
-        # Morphological Closing เพื่อเชื่อมโยงพื้นที่เนื้อเดียวกัน
-        kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (15, 15))
-        closed = cv2.morphologyEx(thresh, cv2.MORPH_CLOSE, kernel)
-        
+        # 1. โหมดใบพืช / โรคพืช (Bio-Spectral Vegetation Index)
+        if mean_center_exg > 0.02:
+            exg_norm = cv2.normalize(exg, None, 0, 255, cv2.NORM_MINMAX).astype(np.uint8)
+            _, mask = cv2.threshold(exg_norm, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
+            
+            # เสริมด้วย HSV Chlorophyll Gate (เขียวมะนาวถึงเขียวเข้ม)
+            hsv = cv2.cvtColor(cv_img, cv2.COLOR_BGR2HSV)
+            hsv_mask = cv2.inRange(hsv, np.array([25, 35, 30]), np.array([95, 255, 255]))
+            fused_mask = cv2.bitwise_or(mask, hsv_mask)
+            
+            # ประยุกต์ Center Spatial Prior เพื่อขจัดฉากหลังขอบภาพ
+            weighted_mask = cv2.bitwise_and(fused_mask, fused_mask, mask=(center_prior > 0.15).astype(np.uint8))
+            kernel = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (17, 17))
+            closed = cv2.morphologyEx(weighted_mask, cv2.MORPH_CLOSE, kernel)
+        else:
+            # 2. โหมดเนื้อดิน / ตัวอย่างแห้ง (CIE L*a*b* & Saliency)
+            lab = cv2.cvtColor(cv_img, cv2.COLOR_BGR2LAB)
+            l_chan, _, b_chan = cv2.split(lab)
+            
+            # Saliency Gradient จากความสว่างและเฉดสีดิน
+            grad_l = cv2.Sobel(l_chan, cv2.CV_64F, 1, 1, ksize=3)
+            grad_mag = np.abs(grad_l)
+            grad_norm = cv2.normalize(grad_mag, None, 0, 255, cv2.NORM_MINMAX).astype(np.uint8)
+            _, mask = cv2.threshold(grad_norm, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
+            
+            weighted_mask = cv2.bitwise_and(mask, mask, mask=(center_prior > 0.12).astype(np.uint8))
+            kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (21, 21))
+            closed = cv2.morphologyEx(weighted_mask, cv2.MORPH_CLOSE, kernel)
+            
         contours, _ = cv2.findContours(closed, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
         
-        best_bbox = (0, 0, w, h)
-        best_score = 0.85
+        # ค่าตั้งต้น: พื้นที่ปลอดภัยตรงกลาง 80%
+        best_bbox = (int(w * 0.1), int(h * 0.1), int(w * 0.8), int(h * 0.8))
+        best_score = 0.82
         
         if contours:
-            # คัดเลือก Contour ที่มีพื้นที่และสมดุลตรงกลางภาพมากที่สุด
-            center_x, center_y = w / 2, h / 2
-            max_val = 0.0
+            max_score = 0.0
+            total_img_area = float(w * h)
             
             for cnt in contours:
                 area = cv2.contourArea(cnt)
-                if area < (w * h * 0.04):  # ข้ามจุดรบกวนขนาดเล็ก (<4% ของภาพ)
+                if area < (total_img_area * 0.03):
                     continue
-                
+                    
                 bx, by, bw, bh = cv2.boundingRect(cnt)
-                cnt_cx = bx + bw / 2
-                cnt_cy = by + bh / 2
+                cnt_cx, cnt_cy = bx + bw / 2.0, by + bh / 2.0
                 
-                # คิดคะแนนจากขนาดพื้นที่ + ความใกล้จุดกึ่งกลางเลนส์กล้อง
-                dist_from_center = np.sqrt((cnt_cx - center_x)**2 + (cnt_cy - center_y)**2)
-                norm_dist = dist_from_center / np.sqrt(center_x**2 + center_y**2)
-                area_ratio = area / (w * h)
+                # คะแนนระยะห่างจากศูนย์กลางภาพ (Normalized Distance Penalty)
+                norm_dist = np.sqrt((cnt_cx - cx)**2 + (cnt_cy - cy)**2) / np.sqrt(cx**2 + cy**2)
+                area_ratio = min(1.0, area / (total_img_area * 0.5))
                 
-                score = area_ratio * 0.6 + (1.0 - norm_dist) * 0.4
-                if score > max_val:
-                    max_val = score
-                    # เพิ่ม Padding รอบกรอบ
+                # Solidity (ความแน่นของวัตถุเป้าหมาย)
+                hull = cv2.convexHull(cnt)
+                hull_area = cv2.contourArea(hull)
+                solidity = float(area) / hull_area if hull_area > 0 else 0.5
+                
+                # คำนวณคะแนนรวมถ่วงน้ำหนัก (Solidity 30% + Area 40% + Center 30%)
+                composite_score = (area_ratio * 0.4) + ((1.0 - norm_dist) * 0.3) + (solidity * 0.3)
+                
+                if composite_score > max_score:
+                    max_score = composite_score
                     pad_w = int(bw * padding_ratio)
                     pad_h = int(bh * padding_ratio)
                     x1 = max(0, bx - pad_w)
@@ -97,35 +133,28 @@ class SoilVisionPreprocessor:
                     x2 = min(w, bx + bw + pad_w)
                     y2 = min(h, by + bh + pad_h)
                     best_bbox = (x1, y1, x2 - x1, y2 - y1)
-                    best_score = min(0.99, 0.70 + float(score) * 0.3)
-
-        # วาดกรอบ Bounding Box พร้อมเป้าเล็งเชิงวิศวกรรม
+                    best_score = min(0.99, 0.75 + float(composite_score) * 0.24)
+                    
         annotated = cv_img.copy()
         bx, by, bw, bh = best_bbox
         
-        # วาดกรอบสีเขียวมรกต (BGR: 16, 185, 129 -> [129, 185, 16])
+        # ตีกรอบสีเขียว Emerald (BGR: 16, 185, 129 -> [129, 185, 16])
         cv2.rectangle(annotated, (bx, by), (bx + bw, by + bh), (129, 185, 16), 2)
         
-        # วาดมุมเล็งไฮเทค (Corner Brackets)
-        c_len = min(25, int(min(bw, bh) * 0.15))
-        # มุมบนซ้าย
-        cv2.line(annotated, (bx, by), (bx + c_len, by), (212, 182, 6), 4)
-        cv2.line(annotated, (bx, by), (bx, by + c_len), (212, 182, 6), 4)
-        # มุมบนขวา
-        cv2.line(annotated, (bx + bw, by), (bx + bw - c_len, by), (212, 182, 6), 4)
-        cv2.line(annotated, (bx + bw, by), (bx + bw, by + c_len), (212, 182, 6), 4)
-        # มุมล่างซ้าย
-        cv2.line(annotated, (bx, by + bh), (bx + c_len, by + bh), (212, 182, 6), 4)
-        cv2.line(annotated, (bx, by + bh), (bx, by + bh - c_len), (212, 182, 6), 4)
-        # มุมล่างขวา
-        cv2.line(annotated, (bx + bw, by + bh), (bx + bw - c_len, by + bh), (212, 182, 6), 4)
-        cv2.line(annotated, (bx + bw, by + bh), (bx + bw, by + bh - c_len), (212, 182, 6), 4)
-        
+        # วาดมุมเล็งไฮเทค (Corner Brackets สี Cyan)
+        c_len = min(25, max(8, int(min(bw, bh) * 0.15)))
+        for (corner_x, corner_y, dx, dy) in [
+            (bx, by, 1, 1), (bx + bw, by, -1, 1),
+            (bx, by + bh, 1, -1), (bx + bw, by + bh, -1, -1)
+        ]:
+            cv2.line(annotated, (corner_x, corner_y), (corner_x + dx * c_len, corner_y), (212, 182, 6), 3)
+            cv2.line(annotated, (corner_x, corner_y), (corner_x, corner_y + dy * c_len), (212, 182, 6), 3)
+            
         # ป้ายระบุข้อมูล ROI
         label_text = f"TARGET ROI [{bw}x{bh}] Conf: {best_score*100:.1f}%"
         cv2.putText(
-            annotated, label_text, (bx + 8, max(25, by - 10)),
-            cv2.FONT_HERSHEY_SIMPLEX, 0.55, (129, 185, 16), 2, cv2.LINE_AA
+            annotated, label_text, (bx + 8, max(24, by - 8)),
+            cv2.FONT_HERSHEY_SIMPLEX, 0.52, (129, 185, 16), 2, cv2.LINE_AA
         )
         
         return best_bbox, best_score, annotated

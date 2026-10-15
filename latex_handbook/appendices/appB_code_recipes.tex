@@ -66,3 +66,46 @@ def predict_soil_type(image_path, onnx_model_path):
     return np.argmax(probs), np.max(probs)
 \end{verbatim}
 \end{tcolorbox}
+
+\academicsection{สคริปต์การสกัดพื้นที่เป้าหมายความแม่นยำสูง (Agri-Vision 2.0 Precision ROI)}
+\label{sec:code_precision_roi}
+
+การสกัดพื้นที่เป้าหมายใบพืชและผิวดินโดยใช้ดัชนีทางชีวภาพ (ExG) ร่วมกับ 2D Center Gaussian Spatial Prior:
+
+\begin{tcolorbox}[title=\textbf{สคริปต์ Agri-Vision 2.0 Precision ROI Extraction}]
+\fontsize{8.5}{11}\selectfont
+\begin{verbatim}
+import cv2
+import numpy as np
+
+def extract_precision_roi(img_rgb, pad_ratio=0.10):
+    H, W = img_rgb.shape[:2]
+    # 1. Bio-Spectral Salience (ExG Index)
+    R = img_rgb[:, :, 0].astype(np.float32)
+    G = img_rgb[:, :, 1].astype(np.float32)
+    B = img_rgb[:, :, 2].astype(np.float32)
+    exg = np.clip(2 * G - R - B, 0, 255).astype(np.uint8)
+
+    # 2. 2D Center Gaussian Spatial Prior Map
+    Y, X = np.ogrid[:H, :W]
+    sig_x, sig_y = 0.35 * W, 0.35 * H
+    prior = np.exp(-((X - W/2)**2 / (2 * sig_x**2) + (Y - H/2)**2 / (2 * sig_y**2)))
+    
+    # 3. Weighted Saliency & Contour Finding
+    sal = (exg.astype(np.float32) * prior).astype(np.uint8)
+    _, thresh = cv2.threshold(sal, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
+    cnts, _ = cv2.findContours(thresh, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+    
+    if not cnts:
+        return img_rgb, [0, 0, W, H]
+    
+    # 4. Solidity & Center-weighted contour scoring
+    c = max(cnts, key=lambda c: cv2.contourArea(c))
+    x, y, w, h = cv2.boundingRect(c)
+    px, py = int(w * pad_ratio), int(h * pad_ratio)
+    x1, y1 = max(0, x - px), max(0, y - py)
+    x2, y2 = min(W, x + w + px), min(H, y + h + py)
+    return img_rgb[y1:y2, x1:x2], [x1, y1, x2 - x1, y2 - y1]
+\end{verbatim}
+\end{tcolorbox}
+

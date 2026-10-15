@@ -48,8 +48,12 @@
    - 🎯 **Custom Edge AI:**
      - **In-Process Offline Engine (แนะนำ):** รันตรงในตัวแอป 100% ออฟไลน์ ไม่ต้องเปิดเซิร์ฟเวอร์ภายนอก ไร้ปัญหา Connection Refused
      - **External REST API:** เชื่อมต่อพอร์ต 8000 (มี Auto-fallback สลับมา In-Process ทันทีหากเซิร์ฟเวอร์ปิดอยู่)
-3. **Structured Diagnostic Output:** แสดงผลสถานะปัญหา, อาการที่พบ, คำแนะนำเชิงปฏิบัติ, และค่าความมั่นใจ (Confidence Score)
-4. **Export Diagnostic Report:** ปุ่มดาวน์โหลดรายงานผลเป็น **JSON** และ **Markdown Summary Card**
+3. **🎯 Agri-Vision 2.0 Precision ROI Extraction:**
+   - 🌿 **Bio-Spectral Index (ExG):** สกัดสัญญาณคลอโรฟิลล์ใบพืชด้วยดัชนี $ExG = 2G - R - B$ ร่วมกับ HSV Chlorophyll Filter ตัดสัญญาณรบกวนของฉากหลังออกอย่างถาวร
+   - 🎯 **2D Center Gaussian Spatial Prior:** ถ่วงน้ำหนักความน่าจะเป็นเชิงพื้นที่ $W_\text{prior} = \exp(-\frac{\Delta x^2}{2\sigma_x^2} - \frac{\Delta y^2}{2\sigma_y^2})$ มุ่งเน้นวัตถุตรงกลางภาพ ตัดขอบมุมและสิ่งรบกวนขอบเฟรม
+   - 🛡️ **Automated Quality Gates:** ตรวจวัดความคมชัด (Laplacian Variance $\ge 80$), ป้องกันแสงแดดสะท้อนตรง (Specular Glare $< 4\%$) และชดเชยเงามืดด้วย CIE $L^*a^*b^*$ CLAHE
+4. **Structured Diagnostic Output:** แสดงผลสถานะปัญหา, อาการที่พบ, คำแนะนำเชิงปฏิบัติ, และค่าความมั่นใจ (Confidence Score)
+5. **Export Diagnostic Report:** ปุ่มดาวน์โหลดรายงานผลเป็น **JSON** และ **Markdown Summary Card**
 
 ### แท็บ 2: 🧪 วิเคราะห์ธาตุอาหารเคมีและแนะนำพืช (Soil Sensor & Crop AI)
 1. **Field Sensor Inputs:** รับค่า ไนโตรเจน (N), ฟอสฟอรัส (P), โพแทสเซียม (K), ค่าความเป็นกรด-ด่าง (pH), อุณหภูมิ, ความชื้น, ปริมาณน้ำฝน
